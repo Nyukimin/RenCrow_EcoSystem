@@ -16,7 +16,7 @@ extension、tooling、設定 template からなる複数 repository の product 
   required runtime   optional capability   extension / support
         |                   |                   |
   RenCrow_CORE       LLM / STT / TTS       GAMES / Tools
-  RenCrow_CMD        Vision                 Image / Workspace
+  PORTAL / CMD       Vision                 Image / Workspace
 ```
 
 `RenCrow_EcoSystem` は control plane や runtime service ではありません。
@@ -27,6 +27,7 @@ extension、tooling、設定 template からなる複数 repository の product 
 ```text
 EcoSystem --references--> immutable module release artifacts
 CMD       --public API--> CORE
+PORTAL    --allowlisted public API--> CORE
 CORE      --contracts---> LLM / STT / TTS / Vision
 GAMES     --bridge API--> CORE
 CORE/Worker --invokes--> Tools

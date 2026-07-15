@@ -12,10 +12,10 @@ RenCrow EcoSystem は、独立した RenCrow 各リポジトリを一つの製�
 ```text
 RenCrow_EcoSystem  -- release/catalog reference --> module releases
 
-User / Viewer / rencrowctl
-              |
-              v
-        RenCrow_CORE
+User / RenCrow_PORTAL / rencrowctl
+                 |
+                 v
+           RenCrow_CORE
           /   |   \
          v    v    v
        LLM   STT  TTS / Vision
