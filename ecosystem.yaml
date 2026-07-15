@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "ecosystem": {
+    "name": "RenCrow",
+    "release": "development",
+    "compatibility_status": "unpinned"
+  },
+  "components": {
+    "core": {
+      "repository": "Nyukimin/RenCrow_CORE",
+      "workspace_path": "../RenCrow_CORE",
+      "version": "unpinned",
+      "required": true,
+      "distribution": "binary",
+      "role": "Core server, Viewer, Persona, Memory, approval, and routing"
+    },
+    "cmd": {
+      "repository": "Nyukimin/RenCrow_CMD",
+      "workspace_path": "../RenCrow_CMD",
+      "version": "unpinned",
+      "required": false,
+      "distribution": "binary",
+      "role": "rencrowctl-style management and Viewer API command facade"
+    },
+    "llm": {
+      "repository": "Nyukimin/RenCrow_LLM",
+      "workspace_path": "../RenCrow_LLM",
+      "version": "unpinned",
+      "required": false,
+      "distribution": "service",
+      "role": "LLM model and role connection service"
+    },
+    "stt": {
+      "repository": "Nyukimin/RenCrow_STT",
+      "workspace_path": "../RenCrow_STT",
+      "version": "unpinned",
+      "required": false,
+      "distribution": "service",
+      "role": "Speech-to-text capability service"
+    },
+    "tts": {
+      "repository": "Nyukimin/RenCrow_TTS",
+      "workspace_path": "../RenCrow_TTS",
+      "version": "unpinned",
+      "required": false,
+      "distribution": "service",
+      "role": "Text-to-speech capability service"
+    },
+    "vision": {
+      "repository": "Nyukimin/RenCrow_Vision",
+      "workspace_path": "../RenCrow_Vision",
+      "version": "unpinned",
+      "required": false,
+      "distribution": "service",
+      "role": "Image and video analysis capability service"
+    },
+    "games": {
+      "repository": "Nyukimin/RenCrow_GAMES",
+      "workspace_path": "../RenCrow_GAMES",
+      "version": "unpinned",
+      "required": false,
+      "distribution": "extension",
+      "role": "Game worlds, rules, replay, observer, and RenCrowBridge client"
+    },
+    "tools": {
+      "repository": "Nyukimin/RenCrow_Tools",
+      "workspace_path": "../RenCrow_Tools",
+      "version": "unpinned",
+      "required": false,
+      "distribution": "tooling",
+      "role": "Reusable development, conversion, validation, and browser tools"
+    },
+    "image": {
+      "repository": "Nyukimin/RenCrow_Image",
+      "workspace_path": "../RenCrow_Image",
+      "version": "unpinned",
+      "required": false,
+      "distribution": "offline-assets",
+      "role": "Image generation and learning-asset production"
+    },
+    "workspace": {
+      "repository": "Nyukimin/RenCrow_Workspace",
+      "workspace_path": "../RenCrow_Workspace",
+      "version": "unpinned",
+      "required": false,
+      "distribution": "template",
+      "role": "Portable, non-secret configuration and prompt templates"
+    }
+  }
+}
