@@ -38,4 +38,42 @@ companion: python-compat  bundled=false / required=false
 
 BackendはLLM targetに付随し、EcoSystemの独立componentにはしません。EcoSystemは`rencrow-llm` binaryのreleaseと、検証したLLM target構成・適合levelを組み合わせて互換性を記録します。
 
-同じ分離形がSTT、TTS、Visionにも必要になった場合は、各module側でprimary binaryと外部演算runtimeの境界を正本化してからmanifestへ追加します。未確認の言語やartifact名を先行登録しません。
+## RenCrow_STT
+
+```text
+primary
+  rencrow-stt             Go binary
+       |
+       v
+companion: stt-target     bundled=false / required=true
+  transcription engine + Model + weights + decoder + compute
+
+companion: python-compat  bundled=false / required=false
+  Go移行中の現行Python HTTP／WebSocket serverとin-process providers
+```
+
+Go Gatewayは公開HTTP／WebSocket契約、音声入力validation、target adapter、文字起こし
+結果とerror／fallbackの正規化を所有します。Model load、decode、warmup、GPU最適化は
+STT targetの責務です。現行Python providerはまだ同一processに演算を含むため、
+compatibility runtimeとして記録します。
+
+## RenCrow_TTS
+
+```text
+primary
+  rencrow-tts             Go binary
+       |
+       v
+companion: tts-target     bundled=false / required=true
+  synthesis engine + Model + weights + voice assets + codec + compute
+
+companion: python-compat  bundled=false / required=false
+  Go移行中の現行Python TTS APIとIrodori連携
+```
+
+Go Gatewayは文章整形、character／style／voice routing、target adapter、WAV中継を
+所有します。reference音声、seed、engine parameter、Model load、合成演算はTTS target
+の責務です。現行の`RenCrow_Irodori_TTS` deploymentはこのtargetに該当します。
+
+Visionへ同じ分離形を適用する場合も、module側でprimary binaryと外部演算runtimeの
+境界を正本化してからmanifestへ追加します。未確認の言語やartifact名は先行登録しません。

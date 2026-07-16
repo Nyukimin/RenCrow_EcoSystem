@@ -41,7 +41,10 @@ git clone https://github.com/Nyukimin/RenCrow_Vision.git
 7. secret を repository や command line に残さず設定する。
 8. CORE health と選択した capability の end-to-end check を行う。
 
-RenCrow_LLMの場合、installerが取得するprimary artifactは`rencrow-llm`です。LLM targetのBackend、Model、重み、KV、計算資源は自動同梱せず、利用者Configで接続します。
+RenCrow_LLM、RenCrow_STT、RenCrow_TTSの場合、installerが取得するprimary artifactは
+それぞれ`rencrow-llm`、`rencrow-stt`、`rencrow-tts`です。LLM／STT／TTS targetの
+engine、Model、重み、KV、decoder／codec、音声資産、計算資源は自動同梱せず、
+各moduleの利用者Configで接続します。
 
 artifact、checksum、rollback、Windows 対応が未確定の間は、形だけの
 `install.sh` / `install.ps1` を追加しません。

@@ -7,8 +7,8 @@
 | `RenCrow_PORTAL` | 外部利用者向けview/lab Web UI | optional/recommended binary | allowlist内のCORE Public APIだけを中継 |
 | `RenCrow_CMD` | 管理・操作CLI (`rencrowctl`) | optional/recommended binary | CORE／PORTAL起動とCORE Public API操作 |
 | `RenCrow_LLM` | AgentをLLM実体へ接続しBackend差を吸収するGo Gateway | optional binary + external compute | COREから契約経由で利用。LLM targetは別途用意 |
-| `RenCrow_STT` | 音声認識 | optional service | 認識結果を CORE に返す |
-| `RenCrow_TTS` | 音声合成 | optional service | CORE から発話要求を受ける |
+| `RenCrow_STT` | 公開音声契約と認識target差を吸収するGo Gateway | optional binary + external compute | COREから音声を受け、STT targetの結果を正規化 |
+| `RenCrow_TTS` | character／style／voiceを解決して合成target差を吸収するGo Gateway | optional binary + external compute | COREから発話要求を受け、TTS targetへ接続 |
 | `RenCrow_Vision` | 画像・動画解析 | optional service | CORE から解析要求を受ける |
 | `RenCrow_GAMES` | world、rules、Replay、Observer | optional extension | RenCrowBridge から CORE に接続 |
 | `RenCrow_Tools` | 開発、変換、検証、browser sidecar | tooling | CORE / Worker と開発運用を補助 |
@@ -24,6 +24,14 @@
 ## RenCrow_LLM runtime boundary
 
 `RenCrow_LLM`のprimary artifactはGo binary `rencrow-llm`です。Backendは独立moduleではなく、Model、重み、KV、計算資源とともにLLM targetへ付随します。現行Python role proxyはGo移行中のcompatibility runtimeであり、primary binaryへ同梱しません。
+
+## RenCrow_STT / RenCrow_TTS runtime boundary
+
+`RenCrow_STT`のprimary artifactは`rencrow-stt`、`RenCrow_TTS`は`rencrow-tts`です。
+認識／合成engine、Model、重み、decoder／codec、音声資産、GPU／CPUはそれぞれの
+external compute targetへ付随し、Go binaryへ同梱しません。現行Python serverと
+in-process providerは、Go API parityと実機cutoverが終わるまでcompatibility runtime
+として残します。
 
 ## CORE, PORTAL and CMD
 

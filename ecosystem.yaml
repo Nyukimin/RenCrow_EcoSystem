@@ -66,16 +66,62 @@
       "workspace_path": "../RenCrow_STT",
       "version": "unpinned",
       "required": false,
-      "distribution": "service",
-      "role": "Speech-to-text capability service"
+      "distribution": "binary",
+      "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "rencrow-stt",
+          "status": "development"
+        },
+        "companions": [
+          {
+            "id": "stt-target",
+            "kind": "external-compute",
+            "required": true,
+            "bundled": false,
+            "role": "STT target composed of transcription engine, Model, weights, decoder, and compute resources"
+          },
+          {
+            "id": "python-compat",
+            "kind": "compatibility-runtime",
+            "required": false,
+            "bundled": false,
+            "role": "Current Python HTTP and WebSocket server with in-process providers retained during Go migration"
+          }
+        ]
+      }
     },
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "../RenCrow_TTS",
       "version": "unpinned",
       "required": false,
-      "distribution": "service",
-      "role": "Text-to-speech capability service"
+      "distribution": "binary",
+      "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "rencrow-tts",
+          "status": "development"
+        },
+        "companions": [
+          {
+            "id": "tts-target",
+            "kind": "external-compute",
+            "required": true,
+            "bundled": false,
+            "role": "TTS target composed of synthesis engine, Model, weights, voice assets, codec, and compute resources"
+          },
+          {
+            "id": "python-compat",
+            "kind": "compatibility-runtime",
+            "required": false,
+            "bundled": false,
+            "role": "Current Python TTS API and Irodori integration retained during Go migration"
+          }
+        ]
+      }
     },
     "vision": {
       "repository": "Nyukimin/RenCrow_Vision",

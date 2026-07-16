@@ -38,7 +38,9 @@ User / RenCrow_PORTAL / rencrowctl
 
 `ecosystem.yaml` schema v2では、moduleの配布artifactを`runtime.primary`、
 利用環境側で別途動かす演算runtimeなどを`runtime.companions`として分離できます。
-現在はRenCrow_LLMへ適用し、Go binaryとLLM実体を別の配布層として宣言しています。
+現在はRenCrow_LLM、RenCrow_STT、RenCrow_TTSへ適用し、Go binaryと各演算targetを
+別の配布層として宣言しています。いずれもGo Gatewayはdevelopment状態であり、
+現行Python APIを置き換えたという意味ではありません。
 
 ## Repository layout
 

@@ -61,6 +61,24 @@ class EcosystemManifestTest(unittest.TestCase):
         )
         self.assertFalse(llm_runtime["companions"][0]["bundled"])
 
+    def test_stt_declares_go_primary_and_external_compute(self) -> None:
+        stt_runtime = self.manifest["components"]["stt"]["runtime"]
+
+        self.assertEqual(stt_runtime["primary"]["implementation"], "go")
+        self.assertEqual(stt_runtime["primary"]["artifact"], "rencrow-stt")
+        self.assertEqual(stt_runtime["companions"][0]["id"], "stt-target")
+        self.assertEqual(stt_runtime["companions"][0]["kind"], "external-compute")
+        self.assertFalse(stt_runtime["companions"][0]["bundled"])
+
+    def test_tts_declares_go_primary_and_external_compute(self) -> None:
+        tts_runtime = self.manifest["components"]["tts"]["runtime"]
+
+        self.assertEqual(tts_runtime["primary"]["implementation"], "go")
+        self.assertEqual(tts_runtime["primary"]["artifact"], "rencrow-tts")
+        self.assertEqual(tts_runtime["companions"][0]["id"], "tts-target")
+        self.assertEqual(tts_runtime["companions"][0]["kind"], "external-compute")
+        self.assertFalse(tts_runtime["companions"][0]["bundled"])
+
     def test_runtime_primary_requires_known_implementation(self) -> None:
         candidate = copy.deepcopy(self.manifest)
         candidate["components"]["llm"]["runtime"]["primary"][
