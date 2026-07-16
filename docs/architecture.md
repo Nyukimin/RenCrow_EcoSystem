@@ -38,6 +38,11 @@ Image     --offline outputs--> approved consuming module
 各矢印は source inclusion を意味しません。repository 間連携は、公開 API、CLI、
 設定 schema、release artifact などの明示的 contract を使います。
 
+Capability moduleは、配布するprimary runtimeと外部演算runtimeを分けられます。
+RenCrow_LLMでは`rencrow-llm` Go binaryがprimary、Backend＋Model＋KV＋計算資源から
+なるLLM targetが同梱しないcompanionです。共通契約は
+[Runtime layers](runtime-layers.md)を参照してください。
+
 ## Why not a monorepo or Git submodules
 
 - module ごとの言語、release cadence、runtime dependency を独立に保てる。

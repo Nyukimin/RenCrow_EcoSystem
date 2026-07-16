@@ -37,8 +37,11 @@ git clone https://github.com/Nyukimin/RenCrow_Vision.git
 3. checksum と署名を検証する。
 4. required component を導入する。
 5. optional component は利用者が明示選択する。
-6. secret を repository や command line に残さず設定する。
-7. CORE health と選択した capability の end-to-end check を行う。
+6. 選択componentの`runtime.companions`を確認し、外部演算runtimeが必要ならmodule側手順へ案内する。
+7. secret を repository や command line に残さず設定する。
+8. CORE health と選択した capability の end-to-end check を行う。
+
+RenCrow_LLMの場合、installerが取得するprimary artifactは`rencrow-llm`です。LLM targetのBackend、Model、重み、KV、計算資源は自動同梱せず、利用者Configで接続します。
 
 artifact、checksum、rollback、Windows 対応が未確定の間は、形だけの
 `install.sh` / `install.ps1` を追加しません。

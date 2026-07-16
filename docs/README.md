@@ -7,8 +7,9 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 
 1. [Architecture](architecture.md) — 全体構造と依存方向
 2. [Modules](modules.md) — 各 repository の責務
-3. [Installation](installation.md) — 現在利用できる導入方法
-4. [Compatibility](compatibility.md) — version 固定と統合 release 手順
+3. [Runtime layers](runtime-layers.md) — primary binaryと外部runtimeの配布境界
+4. [Installation](installation.md) — 現在利用できる導入方法
+5. [Compatibility](compatibility.md) — version 固定と統合 release 手順
 
 ## Documentation boundary
 

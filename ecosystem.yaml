@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "ecosystem": {
     "name": "RenCrow",
     "release": "development",
@@ -35,8 +35,31 @@
       "workspace_path": "../RenCrow_LLM",
       "version": "unpinned",
       "required": false,
-      "distribution": "service",
-      "role": "LLM model and role connection service"
+      "distribution": "binary",
+      "role": "Go LLM gateway for Agent routing, backend adaptation, and response normalization",
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "rencrow-llm",
+          "status": "development"
+        },
+        "companions": [
+          {
+            "id": "llm-target",
+            "kind": "external-compute",
+            "required": true,
+            "bundled": false,
+            "role": "LLM target composed of Backend, Model, weights, KV cache, and compute resources"
+          },
+          {
+            "id": "python-compat",
+            "kind": "compatibility-runtime",
+            "required": false,
+            "bundled": false,
+            "role": "Current Python role proxy and management runtime retained during Go migration"
+          }
+        ]
+      }
     },
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",

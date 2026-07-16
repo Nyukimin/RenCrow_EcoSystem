@@ -21,6 +21,22 @@ ALLOWED_DISTRIBUTIONS = {
     "template",
     "tooling",
 }
+ALLOWED_RUNTIME_IMPLEMENTATIONS = {"go", "python", "javascript", "mixed"}
+ALLOWED_RUNTIME_STATUSES = {"planned", "development", "available", "compatibility"}
+ALLOWED_COMPANION_KINDS = {
+    "compatibility-runtime",
+    "external-compute",
+    "system-service",
+}
+ARTIFACT_NAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
+REQUIRED_PRIMARY_RUNTIME_FIELDS = {"implementation", "artifact", "status"}
+REQUIRED_COMPANION_RUNTIME_FIELDS = {
+    "id",
+    "kind",
+    "required",
+    "bundled",
+    "role",
+}
 REQUIRED_COMPONENT_FIELDS = {
     "repository",
     "workspace_path",
@@ -73,12 +89,92 @@ def _validate_workspace_path(component_id: str, raw_path: Any) -> None:
         )
 
 
+def _validate_runtime(component_id: str, component: dict[str, Any]) -> None:
+    runtime = component.get("runtime")
+    if runtime is None:
+        return
+    if not isinstance(runtime, dict):
+        raise ManifestError(f"components.{component_id}.runtime must be an object")
+
+    primary = runtime.get("primary")
+    if not isinstance(primary, dict):
+        raise ManifestError(
+            f"components.{component_id}.runtime.primary must be an object"
+        )
+    missing_primary = REQUIRED_PRIMARY_RUNTIME_FIELDS - primary.keys()
+    if missing_primary:
+        missing = ", ".join(sorted(missing_primary))
+        raise ManifestError(
+            f"components.{component_id}.runtime.primary missing fields: {missing}"
+        )
+
+    implementation = primary["implementation"]
+    if implementation not in ALLOWED_RUNTIME_IMPLEMENTATIONS:
+        raise ManifestError(
+            f"components.{component_id}.runtime.primary.implementation "
+            "is not supported"
+        )
+    artifact = primary["artifact"]
+    if not isinstance(artifact, str) or not ARTIFACT_NAME_PATTERN.fullmatch(artifact):
+        raise ManifestError(
+            f"components.{component_id}.runtime.primary.artifact is invalid"
+        )
+    if primary["status"] not in ALLOWED_RUNTIME_STATUSES:
+        raise ManifestError(
+            f"components.{component_id}.runtime.primary.status is not supported"
+        )
+    if implementation == "go" and component["distribution"] != "binary":
+        raise ManifestError(
+            f"components.{component_id} with a Go primary runtime must use "
+            "binary distribution"
+        )
+
+    companions = runtime.get("companions", [])
+    if not isinstance(companions, list):
+        raise ManifestError(
+            f"components.{component_id}.runtime.companions must be an array"
+        )
+
+    companion_ids: set[str] = set()
+    for index, companion in enumerate(companions):
+        location = f"components.{component_id}.runtime.companions[{index}]"
+        if not isinstance(companion, dict):
+            raise ManifestError(f"{location} must be an object")
+        missing_companion = REQUIRED_COMPANION_RUNTIME_FIELDS - companion.keys()
+        if missing_companion:
+            missing = ", ".join(sorted(missing_companion))
+            raise ManifestError(f"{location} missing fields: {missing}")
+
+        companion_id = companion["id"]
+        if not isinstance(companion_id, str) or not COMPONENT_ID_PATTERN.fullmatch(
+            companion_id
+        ):
+            raise ManifestError(f"{location}.id is invalid")
+        if companion_id in companion_ids:
+            raise ManifestError(
+                f"components.{component_id}.runtime has duplicate companion: "
+                f"{companion_id}"
+            )
+        companion_ids.add(companion_id)
+
+        if companion["kind"] not in ALLOWED_COMPANION_KINDS:
+            raise ManifestError(f"{location}.kind is not supported")
+        if not isinstance(companion["required"], bool):
+            raise ManifestError(f"{location}.required must be boolean")
+        if not isinstance(companion["bundled"], bool):
+            raise ManifestError(f"{location}.bundled must be boolean")
+        if not isinstance(companion["role"], str) or not companion["role"].strip():
+            raise ManifestError(f"{location}.role must be non-empty")
+        if companion["kind"] == "external-compute" and companion["bundled"]:
+            raise ManifestError(f"{location} external-compute cannot be bundled")
+
+
 def validate_manifest(data: dict[str, Any]) -> None:
     """Validate structure, uniqueness, release state, and safe metadata."""
     _reject_secret_keys(data)
 
-    if data.get("schema_version") != 1:
-        raise ManifestError("schema_version must be 1")
+    if data.get("schema_version") != 2:
+        raise ManifestError("schema_version must be 2")
 
     ecosystem = data.get("ecosystem")
     if not isinstance(ecosystem, dict):
@@ -133,6 +229,7 @@ def validate_manifest(data: dict[str, Any]) -> None:
             )
         if not isinstance(component["role"], str) or not component["role"].strip():
             raise ManifestError(f"components.{component_id}.role must be non-empty")
+        _validate_runtime(component_id, component)
 
     core = components.get("core")
     if not isinstance(core, dict) or core.get("required") is not True:

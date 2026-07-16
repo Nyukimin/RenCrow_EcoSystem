@@ -6,7 +6,7 @@
 | `RenCrow_CORE` | 中核server、Debug Viewer、Persona、Memory、承認、routing | required binary | runtimeの中心 |
 | `RenCrow_PORTAL` | 外部利用者向けview/lab Web UI | optional/recommended binary | allowlist内のCORE Public APIだけを中継 |
 | `RenCrow_CMD` | 管理・操作CLI (`rencrowctl`) | optional/recommended binary | CORE／PORTAL起動とCORE Public API操作 |
-| `RenCrow_LLM` | LLM model / role connection | optional service | CORE から契約経由で利用 |
+| `RenCrow_LLM` | AgentをLLM実体へ接続しBackend差を吸収するGo Gateway | optional binary + external compute | COREから契約経由で利用。LLM targetは別途用意 |
 | `RenCrow_STT` | 音声認識 | optional service | 認識結果を CORE に返す |
 | `RenCrow_TTS` | 音声合成 | optional service | CORE から発話要求を受ける |
 | `RenCrow_Vision` | 画像・動画解析 | optional service | CORE から解析要求を受ける |
@@ -20,6 +20,10 @@
 各 repository は自分の source、詳細仕様、build、test、CI、tag、Release を
 所有します。EcoSystem はそれらを複製せず、repository と immutable version を
 参照します。
+
+## RenCrow_LLM runtime boundary
+
+`RenCrow_LLM`のprimary artifactはGo binary `rencrow-llm`です。Backendは独立moduleではなく、Model、重み、KV、計算資源とともにLLM targetへ付随します。現行Python role proxyはGo移行中のcompatibility runtimeであり、primary binaryへ同梱しません。
 
 ## CORE, PORTAL and CMD
 

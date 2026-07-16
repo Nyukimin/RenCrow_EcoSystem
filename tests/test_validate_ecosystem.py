@@ -51,6 +51,42 @@ class EcosystemManifestTest(unittest.TestCase):
         with self.assertRaisesRegex(VALIDATOR.ManifestError, "one sibling"):
             VALIDATOR.validate_manifest(candidate)
 
+    def test_llm_declares_go_primary_and_external_compute(self) -> None:
+        llm_runtime = self.manifest["components"]["llm"]["runtime"]
+
+        self.assertEqual(llm_runtime["primary"]["implementation"], "go")
+        self.assertEqual(llm_runtime["primary"]["artifact"], "rencrow-llm")
+        self.assertEqual(
+            llm_runtime["companions"][0]["kind"], "external-compute"
+        )
+        self.assertFalse(llm_runtime["companions"][0]["bundled"])
+
+    def test_runtime_primary_requires_known_implementation(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        candidate["components"]["llm"]["runtime"]["primary"][
+            "implementation"
+        ] = "unknown-language"
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "implementation"):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_runtime_companion_ids_must_be_unique(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        companions = candidate["components"]["llm"]["runtime"]["companions"]
+        companions.append(copy.deepcopy(companions[0]))
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "duplicate companion"):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_external_compute_cannot_be_bundled(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        candidate["components"]["llm"]["runtime"]["companions"][0][
+            "bundled"
+        ] = True
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "external-compute"):
+            VALIDATOR.validate_manifest(candidate)
+
 
 if __name__ == "__main__":
     unittest.main()

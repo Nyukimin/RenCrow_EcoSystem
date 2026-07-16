@@ -31,6 +31,8 @@ manifest の STT version を更新してから ecosystem patch release を作り
 
 - manifest に記載した repository と tag が実在する。
 - artifact の checksum が一致する。
+- `runtime.primary`のartifact、implementation、statusがmodule releaseと一致する。
+- required companionがあるcomponentは、bundled／externalの境界と接続確認結果を記録する。
 - CORE が clean environment で起動し health check を通る。
 - required user flow を最低 1 回 end-to-end で確認する。
 - optional component は「install したもの」ごとに接続・失敗時表示を確認する。

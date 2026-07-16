@@ -36,6 +36,10 @@ User / RenCrow_PORTAL / rencrowctl
 `unpinned` であり、互換性確認済みリリースを意味しません。最初の統合試験後に、
 実在する tag と検証結果を記録して ecosystem release を作成します。
 
+`ecosystem.yaml` schema v2では、moduleの配布artifactを`runtime.primary`、
+利用環境側で別途動かす演算runtimeなどを`runtime.companions`として分離できます。
+現在はRenCrow_LLMへ適用し、Go binaryとLLM実体を別の配布層として宣言しています。
+
 ## Repository layout
 
 ```text
@@ -49,7 +53,8 @@ User / RenCrow_PORTAL / rencrowctl
 │   ├── architecture.md
 │   ├── compatibility.md
 │   ├── installation.md
-│   └── modules.md
+│   ├── modules.md
+│   └── runtime-layers.md
 ├── scripts/
 │   └── validate_ecosystem.py
 └── tests/
