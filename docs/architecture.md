@@ -38,6 +38,11 @@ Image     --offline outputs--> approved consuming module
 各矢印は source inclusion を意味しません。repository 間連携は、公開 API、CLI、
 設定 schema、release artifact などの明示的 contract を使います。
 
+PORTALはCOREのclientであり、runtime状態の正本ではありません。COREが会話処理、
+recipient routing、audio／input active owner、TTS／STT bridgeを所有し、PORTALは
+`view`／`live`／`lab`ごとのallowlistで外部操作を制限します。接続フロー、失敗時の
+扱い、統合試験条件は[PORTAL–CORE contract](portal-core-contract.md)を参照してください。
+
 Capability moduleは、配布するprimary runtimeと外部演算runtimeを分けられます。
 RenCrow_LLMでは`rencrow-llm` Go binaryがprimary、Backend＋Model＋KV＋計算資源から
 なるLLM targetが同梱しないcompanionです。共通契約は

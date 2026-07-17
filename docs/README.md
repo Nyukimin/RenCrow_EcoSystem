@@ -6,10 +6,11 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 ## Read order
 
 1. [Architecture](architecture.md) — 全体構造と依存方向
-2. [Modules](modules.md) — 各 repository の責務
-3. [Runtime layers](runtime-layers.md) — primary binaryと外部runtimeの配布境界
-4. [Installation](installation.md) — 現在利用できる導入方法
-5. [Compatibility](compatibility.md) — version 固定と統合 release 手順
+2. [PORTAL–CORE contract](portal-core-contract.md) — 外部UIと中核runtimeの接続・公開境界
+3. [Modules](modules.md) — 各 repository の責務
+4. [Runtime layers](runtime-layers.md) — primary binaryと外部runtimeの配布境界
+5. [Installation](installation.md) — 現在利用できる導入方法
+6. [Compatibility](compatibility.md) — version 固定と統合 release 手順
 
 ## Documentation boundary
 
@@ -17,6 +18,7 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 | --- | --- |
 | 全体の目的と構成 | module の詳細設計 |
 | repository 間の責務境界 | API・設定リファレンス |
+| module 間の通信方向とsecurity境界 | endpoint payloadと内部実装 |
 | 導入順序 | build・test 手順 |
 | 動作確認済み version | module 固有 roadmap |
 | 統合 acceptance | module 内部の障害調査 |

@@ -1,0 +1,182 @@
+# PORTAL–CORE integration contract
+
+## Status and scope
+
+この文書は、`RenCrow_PORTAL`と`RenCrow_CORE`を一つの製品として組み合わせるための
+ecosystem-level contractです。対象は責務、通信方向、公開境界、失敗時の扱い、
+統合試験条件です。
+
+endpointのpayload、内部実装、module固有の設定は複製しません。詳細の正本は次です。
+
+- CORE API: `RenCrow_CORE/docs/06_Public_API仕様.md`
+- PORTAL proxyとUI: `RenCrow_PORTAL/README.md`および`internal/portal/`
+- TTS／STT target: `RenCrow_TTS`／`RenCrow_STT`の各module仕様
+
+現在のecosystem releaseは`development`、compatibilityは`unpinned`です。この文書は
+接続契約を定義しますが、特定versionの互換性確認済みを主張しません。
+
+## Responsibility boundary
+
+| Concern | Owner | Contract |
+| --- | --- | --- |
+| Persona、Memory、会話処理、routing | CORE | PORTALは複製しない |
+| `/viewer/*`、SSE、STT WebSocket | CORE | runtime behaviorとpayloadの正本 |
+| `view`／`live`／`lab` Web UI | PORTAL | 外部利用者向け表示と入力 |
+| 外部公開するmethod／path | PORTAL | allowlistに明示したものだけ中継 |
+| recipientの選択表示 | PORTAL client | browser tab内のlocal state |
+| 実際のmessage宛先 | CORE request | `POST /viewer/send`の`to`で確定 |
+| audio／input active owner | CORE | client IDごとのclaim、heartbeat、release |
+| TTS合成とSTT認識 | TTS／STT target | PORTALやCOREへ演算実体を持ち込まない |
+
+PORTALはruntime状態の正本ではありません。TTS／STTのON／OFFはPORTALのUI状態ですが、
+実際に操作できるclientはCOREのactive-controlで調停します。
+
+## Runtime topology
+
+```text
+Browser
+  |
+  | HTTPS / SSE / WebSocket
+  v
+RenCrow_PORTAL
+  | allowlisted proxy
+  v
+RenCrow_CORE
+  |                    |
+  | TTS contract       | STT contract
+  v                    v
+RenCrow_TTS          RenCrow_STT
+  |                    |
+  v                    v
+TTS target           STT target
+```
+
+PORTALはCOREの全APIを透過公開しません。COREと各capabilityの間には、移行期間中に
+compatibility runtimeが入る場合がありますが、失敗を成功へ丸めてはいけません。
+
+## Mode permissions
+
+| Operation | `view` | `live` | `lab` |
+| --- | --- | --- | --- |
+| CORE health、会話event、IdleChat statusの読み取り | allow | allow | allow |
+| chat recipientの選択通知 | deny | deny | allow |
+| message送信、IdleChat開始／停止 | deny | deny | allow |
+| audio／input active-control | deny | deny | allow |
+| TTS audio取得とplayback ACK | deny | deny | allow |
+| STT WebSocket入力 | deny | deny | allow |
+| Debug、Ops、Repair、LLM管理、設定変更 | deny | deny | deny |
+
+正確なallowlistはPORTALの実装とcontract testを正本とします。COREにendpointを追加しても、
+PORTAL側へmethod／pathと拒否testを明示しない限り外部公開しません。
+
+## Recipient selection
+
+1. PORTALはbrowser tabごとの`viewer_client_id`と選択recipientを保持する。
+2. 選択変更時、PORTALはCOREへrecipient選択を通知する。
+3. COREは`viewer.recipient_selected`を観測eventとして発行する。
+4. COREは通知された選択をglobal conversation stateにしない。
+5. message送信時は、`POST /viewer/send`の`to`を実際のrouting入力とする。
+
+この分離により、複数のPORTAL clientが別々の相手を選択しても、最後に選択した一台の
+状態で全clientの送信先が上書きされません。
+
+## TTS playback flow
+
+```text
+PORTAL        CORE                 TTS
+  | claim audio |                   |
+  |------------>|                   |
+  |              | synthesis request|
+  |              |------------------->
+  |  SSE: tts.audio_chunk           |
+  |<-------------|                   |
+  | GET audio    |                   |
+  |------------->|                   |
+  | local playback                   |
+  |              |                   |
+  | SSE: tts.session_completed       |
+  |<-------------|                   |
+  | playback ACK |                   |
+  |------------->|                   |
+```
+
+- PORTALはTTS ON時にaudio ownerをclaimし、稼働中はheartbeatを送る。
+- `tts.audio_chunk`と`tts.session_completed`は同じ`session_id`と`response_id`で
+  response lifecycleを識別する。
+- PORTALはchunkを順番に再生し、全chunkの終了とsession完了を確認してから、
+  response単位でplayback ACKを一度だけ送る。
+- audio取得成功、browser再生成功、playback ACK成功は別々の成功条件である。
+- autoplay拒否、decode失敗、音声device失敗はerror ACKとしてCOREへ返す。
+- TTS OFF、owner移譲、client終了時は再生を止め、ownerをreleaseするかTTL失効させる。
+
+COREのremote TTS audio proxyは、設定済みTTS base URLと同一hostの音声だけを取得します。
+任意のprivate hostをPORTAL経由で取得できる構成にしません。
+
+## STT input flow
+
+```text
+PORTAL        CORE              STT Gateway / target
+  | claim input |                       |
+  |------------>|                       |
+  | WebSocket /stt                      |
+  |------------>| bridge                |
+  |              |---------------------->|
+  | PCM16 16 kHz |                       |
+  |------------>|---------------------->|
+  | partial / final / error              |
+  |<------------|<----------------------|
+  | release input                        |
+  |------------>|                       |
+```
+
+- PORTALはSTT ON時にinput ownerをclaimし、browser microphoneを取得する。
+- browser音声はmono PCM16、16 kHzへ変換し、PORTAL経由のWebSocketでCOREへ送る。
+- COREはSTT contractを通じてRenCrow_STT Gatewayまたは移行中のcompatibility runtimeへ接続する。
+- `partial`／`draft`は入力欄へ反映し、`final`は選択中recipientへのmessage入力として扱う。
+- WebSocket、CORE bridge、STT Gateway、STT targetの各層を別々にhealth判定する。
+- backend未到達、認識error、owner移譲、microphone取得失敗ではSTTをOFFへ戻し、
+  input ownerをreleaseする。
+
+WebSocket upgradeが成功しても、STT targetへの接続と実際の文字起こしが成功していなければ、
+STT利用可能とは判定しません。
+
+## Security boundary
+
+- `view`と`live`は読み取り専用とし、write／control requestを拒否する。
+- `lab`も明示allowlist外のendpointを拒否する。
+- browserからのwriteとSTT WebSocketはsame-originを要求する。
+- PORTALはrequest bodyに上限を設ける。
+- Debug、Ops、Repair、admin、LLM管理、設定変更をPORTALから公開しない。
+- TTS audio proxyは設定済みhost以外を拒否する。
+- token、credential、runtime stateをURL、文書、repositoryへ保存しない。
+- PORTALをネットワーク公開する場合は、前段に認証済みproxyまたはtailnet境界を置く。
+
+## Failure semantics
+
+| Failure | Required behavior |
+| --- | --- |
+| CORE unreachable | PORTALは接続失敗を表示し、操作成功にしない |
+| recipient通知失敗 | 切替失敗を表示し、messageの`to`で誤送信を防ぐ |
+| TTS audio取得失敗 | 再生成功にせずerror ACKを返す |
+| browser playback失敗 | fetch成功と区別しerror ACKを返す |
+| STT backend unreachable | WebSocket接続成功と区別しSTTをOFFへ戻す |
+| active owner移譲 | 旧ownerはlocal再生／入力を停止する |
+| unknown／admin endpoint | PORTALで拒否しCOREへ到達させない |
+
+## Integration acceptance
+
+PORTALとCOREの組み合わせをcompatibleと記録する前に、最低限次を確認します。
+
+1. CORE healthとPORTAL readinessが成功する。
+2. `view`と`live`からwrite／control操作が拒否される。
+3. `lab`のrecipient切替がCORE eventへ到達し、messageの`to`と一致する。
+4. TTS ONでaudio ownerを取得し、実応答のaudio取得とplayback ACKまで到達する。
+5. TTS再生成功と再生errorの両方が正しいACK statusになる。
+6. STT WebSocket upgrade、start／stop、実音声の`final`認識まで到達する。
+7. STT target停止時にerrorが表示され、input ownerが解放される。
+8. Debug／admin endpointとcross-origin controlが拒否される。
+9. 設定外hostのTTS audio取得が拒否される。
+10. client終了後にaudio／input ownerが残留しないか、TTLで失効する。
+
+確認command、対象version、実行環境、結果、未確認点をverification recordへ残してから、
+`ecosystem.yaml`のCORE／PORTAL versionとcompatibility statusを更新します。

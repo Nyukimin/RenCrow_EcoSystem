@@ -41,3 +41,18 @@ manifest の STT version を更新してから ecosystem patch release を作り
 
 health success だけで音声再生、認識、画像解析、game bridge などの利用可能性を
 主張しません。各 capability は実際の入出力まで確認します。
+
+## PORTAL and CORE acceptance
+
+PORTALを含む組み合わせでは、一般的なminimum acceptanceに加えて次を確認します。
+
+- `view`／`live`のwrite拒否と、`lab`の明示allowlistを確認する。
+- recipient切替通知と、実際のmessage `to`が一致することを確認する。
+- TTSのaudio owner取得、SSE audio、音声取得、browser再生、playback ACKを
+  別々のcheckpointとして確認する。
+- STTのinput owner取得、WebSocket upgrade、音声送信、STT target接続、最終認識を
+  別々のcheckpointとして確認する。
+- TTS／STT target停止時に失敗表示とowner解放を確認する。
+- Debug／admin、cross-origin control、設定外TTS audio hostが拒否されることを確認する。
+
+詳細な接続契約と確認項目は[PORTAL–CORE contract](portal-core-contract.md)を参照してください。
