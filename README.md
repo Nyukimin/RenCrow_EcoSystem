@@ -12,15 +12,19 @@ RenCrow EcoSystem は、独立した RenCrow 各リポジトリを一つの製�
 ```text
 RenCrow_EcoSystem  -- release/catalog reference --> module releases
 
-User / RenCrow_PORTAL / rencrowctl
-                 |
-                 v
-           RenCrow_CORE
-          /   |   \
-         v    v    v
-       LLM   STT  TTS / Vision
-              |
-              +---- Games / Tools / Workspace
+User / Device clients       User / Web browser
+         |                          |
+         v                          v
+ RenCrow_ASSISTANT <----- RenCrow_PORTAL
+         |                          |
+         +------------+-------------+
+                      v
+                RenCrow_CORE <---- rencrowctl
+                 /   |   \
+                v    v    v
+              LLM   STT  TTS / Vision
+                     |
+                     +---- Games / Tools / Workspace
 ```
 
 - 各 module は独立した Git リポジトリです。
@@ -42,6 +46,10 @@ User / RenCrow_PORTAL / rencrowctl
 別の配布層として宣言しています。いずれもGo Gatewayはdevelopment状態であり、
 現行Python APIを置き換えたという意味ではありません。
 
+RenCrow_ASSISTANTは、個人・家族向けの生活Routine、PUSH、端末配信、COREへの
+Task移譲を所有するplannedのGo serviceです。Mio等のAgentやPORTALのWeb画面を
+所有するmoduleではありません。
+
 ## Repository layout
 
 ```text
@@ -52,6 +60,7 @@ User / RenCrow_PORTAL / rencrowctl
 ├── Makefile
 ├── docs/
 │   ├── README.md
+│   ├── assistant-boundary.md
 │   ├── architecture.md
 │   ├── compatibility.md
 │   ├── installation.md

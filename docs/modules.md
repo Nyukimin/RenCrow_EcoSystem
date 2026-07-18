@@ -4,8 +4,9 @@
 | --- | --- | --- | --- |
 | `RenCrow_EcoSystem` | 公式入口、構成、互換性、統合 release | metadata/docs | 各 release を参照する。実行されない |
 | `RenCrow_CORE` | 中核server、Debug Viewer、Persona、Memory、承認、routing | required binary | runtimeの中心 |
+| `RenCrow_ASSISTANT` | 個人・家族向け生活Routine、PUSH、端末配信、COREへのTask移譲 | optional/recommended binary | Device／PORTALとCOREの間で生活アシスタント機能を提供 |
 | `RenCrow_PORTAL` | 外部利用者向けview/live/lab Web UI | optional/recommended binary | allowlist内のCORE Public APIだけを中継 |
-| `RenCrow_CMD` | 管理・操作CLI (`rencrowctl`) | optional/recommended binary | CORE／PORTAL起動とCORE Public API操作 |
+| `RenCrow_CMD` | 管理・操作CLI (`rencrowctl`) | optional/recommended binary | CORE／ASSISTANT／PORTAL起動と許可されたPublic API操作 |
 | `RenCrow_LLM` | AgentをLLM実体へ接続しBackend差を吸収するGo Gateway | optional binary + external compute | COREから契約経由で利用。LLM targetは別途用意 |
 | `RenCrow_STT` | 公開音声契約と認識target差を吸収するGo Gateway | optional binary + external compute | COREから音声を受け、STT targetの結果を正規化 |
 | `RenCrow_TTS` | character／style／voiceを解決して合成target差を吸収するGo Gateway | optional binary + external compute | COREから発話要求を受け、TTS targetへ接続 |
@@ -39,4 +40,12 @@ in-process providerは、Go API parityと実機cutoverが終わるまでcompatib
 `RenCrow_PORTAL`は外部利用者向けの`view`／`live`／`lab`を所有し、debug/admin APIを中継しません。
 COREとの接続、active-control、TTS／STT、公開境界は
 [PORTAL–CORE contract](portal-core-contract.md)を参照してください。
-`RenCrow_CMD`は`rencrowctl`としてCOREとPORTALを起動し、CORE APIをCLIから利用します。PORTALとCMDはruntime状態を別実装として所有しません。
+`RenCrow_CMD`は`rencrowctl`としてCORE、ASSISTANT、PORTALを起動し、許可されたPublic APIをCLIから利用します。ASSISTANT起動はplannedで、現行CLIでは未実装です。PORTALとCMDはruntime状態を別実装として所有しません。
+
+## ASSISTANT, CORE, PORTAL and devices
+
+`RenCrow_ASSISTANT`は生活Routine、personal／family scope、proactive delivery、
+acknowledgementを所有するGo serviceです。Agent人格、Agent Memory、Knowledge、複雑な
+TaskはCOREへ委譲します。PORTALはASSISTANTの状態を表示・操作するclientであり、
+Deviceはcapabilityを申告してPUSHを受ける薄いclientです。横断境界は
+[ASSISTANT boundary](assistant-boundary.md)を参照してください。

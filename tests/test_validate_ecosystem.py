@@ -79,6 +79,17 @@ class EcosystemManifestTest(unittest.TestCase):
         self.assertEqual(tts_runtime["companions"][0]["kind"], "external-compute")
         self.assertFalse(tts_runtime["companions"][0]["bundled"])
 
+    def test_assistant_declares_planned_go_primary(self) -> None:
+        assistant = self.manifest["components"]["assistant"]
+        assistant_runtime = assistant["runtime"]
+
+        self.assertEqual(assistant["distribution"], "binary")
+        self.assertEqual(assistant_runtime["primary"]["implementation"], "go")
+        self.assertEqual(
+            assistant_runtime["primary"]["artifact"], "rencrow-assistant"
+        )
+        self.assertEqual(assistant_runtime["primary"]["status"], "planned")
+
     def test_runtime_primary_requires_known_implementation(self) -> None:
         candidate = copy.deepcopy(self.manifest)
         candidate["components"]["llm"]["runtime"]["primary"][

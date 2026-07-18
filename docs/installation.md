@@ -16,6 +16,7 @@ git clone https://github.com/Nyukimin/RenCrow_CORE.git
 
 ```bash
 git clone https://github.com/Nyukimin/RenCrow_PORTAL.git
+git clone https://github.com/Nyukimin/RenCrow_ASSISTANT.git
 git clone https://github.com/Nyukimin/RenCrow_CMD.git
 git clone https://github.com/Nyukimin/RenCrow_LLM.git
 git clone https://github.com/Nyukimin/RenCrow_STT.git
@@ -23,7 +24,9 @@ git clone https://github.com/Nyukimin/RenCrow_TTS.git
 git clone https://github.com/Nyukimin/RenCrow_Vision.git
 ```
 
-外部向けWeb画面を使う場合は`RenCrow_PORTAL`、管理CLIを使う場合は`RenCrow_CMD`を追加します。既定バイナリはそれぞれ`rencrow-portal`と`rencrowctl`です。
+外部向けWeb画面を使う場合は`RenCrow_PORTAL`、個人・家族向けの生活Routineと
+PUSHを使う場合は`RenCrow_ASSISTANT`、管理CLIを使う場合は`RenCrow_CMD`を追加します。
+既定バイナリはそれぞれ`rencrow-portal`、plannedの`rencrow-assistant`、`rencrowctl`です。
 
 各 module の build と設定は、その repository の README / AGENTS / docs を
 参照してください。EcoSystem 側から未検証の command を複製しません。
@@ -45,6 +48,10 @@ RenCrow_LLM、RenCrow_STT、RenCrow_TTSの場合、installerが取得するprima
 それぞれ`rencrow-llm`、`rencrow-stt`、`rencrow-tts`です。LLM／STT／TTS targetの
 engine、Model、重み、KV、decoder／codec、音声資産、計算資源は自動同梱せず、
 各moduleの利用者Configで接続します。
+
+RenCrow_ASSISTANTを選択した場合、installerは`rencrow-assistant`と非secret設定例を
+導入します。利用者、家族、端末、Calendar等のcredentialはsourceやcommand lineへ
+埋め込まず、初回設定時に利用者環境のsecret storeへ登録します。
 
 artifact、checksum、rollback、Windows 対応が未確定の間は、形だけの
 `install.sh` / `install.ps1` を追加しません。

@@ -22,13 +22,29 @@
       "distribution": "binary",
       "role": "External view and lab Web portal with an allowlisted CORE API proxy"
     },
+    "assistant": {
+      "repository": "Nyukimin/RenCrow_ASSISTANT",
+      "workspace_path": "../RenCrow_ASSISTANT",
+      "version": "unpinned",
+      "required": false,
+      "distribution": "binary",
+      "role": "Proactive personal and family assistant for routines, push delivery, devices, and CORE task escalation",
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "rencrow-assistant",
+          "status": "planned"
+        },
+        "companions": []
+      }
+    },
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "../RenCrow_CMD",
       "version": "unpinned",
       "required": false,
       "distribution": "binary",
-      "role": "rencrowctl management, CORE/PORTAL launcher, and CORE API command facade"
+      "role": "rencrowctl management, CORE/ASSISTANT/PORTAL launcher, and public API command facade"
     },
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",

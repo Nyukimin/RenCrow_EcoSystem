@@ -11,12 +11,11 @@ extension、tooling、設定 template からなる複数 repository の product 
                             |
                   references module releases
                             |
-        +-------------------+-------------------+
-        |                   |                   |
-  required runtime   optional capability   extension / support
-        |                   |                   |
-  RenCrow_CORE       LLM / STT / TTS       GAMES / Tools
-  PORTAL / CMD       Vision                 Image / Workspace
+        +-------------------+-------------------+-------------------+
+        |                   |                   |                   |
+  required runtime   interaction layer   optional capability  extension/support
+        |                   |                   |                   |
+  RenCrow_CORE       ASSISTANT/PORTAL/CMD  LLM/STT/TTS/Vision  GAMES/Tools/Image
 ```
 
 `RenCrow_EcoSystem` は control plane や runtime service ではありません。
@@ -28,6 +27,9 @@ extension、tooling、設定 template からなる複数 repository の product 
 EcoSystem --references--> immutable module release artifacts
 CMD       --public API--> CORE
 PORTAL    --allowlisted public API--> CORE
+Device    --HTTP/WebSocket--> ASSISTANT
+PORTAL    --allowlisted public API--> ASSISTANT
+ASSISTANT --public API/task escalation--> CORE
 CORE      --contracts---> LLM / STT / TTS / Vision
 GAMES     --bridge API--> CORE
 CORE/Worker --invokes--> Tools
@@ -42,6 +44,11 @@ PORTALはCOREのclientであり、runtime状態の正本ではありません。
 recipient routing、audio／input active owner、TTS／STT bridgeを所有し、PORTALは
 `view`／`live`／`lab`ごとのallowlistで外部操作を制限します。接続フロー、失敗時の
 扱い、統合試験条件は[PORTAL–CORE contract](portal-core-contract.md)を参照してください。
+
+ASSISTANTは個人・家族向けの生活Routine、PUSH、delivery、端末応答を所有します。
+PORTALはそのViewer／操作client、Deviceは薄い入出力client、COREはAgent・Memory・
+Knowledge・複雑なTaskの正本です。生活Routine schedulerとCOREのWorkstream／Task
+schedulerを混同しません。横断契約は[ASSISTANT boundary](assistant-boundary.md)を参照してください。
 
 Capability moduleは、配布するprimary runtimeと外部演算runtimeを分けられます。
 RenCrow_LLMでは`rencrow-llm` Go binaryがprimary、Backend＋Model＋KV＋計算資源から

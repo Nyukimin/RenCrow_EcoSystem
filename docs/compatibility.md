@@ -56,3 +56,17 @@ PORTALを含む組み合わせでは、一般的なminimum acceptanceに加え�
 - Debug／admin、cross-origin control、設定外TTS audio hostが拒否されることを確認する。
 
 詳細な接続契約と確認項目は[PORTAL–CORE contract](portal-core-contract.md)を参照してください。
+
+## ASSISTANT acceptance
+
+ASSISTANTを含む組み合わせでは、一般的なminimum acceptanceに加えて次を確認します。
+
+- 生活Routineが指定時刻・条件で一度だけ発火し、重複deliveryを起こさない。
+- acknowledgement、snooze、missed、retry、別端末への切替を追跡できる。
+- personal data、`family:shared`、別利用者のprivate dataが権限どおりに分離される。
+- COREへのTask昇格で利用者scopeと相関IDが維持され、結果が元のdeliveryへ戻る。
+- CORE停止時にAgent処理をdegradedとし、決定論的Routineとcache済み情報の状態を区別する。
+- 実際のDevice clientでPUSH、表示または発話、利用者応答までend-to-endで確認する。
+
+詳細な境界は[ASSISTANT boundary](assistant-boundary.md)、module固有の仕様と実装状態は
+`Nyukimin/RenCrow_ASSISTANT`の`docs/`を参照してください。

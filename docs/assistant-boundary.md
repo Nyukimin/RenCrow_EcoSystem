@@ -1,0 +1,52 @@
+# ASSISTANT boundary
+
+## Product role
+
+`RenCrow_ASSISTANT`は、新しいAgent人格ではなく、PUSH機能を持つ個人・家族向け
+生活アシスタントserviceです。利用者ごとの生活Routineを実行し、端末へ届け、
+複雑な仕事だけを`RenCrow_CORE`へ移譲します。
+
+```text
+Stack-chan / Apple Watch / iPhone / Web
+                    |
+                    v
+          RenCrow_ASSISTANT
+ personal / family / routine / PUSH
+           |                 |
+           v                 v
+     RenCrow_CORE       RenCrow_PORTAL
+ Agent / Task / Memory  Viewer / 操作UI
+```
+
+## Ownership
+
+| 領域 | 正本module |
+| --- | --- |
+| personal / family scope、生活Routine、PUSH、delivery、ack / snooze / retry | `RenCrow_ASSISTANT` |
+| Mio等のAgent、Agent routing、Memory、Recall、Knowledge、複雑なTask | `RenCrow_CORE` |
+| Web表示、履歴・設定画面、許可された操作UI | `RenCrow_PORTAL` |
+| 端末共通protocol、capability、delivery形式 | `RenCrow_ASSISTANT` |
+| Stack-chan firmware/MOD、watchOS app等 | ASSISTANT contractを利用するdevice client artifact |
+
+COREにもWorkstream、Task、Scheduler、Heartbeatがありますが、ASSISTANTの生活Routine
+schedulerとは用途を分けます。目覚まし、朝の予定、天気、交通、ニュース配信は
+ASSISTANTが所有し、複数工程、生成、継続調査、承認付きside effectはCOREへ昇格します。
+
+## Runtime relationship
+
+- `rencrow-assistant`はplannedのGo binaryです。
+- Device clientはHTTPとWebSocketでASSISTANTへ接続します。
+- ASSISTANTはCORE Public APIを利用し、debug/admin APIを利用しません。
+- PORTALのASSISTANT連携は公開APIのallowlistを必要とし、読み取りsurfaceからwriteしません。
+- ASSISTANTが未実装の現在、manifestのversionは`unpinned`、runtime statusは`planned`です。
+
+## Privacy boundary
+
+- personal dataは利用者ごとに分離します。
+- `family:shared`は明示的に共有された予定・Task・情報だけを持ちます。
+- COREの全Agent共通記憶は、同じ認証済み利用者・許可scope内のAgent切替を指し、
+  別利用者のprivate memoryを共有する意味ではありません。
+- Device、PORTAL、COREへ渡すcontextは、利用者とscopeを確定して最小化します。
+
+ASSISTANT固有の機能、data、API、設定、MVPの正本は
+`Nyukimin/RenCrow_ASSISTANT`の`docs/`です。
