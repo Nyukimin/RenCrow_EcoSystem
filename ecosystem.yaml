@@ -12,7 +12,7 @@
       "version": "unpinned",
       "required": true,
       "distribution": "binary",
-      "role": "Core server, Debug Viewer, Persona, Memory, approval, and routing"
+      "role": "Core server and public interaction contract for Agent, Chat, IdleChat, Task, Persona, Memory, approval, and routing"
     },
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
@@ -20,7 +20,7 @@
       "version": "unpinned",
       "required": false,
       "distribution": "binary",
-      "role": "External view and lab Web portal with an allowlisted CORE API proxy"
+      "role": "Web interaction profile for Chat and IdleChat with an allowlisted CORE and ASSISTANT API proxy"
     },
     "assistant": {
       "repository": "Nyukimin/RenCrow_ASSISTANT",
@@ -28,7 +28,7 @@
       "version": "unpinned",
       "required": false,
       "distribution": "binary",
-      "role": "Proactive personal and family assistant for routines, push delivery, devices, and CORE task escalation",
+      "role": "Stateful proactive interaction profile for personal and family routines, push delivery, devices, and optional CORE task escalation",
       "runtime": {
         "primary": {
           "implementation": "go",
@@ -44,7 +44,7 @@
       "version": "unpinned",
       "required": false,
       "distribution": "binary",
-      "role": "rencrowctl management, CORE/ASSISTANT/PORTAL launcher, and public API command facade"
+      "role": "Terminal interaction profile and rencrowctl command facade for CORE, ASSISTANT, and PORTAL"
     },
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",

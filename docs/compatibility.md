@@ -70,3 +70,16 @@ ASSISTANTを含む組み合わせでは、一般的なminimum acceptanceに加�
 
 詳細な境界は[ASSISTANT boundary](assistant-boundary.md)、module固有の仕様と実装状態は
 `Nyukimin/RenCrow_ASSISTANT`の`docs/`を参照してください。
+
+## Interaction profile acceptance
+
+PORTAL、CMD、ASSISTANTを同じ組み合わせへ含める場合は、追加で次を確認します。
+
+- Chatのrecipient、利用者scope、request／response相関がsurface間で一致する。
+- IdleChatのevent、開始／停止、拒否、degradedの意味がsurface間で矛盾しない。
+- profile、mode、認証scope、device capabilityによる拒否が実際に機能する。
+- 再接続と再送でmessage、Task、PUSH、acknowledgementが二重処理されない。
+- PORTAL停止中もASSISTANTのRoutineとPUSHが動き、CORE停止時はAgent処理だけを
+  degradedとして区別する。
+
+共通能力と固有差は[Interaction surfaces](interaction-surfaces.md)を参照してください。

@@ -39,6 +39,10 @@ ASSISTANTが所有し、複数工程、生成、継続調査、承認付きside 
 - ASSISTANTはCORE Public APIを利用し、debug/admin APIを利用しません。
 - PORTALのASSISTANT連携は公開APIのallowlistを必要とし、読み取りsurfaceからwriteしません。
 - ASSISTANTが未実装の現在、manifestのversionは`unpinned`、runtime statusは`planned`です。
+- ASSISTANTはPORTALやCMDと共通のInteraction意味論を利用しますが、時刻・条件発火、
+  PUSH、Device deliveryと生活領域の状態だけはASSISTANT固有です。
+- PUSHを別の会話systemにせず、CORE応答と生活通知を共通のInteraction outputとして
+  相関可能にします。wire schemaはASSISTANT実装時にmodule側の正本へ固定します。
 
 ## Privacy boundary
 
@@ -50,3 +54,5 @@ ASSISTANTが所有し、複数工程、生成、継続調査、承認付きside 
 
 ASSISTANT固有の機能、data、API、設定、MVPの正本は
 `Nyukimin/RenCrow_ASSISTANT`の`docs/`です。
+PORTAL、CMDとの共通能力とprofile差は[Interaction surfaces](interaction-surfaces.md)を
+参照してください。

@@ -34,13 +34,18 @@ external compute targetへ付随し、Go binaryへ同梱しません。現行Pyt
 in-process providerは、Go API parityと実機cutoverが終わるまでcompatibility runtime
 として残します。
 
-## CORE, PORTAL and CMD
+## CORE, PORTAL, CMD and ASSISTANT
 
 `RenCrow_CORE`がserver behavior、状態、`/viewer/*` API、Debug Viewerの正本です。
 `RenCrow_PORTAL`は外部利用者向けの`view`／`live`／`lab`を所有し、debug/admin APIを中継しません。
 COREとの接続、active-control、TTS／STT、公開境界は
 [PORTAL–CORE contract](portal-core-contract.md)を参照してください。
 `RenCrow_CMD`は`rencrowctl`としてCORE、ASSISTANT、PORTALを起動し、許可されたPublic APIをCLIから利用します。ASSISTANT起動はplannedで、現行CLIでは未実装です。PORTALとCMDはruntime状態を別実装として所有しません。
+
+PORTALはWeb renderer、CMDはterminal renderer、ASSISTANTはproactive triggerとDevice
+deliveryを加えたInteraction profileとして、COREのChat／IdleChat／event等の共通意味論を
+利用します。ASSISTANTだけは生活領域のstateful application serviceであり、単なるrenderer
+ではありません。詳細は[Interaction surfaces](interaction-surfaces.md)を参照してください。
 
 ## ASSISTANT, CORE, PORTAL and devices
 

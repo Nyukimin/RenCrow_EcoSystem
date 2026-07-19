@@ -12,19 +12,17 @@ RenCrow EcoSystem は、独立した RenCrow 各リポジトリを一つの製�
 ```text
 RenCrow_EcoSystem  -- release/catalog reference --> module releases
 
-User / Device clients       User / Web browser
-         |                          |
-         v                          v
- RenCrow_ASSISTANT <----- RenCrow_PORTAL
-         |                          |
-         +------------+-------------+
-                      v
-                RenCrow_CORE <---- rencrowctl
-                 /   |   \
-                v    v    v
-              LLM   STT  TTS / Vision
-                     |
-                     +---- Games / Tools / Workspace
+                         RenCrow_CORE
+                    ^         ^         ^
+                    |         |         |
+          RenCrow_ASSISTANT  PORTAL     CMD
+          Routine / PUSH    Web UI      CLI
+                    |         |         |
+          Device clients   Browser   Terminal / Script
+
+RenCrow_CORE ---- contracts ----> LLM / STT / TTS / Vision
+RenCrowBridge ---- bridge ------> RenCrow_CORE
+Tools / Games / Workspace -------- ecosystem support
 ```
 
 - 各 module は独立した Git リポジトリです。
@@ -50,6 +48,11 @@ RenCrow_ASSISTANTは、個人・家族向けの生活Routine、PUSH、端末配�
 Task移譲を所有するplannedのGo serviceです。Mio等のAgentやPORTALのWeb画面を
 所有するmoduleではありません。
 
+PORTAL、CMD、ASSISTANTは、COREのChat、IdleChat、event、audio、Taskなどの共通
+Interaction意味論を利用する兄弟moduleです。PORTALはWeb、CMDはterminal、ASSISTANTは
+proactive triggerとDevice deliveryを固有差とします。ASSISTANTだけはpersonal／family／
+Routine／delivery状態を所有する常駐serviceです。
+
 ## Repository layout
 
 ```text
@@ -64,7 +67,9 @@ Task移譲を所有するplannedのGo serviceです。Mio等のAgentやPORTALの
 │   ├── architecture.md
 │   ├── compatibility.md
 │   ├── installation.md
+│   ├── interaction-surfaces.md
 │   ├── modules.md
+│   ├── portal-core-contract.md
 │   └── runtime-layers.md
 ├── scripts/
 │   └── validate_ecosystem.py

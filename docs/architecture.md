@@ -50,6 +50,12 @@ PORTALはそのViewer／操作client、Deviceは薄い入出力client、COREはA
 Knowledge・複雑なTaskの正本です。生活Routine schedulerとCOREのWorkstream／Task
 schedulerを混同しません。横断契約は[ASSISTANT boundary](assistant-boundary.md)を参照してください。
 
+PORTAL、CMD、ASSISTANTはCOREの周囲に置く兄弟moduleです。Chat、IdleChat、recipient、
+event、session、audio、Task、errorの意味は共通化し、Web表示、terminal表示、
+proactive trigger／device deliveryだけをprofile固有差にします。ただしASSISTANTだけは
+personal／family／Routine／delivery状態を所有する常駐serviceです。詳細は
+[Interaction surfaces](interaction-surfaces.md)を参照してください。
+
 Capability moduleは、配布するprimary runtimeと外部演算runtimeを分けられます。
 RenCrow_LLMでは`rencrow-llm` Go binaryがprimary、Backend＋Model＋KV＋計算資源から
 なるLLM targetが同梱しないcompanionです。共通契約は
