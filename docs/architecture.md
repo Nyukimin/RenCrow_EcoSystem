@@ -57,9 +57,36 @@ personal／family／Routine／delivery状態を所有する常駐serviceです�
 [Interaction surfaces](interaction-surfaces.md)を参照してください。
 
 Capability moduleは、配布するprimary runtimeと外部演算runtimeを分けられます。
-RenCrow_LLMでは`rencrow-llm` Go binaryがprimary、Backend＋Model＋KV＋計算資源から
-なるLLM targetが同梱しないcompanionです。共通契約は
-[Runtime layers](runtime-layers.md)を参照してください。
+RenCrow_LLMではcontrol host上の`rencrow-llm` central Gatewayがprimary、
+Backend＋Model＋KV＋計算資源からなるLLM targetが同梱しないcompanionです。
+compute hostにはplanned `rencrow-llm-node`だけを置き、Agent、Persona、Memory、
+外部provider選択を複製しません。共通契約は[Runtime layers](runtime-layers.md)と
+[Binary placement](binary-placement.md)を参照してください。
+
+LLMの論理依存は次の3層とします。表は不変のModel割当ではなく、現在のdeployment
+mappingです。
+
+```text
+Agent                 Execution Role          Inference Target
+Mio        ----------> Chat              ---> Gemma4
+Shiro CHAT ----------> ChatWorker        ---> GPT-OSS-120B
+Shiro OPS  ----------> Worker            ---> GPT-OSS-120B
+Midori     ----------> Wild              ---> Qwen3.6
+Kuro       ----------> Heavy             ---> Codex
+```
+
+COREがAgentとExecution Roleを所有し、RenCrow_LLMがRoleに付随するprofileから
+Inference Targetを解決します。Role profileは技術設定であり、AgentとTargetの間へ
+独立した人格層を追加しません。
+
+Agent IDとExecution Role identityはmodule間の安定contract、Inference Targetと
+Role profile revisionは交換可能なdeployment設定です。PORTAL、CMD、ASSISTANTは
+Agentだけを選び、Role、execution alias、Targetを直接選びません。Shiroの`CHAT`を
+`ChatWorker`、`OPS`／作業実行を`Worker`へ割り当てる判断はCOREが所有します。
+
+現行の`mio`、`shiro`、`worker`、`midori`、`kuro`はCOREからRenCrow_LLMへ渡す
+Agent／Role bindingのopaqueな互換wire keyです。Agent ID、Role ID、Model名の
+いずれか一つではなく、Target変更だけを理由にrenameしません。
 
 ## Why not a monorepo or Git submodules
 

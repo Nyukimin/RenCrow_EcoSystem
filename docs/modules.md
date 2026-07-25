@@ -7,7 +7,7 @@
 | `RenCrow_ASSISTANT` | 個人・家族向け生活Routine、PUSH、端末配信、COREへのTask移譲 | optional/recommended binary | Device／PORTALとCOREの間で生活アシスタント機能を提供 |
 | `RenCrow_PORTAL` | 外部利用者向けview/live/lab Web UI | optional/recommended binary | allowlist内のCORE Public APIだけを中継 |
 | `RenCrow_CMD` | 管理・操作CLI (`rencrowctl`) | optional/recommended binary | CORE／ASSISTANT／PORTAL起動と許可されたPublic API操作 |
-| `RenCrow_LLM` | AgentをLLM実体へ接続しBackend差を吸収するGo Gateway | optional binary + external compute | COREから契約経由で利用。LLM targetは別途用意 |
+| `RenCrow_LLM` | Execution Role profileとInference Targetを接続するcentral Gateway／Host Node | optional binary + planned node + external compute | COREはAgentからRoleを選びcentral Gatewayを利用。compute hostはNodeとtargetを配置 |
 | `RenCrow_STT` | 公開音声契約と認識target差を吸収するGo Gateway | optional binary + external compute | COREから音声を受け、STT targetの結果を正規化 |
 | `RenCrow_TTS` | character／style／voiceを解決して合成target差を吸収するGo Gateway | optional binary + external compute | COREから発話要求を受け、TTS targetへ接続 |
 | `RenCrow_Vision` | 画像・動画解析 | optional service | CORE から解析要求を受ける |
@@ -24,7 +24,15 @@
 
 ## RenCrow_LLM runtime boundary
 
-`RenCrow_LLM`のprimary artifactはGo binary `rencrow-llm`です。Backendは独立moduleではなく、Model、重み、KV、計算資源とともにLLM targetへ付随します。現行Python role proxyはGo移行中のcompatibility runtimeであり、primary binaryへ同梱しません。
+`RenCrow_LLM`の現行primary artifactはcontrol hostへ置くGo binary`rencrow-llm`です。
+compute hostへ置くplanned`rencrow-llm-node`は同じmoduleの追加artifactとし、別repositoryに
+しません。Backendは独立moduleではなく、Model、重み、KV、計算資源とともにLLM targetへ
+付随します。現行Python role proxy／management runtimeはGo移行中のcompatibility runtimeであり、
+primary binaryへ同梱しません。詳細配置は[Binary placement](binary-placement.md)を参照してください。
+
+論理構造は`Agent -> Execution Role -> Inference Target`の3層です。AgentからRoleへの
+割当はCORE、Role profileとRoleからTargetへのmappingはRenCrow_LLMが所有します。
+Chat、ChatWorker、Worker、Wild、Heavyは廃止対象の旧port名ではなくExecution Roleです。
 
 ## RenCrow_STT / RenCrow_TTS runtime boundary
 
