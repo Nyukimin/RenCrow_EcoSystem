@@ -44,6 +44,15 @@ Tools / Games / Workspace -------- ecosystem support
 別の配布層として宣言しています。いずれもGo Gatewayはdevelopment状態であり、
 現行Python APIを置き換えたという意味ではありません。
 
+RenCrow_LLMは一つのcentral Gatewayと、compute hostごとのplanned Host Nodeへ
+deployment roleを分けます。配置先、supervisor、Model／Backendの所有境界は
+[Binary placement](docs/binary-placement.md)を正本とします。
+
+LLMの論理構造は`Agent -> Execution Role -> Inference Target`の3層です。Mio／Shiro／
+Midori／KuroをAgent、Chat／ChatWorker／Worker／Wild／HeavyをExecution Role、
+Gemma4／GPT-OSS-120B／Qwen3.6／Codex等をInference Targetとして分離します。
+Role profileはExecution Roleに付随する設定レコードであり、独立した第4層ではありません。
+
 RenCrow_ASSISTANTは、個人・家族向けの生活Routine、PUSH、端末配信、COREへの
 Task移譲を所有するplannedのGo serviceです。Mio等のAgentやPORTALのWeb画面を
 所有するmoduleではありません。
@@ -65,6 +74,7 @@ Routine／delivery状態を所有する常駐serviceです。
 │   ├── README.md
 │   ├── assistant-boundary.md
 │   ├── architecture.md
+│   ├── binary-placement.md
 │   ├── compatibility.md
 │   ├── installation.md
 │   ├── interaction-surfaces.md

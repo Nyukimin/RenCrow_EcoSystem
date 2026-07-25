@@ -52,7 +52,7 @@
       "version": "unpinned",
       "required": false,
       "distribution": "binary",
-      "role": "Go LLM gateway for Agent routing, backend adaptation, and response normalization",
+      "role": "Go central LLM gateway for Execution Role profile to Inference Target mapping, backend adaptation, Host Node coordination, and response normalization",
       "runtime": {
         "primary": {
           "implementation": "go",

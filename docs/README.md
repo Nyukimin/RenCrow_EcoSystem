@@ -11,8 +11,9 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 4. [PORTAL–CORE contract](portal-core-contract.md) — 外部UIと中核runtimeの接続・公開境界
 5. [Modules](modules.md) — 各 repository の責務
 6. [Runtime layers](runtime-layers.md) — primary binaryと外部runtimeの配布境界
-7. [Installation](installation.md) — 現在利用できる導入方法
-8. [Compatibility](compatibility.md) — version 固定と統合 release 手順
+7. [Binary placement](binary-placement.md) — control／compute／interaction hostへの配置規則
+8. [Installation](installation.md) — 現在利用できる導入方法
+9. [Compatibility](compatibility.md) — version 固定と統合 release 手順
 
 ## Documentation boundary
 
@@ -22,6 +23,7 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 | repository 間の責務境界 | API・設定リファレンス |
 | module 間の通信方向とsecurity境界 | endpoint payloadと内部実装 |
 | 導入順序 | build・test 手順 |
+| host roleごとのbinary配置 | Backend固有の起動引数、Model path |
 | 動作確認済み version | module 固有 roadmap |
 | 統合 acceptance | module 内部の障害調査 |
 

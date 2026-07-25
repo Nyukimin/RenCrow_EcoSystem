@@ -41,13 +41,18 @@ PUSHを使う場合は`RenCrow_ASSISTANT`、管理CLIを使う場合は`RenCrow_
 4. required component を導入する。
 5. optional component は利用者が明示選択する。
 6. 選択componentの`runtime.companions`を確認し、外部演算runtimeが必要ならmodule側手順へ案内する。
-7. secret を repository や command line に残さず設定する。
-8. CORE health と選択した capability の end-to-end check を行う。
+7. [Binary placement](binary-placement.md)に従いcontrol／compute／interaction hostへ配置する。
+8. secret を repository や command line に残さず設定する。
+9. CORE health と選択した capability の end-to-end check を行う。
 
 RenCrow_LLM、RenCrow_STT、RenCrow_TTSの場合、installerが取得するprimary artifactは
 それぞれ`rencrow-llm`、`rencrow-stt`、`rencrow-tts`です。LLM／STT／TTS targetの
 engine、Model、重み、KV、decoder／codec、音声資産、計算資源は自動同梱せず、
 各moduleの利用者Configで接続します。
+
+planned`rencrow-llm-node`はartifactが実在し、module側のbuild／test／releaseと
+EcoSystem互換試験が成立するまでinstaller対象にしません。成立後はModel／GPUを持つ
+compute hostへだけ配置し、control hostの`rencrow-llm`と同一互換versionに固定します。
 
 RenCrow_ASSISTANTを選択した場合、installerは`rencrow-assistant`と非secret設定例を
 導入します。利用者、家族、端末、Calendar等のcredentialはsourceやcommand lineへ

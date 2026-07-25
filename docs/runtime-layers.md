@@ -26,17 +26,25 @@ user environment
 
 ```text
 primary
-  rencrow-llm             Go binary
+  rencrow-llm             Go central Gateway / control host
        |
-       v
-companion: llm-target     bundled=false / required=true
-  Backend + Model + weights + KV + compute
+       +-> planned module artifact
+       |     rencrow-llm-node  Go Host Node / compute host
+       |
+       +-> companion: llm-target     bundled=false / required=true
+       |     Backend + Model + weights + KV + compute
+       |
+       `-> external API / trusted Agent Runtime
 
 companion: python-compat  bundled=false / required=false
   Go移行中の現行Python role proxy / management runtime
 ```
 
-BackendはLLM targetに付随し、EcoSystemの独立componentにはしません。EcoSystemは`rencrow-llm` binaryのreleaseと、検証したLLM target構成・適合levelを組み合わせて互換性を記録します。
+BackendはLLM targetに付随し、EcoSystemの独立componentにはしません。
+`rencrow-llm-node`もRenCrow_LLMとBackend契約、status schema、release cadenceを共有するため、
+別moduleにしません。Nodeがbuild／release可能になるまではplannedであり、存在するartifactとして
+manifestへ登録しません。EcoSystemは`rencrow-llm`、将来のNode artifact、検証したLLM target
+構成・適合levelを組み合わせて互換性を記録します。
 
 ## RenCrow_STT
 
