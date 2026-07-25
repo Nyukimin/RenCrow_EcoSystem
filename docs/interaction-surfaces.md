@@ -63,7 +63,7 @@ RenCrow_ASSISTANT
 
 | profile | 固有差 | 所有しないもの |
 | --- | --- | --- |
-| PORTAL | Chat／IdleChatのWeb表示・入力、view／live／labのmode、Web renderer | Persona、会話、Task、Routine、deliveryの正本 |
+| PORTAL | Chat／IdleChatのWeb表示・入力、Web renderer | Persona、会話、Task、Routine、deliveryの正本 |
 | CMD | terminal表示、scriptable command、process起動、診断・管理操作 | CORE／PORTAL／ASSISTANTのruntime状態 |
 | ASSISTANT | 時刻・条件発火、PUSH、利用者・家族・端末、ack／snooze／retry | Agent人格、Agent Memory、CORE Task、PORTAL画面 |
 
@@ -71,7 +71,7 @@ RenCrow_ASSISTANT
 
 | profile例 | capability例 |
 | --- | --- |
-| `portal-user` | chat、idlechat、tts、stt。実際の許可はview／live／labでさらに制限 |
+| `portal-user` | chat、idlechat、tts、stt。Chatは許可制操作、IdleChatは読み取り専用 |
 | `cmd-user` | chat、idlechat、status |
 | `cmd-admin` | `cmd-user`に加えてrepair、process-control |
 | `assistant-user` | chat、idlechat、push、routine。端末能力と利用者scopeで制限 |
