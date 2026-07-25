@@ -37,7 +37,7 @@ surfaceであり、ASSISTANTは共通Interaction能力を利用しながら生�
 | IdleChat | 状態・eventを購読し、開始・停止などの操作権限を分ける | CORE Public API |
 | recipient / Agent選択 | 表示上の選択と実message宛先を混同しない | CORE Public APIと各client local state |
 | event購読 | 再接続、重複、順序、degradedを扱う | event発行module |
-| session / correlation | request、response、task、deliveryを追跡できる | 処理を所有するmodule |
+| session / trace | request、response、task、deliveryを必須`trace_id`で追跡できる | 処理を所有するmodule |
 | STT / TTS | 入力、合成、取得、端末再生を別々の成功条件にする | COREとSTT／TTS contract |
 | Task | 通常会話と複雑な継続作業を区別し、statusを追跡する | CORE |
 | acknowledgement | idempotencyを保ち、再送を二重処理しない | eventまたはdeliveryの所有module |
@@ -67,22 +67,24 @@ RenCrow_ASSISTANT
 | CMD | terminal表示、scriptable command、process起動、診断・管理操作 | CORE／PORTAL／ASSISTANTのruntime状態 |
 | ASSISTANT | 時刻・条件発火、PUSH、利用者・家族・端末、ack／snooze／retry | Agent人格、Agent Memory、CORE Task、PORTAL画面 |
 
-権限は個別の隠れ機能ではなく、capability profileとして扱います。概念例は次です。
+権限は個別の隠れ機能ではなく、capability profileとして扱います。CORE Interactionの
+現行wire profileは次です。
 
-| profile例 | capability例 |
+| profile | capability |
 | --- | --- |
-| `portal-user` | chat、idlechat、tts、stt。Chatは許可制操作、IdleChatは読み取り専用 |
-| `cmd-user` | chat、idlechat、status |
-| `cmd-admin` | `cmd-user`に加えてrepair、process-control |
-| `assistant-user` | chat、idlechat、push、routine。端末能力と利用者scopeで制限 |
+| `portal-chat` | PORTAL Chat allowlist |
+| `portal-idlechat` | PORTAL IdleChat読み取り |
+| `cmd-chat` | CMD Chat送信とevent購読 |
+| `cmd-idlechat` | CMD IdleChat status／event／start／stop |
+| `assistant-core` | ASSISTANTからCOREへのChat送信とevent購読 |
 
-profile名とwire schemaは採用概念であり、現在すべてのmoduleに同名の設定が実装済みと
-いう意味ではありません。
+clientは`X-RenCrow-Client`と`X-RenCrow-Interaction-Profile`を組で送ります。これは
+capability policyの入力であり、認証credentialではありません。
 
 ## PUSHと出力event
 
 PUSHは第二の会話systemを作りません。ASSISTANTが生活Routineから生成した通知も、
-COREから戻った会話・Task結果も、利用者、source、category、本文、相関ID、delivery方針を
+COREから戻った会話・Task結果も、利用者、source、category、本文、必須`trace_id`、delivery方針を
 持つInteraction outputとして扱えます。同じ意味の出力をsurfaceごとに表現します。
 
 | surface / device | 表現例 |
@@ -125,9 +127,10 @@ COREの共通知識基盤または将来の専用News moduleが正本になり�
 | CORE Chat／IdleChat Public API | 実装済み |
 | PORTAL Chat／IdleChat Web profile | 実装済み |
 | CMD Chat CLI profile | 実装済み |
-| CMD IdleChat `watch`／`start`／`stop` | 採用済み・未実装 |
-| ASSISTANT runtime／Interaction profile／Device delivery | 採用済み・未実装 |
-| profile名を使う統一認可設定 | 採用概念・未実装 |
+| CMD IdleChat `watch`／`start`／`stop` | 実装済み |
+| ASSISTANT Interaction profile／Device delivery renderer | foundation実装済み |
+| ASSISTANT runtime／Routine／PUSH | 採用済み・未実装 |
+| profile名を使うcapability guard | 実装済み |
 | 共通Interaction SDK | 未採用。実callerと重複が確認されるまで先行作成しない |
 
 ## 統合acceptance
@@ -137,7 +140,7 @@ COREの共通知識基盤または将来の専用News moduleが正本になり�
 2. IdleChat eventの意味、開始・停止、拒否、degradedがsurface間で矛盾しない。
 3. profileまたはmodeで許可されない操作がclient側とserver側の両方で拒否される。
 4. 再接続や再送でmessage、Task、PUSH、acknowledgementが二重処理されない。
-5. 同じ出力のsource、category、相関IDを保ったまま、surface／deviceごとに表現を変えられる。
+5. 同じ出力のsource、category、`trace_id`を保ったまま、surface／deviceごとに表現を変えられる。
 6. PORTAL停止、CORE停止、Device切断を分けて試験し、ASSISTANTの継続・degraded・retryが
    仕様どおりになる。
 7. personal、family、adminのscopeがsurface変更によって拡大しない。
