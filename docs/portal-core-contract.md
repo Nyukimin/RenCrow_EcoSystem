@@ -10,7 +10,7 @@ endpointのpayload、内部実装、module固有の設定は複製しません�
 
 - CORE API: `RenCrow_CORE/docs/06_Public_API仕様.md`
 - PORTAL proxyとUI: `RenCrow_PORTAL/README.md`および`internal/portal/`
-- TTS／STT target: `RenCrow_TTS`／`RenCrow_STT`の各module仕様
+- TTS／STT Gatewayとtarget: `RenCrow_TTS`／`RenCrow_STT`の各module仕様
 
 現在のecosystem releaseは`development`、compatibilityは`unpinned`です。この文書は
 接続契約を定義しますが、特定versionの互換性確認済みを主張しません。
@@ -21,11 +21,12 @@ endpointのpayload、内部実装、module固有の設定は複製しません�
 | --- | --- | --- |
 | Persona、Memory、会話処理、routing | CORE | PORTALは複製しない |
 | `/viewer/*`、SSE、STT WebSocket | CORE | runtime behaviorとpayloadの正本 |
-| `view`／`live`／`lab` Web UI | PORTAL | 外部利用者向け表示と入力 |
+| `Chat`／`IdleChat` Web UI | PORTAL | Chatはallowlist内の操作、IdleChatは読み取り専用 |
 | 外部公開するmethod／path | PORTAL | allowlistに明示したものだけ中継 |
 | recipientの選択表示 | PORTAL client | browser tab内のlocal state |
 | 実際のmessage宛先 | CORE request | `POST /viewer/send`の`to`で確定 |
 | audio／input active owner | CORE | client IDごとのclaim、heartbeat、release |
+| TTS／STT公開契約 | RenCrow_TTS／RenCrow_STT | COREは各Gatewayだけを参照 |
 | TTS合成とSTT認識 | TTS／STT target | PORTALやCOREへ演算実体を持ち込まない |
 
 PORTALはruntime状態の正本ではありません。TTS／STTのON／OFFはPORTALのUI状態ですが、
@@ -51,20 +52,22 @@ RenCrow_TTS          RenCrow_STT
 TTS target           STT target
 ```
 
-PORTALはCOREの全APIを透過公開しません。COREと各capabilityの間には、移行期間中に
-compatibility runtimeが入る場合がありますが、失敗を成功へ丸めてはいけません。
+PORTALはCOREの全APIを透過公開しません。COREはRenCrow_TTS／RenCrow_STT Gatewayだけを
+参照し、演算targetや互換runtimeへ直接fallbackしません。
 
 ## Mode permissions
 
-| Operation | `view` | `live` | `lab` |
-| --- | --- | --- | --- |
-| CORE health、会話event、IdleChat statusの読み取り | allow | allow | allow |
-| chat recipientの選択通知 | deny | deny | allow |
-| message送信、IdleChat開始／停止 | deny | deny | allow |
-| audio／input active-control | deny | deny | allow |
-| TTS audio取得とplayback ACK | deny | deny | allow |
-| STT WebSocket入力 | deny | deny | allow |
-| Debug、Ops、Repair、LLM管理、設定変更 | deny | deny | deny |
+| Operation | `IdleChat` | `Chat` |
+| --- | --- | --- |
+| CORE health、会話event、IdleChat statusの読み取り | allow | allow |
+| chat recipientの選択通知 | deny | allow |
+| message送信、IdleChat開始／停止 | deny | allow |
+| audio／input active-control | deny | allow |
+| TTS audio取得とplayback ACK | deny | allow |
+| STT WebSocket入力 | deny | allow |
+| Debug、Ops、Repair、LLM管理、設定変更 | deny | deny |
+
+旧`view`、`live`、`lab`のpage modeとAPI prefixは拒否し、別modeへfallbackしません。
 
 正確なallowlistはPORTALの実装とcontract testを正本とします。COREにendpointを追加しても、
 PORTAL側へmethod／pathと拒否testを明示しない限り外部公開しません。
@@ -131,7 +134,7 @@ PORTAL        CORE              STT Gateway / target
 
 - PORTALはSTT ON時にinput ownerをclaimし、browser microphoneを取得する。
 - browser音声はmono PCM16、16 kHzへ変換し、PORTAL経由のWebSocketでCOREへ送る。
-- COREはSTT contractを通じてRenCrow_STT Gatewayまたは移行中のcompatibility runtimeへ接続する。
+- COREはRenCrow_STT Gatewayの`POST /v1/audio/transcriptions`だけへ接続する。
 - `partial`／`draft`は入力欄へ反映し、`final`は選択中recipientへのmessage入力として扱う。
 - WebSocket、CORE bridge、STT Gateway、STT targetの各層を別々にhealth判定する。
 - backend未到達、認識error、owner移譲、microphone取得失敗ではSTTをOFFへ戻し、
@@ -142,8 +145,9 @@ STT利用可能とは判定しません。
 
 ## Security boundary
 
-- `view`と`live`は読み取り専用とし、write／control requestを拒否する。
-- `lab`も明示allowlist外のendpointを拒否する。
+- `IdleChat`は読み取り専用とし、write／control requestを拒否する。
+- `Chat`も明示allowlist外のendpointを拒否する。
+- 旧`view`／`live`／`lab`はpageとAPIの両方で拒否する。
 - browserからのwriteとSTT WebSocketはsame-originを要求する。
 - PORTALはrequest bodyに上限を設ける。
 - Debug、Ops、Repair、admin、LLM管理、設定変更をPORTALから公開しない。
@@ -168,8 +172,8 @@ STT利用可能とは判定しません。
 PORTALとCOREの組み合わせをcompatibleと記録する前に、最低限次を確認します。
 
 1. CORE healthとPORTAL readinessが成功する。
-2. `view`と`live`からwrite／control操作が拒否される。
-3. `lab`のrecipient切替がCORE eventへ到達し、messageの`to`と一致する。
+2. `IdleChat`からwrite／control操作が拒否される。
+3. `Chat`のrecipient切替がCORE eventへ到達し、messageの`to`と一致する。
 4. TTS ONでaudio ownerを取得し、実応答のaudio取得とplayback ACKまで到達する。
 5. TTS再生成功と再生errorの両方が正しいACK statusになる。
 6. STT WebSocket upgrade、start／stop、実音声の`final`認識まで到達する。
@@ -177,6 +181,7 @@ PORTALとCOREの組み合わせをcompatibleと記録する前に、最低限次
 8. Debug／admin endpointとcross-origin controlが拒否される。
 9. 設定外hostのTTS audio取得が拒否される。
 10. client終了後にaudio／input ownerが残留しないか、TTLで失効する。
+11. 旧`view`／`live`／`lab`のpage modeとAPI prefixが拒否される。
 
 確認command、対象version、実行環境、結果、未確認点をverification recordへ残してから、
 `ecosystem.yaml`のCORE／PORTAL versionとcompatibility statusを更新します。

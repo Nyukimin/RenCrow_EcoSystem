@@ -28,7 +28,7 @@ user environment
 primary
   rencrow-llm             Go central Gateway / control host
        |
-       +-> planned module artifact
+       +-> implemented module artifact
        |     rencrow-llm-node  Go Host Node / compute host
        |
        +-> companion: llm-target     bundled=false / required=true
@@ -42,9 +42,9 @@ companion: python-compat  bundled=false / required=false
 
 BackendはLLM targetに付随し、EcoSystemの独立componentにはしません。
 `rencrow-llm-node`もRenCrow_LLMとBackend契約、status schema、release cadenceを共有するため、
-別moduleにしません。Nodeがbuild／release可能になるまではplannedであり、存在するartifactとして
-manifestへ登録しません。EcoSystemは`rencrow-llm`、将来のNode artifact、検証したLLM target
-構成・適合levelを組み合わせて互換性を記録します。
+別moduleにしません。Node実装とRTX5060／Macへの初回配布は完了しています。
+production GatewayのNode cutoverは未完了なので、EcoSystemはGateway／Nodeの同一module
+version、認証、status schema、Backend contract、実生成を組み合わせて互換性を記録します。
 
 ## RenCrow_STT
 
@@ -56,14 +56,12 @@ primary
 companion: stt-target     bundled=false / required=true
   transcription engine + Model + weights + decoder + compute
 
-companion: python-compat  bundled=false / required=false
-  Go移行中の現行Python HTTP／WebSocket serverとin-process providers
 ```
 
 Go Gatewayは公開HTTP／WebSocket契約、音声入力validation、target adapter、文字起こし
 結果とerror／fallbackの正規化を所有します。Model load、decode、warmup、GPU最適化は
-STT targetの責務です。現行Python providerはまだ同一processに演算を含むため、
-compatibility runtimeとして記録します。
+STT targetの責務です。COREはRenCrow_STT Gatewayの`/v1/audio/transcriptions`だけを
+使用し、互換runtimeや物理targetへ直接接続しません。
 
 ## RenCrow_TTS
 
@@ -75,13 +73,21 @@ primary
 companion: tts-target     bundled=false / required=true
   synthesis engine + Model + weights + voice assets + codec + compute
 
-companion: python-compat  bundled=false / required=false
-  Go移行中の現行Python TTS APIとIrodori連携
 ```
 
 Go Gatewayは文章整形、character／style／voice routing、target adapter、WAV中継を
 所有します。reference音声、seed、engine parameter、Model load、合成演算はTTS target
 の責務です。現行の`RenCrow_Irodori_TTS` deploymentはこのtargetに該当します。
 
-Visionへ同じ分離形を適用する場合も、module側でprimary binaryと外部演算runtimeの
-境界を正本化してからmanifestへ追加します。未確認の言語やartifact名は先行登録しません。
+## RenCrow_Vision
+
+`RenCrow_Vision`はCOREとWild backendの間の必須認識interfaceです。media検証、
+動画frame sampling、Wild request、結果正規化を所有します。COREはVisionのbase URLだけを
+持ち、Wild endpoint、Model、media変換parameterを持ちません。
+
+## RenCrow_Image
+
+`RenCrow_Image`はCOREとForgeNeo／Z-Image等のbackendの間の必須画像生成interfaceです。
+公開HTTP contract、backend profile、Model／workflow／生成parameterの所有境界を持ちます。
+現行MVPはPython serviceですが、配布artifactが固定されるまでは`runtime.primary`を
+先行登録しません。

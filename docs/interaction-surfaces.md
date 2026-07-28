@@ -128,8 +128,8 @@ COREの共通知識基盤または将来の専用News moduleが正本になり�
 | PORTAL Chat／IdleChat Web profile | 実装済み |
 | CMD Chat CLI profile | 実装済み |
 | CMD IdleChat `watch`／`start`／`stop` | 実装済み |
-| ASSISTANT Interaction profile／Device delivery renderer | foundation実装済み |
-| ASSISTANT runtime／Routine／PUSH | 採用済み・未実装 |
+| ASSISTANT Interaction profile／Device delivery renderer | 仕様策定済み・runtime未実装 |
+| ASSISTANT runtime／Routine／PUSH | planned・未実装 |
 | profile名を使うcapability guard | 実装済み |
 | 共通Interaction SDK | 未採用。実callerと重複が確認されるまで先行作成しない |
 

@@ -12,7 +12,7 @@
       "version": "unpinned",
       "required": true,
       "distribution": "binary",
-      "role": "Core server and public interaction contract for Agent, Chat, IdleChat, Task, Persona, Memory, approval, and routing"
+      "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, approval, route, adapter, and user-facing behavior"
     },
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
@@ -97,13 +97,6 @@
             "required": true,
             "bundled": false,
             "role": "STT target composed of transcription engine, Model, weights, decoder, and compute resources"
-          },
-          {
-            "id": "python-compat",
-            "kind": "compatibility-runtime",
-            "required": false,
-            "bundled": false,
-            "role": "Current Python HTTP and WebSocket server with in-process providers retained during Go migration"
           }
         ]
       }
@@ -128,13 +121,6 @@
             "required": true,
             "bundled": false,
             "role": "TTS target composed of synthesis engine, Model, weights, voice assets, codec, and compute resources"
-          },
-          {
-            "id": "python-compat",
-            "kind": "compatibility-runtime",
-            "required": false,
-            "bundled": false,
-            "role": "Current Python TTS API and Irodori integration retained during Go migration"
           }
         ]
       }
@@ -145,7 +131,7 @@
       "version": "unpinned",
       "required": false,
       "distribution": "service",
-      "role": "Image and video analysis capability service"
+      "role": "Mandatory image and video recognition interface from CORE to the Wild backend, including media validation, preprocessing, and result normalization"
     },
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
@@ -153,7 +139,7 @@
       "version": "unpinned",
       "required": false,
       "distribution": "extension",
-      "role": "Game worlds, rules, replay, observer, and RenCrowBridge client"
+      "role": "CORE-initiated deterministic game execution, world/rule ownership, replay and observer UI, with turn decision callbacks through RenCrowBridge to CORE"
     },
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
@@ -168,16 +154,16 @@
       "workspace_path": "../RenCrow_Image",
       "version": "unpinned",
       "required": false,
-      "distribution": "offline-assets",
-      "role": "Image generation and learning-asset production"
+      "distribution": "service",
+      "role": "Mandatory drawing and image-generation HTTP interface from CORE to ForgeNeo, Z-Image, or another configured backend"
     },
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "../RenCrow_Workspace",
       "version": "unpinned",
       "required": false,
-      "distribution": "template",
-      "role": "Portable, non-secret configuration and prompt templates"
+      "distribution": "snapshot",
+      "role": "Portable non-secret snapshot for backup and recovery of the canonical Ubuntu runtime workspace"
     }
   }
 }

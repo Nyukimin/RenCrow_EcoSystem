@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import importlib.util
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -79,6 +80,30 @@ class EcosystemManifestTest(unittest.TestCase):
         self.assertEqual(tts_runtime["companions"][0]["kind"], "external-compute")
         self.assertFalse(tts_runtime["companions"][0]["bundled"])
 
+    def test_stt_and_tts_do_not_declare_direct_python_compatibility_routes(self) -> None:
+        for component_id in ("stt", "tts"):
+            companions = self.manifest["components"][component_id]["runtime"][
+                "companions"
+            ]
+            self.assertNotIn(
+                "python-compat",
+                {companion["id"] for companion in companions},
+            )
+
+    def test_image_is_a_service_and_workspace_is_a_snapshot(self) -> None:
+        self.assertEqual(
+            self.manifest["components"]["image"]["distribution"], "service"
+        )
+        self.assertEqual(
+            self.manifest["components"]["workspace"]["distribution"], "snapshot"
+        )
+
+    def test_games_declares_core_initiated_observed_execution(self) -> None:
+        games_role = self.manifest["components"]["games"]["role"]
+        self.assertIn("CORE-initiated", games_role)
+        self.assertIn("observer", games_role.lower())
+        self.assertIn("decision callback", games_role)
+
     def test_assistant_declares_planned_go_primary(self) -> None:
         assistant = self.manifest["components"]["assistant"]
         assistant_runtime = assistant["runtime"]
@@ -115,6 +140,50 @@ class EcosystemManifestTest(unittest.TestCase):
 
         with self.assertRaisesRegex(VALIDATOR.ManifestError, "external-compute"):
             VALIDATOR.validate_manifest(candidate)
+
+    def test_workspace_validation_skips_missing_optional_component(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            workspace = Path(temp_directory)
+            ecosystem = workspace / "RenCrow_EcoSystem"
+            ecosystem.mkdir()
+            manifest_path = ecosystem / "ecosystem.yaml"
+            manifest_path.touch()
+            (workspace / "RenCrow_CORE" / ".git").mkdir(parents=True)
+            candidate = {
+                "components": {
+                    "core": {
+                        "workspace_path": "../RenCrow_CORE",
+                        "required": True,
+                    },
+                    "assistant": {
+                        "workspace_path": "../RenCrow_ASSISTANT",
+                        "required": False,
+                    },
+                }
+            }
+
+            VALIDATOR.validate_workspace(candidate, manifest_path)
+
+    def test_workspace_validation_rejects_missing_required_component(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            workspace = Path(temp_directory)
+            ecosystem = workspace / "RenCrow_EcoSystem"
+            ecosystem.mkdir()
+            manifest_path = ecosystem / "ecosystem.yaml"
+            manifest_path.touch()
+            candidate = {
+                "components": {
+                    "core": {
+                        "workspace_path": "../RenCrow_CORE",
+                        "required": True,
+                    }
+                }
+            }
+
+            with self.assertRaisesRegex(
+                VALIDATOR.ManifestError, "components.core workspace is missing"
+            ):
+                VALIDATOR.validate_workspace(candidate, manifest_path)
 
 
 if __name__ == "__main__":

@@ -18,6 +18,7 @@ ALLOWED_DISTRIBUTIONS = {
     "extension",
     "offline-assets",
     "service",
+    "snapshot",
     "template",
     "tooling",
 }
@@ -249,6 +250,8 @@ def validate_workspace(data: dict[str, Any], manifest_path: Path) -> None:
     for component_id, component in data["components"].items():
         component_path = (base_directory / component["workspace_path"]).resolve()
         if not component_path.is_dir():
+            if component.get("required") is False:
+                continue
             raise ManifestError(
                 f"components.{component_id} workspace is missing: {component_path}"
             )

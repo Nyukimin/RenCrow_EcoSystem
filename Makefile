@@ -1,12 +1,14 @@
 .PHONY: check check-manifest check-workspace test
 
+PYTHON ?= python3
+
 check: check-manifest test
 
 check-manifest:
-	python3 scripts/validate_ecosystem.py ecosystem.yaml
+	$(PYTHON) scripts/validate_ecosystem.py ecosystem.yaml
 
 check-workspace:
-	python3 scripts/validate_ecosystem.py ecosystem.yaml --check-workspace
+	$(PYTHON) scripts/validate_ecosystem.py ecosystem.yaml --check-workspace
 
 test:
-	python3 -m unittest discover -s tests -p 'test_*.py'
+	$(PYTHON) -m unittest discover -s tests -p 'test_*.py'

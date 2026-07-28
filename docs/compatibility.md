@@ -42,6 +42,17 @@ manifest の STT version を更新してから ecosystem patch release を作り
 health success だけで音声再生、認識、画像解析、game bridge などの利用可能性を
 主張しません。各 capability は実際の入出力まで確認します。
 
+## RenCrow_GAMES acceptance
+
+- COREのAgent／LLMまたは認可clientから`POST /viewer/games/launch`を実行し、
+  GAMES Observerがsessionを起動する。
+- GAMESのturn observationが`/viewer/games/decision`を通ってRenCrow_LLMの
+  `BrainDecision`になり、GAMES executorが検証後に実行する。
+- `/viewer/games/observer`経由でユーザーが実行中の盤面、判断、結果を確認できる。
+- `/viewer/games/result`がReplayと相関できるcandidate eventを記録する。
+- CORE停止時にGAMESが本番LLMへ直接fallbackせず、world stateを壊さず停止または
+  明示したdegraded modeへ移る。
+
 ## RenCrow_LLM acceptance
 
 RenCrow_LLMを含む組み合わせでは、一般的なminimum acceptanceに加えて次を確認します。
@@ -66,7 +77,8 @@ RenCrow_LLMを含む組み合わせでは、一般的なminimum acceptanceに加
 - Target変更時にModel／tokenizer／chat template／context prefixの互換性を確認し、
   非互換session／KVを再利用せず、直前の検証済みprofile revisionへrollbackできる。
 
-planned`rencrow-llm-node`はartifactと統合試験が成立するまでcompatibility claimへ含めません。
+実装済み`rencrow-llm-node`はproduction Gateway cutoverと統合試験が成立するまで
+verified compatibility claimへ含めません。
 配置規則は[Binary placement](binary-placement.md)、詳細contractはRenCrow_LLMの
 `docs/10_Gateway_Node_Target責務仕様.md`を参照してください。
 
@@ -80,7 +92,8 @@ releaseの組み合わせを固定し、runtimeのRole profileそのものの正
 
 PORTALを含む組み合わせでは、一般的なminimum acceptanceに加えて次を確認します。
 
-- `view`／`live`のwrite拒否と、`lab`の明示allowlistを確認する。
+- `IdleChat`のwrite拒否と、`Chat`の明示allowlistを確認する。
+- 旧`view`／`live`／`lab` page modeとAPI prefixが拒否されることを確認する。
 - recipient切替通知と、実際のmessage `to`が一致することを確認する。
 - TTSのaudio owner取得、SSE audio、音声取得、browser再生、playback ACKを
   別々のcheckpointとして確認する。

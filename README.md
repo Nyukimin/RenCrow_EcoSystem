@@ -20,9 +20,10 @@ RenCrow_EcoSystem  -- release/catalog reference --> module releases
                     |         |         |
           Device clients   Browser   Terminal / Script
 
-RenCrow_CORE ---- contracts ----> LLM / STT / TTS / Vision
-RenCrowBridge ---- bridge ------> RenCrow_CORE
-Tools / Games / Workspace -------- ecosystem support
+RenCrow_CORE ---- contracts ----> LLM / STT / TTS / Vision / Image
+RenCrow_CORE -- launch ---------> RenCrow_GAMES
+RenCrow_GAMES -- decision/result callbacks --> RenCrow_CORE
+Games / Tools / Workspace -------- ecosystem support
 ```
 
 - 各 module は独立した Git リポジトリです。
@@ -41,11 +42,12 @@ Tools / Games / Workspace -------- ecosystem support
 `ecosystem.yaml` schema v2では、moduleの配布artifactを`runtime.primary`、
 利用環境側で別途動かす演算runtimeなどを`runtime.companions`として分離できます。
 現在はRenCrow_LLM、RenCrow_STT、RenCrow_TTSへ適用し、Go binaryと各演算targetを
-別の配布層として宣言しています。いずれもGo Gatewayはdevelopment状態であり、
-現行Python APIを置き換えたという意味ではありません。
+別の配布層として宣言しています。COREのproduction経路は各Gatewayだけを参照し、
+物理targetや互換runtimeへ直接接続しません。
 
-RenCrow_LLMは一つのcentral Gatewayと、compute hostごとのplanned Host Nodeへ
-deployment roleを分けます。配置先、supervisor、Model／Backendの所有境界は
+RenCrow_LLMは一つのcentral Gatewayと、compute hostごとのHost Nodeへdeployment roleを
+分けます。Host Node実装とRTX5060／Macへの初回配布は完了し、production Gatewayの
+Node cutoverは移行中です。配置先、supervisor、Model／Backendの所有境界は
 [Binary placement](docs/binary-placement.md)を正本とします。
 
 LLMの論理構造は`Agent -> Execution Role -> Inference Target`の3層です。Mio／Shiro／
@@ -61,6 +63,16 @@ PORTAL、CMD、ASSISTANTは、COREのChat、IdleChat、event、audio、Taskな�
 Interaction意味論を利用する兄弟moduleです。PORTALはWeb、CMDはterminal、ASSISTANTは
 proactive triggerとDevice deliveryを固有差とします。ASSISTANTだけはpersonal／family／
 Routine／delivery状態を所有する常駐serviceです。
+
+RenCrow_Visionは画像・動画認識の必須interface、RenCrow_Imageは描画・画像生成の
+必須interfaceです。COREはWild、ForgeNeo、ComfyUI、Z-Imageなどの物理backendへ
+直接接続しません。RenCrow_WorkspaceはUbuntu runtime workspaceを正本とする
+非secret snapshotであり、Windows checkoutやこのcatalogをruntime正本にしません。
+
+RenCrow_GAMESはworld、rules、決定論的executor、Replay、Observer UIの正本です。
+ゲームの起動主体はCOREのAgent／LLMです。起動後はGAMESが各ターンのobservationを
+RenCrowBridgeでCOREへ返し、COREがRenCrow_LLMの高位判断をGAMESへ返します。
+実行画面はGAMES ObserverをCOREがsame-origin proxyし、ユーザーへ見せます。
 
 ## Repository layout
 
@@ -96,11 +108,19 @@ JSON-compatible syntax を採用しています。
 make check
 ```
 
+Windowsで`python3` aliasがない場合:
+
+```powershell
+make PYTHON=python check
+```
+
 標準 workspace (`/home/nyukimi/RenCrow`) に全 sibling repo がある場合:
 
 ```bash
 make check-workspace
 ```
+
+Windows workspaceでは`make PYTHON=python check-workspace`を使用します。
 
 ## Documentation
 
