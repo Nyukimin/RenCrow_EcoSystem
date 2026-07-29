@@ -5,7 +5,8 @@
       "name": "python",
       "workingDirectory": ".",
       "filePath": "python",
-      "arguments": ["-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"]
+      "arguments": ["-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"],
+      "testFiles": ["tests/test_*.py"]
     }
   ]
 }
