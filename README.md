@@ -115,7 +115,7 @@ make check
 Windowsで`python3` aliasがない場合:
 
 ```powershell
-.\scripts\test-local.ps1 python -- -m unittest discover -s tests -p test_*.py
+.\scripts\test-local.ps1
 .\scripts\test-local.ps1 python -- scripts/validate_ecosystem.py ecosystem.yaml
 ```
 

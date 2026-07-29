@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "python",
+      "workingDirectory": ".",
+      "filePath": "python",
+      "arguments": ["-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"]
+    }
+  ]
+}

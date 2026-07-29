@@ -13,7 +13,7 @@
 ## Repository-local test runtime
 
 - ローカルWindowsでは
-  `.\scripts\test-local.ps1 python -- -m unittest discover -s tests -p test_*.py`
+  `.\scripts\test-local.ps1`
   のようにrunner経由でtestを実行する。
 - runnerは一時fileとcacheをrepo内の`Tmp/test-runtime/`へ限定する。
 - `Tmp/`はGit管理外とし、security softwareの停止や除外設定は行わない。
