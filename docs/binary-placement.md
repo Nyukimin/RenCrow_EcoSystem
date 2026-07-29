@@ -134,7 +134,8 @@ host supervisorとして使用できる。supervisorはNodeを監視し、Node�
 ## Current and planned status
 
 - `rencrow-llm`はmanifest上の`development` primary binaryである。
-- `rencrow`、`rencrowctl`、`rencrow-portal`を含むcomponent versionとrelease artifactは
-  現在`unpinned`であり、EcoSystem releaseとしての取得・checksum保証はまだ行わない。
+- `rencrow`、`rencrowctl`、`rencrow-portal`を含む実装済みcomponentのsource versionは
+  現在40桁commit SHAへ固定している。release artifactの取得・checksum保証は
+  `verified` releaseまで行わない。
 - `rencrow-llm-node`はRenCrow_LLMの追加artifactとして、Gatewayと同じversionおよび
   contractで検証する。

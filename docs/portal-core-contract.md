@@ -12,8 +12,9 @@ endpointのpayload、内部実装、module固有の設定は複製しません�
 - PORTAL proxyとUI: `RenCrow_PORTAL/README.md`および`internal/portal/`
 - TTS／STT Gatewayとtarget: `RenCrow_TTS`／`RenCrow_STT`の各module仕様
 
-現在のecosystem releaseは`development`、compatibilityは`unpinned`です。この文書は
-接続契約を定義しますが、特定versionの互換性確認済みを主張しません。
+現在のecosystem releaseは`development`、compatibilityは`source-pinned`です。
+この文書は固定したsource commit間の接続契約を定義しますが、release artifactの
+互換性確認済みを主張しません。
 
 ## Responsibility boundary
 

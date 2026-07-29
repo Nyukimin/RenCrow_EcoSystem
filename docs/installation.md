@@ -4,6 +4,8 @@
 
 初期段階では統合 installer を公開していません。開発者は ecosystem repo と、
 必要な module repo だけを sibling directory として clone します。
+`source-pinned` manifestのversionはcheckoutするcommit SHAであり、配布artifact名では
+ありません。`--check-workspace`検証では各local HEADがこのSHAと一致することを確認します。
 
 ```bash
 mkdir -p RenCrow

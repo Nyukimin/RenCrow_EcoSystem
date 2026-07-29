@@ -40,9 +40,11 @@ Games / Tools / Workspace -------- ecosystem support
 
 ## 現在の状態
 
-初期構成は `development` です。各 component の release version はまだ
-`unpinned` であり、互換性確認済みリリースを意味しません。最初の統合試験後に、
-実在する tag と検証結果を記録して ecosystem release を作成します。
+現在の構成は`development`かつ`source-pinned`です。実装済みcomponentは
+現在のGit commit SHAへ固定し、未実装のRenCrow_ASSISTANTだけを`planned`として
+明示します。これによりsourceの組み合わせは再現できますが、release artifact、
+checksum、統合互換性の検証済みを意味しません。統合試験後に実在するtagと
+検証結果を記録してecosystem releaseを作成します。
 
 `ecosystem.yaml` schema v2では、moduleの配布artifactを`runtime.primary`、
 利用環境側で別途動かす演算runtimeなどを`runtime.companions`として分離できます。

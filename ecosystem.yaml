@@ -3,13 +3,13 @@
   "ecosystem": {
     "name": "RenCrow",
     "release": "development",
-    "compatibility_status": "unpinned"
+    "compatibility_status": "source-pinned"
   },
   "components": {
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "../RenCrow_CORE",
-      "version": "unpinned",
+      "version": "0355f0e482f8c7aae0ed9d2a2803f02537aa008e",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, approval, route, adapter, and user-facing behavior"
@@ -17,7 +17,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "../RenCrow_PORTAL",
-      "version": "unpinned",
+      "version": "985a549a63de614caee10a7d461eeb791095c2a7",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API"
@@ -25,7 +25,7 @@
     "assistant": {
       "repository": "Nyukimin/RenCrow_ASSISTANT",
       "workspace_path": "../RenCrow_ASSISTANT",
-      "version": "unpinned",
+      "version": "planned",
       "required": false,
       "distribution": "binary",
       "role": "Stateful proactive interaction profile for personal and family routines, push delivery, devices, and optional CORE task escalation",
@@ -41,7 +41,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "../RenCrow_CMD",
-      "version": "unpinned",
+      "version": "7fe47b29466e23b12daf3c8043c405a9ca31123b",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL"
@@ -49,7 +49,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "../RenCrow_LLM",
-      "version": "unpinned",
+      "version": "3355c10e163e7fd4a24b46c9ac1e2a513abd6347",
       "required": false,
       "distribution": "binary",
       "role": "Go central LLM gateway for Execution Role profile to Inference Target mapping, backend adaptation, Host Node coordination, and response normalization",
@@ -73,7 +73,7 @@
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",
       "workspace_path": "../RenCrow_STT",
-      "version": "unpinned",
+      "version": "50c8564ca4f4b8b4f1429b69b817550d2076cf90",
       "required": false,
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
@@ -97,7 +97,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "../RenCrow_TTS",
-      "version": "unpinned",
+      "version": "2a0ae0a26d012751a978160180a345974c8825b6",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
@@ -121,7 +121,7 @@
     "vision": {
       "repository": "Nyukimin/RenCrow_Vision",
       "workspace_path": "../RenCrow_Vision",
-      "version": "unpinned",
+      "version": "03f108468a10f0cfb5a4252550c29aeaed7413c8",
       "required": false,
       "distribution": "service",
       "role": "Mandatory image and video recognition interface from CORE to the Wild backend, including media validation, preprocessing, and result normalization"
@@ -129,7 +129,7 @@
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "../RenCrow_GAMES",
-      "version": "unpinned",
+      "version": "d0c539680e9ab57df78670e2c2080d72ebb10040",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI"
@@ -137,7 +137,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "../RenCrow_Tools",
-      "version": "unpinned",
+      "version": "8831962f7f237e616758021b5aa6ffc1108c949e",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools"
@@ -145,7 +145,7 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "../RenCrow_Image",
-      "version": "unpinned",
+      "version": "7c68122ce5ef594e55dd80c5a245e40feee7bbd5",
       "required": false,
       "distribution": "service",
       "role": "Mandatory drawing and image-generation HTTP interface from CORE to ForgeNeo, Z-Image, or another configured backend"
@@ -153,7 +153,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "../RenCrow_Workspace",
-      "version": "unpinned",
+      "version": "1b0eaeb212ff782b13accf7a48a87a5efe7d0db0",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot for backup and recovery of the canonical Ubuntu runtime workspace"

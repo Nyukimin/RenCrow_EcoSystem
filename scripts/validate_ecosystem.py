@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -13,6 +14,8 @@ from typing import Any
 
 COMPONENT_ID_PATTERN = re.compile(r"^[a-z][a-z0-9_-]*$")
 REPOSITORY_PATTERN = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
+COMMIT_VERSION_PATTERN = re.compile(r"^[0-9a-f]{40}$")
+ALLOWED_COMPATIBILITY_STATUSES = {"unpinned", "source-pinned", "verified"}
 ALLOWED_DISTRIBUTIONS = {
     "binary",
     "extension",
@@ -182,6 +185,9 @@ def validate_manifest(data: dict[str, Any]) -> None:
     for field in ("name", "release", "compatibility_status"):
         if not isinstance(ecosystem.get(field), str) or not ecosystem[field].strip():
             raise ManifestError(f"ecosystem.{field} must be a non-empty string")
+    compatibility_status = ecosystem["compatibility_status"]
+    if compatibility_status not in ALLOWED_COMPATIBILITY_STATUSES:
+        raise ManifestError("ecosystem.compatibility_status is not supported")
 
     components = data.get("components")
     if not isinstance(components, dict) or not components:
@@ -220,6 +226,26 @@ def validate_manifest(data: dict[str, Any]) -> None:
             raise ManifestError(f"components.{component_id}.version must be non-empty")
         if version == "unpinned":
             unpinned_components.append(component_id)
+        elif version == "planned":
+            runtime = component.get("runtime")
+            primary = runtime.get("primary", {}) if isinstance(runtime, dict) else {}
+            if (
+                component["required"]
+                or not isinstance(primary, dict)
+                or primary.get("status") != "planned"
+            ):
+                raise ManifestError(
+                    f"components.{component_id}.version planned requires an "
+                    "optional planned runtime"
+                )
+        elif (
+            compatibility_status == "source-pinned"
+            and not COMMIT_VERSION_PATTERN.fullmatch(version)
+        ):
+            raise ManifestError(
+                f"components.{component_id}.version must be a full commit SHA "
+                "for source-pinned compatibility"
+            )
 
         if not isinstance(component["required"], bool):
             raise ManifestError(f"components.{component_id}.required must be boolean")
@@ -235,17 +261,33 @@ def validate_manifest(data: dict[str, Any]) -> None:
     if not isinstance(core, dict) or core.get("required") is not True:
         raise ManifestError("core must exist and be required")
 
-    if ecosystem["compatibility_status"] == "verified" and unpinned_components:
+    if compatibility_status in {"source-pinned", "verified"} and unpinned_components:
         names = ", ".join(sorted(unpinned_components))
-        raise ManifestError(f"verified release has unpinned components: {names}")
+        raise ManifestError(
+            f"{compatibility_status} manifest has unpinned components: {names}"
+        )
     if ecosystem["release"] != "development" and unpinned_components:
         names = ", ".join(sorted(unpinned_components))
         raise ManifestError(f"released ecosystem has unpinned components: {names}")
 
 
+def _git_head(component_path: Path) -> str:
+    result = subprocess.run(
+        ["git", "-C", str(component_path), "rev-parse", "HEAD"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        detail = result.stderr.strip() or result.stdout.strip() or "git rev-parse failed"
+        raise ManifestError(f"cannot read Git HEAD for {component_path}: {detail}")
+    return result.stdout.strip().lower()
+
+
 def validate_workspace(data: dict[str, Any], manifest_path: Path) -> None:
-    """Check that declared sibling repositories exist in a local workspace."""
+    """Check sibling repositories and source-pinned revisions in a local workspace."""
     base_directory = manifest_path.resolve().parent
+    compatibility_status = data.get("ecosystem", {}).get("compatibility_status")
     for component_id, component in data["components"].items():
         component_path = (base_directory / component["workspace_path"]).resolve()
         if not component_path.is_dir():
@@ -258,6 +300,18 @@ def validate_workspace(data: dict[str, Any], manifest_path: Path) -> None:
             raise ManifestError(
                 f"components.{component_id} is not a Git worktree: {component_path}"
             )
+        version = component.get("version")
+        if (
+            compatibility_status == "source-pinned"
+            and isinstance(version, str)
+            and COMMIT_VERSION_PATTERN.fullmatch(version)
+        ):
+            head = _git_head(component_path)
+            if head != version:
+                raise ManifestError(
+                    f"components.{component_id} HEAD {head} does not match "
+                    f"source-pinned version {version}"
+                )
 
 
 def parse_args() -> argparse.Namespace:

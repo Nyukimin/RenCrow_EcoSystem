@@ -5,6 +5,7 @@ import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -25,8 +26,34 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_verified_release_rejects_unpinned_components(self) -> None:
         candidate = copy.deepcopy(self.manifest)
         candidate["ecosystem"]["compatibility_status"] = "verified"
+        candidate["components"]["core"]["version"] = "unpinned"
 
         with self.assertRaisesRegex(VALIDATOR.ManifestError, "unpinned components"):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_source_pinned_manifest_uses_full_commit_shas(self) -> None:
+        for component_id, component in self.manifest["components"].items():
+            if component["version"] == "planned":
+                self.assertEqual(component_id, "assistant")
+                continue
+            self.assertRegex(
+                component["version"],
+                VALIDATOR.COMMIT_VERSION_PATTERN,
+                component_id,
+            )
+
+    def test_source_pinned_rejects_non_commit_version(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        candidate["components"]["cmd"]["version"] = "v0.1.0"
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "full commit SHA"):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_planned_version_requires_optional_planned_runtime(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        candidate["components"]["core"]["version"] = "planned"
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "optional planned runtime"):
             VALIDATOR.validate_manifest(candidate)
 
     def test_duplicate_repository_is_rejected(self) -> None:
@@ -196,6 +223,31 @@ class EcosystemManifestTest(unittest.TestCase):
                 VALIDATOR.ManifestError, "components.core workspace is missing"
             ):
                 VALIDATOR.validate_workspace(candidate, manifest_path)
+
+    def test_workspace_validation_checks_source_pinned_head(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            workspace = Path(temp_directory)
+            ecosystem = workspace / "RenCrow_EcoSystem"
+            ecosystem.mkdir()
+            manifest_path = ecosystem / "ecosystem.yaml"
+            manifest_path.touch()
+            (workspace / "RenCrow_CORE" / ".git").mkdir(parents=True)
+            candidate = {
+                "ecosystem": {"compatibility_status": "source-pinned"},
+                "components": {
+                    "core": {
+                        "workspace_path": "../RenCrow_CORE",
+                        "required": True,
+                        "version": "a" * 40,
+                    }
+                },
+            }
+
+            with mock.patch.object(VALIDATOR, "_git_head", return_value="b" * 40):
+                with self.assertRaisesRegex(
+                    VALIDATOR.ManifestError, "does not match source-pinned"
+                ):
+                    VALIDATOR.validate_workspace(candidate, manifest_path)
 
 
 if __name__ == "__main__":

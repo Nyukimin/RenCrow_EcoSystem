@@ -56,14 +56,17 @@ This repository does not own:
   API. It is not an independent runtime or API source of truth.
 - A module repository is authoritative for its source, API, build, tests,
   configuration, and module-specific roadmap.
-- This repository is authoritative only for the tested combination of module
-  releases and ecosystem-wide guidance.
+- This repository is authoritative for declared source pins, tested release
+  combinations, and ecosystem-wide guidance. A source pin alone is not a
+  compatibility claim.
 - Do not duplicate detailed module specifications here. Link to them and record
   only the cross-module consequence.
 - Do not mark a component version as compatible until the declared integration
   checks have passed.
-- `development` and `unpinned` are explicit states. Never invent a release tag
-  to make the matrix look complete.
+- `development`, `source-pinned`, `unpinned`, and `verified` are explicit states.
+  `source-pinned` uses full Git commit SHAs for implemented components and
+  `planned` only for an optional runtime that does not exist yet. Never invent a
+  release tag or commit to make the matrix look complete.
 - Describe only the current architecture and explicitly planned components.
   Remove superseded systems and interfaces from the manifest and documentation
   instead of retaining migration or rejection narratives.

@@ -39,7 +39,8 @@ ASSISTANTが所有し、複数工程、生成、継続調査、承認付きside 
 - ASSISTANTはCORE Public APIを利用し、debug/admin APIを利用しません。
 - plannedのPORTAL連携はASSISTANT公開APIのallowlistを必要とし、読み取りsurfaceから
   writeしません。
-- ASSISTANTが未実装の現在、manifestのversionは`unpinned`、runtime statusは`planned`です。
+- ASSISTANTが未実装の現在、manifestのversionとruntime statusはともに`planned`です。
+  実在しないcommitやrelease artifactを割り当てません。
 - ASSISTANTは実装後にPORTALやCMDと共通のInteraction意味論を利用しますが、時刻・条件発火、
   PUSH、Device deliveryと生活領域の状態だけはASSISTANT固有です。
 - PUSHを別の会話systemにせず、CORE応答と生活通知を共通のInteraction outputとして

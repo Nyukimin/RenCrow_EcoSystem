@@ -6,30 +6,39 @@
 組み合わせ」を表します。各 module の version を同じ番号に揃えるものでは
 ありません。
 
-初期値:
+現在値:
 
 - ecosystem release: `development`
-- compatibility status: `unpinned`
-- component version: `unpinned`
+- compatibility status: `source-pinned`
+- 実装済みcomponent version: 40桁のGit commit SHA
+- 未実装component version: `planned`
 
-この状態は repository 関係の定義だけが存在し、互換性をまだ保証しないことを
-明示します。
+`source-pinned`はsource checkoutの組み合わせを再現するための状態です。
+validatorは各実装済みcomponentのversionが完全なcommit SHAであることを検証し、
+workspace検証時はlocal HEADとの一致も確認します。release artifact、checksum、
+統合互換性はまだ保証しません。
+
+`unpinned`はmanifest作成初期の移行状態としてvalidatorが受理しますが、
+現在のmanifestでは使用しません。`verified`はrelease artifactと統合試験まで
+完了した組み合わせだけに使用します。
 
 ## Release flow
 
-1. module repo が固有 test を通し、immutable tag と artifact を公開する。
-2. `ecosystem.yaml` の対象 component を実在 tag に固定する。
-3. required CORE flow と選択 optional capability の統合試験を実行する。
-4. command、環境、結果、未確認点を verification record に残す。
-5. compatibility status を `verified` に変更する。
-6. EcoSystem に独立した semantic version tag を付ける。
+1. source-pinned commitでmodule固有testを通す。
+2. module repoがimmutable tagとartifactを公開する。
+3. `ecosystem.yaml`の対象componentを実在tagに更新する。
+4. required CORE flowと選択optional capabilityの統合試験を実行する。
+5. command、環境、結果、未確認点をverification recordに残す。
+6. compatibility statusを`verified`に変更する。
+7. EcoSystemに独立したsemantic version tagを付ける。
 
 例: STT だけが更新された場合、STT module を release して CORE 接続試験を行い、
 manifest の STT version を更新してから ecosystem patch release を作ります。
 
 ## Minimum acceptance
 
-- manifest に記載した repository と tag が実在する。
+- `source-pinned`ではmanifestに記載したrepositoryとcommitが実在する。
+- `verified`ではmanifestに記載したrepositoryとtagが実在する。
 - artifact の checksum が一致する。
 - `runtime.primary`のartifact、implementation、statusがmodule releaseと一致する。
 - required companionがあるcomponentは、bundled／externalの境界と接続確認結果を記録する。
