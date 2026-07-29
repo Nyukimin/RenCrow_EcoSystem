@@ -9,11 +9,11 @@ module release
   `- runtime.primary
        implementation: Goなど
        artifact: 配布artifact名
-       status: planned / development / available / compatibility
+       status: planned / development / available
 
 user environment
   `- runtime.companions[]
-       external compute、system service、compatibility runtimeなど
+       external compute、system serviceなど
 ```
 
 - `primary`はEcoSystem releaseが取得・checksum検証する配布単位です。
@@ -35,16 +35,12 @@ primary
        |     Backend + Model + weights + KV + compute
        |
        `-> external API / trusted Agent Runtime
-
-companion: python-compat  bundled=false / required=false
-  Go移行中の現行Python role proxy / management runtime
 ```
 
 BackendはLLM targetに付随し、EcoSystemの独立componentにはしません。
 `rencrow-llm-node`もRenCrow_LLMとBackend契約、status schema、release cadenceを共有するため、
-別moduleにしません。Node実装とRTX5060／Macへの初回配布は完了しています。
-production GatewayのNode cutoverは未完了なので、EcoSystemはGateway／Nodeの同一module
-version、認証、status schema、Backend contract、実生成を組み合わせて互換性を記録します。
+別moduleにしません。EcoSystemはGateway／Nodeの同一module version、認証、
+status schema、Backend contract、実生成を組み合わせて互換性を記録します。
 
 ## RenCrow_STT
 
@@ -59,9 +55,9 @@ companion: stt-target     bundled=false / required=true
 ```
 
 Go Gatewayは公開HTTP／WebSocket契約、音声入力validation、target adapter、文字起こし
-結果とerror／fallbackの正規化を所有します。Model load、decode、warmup、GPU最適化は
+結果とerrorの正規化を所有します。Model load、decode、warmup、GPU最適化は
 STT targetの責務です。COREはRenCrow_STT Gatewayの`/v1/audio/transcriptions`だけを
-使用し、互換runtimeや物理targetへ直接接続しません。
+使用し、物理targetへ直接接続しません。
 
 ## RenCrow_TTS
 

@@ -2,9 +2,9 @@
 
 ## Product role
 
-`RenCrow_ASSISTANT`は、新しいAgent人格ではなく、PUSH機能を持つ個人・家族向け
-生活アシスタントserviceです。利用者ごとの生活Routineを実行し、端末へ届け、
-複雑な仕事だけを`RenCrow_CORE`へ移譲します。
+`RenCrow_ASSISTANT`はplannedの、PUSH機能を持つ個人・家族向け生活アシスタント
+serviceです。実装後は利用者ごとの生活Routineを実行し、端末へ届け、複雑な仕事だけを
+`RenCrow_CORE`へ移譲します。
 
 ```text
 Stack-chan / Apple Watch / iPhone / Web
@@ -37,9 +37,10 @@ ASSISTANTが所有し、複数工程、生成、継続調査、承認付きside 
 - `rencrow-assistant`はplannedのGo binaryです。
 - Device clientはHTTPとWebSocketでASSISTANTへ接続します。
 - ASSISTANTはCORE Public APIを利用し、debug/admin APIを利用しません。
-- PORTALのASSISTANT連携は公開APIのallowlistを必要とし、読み取りsurfaceからwriteしません。
+- plannedのPORTAL連携はASSISTANT公開APIのallowlistを必要とし、読み取りsurfaceから
+  writeしません。
 - ASSISTANTが未実装の現在、manifestのversionは`unpinned`、runtime statusは`planned`です。
-- ASSISTANTはPORTALやCMDと共通のInteraction意味論を利用しますが、時刻・条件発火、
+- ASSISTANTは実装後にPORTALやCMDと共通のInteraction意味論を利用しますが、時刻・条件発火、
   PUSH、Device deliveryと生活領域の状態だけはASSISTANT固有です。
 - PUSHを別の会話systemにせず、CORE応答と生活通知を共通のInteraction outputとして
   相関可能にします。wire schemaはASSISTANT実装時にmodule側の正本へ固定します。
@@ -52,7 +53,7 @@ ASSISTANTが所有し、複数工程、生成、継続調査、承認付きside 
   別利用者のprivate memoryを共有する意味ではありません。
 - Device、PORTAL、COREへ渡すcontextは、利用者とscopeを確定して最小化します。
 
-ASSISTANT固有の機能、data、API、設定、MVPの正本は
-`Nyukimin/RenCrow_ASSISTANT`の`docs/`です。
+ASSISTANT固有の機能、data、API、設定、MVPは、実装repositoryの作成後にその`docs/`を
+正本とします。
 PORTAL、CMDとの共通能力とprofile差は[Interaction surfaces](interaction-surfaces.md)を
 参照してください。

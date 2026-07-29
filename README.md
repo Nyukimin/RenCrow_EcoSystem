@@ -13,12 +13,15 @@ RenCrow EcoSystem は、独立した RenCrow 各リポジトリを一つの製�
 RenCrow_EcoSystem  -- release/catalog reference --> module releases
 
                          RenCrow_CORE
-                    ^         ^         ^
-                    |         |         |
-          RenCrow_ASSISTANT  PORTAL     CMD
-          Routine / PUSH    Web UI      CLI
-                    |         |         |
-          Device clients   Browser   Terminal / Script
+                    ^              ^
+                    |              |
+                 PORTAL           CMD
+                 Web UI    Public API client
+                    |              |
+                 Browser    Terminal / Script
+
+          RenCrow_ASSISTANT (planned)
+          Routine / PUSH / Device delivery
 
 RenCrow_CORE ---- contracts ----> LLM / STT / TTS / Vision / Image
 RenCrow_CORE -- launch ---------> RenCrow_GAMES
@@ -29,6 +32,8 @@ Games / Tools / Workspace -------- ecosystem support
 - 各 module は独立した Git リポジトリです。
 - 各 module がソース、詳細仕様、テスト、CI、タグ、Release を所有します。
 - EcoSystem は統合確認済みの組み合わせを `ecosystem.yaml` に記録します。
+- shared Viewer、runtime、route、adapter、Public API、user-facing behaviorは
+  RenCrow_COREを正本とします。
 - module から EcoSystem の実装へ依存しません。
 - 実行時連携は HTTP、WebSocket、CLI、設定ファイルなどの公開契約を使います。
 - Git submodule は使用しません。
@@ -43,26 +48,25 @@ Games / Tools / Workspace -------- ecosystem support
 利用環境側で別途動かす演算runtimeなどを`runtime.companions`として分離できます。
 現在はRenCrow_LLM、RenCrow_STT、RenCrow_TTSへ適用し、Go binaryと各演算targetを
 別の配布層として宣言しています。COREのproduction経路は各Gatewayだけを参照し、
-物理targetや互換runtimeへ直接接続しません。
+物理targetへ直接接続しません。
 
 RenCrow_LLMは一つのcentral Gatewayと、compute hostごとのHost Nodeへdeployment roleを
-分けます。Host Node実装とRTX5060／Macへの初回配布は完了し、production Gatewayの
-Node cutoverは移行中です。配置先、supervisor、Model／Backendの所有境界は
+分けます。配置先、supervisor、Model／Backendの所有境界は
 [Binary placement](docs/binary-placement.md)を正本とします。
 
-LLMの論理構造は`Agent -> Execution Role -> Inference Target`の3層です。Mio／Shiro／
-Midori／KuroをAgent、Chat／ChatWorker／Worker／Wild／HeavyをExecution Role、
-Gemma4／GPT-OSS-120B／Qwen3.6／Codex等をInference Targetとして分離します。
+LLMの論理構造は`Agent -> Execution Role -> Inference Target`の3層です。
+COREがAgentからExecution Roleへの割り当てを所有し、RenCrow_LLMがRole profileと
+Inference Targetへのmappingを所有します。
 Role profileはExecution Roleに付随する設定レコードであり、独立した第4層ではありません。
 
 RenCrow_ASSISTANTは、個人・家族向けの生活Routine、PUSH、端末配信、COREへの
 Task移譲を所有するplannedのGo serviceです。Mio等のAgentやPORTALのWeb画面を
 所有するmoduleではありません。
 
-PORTAL、CMD、ASSISTANTは、COREのChat、IdleChat、event、audio、Taskなどの共通
-Interaction意味論を利用する兄弟moduleです。PORTALはWeb、CMDはterminal、ASSISTANTは
-proactive triggerとDevice deliveryを固有差とします。ASSISTANTだけはpersonal／family／
-Routine／delivery状態を所有する常駐serviceです。
+PORTALはCOREのChatとIdleChatを提供するWeb clientです。CMDはCORE Public APIだけを
+利用するterminal client兼command facadeで、COREとPORTALのprocess entrypointも提供します。
+ASSISTANTはproactive triggerとDevice deliveryを担うplanned serviceであり、実装後も
+COREの公開契約を利用します。
 
 RenCrow_Visionは画像・動画認識の必須interface、RenCrow_Imageは描画・画像生成の
 必須interfaceです。COREはWild、ForgeNeo、ComfyUI、Z-Imageなどの物理backendへ

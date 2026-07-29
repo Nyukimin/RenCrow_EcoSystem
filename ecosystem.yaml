@@ -20,7 +20,7 @@
       "version": "unpinned",
       "required": false,
       "distribution": "binary",
-      "role": "Web interaction profile for Chat and IdleChat with an allowlisted CORE and ASSISTANT API proxy"
+      "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API"
     },
     "assistant": {
       "repository": "Nyukimin/RenCrow_ASSISTANT",
@@ -44,7 +44,7 @@
       "version": "unpinned",
       "required": false,
       "distribution": "binary",
-      "role": "Terminal interaction profile and rencrowctl command facade for CORE, ASSISTANT, and PORTAL"
+      "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL"
     },
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
@@ -66,13 +66,6 @@
             "required": true,
             "bundled": false,
             "role": "LLM target composed of Backend, Model, weights, KV cache, and compute resources"
-          },
-          {
-            "id": "python-compat",
-            "kind": "compatibility-runtime",
-            "required": false,
-            "bundled": false,
-            "role": "Current Python role proxy and management runtime retained during Go migration"
           }
         ]
       }

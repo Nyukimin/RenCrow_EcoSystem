@@ -67,8 +67,6 @@ PORTALはCOREの全APIを透過公開しません。COREはRenCrow_TTS／RenCrow
 | STT WebSocket入力 | deny | allow |
 | Debug、Ops、Repair、LLM管理、設定変更 | deny | deny |
 
-旧`view`、`live`、`lab`のpage modeとAPI prefixは拒否し、別modeへfallbackしません。
-
 正確なallowlistはPORTALの実装とcontract testを正本とします。COREにendpointを追加しても、
 PORTAL側へmethod／pathと拒否testを明示しない限り外部公開しません。
 
@@ -147,7 +145,6 @@ STT利用可能とは判定しません。
 
 - `IdleChat`は読み取り専用とし、write／control requestを拒否する。
 - `Chat`も明示allowlist外のendpointを拒否する。
-- 旧`view`／`live`／`lab`はpageとAPIの両方で拒否する。
 - browserからのwriteとSTT WebSocketはsame-originを要求する。
 - PORTALはrequest bodyに上限を設ける。
 - Debug、Ops、Repair、admin、LLM管理、設定変更をPORTALから公開しない。
@@ -181,7 +178,5 @@ PORTALとCOREの組み合わせをcompatibleと記録する前に、最低限次
 8. Debug／admin endpointとcross-origin controlが拒否される。
 9. 設定外hostのTTS audio取得が拒否される。
 10. client終了後にaudio／input ownerが残留しないか、TTLで失効する。
-11. 旧`view`／`live`／`lab`のpage modeとAPI prefixが拒否される。
-
 確認command、対象version、実行環境、結果、未確認点をverification recordへ残してから、
 `ecosystem.yaml`のCORE／PORTAL versionとcompatibility statusを更新します。

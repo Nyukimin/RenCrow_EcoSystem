@@ -2,9 +2,9 @@
 
 ## 目的と位置づけ
 
-この文書は、`RenCrow_PORTAL`、`RenCrow_CMD`、`RenCrow_ASSISTANT`を、
-別々の会話システムではなく、RenCrowの共通Interaction能力を利用する兄弟moduleとして
-組み合わせるためのecosystem-level contractです。
+この文書は、現行の`RenCrow_PORTAL`と`RenCrow_CMD`、およびplannedの
+`RenCrow_ASSISTANT`を、COREの共通Interaction能力に接続するための
+ecosystem-level contractです。
 
 共通化するのは機能の**意味と失敗条件**です。単一process、共有database、共通UI、
 同一transport、または現時点で存在しない共通SDKを要求するものではありません。
@@ -16,16 +16,15 @@ endpoint、payload、command、画面、永続化の詳細は各module repositor
                          Public API
                     ^          ^          ^
                     |          |          |
-            RenCrow_PORTAL  RenCrow_CMD  RenCrow_ASSISTANT
+            RenCrow_PORTAL  RenCrow_CMD  RenCrow_ASSISTANT (planned)
             Web profile     CLI profile  Proactive profile
                                            |
                                            v
                                      Device clients
 ```
 
-3moduleは並列ですが、同じ種類ではありません。PORTALとCMDは状態を所有しないclient
-surfaceであり、ASSISTANTは共通Interaction能力を利用しながら生活領域の状態を所有する
-常駐application serviceです。
+PORTALとCMDは状態を所有しない現行client surfaceです。ASSISTANTは実装後に
+共通Interaction能力を利用しながら生活領域の状態を所有する常駐application serviceです。
 
 ## 共通Interaction意味論
 
@@ -64,7 +63,7 @@ RenCrow_ASSISTANT
 | profile | 固有差 | 所有しないもの |
 | --- | --- | --- |
 | PORTAL | Chat／IdleChatのWeb表示・入力、Web renderer | Persona、会話、Task、Routine、deliveryの正本 |
-| CMD | terminal表示、scriptable command、process起動、診断・管理操作 | CORE／PORTAL／ASSISTANTのruntime状態 |
+| CMD | terminal表示、scriptable command、CORE／PORTAL process起動、診断・管理操作 | CORE／PORTALのruntime状態 |
 | ASSISTANT | 時刻・条件発火、PUSH、利用者・家族・端末、ack／snooze／retry | Agent人格、Agent Memory、CORE Task、PORTAL画面 |
 
 権限は個別の隠れ機能ではなく、capability profileとして扱います。CORE Interactionの
@@ -76,7 +75,9 @@ RenCrow_ASSISTANT
 | `portal-idlechat` | PORTAL IdleChat読み取り |
 | `cmd-chat` | CMD Chat送信とevent購読 |
 | `cmd-idlechat` | CMD IdleChat status／event／start／stop |
-| `assistant-core` | ASSISTANTからCOREへのChat送信とevent購読 |
+| `cmd-diagnostics` | CMDによるCOREのhealth／status／agent診断 |
+| `cmd-control` | CMDによるCOREの許可済み管理操作 |
+| `assistant-core` | plannedのASSISTANTからCOREへのChat送信とevent購読 |
 
 clientは`X-RenCrow-Client`と`X-RenCrow-Interaction-Profile`を組で送ります。これは
 capability policyの入力であり、認証credentialではありません。
@@ -101,11 +102,12 @@ COREから戻った会話・Task結果も、利用者、source、category、本�
 ## 独立性と接続方向
 
 - COREはPORTAL、CMD、ASSISTANTがなくても起動・稼働できる。
-- ASSISTANTの目覚まし、決定論的Routine、cache済みPUSHは、PORTALが閉じていても動く。
-- CORE停止時も、ASSISTANTはCOREを必要としないRoutineを可能な範囲で継続する。
-- ASSISTANTからCOREへの移譲は、Agent会話、生成、深い調査、複数工程Taskなど必要時だけ行う。
-- PORTALはCOREとASSISTANTのallowlisted APIを表示・操作できるが、どちらの状態も正本にしない。
-- CMDは各serviceを起動・管理し、許可されたAPIをCLIから利用できるが、状態を複製しない。
+- PORTALはCOREのallowlisted Public APIだけを表示・操作し、COREの状態を正本にしない。
+- CMDはCORE Public APIだけを利用し、CORE／PORTALのprocess entrypointを提供するが、
+  runtime状態を複製しない。
+- plannedのASSISTANTからCOREへの移譲は、Agent会話、生成、深い調査、複数工程Taskなど
+  必要時だけ行う。
+- plannedのASSISTANTは、PORTALが閉じていても決定論的Routineとcache済みPUSHを継続する。
 - Device clientはASSISTANT Device Contractへ接続する。固定alarm音や端末内蔵発話はCOREを
   通さず配信でき、動的なAgent会話はCORE／TTS contractを利用できる。
 
@@ -113,7 +115,8 @@ COREから戻った会話・Task結果も、利用者、source、category、本�
 
 一般ニュースの収集結果、provenance、重複排除、時系列、共通知識・検索への昇格は、
 COREの共通知識基盤または将来の専用News moduleが正本になります。利用者ごとの選定、
-既読、件数、時刻、PUSH、deliveryはASSISTANTが所有し、PORTAL／CMD／Deviceは表示します。
+ASSISTANT実装後は、利用者ごとの選定、既読、件数、時刻、PUSH、deliveryをASSISTANTが
+所有し、PORTAL／CMD／Deviceは表示します。
 
 現行COREのIdleChat向けRSS／Reddit／X cacheは、IdleChatの話題候補を作るconsumer固有機能
 であり、共通ニュースDBではありません。共通News contractを実装する際は、同じsourceを
@@ -135,12 +138,12 @@ COREの共通知識基盤または将来の専用News moduleが正本になり�
 
 ## 統合acceptance
 
-1. 同じChat requestが、許可されたPORTAL／CMD／ASSISTANT clientから同じrecipientと
+1. 同じChat requestが、許可されたPORTAL／CMD clientから同じrecipientと
    利用者scopeでCOREへ到達する。
 2. IdleChat eventの意味、開始・停止、拒否、degradedがsurface間で矛盾しない。
 3. profileまたはmodeで許可されない操作がclient側とserver側の両方で拒否される。
 4. 再接続や再送でmessage、Task、PUSH、acknowledgementが二重処理されない。
 5. 同じ出力のsource、category、`trace_id`を保ったまま、surface／deviceごとに表現を変えられる。
-6. PORTAL停止、CORE停止、Device切断を分けて試験し、ASSISTANTの継続・degraded・retryが
-   仕様どおりになる。
+6. ASSISTANT実装時は、PORTAL停止、CORE停止、Device切断を分けて試験し、
+   継続・degraded・retryが仕様どおりになる。
 7. personal、family、adminのscopeがsurface変更によって拡大しない。

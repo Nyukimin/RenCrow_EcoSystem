@@ -6,8 +6,8 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 ## Read order
 
 1. [Architecture](architecture.md) — 全体構造と依存方向
-2. [Interaction surfaces](interaction-surfaces.md) — PORTAL、CMD、ASSISTANTの共通能力と固有差
-3. [ASSISTANT boundary](assistant-boundary.md) — 生活Routine、CORE、PORTAL、端末の境界
+2. [Interaction surfaces](interaction-surfaces.md) — 現行PORTAL／CMDとplanned ASSISTANTの境界
+3. [ASSISTANT boundary](assistant-boundary.md) — plannedの生活Routine、CORE、端末の境界
 4. [PORTAL–CORE contract](portal-core-contract.md) — 外部UIと中核runtimeの接続・公開境界
 5. [Modules](modules.md) — 各 repository の責務
 6. [Runtime layers](runtime-layers.md) — primary binaryと外部runtimeの配布境界

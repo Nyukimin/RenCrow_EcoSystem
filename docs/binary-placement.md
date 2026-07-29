@@ -26,14 +26,13 @@ control host
   rencrow-llm
   trusted Codex subscription runtime
        |
-       +-> Mac compute host
+       +-> compute host A
        |     rencrow-llm-node
-       |     llama-server / GPT-OSS-120B
-       |     mlx_vlm.server / Qwen3.6
+       |     configured Backend / Model
        |
-       +-> RTX5060 compute host
+       +-> compute host B
        |     rencrow-llm-node
-       |     llama-server / Gemma4
+       |     configured Backend / Model
        |
        `-> external LLM API
 
@@ -53,9 +52,9 @@ repositoryを作らない。
 Agent -> Execution Role -> Inference Target
 ```
 
-AgentはMio／Shiro／Midori／Kuro、Execution RoleはChat／ChatWorker／Worker／Wild／Heavy、
-Inference TargetはGemma4／GPT-OSS-120B／Qwen3.6／Codex等である。Role profileはRoleに
-付随するtarget、thinking、sandbox、capacity設定であり、独立した第4層ではない。
+COREがAgentからExecution Roleへの割り当てを所有し、RenCrow_LLMがRole profileから
+Inference Targetを解決する。Role profileはRoleに付随するtarget、thinking、sandbox、
+capacity設定であり、独立した第4層ではない。
 Agent IDとExecution Role identityは安定contract、TargetとRole profile revisionは
 deploymentごとに交換可能な設定とする。
 
@@ -86,7 +85,7 @@ host supervisorとして使用できる。supervisorはNodeを監視し、Node�
 - PORTALとCMDはCORE Public APIへ接続する。
 - physical target、Node、Backend port、Model名を設定しない。
 - PORTALはDebug／Ops／LLM管理を中継しない。
-- CMDの管理commandは各moduleの認証済みPublic／management APIをfacadeとして呼ぶ。
+- CMDの管理commandはCOREの認証済みPublic APIだけをfacadeとして呼ぶ。
 
 ## Artifact rule
 
@@ -94,7 +93,7 @@ host supervisorとして使用できる。supervisorはNodeを監視し、Node�
 - planned binaryを存在するrelease artifactとしてmanifestへ登録しない。
 - `rencrow-llm-node`はRenCrow_LLMのmodule-owned追加artifactとしてGatewayと同じ
   version、status schema、Backend contractで検証する。
-- Model weights、Backend、Python compatibility runtimeはGo binaryへ同梱しない。
+- Model weightsとBackendはGo binaryへ同梱しない。
 - 同一moduleのGatewayとNodeはversionを揃え、status schemaとBackend contractの
   compatibilityを統合試験する。
 
@@ -137,7 +136,5 @@ host supervisorとして使用できる。supervisorはNodeを監視し、Node�
 - `rencrow-llm`はmanifest上の`development` primary binaryである。
 - `rencrow`、`rencrowctl`、`rencrow-portal`を含むcomponent versionとrelease artifactは
   現在`unpinned`であり、EcoSystem releaseとしての取得・checksum保証はまだ行わない。
-- `rencrow-llm-node`は実装済みでRTX5060／Macへ初回配布済みだが、production Gatewayの
-  Node cutoverとEcoSystem release artifact固定は未完了である。
-- 現行Mac Python proxy／management runtimeとRTX5060の直接`llama-server`接続は、
-  Node cutoverまでのcompatibility deploymentである。
+- `rencrow-llm-node`はRenCrow_LLMの追加artifactとして、Gatewayと同じversionおよび
+  contractで検証する。

@@ -4,9 +4,9 @@
 | --- | --- | --- | --- |
 | `RenCrow_EcoSystem` | 公式入口、構成、互換性、統合 release | metadata/docs | 各 release を参照する。実行されない |
 | `RenCrow_CORE` | 中核server、Debug Viewer、Persona、Memory、承認、routing | required binary | runtimeの中心 |
-| `RenCrow_ASSISTANT` | 個人・家族向け生活Routine、PUSH、端末配信、COREへのTask移譲 | optional/recommended binary | Device／PORTALとCOREの間で生活アシスタント機能を提供 |
-| `RenCrow_PORTAL` | 外部利用者向けChat／IdleChat Web UI | optional/recommended binary | allowlist内のCORE Public APIだけを中継。旧view／live／labは拒否 |
-| `RenCrow_CMD` | 管理・操作CLI (`rencrowctl`) | optional/recommended binary | CORE／ASSISTANT／PORTAL起動と許可されたPublic API操作 |
+| `RenCrow_ASSISTANT` | 個人・家族向け生活Routine、PUSH、端末配信、COREへのTask移譲 | planned binary | 実装後はDeviceとCOREの間で生活アシスタント機能を提供 |
+| `RenCrow_PORTAL` | 外部利用者向けChat／IdleChat Web UI | optional/recommended binary | allowlist内のCORE Public APIだけを中継 |
+| `RenCrow_CMD` | CORE Public API用CLI (`rencrowctl`) | optional/recommended binary | CORE Public API操作とCORE／PORTALのprocess entrypoint |
 | `RenCrow_LLM` | Execution Role profileとInference Targetを接続するcentral Gateway／Host Node | optional binary + node + external compute | COREはAgentからRoleを選びcentral Gatewayを利用。compute hostはNodeとtargetを配置 |
 | `RenCrow_STT` | 公開音声契約と認識target差を吸収するGo Gateway | optional binary + external compute | COREから音声を受け、STT targetの結果を正規化 |
 | `RenCrow_TTS` | character／style／voiceを解決して合成target差を吸収するGo Gateway | optional binary + external compute | COREから発話要求を受け、TTS targetへ接続 |
@@ -24,46 +24,44 @@
 
 ## RenCrow_LLM runtime boundary
 
-`RenCrow_LLM`の現行primary artifactはcontrol hostへ置くGo binary`rencrow-llm`です。
-compute hostへ置く実装済み`rencrow-llm-node`は同じmoduleの追加artifactとし、別repositoryに
-しません。RTX5060／Macへの初回配布は完了し、production GatewayのNode cutoverは移行中です。
+`RenCrow_LLM`のprimary artifactはcontrol hostへ置くGo binary`rencrow-llm`です。
+compute hostへ置く`rencrow-llm-node`は同じmoduleの追加artifactとし、別repositoryに
+しません。
 Backendは独立moduleではなく、Model、重み、KV、計算資源とともにLLM targetへ付随します。
-現行Python role proxy／management runtimeは移行用compatibility runtimeであり、
-primary binaryへ同梱しません。詳細配置は[Binary placement](binary-placement.md)を参照してください。
+詳細配置は[Binary placement](binary-placement.md)を参照してください。
 
 論理構造は`Agent -> Execution Role -> Inference Target`の3層です。AgentからRoleへの
 割当はCORE、Role profileとRoleからTargetへのmappingはRenCrow_LLMが所有します。
-Chat、ChatWorker、Worker、Wild、Heavyは廃止対象の旧port名ではなくExecution Roleです。
+Execution RoleはCOREとRenCrow_LLM間の論理契約であり、物理target名ではありません。
 
 ## RenCrow_STT / RenCrow_TTS runtime boundary
 
 `RenCrow_STT`のprimary artifactは`rencrow-stt`、`RenCrow_TTS`は`rencrow-tts`です。
 認識／合成engine、Model、重み、decoder／codec、音声資産、GPU／CPUはそれぞれの
-external compute targetへ付随し、Go binaryへ同梱しません。現行Python serverと
-in-process providerが残っていても、COREのproduction経路には使用しません。
+external compute targetへ付随し、Go binaryへ同梱しません。
 COREはRenCrow_STT／RenCrow_TTS Gatewayだけを参照し、Gatewayが各targetへ接続します。
 
 ## CORE, PORTAL, CMD and ASSISTANT
 
 `RenCrow_CORE`がserver behavior、状態、`/viewer/*` API、Debug Viewerの正本です。
 `RenCrow_PORTAL`は外部利用者向けの`Chat`／`IdleChat`を所有し、debug/admin APIを中継しません。
-`IdleChat`は読み取り専用、`Chat`は明示allowlist内だけ操作可能です。旧`view`／`live`／`lab`
-は受理しません。
+`IdleChat`は読み取り専用、`Chat`は明示allowlist内だけ操作可能です。
 COREとの接続、active-control、TTS／STT、公開境界は
 [PORTAL–CORE contract](portal-core-contract.md)を参照してください。
-`RenCrow_CMD`は`rencrowctl`としてCORE、ASSISTANT、PORTALを起動し、許可されたPublic APIをCLIから利用します。ASSISTANT起動はplannedで、現行CLIでは未実装です。PORTALとCMDはruntime状態を別実装として所有しません。
+`RenCrow_CMD`は`rencrowctl`としてCORE Public APIだけを利用し、COREとPORTALの
+process entrypointを提供します。PORTALとCMDはruntime状態を別実装として所有しません。
 
-PORTALはWeb renderer、CMDはterminal renderer、ASSISTANTはproactive triggerとDevice
-deliveryを加えたInteraction profileとして、COREのChat／IdleChat／event等の共通意味論を
-利用します。ASSISTANTだけは生活領域のstateful application serviceであり、単なるrenderer
-ではありません。詳細は[Interaction surfaces](interaction-surfaces.md)を参照してください。
+PORTALはWeb renderer、CMDはterminal clientとして、COREのChat／IdleChat／event等の
+共通意味論を利用します。ASSISTANTはproactive triggerとDevice deliveryを加える
+plannedのstateful application serviceです。詳細は
+[Interaction surfaces](interaction-surfaces.md)を参照してください。
 
 ## ASSISTANT, CORE, PORTAL and devices
 
 `RenCrow_ASSISTANT`は生活Routine、personal／family scope、proactive delivery、
-acknowledgementを所有するGo serviceです。Agent人格、Agent Memory、Knowledge、複雑な
-TaskはCOREへ委譲します。PORTALはASSISTANTの状態を表示・操作するclientであり、
-Deviceはcapabilityを申告してPUSHを受ける薄いclientです。横断境界は
+acknowledgementを所有するplannedのGo serviceです。Agent人格、Agent Memory、
+Knowledge、複雑なTaskはCOREへ委譲します。Deviceはcapabilityを申告してPUSHを受ける
+薄いclientです。横断境界は
 [ASSISTANT boundary](assistant-boundary.md)を参照してください。
 
 ## Vision and image boundaries

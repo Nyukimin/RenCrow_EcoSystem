@@ -41,6 +41,10 @@ This repository does not own:
 
 ## Source-of-Truth Rules
 
+- `RenCrow_CORE` is authoritative for shared Viewer, runtime, route, adapter,
+  Public API, and user-facing behavior across the RenCrow system.
+- `RenCrow_CMD` is the terminal client and command facade for the CORE Public
+  API. It is not an independent runtime or API source of truth.
 - A module repository is authoritative for its source, API, build, tests,
   configuration, and module-specific roadmap.
 - This repository is authoritative only for the tested combination of module
@@ -51,6 +55,9 @@ This repository does not own:
   checks have passed.
 - `development` and `unpinned` are explicit states. Never invent a release tag
   to make the matrix look complete.
+- Describe only the current architecture and explicitly planned components.
+  Remove superseded systems and interfaces from the manifest and documentation
+  instead of retaining migration or rejection narratives.
 
 ## Repository Rules
 

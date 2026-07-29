@@ -44,7 +44,7 @@ health success だけで音声再生、認識、画像解析、game bridge な�
 
 ## RenCrow_GAMES acceptance
 
-- COREのAgent／LLMまたは認可clientから`POST /viewer/games/launch`を実行し、
+- COREのAgent／LLMから`POST /viewer/games/launch`を実行し、
   GAMES Observerがsessionを起動する。
 - GAMESのturn observationが`/viewer/games/decision`を通ってRenCrow_LLMの
   `BrainDecision`になり、GAMES executorが検証後に実行する。
@@ -62,7 +62,7 @@ RenCrow_LLMを含む組み合わせでは、一般的なminimum acceptanceに加
 - Mio／Chat、Shiro／ChatWorker・Worker、Midori／Wild、Kuro／Heavyが意図したtargetへ解決される。
 - Role profileがExecution Roleに付随する技術設定であり、独立したAgent層になっていない。
 - clientがAgentだけを選び、COREがRole、RenCrow_LLMがTargetを選ぶ責務境界が維持される。
-- 現行execution aliasをopaqueなAgent／Role binding互換keyとして扱い、Agent ID、
+- execution aliasをopaqueなAgent／Role binding contractとして扱い、Agent ID、
   Role ID、Model名へ誤って固定していない。
 - Host Node導入後はGatewayとNodeのversion、status schema、認証、Backend contractが一致する。
 - Node liveness、Backend readiness、Model readiness、実生成を別checkpointとして確認する。
@@ -77,8 +77,6 @@ RenCrow_LLMを含む組み合わせでは、一般的なminimum acceptanceに加
 - Target変更時にModel／tokenizer／chat template／context prefixの互換性を確認し、
   非互換session／KVを再利用せず、直前の検証済みprofile revisionへrollbackできる。
 
-実装済み`rencrow-llm-node`はproduction Gateway cutoverと統合試験が成立するまで
-verified compatibility claimへ含めません。
 配置規則は[Binary placement](binary-placement.md)、詳細contractはRenCrow_LLMの
 `docs/10_Gateway_Node_Target責務仕様.md`を参照してください。
 
@@ -93,7 +91,6 @@ releaseの組み合わせを固定し、runtimeのRole profileそのものの正
 PORTALを含む組み合わせでは、一般的なminimum acceptanceに加えて次を確認します。
 
 - `IdleChat`のwrite拒否と、`Chat`の明示allowlistを確認する。
-- 旧`view`／`live`／`lab` page modeとAPI prefixが拒否されることを確認する。
 - recipient切替通知と、実際のmessage `to`が一致することを確認する。
 - TTSのaudio owner取得、SSE audio、音声取得、browser再生、playback ACKを
   別々のcheckpointとして確認する。
@@ -106,7 +103,8 @@ PORTALを含む組み合わせでは、一般的なminimum acceptanceに加え�
 
 ## ASSISTANT acceptance
 
-ASSISTANTを含む組み合わせでは、一般的なminimum acceptanceに加えて次を確認します。
+plannedのASSISTANTをreleaseへ含める段階では、一般的なminimum acceptanceに加えて
+次を確認します。
 
 - 生活Routineが指定時刻・条件で一度だけ発火し、重複deliveryを起こさない。
 - acknowledgement、snooze、missed、retry、別端末への切替を追跡できる。
@@ -115,18 +113,20 @@ ASSISTANTを含む組み合わせでは、一般的なminimum acceptanceに加�
 - CORE停止時にAgent処理をdegradedとし、決定論的Routineとcache済み情報の状態を区別する。
 - 実際のDevice clientでPUSH、表示または発話、利用者応答までend-to-endで確認する。
 
-詳細な境界は[ASSISTANT boundary](assistant-boundary.md)、module固有の仕様と実装状態は
-`Nyukimin/RenCrow_ASSISTANT`の`docs/`を参照してください。
+詳細な境界は[ASSISTANT boundary](assistant-boundary.md)を参照してください。
+module固有の仕様と実装状態は、実装repositoryの作成後にその`docs/`を正本とします。
 
 ## Interaction profile acceptance
 
-PORTAL、CMD、ASSISTANTを同じ組み合わせへ含める場合は、追加で次を確認します。
+現行のPORTALとCMDを同じ組み合わせへ含める場合は、追加で次を確認します。
 
 - Chatのrecipient、利用者scope、request／response相関がsurface間で一致する。
 - IdleChatのevent、開始／停止、拒否、degradedの意味がsurface間で矛盾しない。
 - profile、mode、認証scope、device capabilityによる拒否が実際に機能する。
 - 再接続と再送でmessage、Task、PUSH、acknowledgementが二重処理されない。
-- PORTAL停止中もASSISTANTのRoutineとPUSHが動き、CORE停止時はAgent処理だけを
+- CMDの`cmd-chat`、`cmd-idlechat`、`cmd-diagnostics`、`cmd-control`が、それぞれ
+  CORE Public APIのallowlist内だけを利用する。
+- ASSISTANT実装時は、PORTAL停止中もRoutineとPUSHが動き、CORE停止時はAgent処理だけを
   degradedとして区別する。
 
 共通能力と固有差は[Interaction surfaces](interaction-surfaces.md)を参照してください。

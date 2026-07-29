@@ -23,9 +23,8 @@ ALLOWED_DISTRIBUTIONS = {
     "tooling",
 }
 ALLOWED_RUNTIME_IMPLEMENTATIONS = {"go", "python", "javascript", "mixed"}
-ALLOWED_RUNTIME_STATUSES = {"planned", "development", "available", "compatibility"}
+ALLOWED_RUNTIME_STATUSES = {"planned", "development", "available"}
 ALLOWED_COMPANION_KINDS = {
-    "compatibility-runtime",
     "external-compute",
     "system-service",
 }

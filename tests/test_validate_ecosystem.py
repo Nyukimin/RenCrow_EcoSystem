@@ -57,9 +57,9 @@ class EcosystemManifestTest(unittest.TestCase):
 
         self.assertEqual(llm_runtime["primary"]["implementation"], "go")
         self.assertEqual(llm_runtime["primary"]["artifact"], "rencrow-llm")
-        self.assertEqual(
-            llm_runtime["companions"][0]["kind"], "external-compute"
-        )
+        self.assertEqual(len(llm_runtime["companions"]), 1)
+        self.assertEqual(llm_runtime["companions"][0]["id"], "llm-target")
+        self.assertEqual(llm_runtime["companions"][0]["kind"], "external-compute")
         self.assertFalse(llm_runtime["companions"][0]["bundled"])
 
     def test_stt_declares_go_primary_and_external_compute(self) -> None:
@@ -80,15 +80,25 @@ class EcosystemManifestTest(unittest.TestCase):
         self.assertEqual(tts_runtime["companions"][0]["kind"], "external-compute")
         self.assertFalse(tts_runtime["companions"][0]["bundled"])
 
-    def test_stt_and_tts_do_not_declare_direct_python_compatibility_routes(self) -> None:
-        for component_id in ("stt", "tts"):
+    def test_gateways_only_declare_external_compute_targets(self) -> None:
+        for component_id in ("llm", "stt", "tts"):
             companions = self.manifest["components"][component_id]["runtime"][
                 "companions"
             ]
-            self.assertNotIn(
-                "python-compat",
-                {companion["id"] for companion in companions},
+            self.assertTrue(companions)
+            self.assertEqual(
+                {companion["kind"] for companion in companions},
+                {"external-compute"},
             )
+
+    def test_cmd_and_portal_use_core_public_api(self) -> None:
+        cmd_role = self.manifest["components"]["cmd"]["role"]
+        portal_role = self.manifest["components"]["portal"]["role"]
+
+        self.assertIn("CORE Public API", cmd_role)
+        self.assertIn("CORE Public API", portal_role)
+        self.assertNotIn("ASSISTANT", cmd_role)
+        self.assertNotIn("ASSISTANT", portal_role)
 
     def test_image_is_a_service_and_workspace_is_a_snapshot(self) -> None:
         self.assertEqual(
