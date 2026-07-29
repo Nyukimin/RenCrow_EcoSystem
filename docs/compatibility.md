@@ -136,6 +136,9 @@ module固有の仕様と実装状態は、実装repositoryの作成後にその`
 - 再接続と再送でmessage、Task、PUSH、acknowledgementが二重処理されない。
 - CMDの`cmd-chat`、`cmd-idlechat`、`cmd-diagnostics`、`cmd-control`が、それぞれ
   CORE Public APIのallowlist内だけを利用する。
+- `rencrowctl chat --audio`がCOREの`/stt/chat-input`を経由し、
+  `--audio-direct`がCOREの`/viewer/send`添付経路を利用する。CMDが
+  RenCrow_STT targetやRenCrow_LLMへ直接接続しない。
 - ASSISTANT実装時は、PORTAL停止中もRoutineとPUSHが動き、CORE停止時はAgent処理だけを
   degradedとして区別する。
 
