@@ -54,10 +54,11 @@ companion: stt-target     bundled=false / required=true
 
 ```
 
-Go Gatewayは公開HTTP／WebSocket契約、音声入力validation、target adapter、文字起こし
-結果とerrorの正規化を所有します。Model load、decode、warmup、GPU最適化は
-STT targetの責務です。COREはRenCrow_STT Gatewayの`/v1/audio/transcriptions`だけを
-使用し、物理targetへ直接接続しません。
+Go Gatewayは公開HTTP `POST /v1/audio/transcriptions`、音声入力validation、
+target adapter、文字起こし結果とerrorの正規化を所有します。Viewer向けWebSocket
+`/stt`はCOREが所有し、受け取った音声chunkをGatewayのHTTP公開APIへ中継します。
+Model load、decode、warmup、GPU最適化はSTT targetの責務です。COREは
+RenCrow_STT Gatewayの公開HTTP APIだけを使用し、物理targetへ直接接続しません。
 
 ## RenCrow_TTS
 

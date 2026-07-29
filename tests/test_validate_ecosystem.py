@@ -112,7 +112,9 @@ class EcosystemManifestTest(unittest.TestCase):
         games_role = self.manifest["components"]["games"]["role"]
         self.assertIn("CORE-initiated", games_role)
         self.assertIn("observer", games_role.lower())
-        self.assertIn("decision callback", games_role)
+        self.assertIn("title-local control", games_role)
+        self.assertIn("deterministic execution", games_role)
+        self.assertIn("result delivery", games_role)
 
     def test_assistant_declares_planned_go_primary(self) -> None:
         assistant = self.manifest["components"]["assistant"]

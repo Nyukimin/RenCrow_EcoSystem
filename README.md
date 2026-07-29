@@ -25,7 +25,7 @@ RenCrow_EcoSystem  -- release/catalog reference --> module releases
 
 RenCrow_CORE ---- contracts ----> LLM / STT / TTS / Vision / Image
 RenCrow_CORE -- launch ---------> RenCrow_GAMES
-RenCrow_GAMES -- decision/result callbacks --> RenCrow_CORE
+RenCrow_GAMES -- result / ObserverFrame --> RenCrow_CORE
 Games / Tools / Workspace -------- ecosystem support
 ```
 
@@ -74,8 +74,8 @@ RenCrow_Visionは画像・動画認識の必須interface、RenCrow_Imageは描�
 非secret snapshotであり、Windows checkoutやこのcatalogをruntime正本にしません。
 
 RenCrow_GAMESはworld、rules、決定論的executor、Replay、Observer UIの正本です。
-ゲームの起動主体はCOREのAgent／LLMです。起動後はGAMESが各ターンのobservationを
-RenCrowBridgeでCOREへ返し、COREがRenCrow_LLMの高位判断をGAMESへ返します。
+ゲームの起動主体はCOREのAgent／LLMです。起動後はGAMESのtitle-local controllerと
+決定論的executorがゲームを実行し、resultとObserverFrameをCOREへ返します。
 実行画面はGAMES ObserverをCOREがsame-origin proxyし、ユーザーへ見せます。
 
 ## Repository layout

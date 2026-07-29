@@ -46,10 +46,11 @@ health success だけで音声再生、認識、画像解析、game bridge な�
 
 - COREのAgent／LLMから`POST /viewer/games/launch`を実行し、
   GAMES Observerがsessionを起動する。
-- GAMESのturn observationが`/viewer/games/decision`を通ってRenCrow_LLMの
-  `BrainDecision`になり、GAMES executorが検証後に実行する。
+- GAMESのtitle-local controllerが行動を決定し、deterministic executorが検証後に
+  実行する。
 - `/viewer/games/observer`経由でユーザーが実行中の盤面、判断、結果を確認できる。
-- `/viewer/games/result`がReplayと相関できるcandidate eventを記録する。
+- GAMESがresultとObserverFrameをCOREへ返し、`/viewer/games/result`がReplayと
+  相関できるcandidate eventを記録する。
 - CORE停止時にGAMESが本番LLMへ直接fallbackせず、world stateを壊さず停止または
   明示したdegraded modeへ移る。
 

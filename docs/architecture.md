@@ -32,7 +32,7 @@ PORTAL    --allowlisted public API--> CORE
 Device    --HTTP/WebSocket--> ASSISTANT  (planned)
 ASSISTANT --public API/task escalation--> CORE  (planned)
 CORE      --launch------> GAMES
-GAMES     --decision/result callback--> CORE
+GAMES     --result / ObserverFrame----> CORE
 CORE      --contracts---> LLM / STT / TTS / Vision / Image
 User      --CORE observer proxy-------> GAMES Observer
 CORE/Worker --invokes--> Tools
@@ -81,19 +81,17 @@ Game lifecycleは次で固定します。
 
 ```text
 CORE Agent / LLM
-  -> GAMES launch
-  -> deterministic Game Executor
-  -> CORE / RenCrow_LLM decision callback
-  -> GAMES execution and ObserverFrame
+  -> POST /viewer/games/launch
+  -> GAMES Observer / title process
+  -> title-local controller / deterministic Game Executor
+  -> result / ObserverFrame
   -> CORE observer proxy
   -> User
 ```
 
-起動方向は`CORE -> GAMES`です。現在の`GAMES -> CORE -> RenCrow_LLM`は、
-起動後のターン判断callbackであり、GAMESがruntimeやLLM providerを所有する意味では
-ありません。world、rules、action validation、execution、Replay、Observer描画は
-GAMESが正本です。COREは起動意思、Persona、Recall、LLM routing、候補記憶、
-ユーザー向けproxyを所有します。
+起動方向は`CORE -> GAMES`です。起動後の行動決定、world、rules、action validation、
+execution、Replay、Observer描画はGAMESが正本です。COREは起動意思、Persona、Recall、
+LLM routing、候補記憶、result受信、ユーザー向けproxyを所有します。
 
 LLMの論理依存は次の3層とします。
 

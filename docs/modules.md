@@ -11,7 +11,7 @@
 | `RenCrow_STT` | 公開音声契約と認識target差を吸収するGo Gateway | optional binary + external compute | COREから音声を受け、STT targetの結果を正規化 |
 | `RenCrow_TTS` | character／style／voiceを解決して合成target差を吸収するGo Gateway | optional binary + external compute | COREから発話要求を受け、TTS targetへ接続 |
 | `RenCrow_Vision` | 画像・動画認識interface | optional service | COREからraw mediaを受け、Wildで解析して正規化結果を返す |
-| `RenCrow_GAMES` | world、rules、決定論的executor、Replay、Observer | optional extension | COREから起動され、ターン判断と結果だけをRenCrowBridgeでCOREへcallback |
+| `RenCrow_GAMES` | world、rules、title-local controller、決定論的executor、Replay、Observer | optional extension | COREから起動され、resultとObserverFrameをCOREへ返す |
 | `RenCrow_Tools` | 開発、変換、検証、browser sidecar | tooling | CORE / Worker と開発運用を補助 |
 | `RenCrow_Image` | 描画・画像生成interface | optional service | COREから生成要求を受け、ForgeNeo／Z-Image等のbackendへ接続 |
 | `RenCrow_Workspace` | Ubuntu runtime workspaceの非secret snapshot | snapshot | backup／復旧用。runtime workspace自体が正本 |
@@ -73,11 +73,11 @@ Z-Image等のbackend endpoint、Model、workflow、生成parameterもCOREへ複�
 
 ## CORE and GAMES boundary
 
-ゲーム開始は`CORE Agent / LLM -> POST /viewer/games/launch -> GAMES Observer`、
-ターン判断は`GAMES -> RenCrowBridge -> CORE -> RenCrow_LLM -> GAMES`です。
-GAMESは返された`BrainDecision`を検証して決定論的に実行し、ObserverFrameと
-TurnResultを生成します。COREは`/viewer/games/observer`でGAMES Observerを
-ユーザーへproxyし、resultを候補記憶へ記録します。
+ゲーム開始は`CORE Agent / LLM -> POST /viewer/games/launch -> GAMES Observer`です。
+起動後はGAMESのtitle-local controllerが行動を決定し、deterministic executorが
+検証して実行し、resultとObserverFrameをCOREへ返します。COREは
+`/viewer/games/observer`でGAMES Observerをユーザーへproxyし、resultを候補記憶へ
+記録します。
 
 CORE／LLMはworld stateを直接変更せず、GAMESは本番LLM provider、Persona、
 Recall、confirmed memory、起動意思を所有しません。

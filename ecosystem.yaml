@@ -132,7 +132,7 @@
       "version": "unpinned",
       "required": false,
       "distribution": "extension",
-      "role": "CORE-initiated deterministic game execution, world/rule ownership, replay and observer UI, with turn decision callbacks through RenCrowBridge to CORE"
+      "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI"
     },
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
