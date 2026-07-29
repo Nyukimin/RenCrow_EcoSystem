@@ -115,7 +115,8 @@ make check
 Windowsで`python3` aliasがない場合:
 
 ```powershell
-make PYTHON=python check
+.\scripts\test-local.ps1 python -- -m unittest discover -s tests -p test_*.py
+.\scripts\test-local.ps1 python -- scripts/validate_ecosystem.py ecosystem.yaml
 ```
 
 標準 workspace (`/home/nyukimi/RenCrow`) に全 sibling repo がある場合:
