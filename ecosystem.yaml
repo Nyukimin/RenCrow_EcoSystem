@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "../RenCrow_CORE",
-      "version": "0355f0e482f8c7aae0ed9d2a2803f02537aa008e",
+      "version": "81b6ba5e943170d5bfb01472d4fc7324371532b3",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, approval, route, adapter, and user-facing behavior"
@@ -129,7 +129,7 @@
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "../RenCrow_GAMES",
-      "version": "d0c539680e9ab57df78670e2c2080d72ebb10040",
+      "version": "18fccbc1976cbf6fa3b9f84d4fe2af998f57c210",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI"
