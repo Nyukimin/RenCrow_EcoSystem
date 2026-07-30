@@ -17,7 +17,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "../RenCrow_PORTAL",
-      "version": "ff59851cd2555219a73c1b7e8c1c890ed0bf71e0",
+      "version": "6cd3ea92f88a90304081e8a2c5268bd30940b8e1",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API"
@@ -41,7 +41,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "../RenCrow_CMD",
-      "version": "150fa2ec6f076dba9e5edfaf0e86ebc5fa3a947f",
+      "version": "a4cf5e9a88aa835ecfd4ae6d292e5f3b73f0e1c5",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL"
@@ -121,7 +121,7 @@
     "vision": {
       "repository": "Nyukimin/RenCrow_Vision",
       "workspace_path": "../RenCrow_Vision",
-      "version": "03f108468a10f0cfb5a4252550c29aeaed7413c8",
+      "version": "9100a4c5eaf73914432ffc47f5e6b6cdaf84c874",
       "required": false,
       "distribution": "service",
       "role": "Mandatory image and video recognition interface from CORE to the Wild backend, including media validation, preprocessing, and result normalization"
@@ -129,7 +129,7 @@
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "../RenCrow_GAMES",
-      "version": "9566102fd73ea13ee61825fb583a0a4329c08788",
+      "version": "bc03121a8e21762c17e1008ae26265493fd94441",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI"
@@ -145,7 +145,7 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "../RenCrow_Image",
-      "version": "7c68122ce5ef594e55dd80c5a245e40feee7bbd5",
+      "version": "f5cf42d7ab5bc9daaa135a967da1d44952eec866",
       "required": false,
       "distribution": "service",
       "role": "Mandatory drawing and image-generation HTTP interface from CORE to ForgeNeo, Z-Image, or another configured backend"
@@ -153,7 +153,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "../RenCrow_Workspace",
-      "version": "1b0eaeb212ff782b13accf7a48a87a5efe7d0db0",
+      "version": "bc2e6d51632d36ce1ae38510662dcb18dfeed7a7",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service"
