@@ -14,7 +14,7 @@
 | `RenCrow_GAMES` | world、rules、title-local controller、決定論的executor、Replay、Observer | optional extension | COREから起動され、resultとObserverFrameをCOREへ返す |
 | `RenCrow_Tools` | 開発、変換、検証、browser sidecar | tooling | CORE / Worker と開発運用を補助 |
 | `RenCrow_Image` | 描画・画像生成interface | optional service | COREから生成要求を受け、ForgeNeo／Z-Image等のbackendへ接続 |
-| `RenCrow_Workspace` | Ubuntu runtime workspaceの非secret snapshot | snapshot | backup／復旧用。runtime workspace自体が正本 |
+| `RenCrow_Workspace` | `~/.rencrow/workspace`のportableな非secret snapshot | snapshot | backup／復旧用。`~/.rencrow/workspace`自体が実行時の正本であり、runtime serviceではない |
 
 ## Ownership rule
 

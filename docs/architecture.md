@@ -15,7 +15,7 @@ extension、tooling、設定 snapshot からなる複数 repository の product 
         |                   |                   |                   |
   required runtime   interaction layer   optional capability       extension/support
         |                   |                   |                   |
-  RenCrow_CORE       PORTAL/CMD             LLM/STT/TTS/Vision/Image  GAMES/Tools/Workspace
+  RenCrow_CORE       PORTAL/CMD             LLM/STT/TTS/Vision/Image  GAMES/Tools + Workspace(snapshot)
                       ASSISTANT (planned)
 ```
 
@@ -36,7 +36,7 @@ GAMES     --result / ObserverFrame----> CORE
 CORE      --contracts---> LLM / STT / TTS / Vision / Image
 User      --CORE observer proxy-------> GAMES Observer
 CORE/Worker --invokes--> Tools
-Ubuntu runtime workspace --snapshot--> Workspace repository
+~/.rencrow/workspace --portable non-secret snapshot--> Workspace repository
 ```
 
 各矢印は source inclusion を意味しません。repository 間連携は、公開 API、CLI、

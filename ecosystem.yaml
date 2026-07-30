@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "../RenCrow_CORE",
-      "version": "8f5a63ff1476a78714ea6554719faad31c338f71",
+      "version": "b3f48827dc2183bce5ab1979fb78a34c960cf8d5",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, approval, route, adapter, and user-facing behavior"
@@ -17,7 +17,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "../RenCrow_PORTAL",
-      "version": "985a549a63de614caee10a7d461eeb791095c2a7",
+      "version": "ff59851cd2555219a73c1b7e8c1c890ed0bf71e0",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API"
@@ -41,7 +41,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "../RenCrow_CMD",
-      "version": "769e94cfd045bdc52ff0e667523c76d20f558926",
+      "version": "150fa2ec6f076dba9e5edfaf0e86ebc5fa3a947f",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL"
@@ -49,7 +49,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "../RenCrow_LLM",
-      "version": "3355c10e163e7fd4a24b46c9ac1e2a513abd6347",
+      "version": "65cc7e220a4c5f8b631eccea9e94aac20dc85cba",
       "required": false,
       "distribution": "binary",
       "role": "Go central LLM gateway for Execution Role profile to Inference Target mapping, backend adaptation, Host Node coordination, and response normalization",
@@ -73,7 +73,7 @@
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",
       "workspace_path": "../RenCrow_STT",
-      "version": "50c8564ca4f4b8b4f1429b69b817550d2076cf90",
+      "version": "d16c9e1a5dad5753a7b833d747bcc727a1ac1495",
       "required": false,
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
@@ -97,7 +97,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "../RenCrow_TTS",
-      "version": "2a0ae0a26d012751a978160180a345974c8825b6",
+      "version": "04730e950dc14a6e85539e5b6634097252b5b869",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
@@ -129,7 +129,7 @@
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "../RenCrow_GAMES",
-      "version": "18fccbc1976cbf6fa3b9f84d4fe2af998f57c210",
+      "version": "9566102fd73ea13ee61825fb583a0a4329c08788",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI"
@@ -156,7 +156,7 @@
       "version": "1b0eaeb212ff782b13accf7a48a87a5efe7d0db0",
       "required": false,
       "distribution": "snapshot",
-      "role": "Portable non-secret snapshot for backup and recovery of the canonical Ubuntu runtime workspace"
+      "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service"
     }
   }
 }
