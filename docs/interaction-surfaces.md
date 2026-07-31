@@ -34,6 +34,7 @@ PORTALとCMDは状態を所有しない現行client surfaceです。ASSISTANTは
 | --- | --- | --- |
 | Chat | 明示recipient、利用者scope、送受信相関を維持する | CORE Public API |
 | IdleChat | 状態・eventを購読し、開始・停止などの操作権限を分ける | CORE Public API |
+| Games | Agent-owned sessionを選択・起動・観戦し、turn判断を対象Agentへ帰属させる | CORE Public API／GAMES Observer |
 | recipient / Agent選択 | 表示上の選択と実message宛先を混同しない | CORE Public APIと各client local state |
 | event購読 | 再接続、重複、順序、degradedを扱う | event発行module |
 | session / trace | request、response、task、deliveryを必須`trace_id`で追跡できる | 処理を所有するmodule |
@@ -62,7 +63,7 @@ RenCrow_ASSISTANT
 
 | profile | 固有差 | 所有しないもの |
 | --- | --- | --- |
-| PORTAL | Chat／IdleChatのWeb表示・入力、Web renderer | Persona、会話、Task、Routine、deliveryの正本 |
+| PORTAL | Chat／IdleChat／GamesのWeb表示・入力、PuruPuru overlay、Web renderer | Persona、Agent判断、ゲームworld、会話、Task、Routine、deliveryの正本 |
 | CMD | terminal Chat入力、添付・音声file入力、terminal表示、scriptable command、CORE／PORTAL process起動、診断・管理操作 | CORE／PORTALのruntime状態 |
 | ASSISTANT | 時刻・条件発火、PUSH、利用者・家族・端末、ack／snooze／retry | Agent人格、Agent Memory、CORE Task、PORTAL画面 |
 
@@ -73,6 +74,7 @@ RenCrow_ASSISTANT
 | --- | --- |
 | `portal-chat` | PORTAL Chat allowlist |
 | `portal-idlechat` | PORTAL IdleChat読み取り |
+| `portal-games` | Agent-owned gameの選択、起動、観戦、session lifecycle |
 | `cmd-chat` | CMD Chat送信、event購読、CORE経由のWAV文字起こし |
 | `cmd-idlechat` | CMD IdleChat status／event／start／stop |
 | `cmd-diagnostics` | CMDによるCOREのhealth／status／agent診断 |
@@ -128,7 +130,8 @@ ASSISTANT実装後は、利用者ごとの選定、既読、件数、時刻、PU
 | 能力 | 現在状態 |
 | --- | --- |
 | CORE Chat／IdleChat Public API | 実装済み |
-| PORTAL Chat／IdleChat Web profile | 実装済み |
+| CORE Games bridge／Observer proxy | 実装済み |
+| PORTAL Chat／IdleChat／Games Web profile | 実装済み |
 | CMD Chat CLI profile | 実装済み |
 | CMD IdleChat `watch`／`start`／`stop` | 実装済み |
 | ASSISTANT Interaction profile／Device delivery renderer | 仕様策定済み・runtime未実装 |
@@ -141,9 +144,11 @@ ASSISTANT実装後は、利用者ごとの選定、既読、件数、時刻、PU
 1. 同じChat requestが、許可されたPORTAL／CMD clientから同じrecipientと
    利用者scopeでCOREへ到達する。
 2. IdleChat eventの意味、開始・停止、拒否、degradedがsurface間で矛盾しない。
-3. profileまたはmodeで許可されない操作がclient側とserver側の両方で拒否される。
-4. 再接続や再送でmessage、Task、PUSH、acknowledgementが二重処理されない。
-5. 同じ出力のsource、category、`trace_id`を保ったまま、surface／deviceごとに表現を変えられる。
-6. ASSISTANT実装時は、PORTAL停止、CORE停止、Device切断を分けて試験し、
+3. GamesでNetHackとAgentを選択し、`personas[]`付きlaunch、同一origin Observer、
+   `decision.agent_id`、session一覧を確認する。RuleBasedBrainをAgent E2Eに使わない。
+4. profileまたはmodeで許可されない操作がclient側とserver側の両方で拒否される。
+5. 再接続や再送でmessage、Task、PUSH、acknowledgementが二重処理されない。
+6. 同じ出力のsource、category、`trace_id`を保ったまま、surface／deviceごとに表現を変えられる。
+7. ASSISTANT実装時は、PORTAL停止、CORE停止、Device切断を分けて試験し、
    継続・degraded・retryが仕様どおりになる。
-7. personal、family、adminのscopeがsurface変更によって拡大しない。
+8. personal、family、adminのscopeがsurface変更によって拡大しない。

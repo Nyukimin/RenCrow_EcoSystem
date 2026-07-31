@@ -55,8 +55,8 @@ health success だけで音声再生、認識、画像解析、game bridge な�
 
 - COREのAgent／LLMから`POST /viewer/games/launch`を実行し、
   GAMES Observerがsessionを起動する。
-- GAMESのtitle-local controllerが行動を決定し、deterministic executorが検証後に
-  実行する。
+- GAMESのObservationRequestを対象のCORE Agentが判断し、GAMESのdeterministic executorが
+  検証後に実行する。RuleBasedBrainはtest／simulationに限定する。
 - `/viewer/games/observer`経由でユーザーが実行中の盤面、判断、結果を確認できる。
 - GAMESがresultとObserverFrameをCOREへ返し、`/viewer/games/result`がReplayと
   相関できるcandidate eventを記録する。
@@ -100,8 +100,14 @@ releaseの組み合わせを固定し、runtimeのRole profileそのものの正
 
 PORTALを含む組み合わせでは、一般的なminimum acceptanceに加えて次を確認します。
 
-- `IdleChat`のwrite拒否と、`Chat`の明示allowlistを確認する。
+- `IdleChat`のwrite拒否と、`Chat`／`Games`の明示allowlistを確認する。
 - recipient切替通知と、実際のmessage `to`が一致することを確認する。
+- GamesでNetHackとAgentを選択し、`personas[]`付きlaunch、session一覧、
+  同一origin Observer、`decision.agent_id`までを実Agent E2Eで確認する。
+- Gamesからdecision／result／Observer ingest／debugが拒否され、sessionの
+  Retry／Start overだけが許可されることを確認する。
+- GamesのPuruPuru overlayがiframe外でゲーム入力を遮らず、
+  `bridge.decision_mode=agent`かつAgent identity一致の`result.speech`だけを発話候補にする。
 - TTSのaudio owner取得、SSE audio、音声取得、browser再生、playback ACKを
   別々のcheckpointとして確認する。
 - STTのinput owner取得、WebSocket upgrade、音声送信、STT target接続、最終認識を

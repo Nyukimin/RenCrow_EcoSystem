@@ -28,13 +28,13 @@ shared Viewer、runtime、route、adapter、Public API、user-facing behaviorの
 ```text
 EcoSystem --references--> immutable module release artifacts
 CMD       --public API--> CORE
-PORTAL    --allowlisted public API--> CORE
+PORTAL    --Chat / IdleChat / Games allowlist--> CORE
 Device    --HTTP/WebSocket--> ASSISTANT  (planned)
 ASSISTANT --public API/task escalation--> CORE  (planned)
 CORE      --launch------> GAMES
 GAMES     --result / ObserverFrame----> CORE
 CORE      --contracts---> LLM / STT / TTS / Vision / Image
-User      --CORE observer proxy-------> GAMES Observer
+User      --PORTAL Games / CORE observer proxy--> GAMES Observer
 CORE/Worker --invokes--> Tools
 ~/.rencrow/workspace --portable non-secret snapshot--> Workspace repository
 ```
@@ -44,7 +44,7 @@ CORE/Worker --invokes--> Tools
 
 PORTALはCOREのclientであり、runtime状態の正本ではありません。COREが会話処理、
 recipient routing、audio／input active owner、TTS／STT bridgeを所有し、PORTALは
-読み取り専用`IdleChat`と操作可能な`Chat`のallowlistで外部操作を制限します。接続フロー、失敗時の
+読み取り専用`IdleChat`、操作可能な`Chat`、Agent-owned session用`Games`のallowlistで外部操作を制限します。接続フロー、失敗時の
 扱い、統合試験条件は[PORTAL–CORE contract](portal-core-contract.md)を参照してください。
 
 ASSISTANTは個人・家族向けの生活Routine、PUSH、delivery、端末応答を所有する
@@ -52,7 +52,7 @@ planned serviceです。Deviceは薄い入出力client、COREはAgent・Memory�
 Knowledge・複雑なTaskの正本です。生活Routine schedulerとCOREのWorkstream／Task
 schedulerを混同しません。横断契約は[ASSISTANT boundary](assistant-boundary.md)を参照してください。
 
-PORTALとCMDはCOREの周囲に置くclient moduleです。Chat、IdleChat、recipient、
+PORTALとCMDはCOREの周囲に置くclient moduleです。Chat、IdleChat、Games、recipient、
 event、session、audio、Task、errorの意味はCORE Public APIに従い、Web表示と
 terminal表示だけをprofile固有差にします。ASSISTANTはpersonal／family／Routine／
 delivery状態を所有するplanned serviceです。詳細は
@@ -80,18 +80,19 @@ COREは物理LLM、STT／TTS target、Wild、画像生成backendへ直接fallbac
 Game lifecycleは次で固定します。
 
 ```text
-CORE Agent / LLM
+CORE Agent
   -> POST /viewer/games/launch
   -> GAMES Observer / title process
-  -> title-local controller / deterministic Game Executor
+  -> CORE Agent decision / deterministic GAMES Executor
   -> result / ObserverFrame
   -> CORE observer proxy
   -> User
 ```
 
-起動方向は`CORE -> GAMES`です。起動後の行動決定、world、rules、action validation、
-execution、Replay、Observer描画はGAMESが正本です。COREは起動意思、Persona、Recall、
-LLM routing、候補記憶、result受信、ユーザー向けproxyを所有します。
+起動方向は`CORE -> GAMES`です。Agent-owned sessionの起動意思と各turnの行動決定は
+COREの対象Agent、world、rules、action validation、execution、Replay、Observer描画は
+GAMESが正本です。PORTAL Gamesは選択・session・観戦UIとPuruPuru overlayだけを所有します。
+COREは起動意思、Persona、Recall、LLM routing、候補記憶、result受信、ユーザー向けproxyを所有します。
 
 LLMの論理依存は次の3層とします。
 

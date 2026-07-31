@@ -20,9 +20,11 @@ endpointのpayload、内部実装、module固有の設定は複製しません�
 
 | Concern | Owner | Contract |
 | --- | --- | --- |
-| Persona、Memory、会話処理、routing | CORE | PORTALは複製しない |
+| Persona、Memory、会話処理、routing、Agent game decision | CORE | PORTALは複製しない |
 | `/viewer/*`、SSE、STT WebSocket | CORE | runtime behaviorとpayloadの正本 |
-| `Chat`／`IdleChat` Web UI | PORTAL | Chatはallowlist内の操作、IdleChatは読み取り専用 |
+| `Chat`／`IdleChat`／`Games` Web UI | PORTAL | ChatとGamesは各allowlist内の操作、IdleChatは読み取り専用 |
+| game world、rules、Executor、Replay、Observer | GAMES | PORTALは同一origin iframeで観戦する |
+| Games PuruPuru overlay | PORTAL | iframe外で表示し、盤面を複製しない |
 | 外部公開するmethod／path | PORTAL | allowlistに明示したものだけ中継 |
 | recipientの選択表示 | PORTAL client | browser tab内のlocal state |
 | 実際のmessage宛先 | CORE request | `POST /viewer/send`の`to`で確定 |
@@ -44,13 +46,12 @@ RenCrow_PORTAL
   | allowlisted proxy
   v
 RenCrow_CORE
-  |                    |
-  | TTS contract       | STT contract
-  v                    v
-RenCrow_TTS          RenCrow_STT
-  |                    |
-  v                    v
-TTS target           STT target
+  | TTS contract       | STT contract       | Games bridge
+  v                    v                    v
+RenCrow_TTS          RenCrow_STT          RenCrow_GAMES
+  |                    |                    |
+  v                    v                    v
+TTS target           STT target           Observer / Executor
 ```
 
 PORTALはCOREの全APIを透過公開しません。COREはRenCrow_TTS／RenCrow_STT Gatewayだけを
@@ -58,15 +59,17 @@ PORTALはCOREの全APIを透過公開しません。COREはRenCrow_TTS／RenCrow
 
 ## Mode permissions
 
-| Operation | `IdleChat` | `Chat` |
-| --- | --- | --- |
-| CORE health、会話event、IdleChat statusの読み取り | allow | allow |
-| chat recipientの選択通知 | deny | allow |
-| message送信、IdleChat開始／停止 | deny | allow |
-| audio／input active-control | deny | allow |
-| TTS audio取得とplayback ACK | deny | allow |
-| STT WebSocket入力 | deny | allow |
-| Debug、Ops、Repair、LLM管理、設定変更 | deny | deny |
+| Operation | `IdleChat` | `Chat` | `Games` |
+| --- | --- | --- | --- |
+| CORE health | allow | allow | allow |
+| 会話event、IdleChat status | allow | allow | deny |
+| chat recipient、message、IdleChat開始／停止 | deny | allow | deny |
+| audio／input、TTS、STT | deny | allow | deny |
+| Games status、session、event、Observer read | deny | deny | allow |
+| Agent-owned game launch | deny | deny | allow |
+| session Retry／Start over | deny | deny | allow |
+| game decision／result、Observer launch／ingest | deny | deny | deny |
+| Debug、Ops、Repair、LLM管理、設定変更 | deny | deny | deny |
 
 正確なallowlistはPORTALの実装とcontract testを正本とします。COREにendpointを追加しても、
 PORTAL側へmethod／pathと拒否testを明示しない限り外部公開しません。
@@ -146,7 +149,11 @@ STT利用可能とは判定しません。
 
 - `IdleChat`は読み取り専用とし、write／control requestを拒否する。
 - `Chat`も明示allowlist外のendpointを拒否する。
+- `Games`は`portal-games` allowlist外を拒否し、Agent decision／resultとObserver ingestを公開しない。
 - browserからのwriteとSTT WebSocketはsame-originを要求する。
+- Observer responseだけをsame-origin frame可能にし、PORTAL pageとPuruPuru assetはframe不可を維持する。
+- Observer HTMLは外部assetを同一origin proxyし、title描画の動的style属性だけを
+  Observer responseで許可する。inline scriptとPORTAL本体の`unsafe-inline`は許可しない。
 - PORTALはrequest bodyに上限を設ける。
 - Debug、Ops、Repair、admin、LLM管理、設定変更をPORTALから公開しない。
 - TTS audio proxyは設定済みhost以外を拒否する。
@@ -172,12 +179,15 @@ PORTALとCOREの組み合わせをcompatibleと記録する前に、最低限次
 1. CORE healthとPORTAL readinessが成功する。
 2. `IdleChat`からwrite／control操作が拒否される。
 3. `Chat`のrecipient切替がCORE eventへ到達し、messageの`to`と一致する。
-4. TTS ONでaudio ownerを取得し、実応答のaudio取得とplayback ACKまで到達する。
-5. TTS再生成功と再生errorの両方が正しいACK statusになる。
-6. STT WebSocket upgrade、start／stop、実音声の`final`認識まで到達する。
-7. STT target停止時にerrorが表示され、input ownerが解放される。
-8. Debug／admin endpointとcross-origin controlが拒否される。
-9. 設定外hostのTTS audio取得が拒否される。
-10. client終了後にaudio／input ownerが残留しないか、TTLで失効する。
+4. `Games`でNetHackとAgentを選び、`personas[]`付きlaunchから同一origin Observerへ到達する。
+5. ObserverFrameの`decision.agent_id`が選択Agentと一致し、RuleBasedBrainをAgent E2Eへ使っていない。
+6. Gamesからdecision／result／Observer ingest／debugが拒否され、Retry／Start overだけがsession操作として通る。
+7. TTS ONでaudio ownerを取得し、実応答のaudio取得とplayback ACKまで到達する。
+8. TTS再生成功と再生errorの両方が正しいACK statusになる。
+9. STT WebSocket upgrade、start／stop、実音声の`final`認識まで到達する。
+10. STT target停止時にerrorが表示され、input ownerが解放される。
+11. Debug／admin endpointとcross-origin controlが拒否される。
+12. 設定外hostのTTS audio取得が拒否される。
+13. client終了後にaudio／input ownerが残留しないか、TTLで失効する。
 確認command、対象version、実行環境、結果、未確認点をverification recordへ残してから、
 `ecosystem.yaml`のCORE／PORTAL versionとcompatibility statusを更新します。

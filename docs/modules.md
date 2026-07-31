@@ -5,7 +5,7 @@
 | `RenCrow_EcoSystem` | 公式入口、構成、互換性、統合 release | metadata/docs | 各 release を参照する。実行されない |
 | `RenCrow_CORE` | 中核server、Debug Viewer、Persona、Memory、承認、routing | required binary | runtimeの中心 |
 | `RenCrow_ASSISTANT` | 個人・家族向け生活Routine、PUSH、端末配信、COREへのTask移譲 | planned binary | 実装後はDeviceとCOREの間で生活アシスタント機能を提供 |
-| `RenCrow_PORTAL` | 外部利用者向けChat／IdleChat Web UI | optional/recommended binary | allowlist内のCORE Public APIだけを中継 |
+| `RenCrow_PORTAL` | 外部利用者向けChat／IdleChat／Games Web UI、PuruPuru overlay | optional/recommended binary | allowlist内のCORE Public APIだけを中継 |
 | `RenCrow_CMD` | CORE Public API用CLI (`rencrowctl`) | optional/recommended binary | CORE Public API操作とCORE／PORTALのprocess entrypoint |
 | `RenCrow_LLM` | Execution Role profileとInference Targetを接続するcentral Gateway／Host Node | optional binary + node + external compute | COREはAgentからRoleを選びcentral Gatewayを利用。compute hostはNodeとtargetを配置 |
 | `RenCrow_STT` | 公開音声契約と認識target差を吸収するGo Gateway | optional binary + external compute | COREから音声を受け、STT targetの結果を正規化 |
@@ -44,14 +44,14 @@ COREはRenCrow_STT／RenCrow_TTS Gatewayだけを参照し、Gatewayが各target
 ## CORE, PORTAL, CMD and ASSISTANT
 
 `RenCrow_CORE`がserver behavior、状態、`/viewer/*` API、Debug Viewerの正本です。
-`RenCrow_PORTAL`は外部利用者向けの`Chat`／`IdleChat`を所有し、debug/admin APIを中継しません。
-`IdleChat`は読み取り専用、`Chat`は明示allowlist内だけ操作可能です。
+`RenCrow_PORTAL`は外部利用者向けの`Chat`／`IdleChat`／`Games`を所有し、debug/admin APIを中継しません。
+`IdleChat`は読み取り専用、`Chat`と`Games`は各modeの明示allowlist内だけ操作可能です。
 COREとの接続、active-control、TTS／STT、公開境界は
 [PORTAL–CORE contract](portal-core-contract.md)を参照してください。
 `RenCrow_CMD`は`rencrowctl`としてCORE Public APIだけを利用し、COREとPORTALの
 process entrypointを提供します。PORTALとCMDはruntime状態を別実装として所有しません。
 
-PORTALはWeb renderer、CMDはterminal clientとして、COREのChat／IdleChat／event等の
+PORTALはWeb renderer、CMDはterminal clientとして、COREのChat／IdleChat／Games／event等の
 共通意味論を利用します。ASSISTANTはproactive triggerとDevice deliveryを加える
 plannedのstateful application serviceです。詳細は
 [Interaction surfaces](interaction-surfaces.md)を参照してください。
@@ -73,8 +73,8 @@ Z-Image等のbackend endpoint、Model、workflow、生成parameterもCOREへ複�
 
 ## CORE and GAMES boundary
 
-ゲーム開始は`CORE Agent / LLM -> POST /viewer/games/launch -> GAMES Observer`です。
-起動後はGAMESのtitle-local controllerが行動を決定し、deterministic executorが
+ゲーム開始は`CORE Agent -> POST /viewer/games/launch -> GAMES Observer`です。
+起動後はCORE上の対象Agentが各turnの行動を決定し、GAMESのdeterministic executorが
 検証して実行し、resultとObserverFrameをCOREへ返します。COREは
 `/viewer/games/observer`でGAMES Observerをユーザーへproxyし、resultを候補記憶へ
 記録します。

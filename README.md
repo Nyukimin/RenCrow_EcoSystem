@@ -65,7 +65,7 @@ RenCrow_ASSISTANTは、個人・家族向けの生活Routine、PUSH、端末配�
 Task移譲を所有するplannedのGo serviceです。Mio等のAgentやPORTALのWeb画面を
 所有するmoduleではありません。
 
-PORTALはCOREのChatとIdleChatを提供するWeb clientです。CMDはCORE Public APIだけを
+PORTALはCOREのChat、IdleChat、Gamesを提供するWeb clientです。CMDはCORE Public APIだけを
 利用するterminal client兼command facadeで、COREとPORTALのprocess entrypointも提供します。
 ASSISTANTはproactive triggerとDevice deliveryを担うplanned serviceであり、実装後も
 COREの公開契約を利用します。
@@ -76,9 +76,11 @@ RenCrow_Visionは画像・動画認識の必須interface、RenCrow_Imageは描�
 非secret snapshotであり、Windows checkoutやこのcatalogをruntime正本にしません。
 
 RenCrow_GAMESはworld、rules、決定論的executor、Replay、Observer UIの正本です。
-ゲームの起動主体はCOREのAgent／LLMです。起動後はGAMESのtitle-local controllerと
-決定論的executorがゲームを実行し、resultとObserverFrameをCOREへ返します。
-実行画面はGAMES ObserverをCOREがsame-origin proxyし、ユーザーへ見せます。
+ゲームの起動と各turn判断の主体はCOREのAgentです。Agent E2Eでlocal controllerや
+RuleBasedBrainを代用しません。GAMESの決定論的executorが検証・実行し、
+resultとObserverFrameをCOREへ返します。実行画面はGAMES ObserverをCOREが
+same-origin proxyし、PORTAL Gamesが選択・session・観戦UIを提供します。
+PuruPuru overlayはPORTAL、盤面はGAMES、Agent identityと判断はCOREが所有します。
 
 ## Repository layout
 
