@@ -26,20 +26,16 @@ user environment
 
 ```text
 primary
-  rencrow-llm             Go central Gateway / control host
+  rencrow-llm             RenCrow LLM Gateway / control host
        |
-       +-> implemented module artifact
-       |     rencrow-llm-node  Go Host Node / compute host
-       |
-       +-> companion: llm-target     bundled=false / required=true
-       |     Backend + Model + weights + KV + compute
-       |
-       `-> external API / trusted Agent Runtime
+       `-> rencrow-llm-node  RenCrow LLM Runtime / compute host
+             |-> local Backend -> Model + weights + KV + compute
+             `-> provider / Agent Runtime Backend -> Model
 ```
 
-BackendはLLM targetに付随し、EcoSystemの独立componentにはしません。
+BackendとModelはRenCrow LLM Runtimeに付随し、EcoSystemの独立componentにはしません。
 `rencrow-llm-node`もRenCrow_LLMとBackend契約、status schema、release cadenceを共有するため、
-別moduleにしません。EcoSystemはGateway／Nodeの同一module version、認証、
+別moduleにしません。EcoSystemはGateway／Runtimeの同一module version、認証、
 status schema、Backend contract、実生成を組み合わせて互換性を記録します。
 
 ## RenCrow_STT

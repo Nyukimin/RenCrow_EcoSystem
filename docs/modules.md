@@ -7,7 +7,7 @@
 | `RenCrow_ASSISTANT` | 個人・家族向け生活Routine、PUSH、端末配信、COREへのTask移譲 | planned binary | 実装後はDeviceとCOREの間で生活アシスタント機能を提供 |
 | `RenCrow_PORTAL` | 外部利用者向けChat／IdleChat／Games Web UI、PuruPuru overlay | optional/recommended binary | allowlist内のCORE Public APIだけを中継 |
 | `RenCrow_CMD` | CORE Public API用CLI (`rencrowctl`) | optional/recommended binary | CORE Public API操作とCORE／PORTALのprocess entrypoint |
-| `RenCrow_LLM` | Execution Role profileとInference Targetを接続するcentral Gateway／Host Node | optional binary + node + external compute | COREはAgentからRoleを選びcentral Gatewayを利用。compute hostはNodeとtargetを配置 |
+| `RenCrow_LLM` | Execution RoleをBackend／Modelへ接続するRenCrow LLM Gateway／RenCrow LLM Runtime | optional Gateway binary + Runtime binary + external compute | 正式経路は`CORE -> Gateway -> Runtime -> Backend -> Model`。compute hostへRuntime、Backend、Modelを配置 |
 | `RenCrow_STT` | 公開音声契約と認識target差を吸収するGo Gateway | optional binary + external compute | COREから音声を受け、STT targetの結果を正規化 |
 | `RenCrow_TTS` | character／style／voiceを解決して合成target差を吸収するGo Gateway | optional binary + external compute | COREから発話要求を受け、TTS targetへ接続 |
 | `RenCrow_Vision` | 画像・動画認識interface | optional service | COREからraw mediaを受け、Wildで解析して正規化結果を返す |
@@ -24,15 +24,16 @@
 
 ## RenCrow_LLM runtime boundary
 
-`RenCrow_LLM`のprimary artifactはcontrol hostへ置くGo binary`rencrow-llm`です。
-compute hostへ置く`rencrow-llm-node`は同じmoduleの追加artifactとし、別repositoryに
-しません。
-Backendは独立moduleではなく、Model、重み、KV、計算資源とともにLLM targetへ付随します。
+`RenCrow_LLM`のprimary artifactはRenCrow LLM Gatewayとしてcontrol hostへ置く
+Go binary `rencrow-llm`です。compute hostへ置く`rencrow-llm-node`はRenCrow LLM Runtimeの
+現行binaryであり、同じmoduleの追加artifactとして別repositoryにしません。
+Backendは独立moduleではなく、Runtime配下でModel、重み、KV、計算資源を使用します。
 詳細配置は[Binary placement](binary-placement.md)を参照してください。
 
-論理構造は`Agent -> Execution Role -> Inference Target`の3層です。AgentからRoleへの
-割当はCORE、Role profileとRoleからTargetへのmappingはRenCrow_LLMが所有します。
-Execution RoleはCOREとRenCrow_LLM間の論理契約であり、物理target名ではありません。
+AgentからExecution Roleへの割当はCOREが所有します。推論経路は
+`CORE -> RenCrow LLM Gateway -> RenCrow LLM Runtime -> Backend -> Model`であり、
+GatewayがRoleからRuntime、RuntimeがBackend／Modelへのmappingを所有します。
+Execution RoleはCOREとRenCrow_LLM間の論理契約であり、物理Model名ではありません。
 
 ## RenCrow_STT / RenCrow_TTS runtime boundary
 

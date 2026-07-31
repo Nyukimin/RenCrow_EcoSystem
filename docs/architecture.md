@@ -59,16 +59,17 @@ delivery状態を所有するplanned serviceです。詳細は
 [Interaction surfaces](interaction-surfaces.md)を参照してください。
 
 Capability moduleは、配布するprimary runtimeと外部演算runtimeを分けられます。
-RenCrow_LLMではcontrol host上の`rencrow-llm` central Gatewayがprimary、
-Backend＋Model＋KV＋計算資源からなるLLM targetが同梱しないcompanionです。
-compute hostには`rencrow-llm-node`とBackend／Modelを置き、Agent、Persona、
+RenCrow_LLMではcontrol host上のRenCrow LLM Gateway（`rencrow-llm`）がprimary、
+compute host上のRenCrow LLM Runtime（現行binary `rencrow-llm-node`）が
+同梱しないcompanionです。Runtime配下にBackend、Model、KV、計算資源を置き、
+Agent、Persona、
 Memory、外部provider選択を複製しません。共通契約は[Runtime layers](runtime-layers.md)と
 [Binary placement](binary-placement.md)を参照してください。
 
 Capabilityのproduction依存方向は次で固定します。
 
 ```text
-CORE -> RenCrow_LLM -> LLM target
+CORE -> RenCrow LLM Gateway -> RenCrow LLM Runtime -> Backend -> Model
 CORE -> RenCrow_STT -> STT target
 CORE -> RenCrow_TTS -> TTS target
 CORE -> RenCrow_Vision -> Wild backend -> RenCrow_Vision -> CORE
@@ -94,20 +95,20 @@ COREの対象Agent、world、rules、action validation、execution、Replay、Ob
 GAMESが正本です。PORTAL Gamesは選択・session・観戦UIとPuruPuru overlayだけを所有します。
 COREは起動意思、Persona、Recall、LLM routing、候補記憶、result受信、ユーザー向けproxyを所有します。
 
-LLMの論理依存は次の3層とします。
+LLMの論理依存と実行経路を次で固定します。
 
 ```text
 Agent -- CORE-owned assignment --> Execution Role
-Execution Role -- RenCrow_LLM-owned mapping --> Inference Target
+CORE -> RenCrow LLM Gateway -> RenCrow LLM Runtime -> Backend -> Model
 ```
 
-COREがAgentとExecution Roleを所有し、RenCrow_LLMがRoleに付随するprofileから
-Inference Targetを解決します。Role profileは技術設定であり、AgentとTargetの間へ
-独立した人格層を追加しません。
+COREがAgentとExecution Roleを所有し、GatewayがRoleに付随するprofileからRuntimeを、
+RuntimeがBackendとModelを解決します。Role profileは技術設定であり、独立した人格層を
+追加しません。
 
-Agent IDとExecution Role identityはmodule間の安定contract、Inference Targetと
+Agent IDとExecution Role identityはmodule間の安定contract、Runtime／Backend／Modelと
 Role profile revisionは交換可能なdeployment設定です。PORTAL、CMD、および実装後のASSISTANTは
-Agentだけを選び、Role、execution alias、Targetを直接選びません。Shiroの`CHAT`を
+Agentだけを選び、Role、execution alias、Runtime、Backend、Modelを直接選びません。Shiroの`CHAT`を
 `ChatWorker`、`OPS`／作業実行を`Worker`へ割り当てる判断はCOREが所有します。
 
 COREからRenCrow_LLMへ渡すexecution aliasは、Agent／Role bindingを表すopaqueな

@@ -52,14 +52,16 @@ checksum、統合互換性の検証済みを意味しません。統合試験後
 別の配布層として宣言しています。COREのproduction経路は各Gatewayだけを参照し、
 物理targetへ直接接続しません。
 
-RenCrow_LLMは一つのcentral Gatewayと、compute hostごとのHost Nodeへdeployment roleを
-分けます。配置先、supervisor、Model／Backendの所有境界は
+RenCrow_LLMはRenCrow LLM Gatewayと、compute hostごとのRenCrow LLM Runtimeへ
+deployment roleを分けます。正式経路は
+`CORE -> RenCrow LLM Gateway -> RenCrow LLM Runtime -> Backend -> Model`です。
+配置先、supervisor、Model／Backendの所有境界は
 [Binary placement](docs/binary-placement.md)を正本とします。
 
-LLMの論理構造は`Agent -> Execution Role -> Inference Target`の3層です。
-COREがAgentからExecution Roleへの割り当てを所有し、RenCrow_LLMがRole profileと
-Inference Targetへのmappingを所有します。
-Role profileはExecution Roleに付随する設定レコードであり、独立した第4層ではありません。
+COREはAgentからExecution Roleへの割り当てを所有します。推論実行は
+`CORE -> RenCrow LLM Gateway -> RenCrow LLM Runtime -> Backend -> Model`で固定し、
+GatewayがRole profileからRuntimeを、RuntimeがBackendとModelを解決します。
+Role profileはExecution Roleに付随する設定レコードであり、独立した人格層ではありません。
 
 RenCrow_ASSISTANTは、個人・家族向けの生活Routine、PUSH、端末配信、COREへの
 Task移譲を所有するplannedのGo serviceです。Mio等のAgentやPORTALのWeb画面を

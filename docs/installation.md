@@ -55,9 +55,10 @@ RenCrow_LLM、RenCrow_STT、RenCrow_TTSの場合、installerが取得するprima
 engine、Model、重み、KV、decoder／codec、音声資産、計算資源は自動同梱せず、
 各moduleの利用者Configで接続します。
 
-`rencrow-llm-node`は実装・初回配布済みですが、production Gateway cutoverと
+RenCrow LLM Runtimeの現行binary `rencrow-llm-node`は実装・初回配布済みですが、
+production Gateway cutoverと
 EcoSystem互換試験が成立するまでは統合installer対象にしません。採用時はModel／GPUを持つ
-compute hostへ配置し、control hostの`rencrow-llm`と同一module versionに固定します。
+compute hostへ配置し、RenCrow LLM Gatewayの`rencrow-llm`と同一module versionに固定します。
 
 RenCrow_ASSISTANTを選択した場合、installerは`rencrow-assistant`と非secret設定例を
 導入します。利用者、家族、端末、Calendar等のcredentialはsourceやcommand lineへ

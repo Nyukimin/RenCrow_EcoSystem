@@ -85,7 +85,7 @@ class EcosystemManifestTest(unittest.TestCase):
         self.assertEqual(llm_runtime["primary"]["implementation"], "go")
         self.assertEqual(llm_runtime["primary"]["artifact"], "rencrow-llm")
         self.assertEqual(len(llm_runtime["companions"]), 1)
-        self.assertEqual(llm_runtime["companions"][0]["id"], "llm-target")
+        self.assertEqual(llm_runtime["companions"][0]["id"], "llm-runtime")
         self.assertEqual(llm_runtime["companions"][0]["kind"], "external-compute")
         self.assertFalse(llm_runtime["companions"][0]["bundled"])
 

@@ -53,7 +53,7 @@ health success だけで音声再生、認識、画像解析、game bridge な�
 
 ## RenCrow_GAMES acceptance
 
-- COREのAgent／LLMから`POST /viewer/games/launch`を実行し、
+- COREのAgentから`POST /viewer/games/launch`を実行し、
   GAMES Observerがsessionを起動する。
 - GAMESのObservationRequestを対象のCORE Agentが判断し、GAMESのdeterministic executorが
   検証後に実行する。RuleBasedBrainはtest／simulationに限定する。
@@ -67,15 +67,17 @@ health success だけで音声再生、認識、画像解析、game bridge な�
 
 RenCrow_LLMを含む組み合わせでは、一般的なminimum acceptanceに加えて次を確認します。
 
-- client／COREがphysical target、Node、Backend portへ直結していない。
-- Agent -> Execution Role -> Inference Targetの3層が維持される。
+- client／COREがRuntime、Backend、Modelへ直結していない。
+- `CORE -> RenCrow LLM Gateway -> RenCrow LLM Runtime -> Backend -> Model`が維持される。
 - Mio／Chat、Shiro／ChatWorker・Worker、Midori／Wild、Kuro／Heavyが意図したtargetへ解決される。
 - Role profileがExecution Roleに付随する技術設定であり、独立したAgent層になっていない。
-- clientがAgentだけを選び、COREがRole、RenCrow_LLMがTargetを選ぶ責務境界が維持される。
+- clientがAgentだけを選び、COREがRole、GatewayがRuntime、RuntimeがBackend／Modelを
+  選ぶ責務境界が維持される。
 - execution aliasをopaqueなAgent／Role binding contractとして扱い、Agent ID、
   Role ID、Model名へ誤って固定していない。
-- Host Node導入後はGatewayとNodeのversion、status schema、認証、Backend contractが一致する。
-- Node liveness、Backend readiness、Model readiness、実生成を別checkpointとして確認する。
+- RenCrow LLM Runtime導入後はGatewayとRuntimeのversion、status schema、認証、
+  Backend contractが一致する。
+- Runtime liveness、Backend readiness、Model readiness、実生成を別checkpointとして確認する。
 - Heavy通常推論がside effectなし／read-onlyで、full-access Codex Toolと別監査経路になっている。
 - local target停止時にexternal providerへ、Agent Runtime停止時に別Agentへ無言fallbackしない。
 - external provider利用時にprovider、Model、課金区分、usage、外部送信許可を追跡できる。
@@ -88,7 +90,7 @@ RenCrow_LLMを含む組み合わせでは、一般的なminimum acceptanceに加
   非互換session／KVを再利用せず、直前の検証済みprofile revisionへrollbackできる。
 
 配置規則は[Binary placement](binary-placement.md)、詳細contractはRenCrow_LLMの
-`docs/10_Gateway_Node_Target責務仕様.md`を参照してください。
+`docs/10_Gateway_Runtime_Backend_Model責務仕様.md`を参照してください。
 
 Target mappingを変更したverification recordには、少なくともCORE／LLM module version、
 Agent、Execution Role、execution alias、old/new Role profile revision、Target ID、

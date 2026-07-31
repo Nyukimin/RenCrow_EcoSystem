@@ -10,8 +10,8 @@ runtime control planeにはならない。
 
 | host role | 配置する主なbinary | 配置しないもの |
 | --- | --- | --- |
-| control host | `rencrow`、`rencrow-llm`、必要なcapability Gateway | Model weights、GPU固有Backendを必須にしない |
-| compute host | `rencrow-llm-node`、Backend、Model | CORE、PORTAL、EcoSystem、Agent Memory |
+| control host | `rencrow`、RenCrow LLM Gateway（`rencrow-llm`）、必要なcapability Gateway | Model weights、GPU固有Backendを必須にしない |
+| compute host | RenCrow LLM Runtime（`rencrow-llm-node`）、Backend、Model | CORE、PORTAL、EcoSystem、Agent Memory |
 | interaction host | `rencrowctl`、`rencrow-portal`、将来の`rencrow-assistant` | 物理LLM URL、Model path、provider credential |
 | operator workstation | `rencrowctl` | runtime状態の正本 |
 | external provider | module-owned adapterから利用するAPI／Agent Runtime | RenCrow binaryの配置を前提にしない |
@@ -23,47 +23,52 @@ runtime control planeにはならない。
 ```text
 control host
   rencrow
-  rencrow-llm
-  trusted Codex subscription runtime
+  RenCrow LLM Gateway (rencrow-llm)
        |
        +-> compute host A
-       |     rencrow-llm-node
-       |     configured Backend / Model
+       |     RenCrow LLM Runtime (rencrow-llm-node)
+       |     Backend -> Model
        |
        +-> compute host B
-       |     rencrow-llm-node
-       |     configured Backend / Model
+       |     RenCrow LLM Runtime (rencrow-llm-node)
+       |     Backend -> Model
        |
-       `-> external LLM API
+       `-> provider-facing RenCrow LLM Runtime
+             external API / Agent Runtime Backend -> Model
 
 interaction host
   rencrowctl / rencrow-portal
        -> CORE public API
 ```
 
-`rencrow-llm` central GatewayはRenCrow環境ごとに一つを標準とする。
-`rencrow-llm-node`はModel／GPUを持つcompute hostごとに一つ置く。
-NodeはRenCrow_LLM moduleとrelease contractを共有し、Model別の独立moduleや
+RenCrow LLM Gateway（`rencrow-llm`）はRenCrow環境ごとに一つを標準とする。
+RenCrow LLM Runtimeの現行binary `rencrow-llm-node`はModel／GPUを持つcompute hostごとに
+一つ置く。RuntimeはRenCrow_LLM moduleとrelease contractを共有し、Model別の独立moduleや
 repositoryを作らない。
 
-配置とは別に、推論の論理構造は次の3層を維持する。
+配置とは別に、推論の論理構造は次で固定する。
 
 ```text
-Agent -> Execution Role -> Inference Target
+CORE
+  -> RenCrow LLM Gateway
+  -> RenCrow LLM Runtime
+  -> Backend
+  -> Model
 ```
 
-COREがAgentからExecution Roleへの割り当てを所有し、RenCrow_LLMがRole profileから
-Inference Targetを解決する。Role profileはRoleに付随するtarget、thinking、sandbox、
-capacity設定であり、独立した第4層ではない。
-Agent IDとExecution Role identityは安定contract、TargetとRole profile revisionは
-deploymentごとに交換可能な設定とする。
+COREがAgentからExecution Roleへの割り当てを所有し、GatewayがRole profileからRuntimeを、
+RuntimeがBackendとModelを解決する。Role profileはRoleに付随するRuntime、thinking、
+sandbox、capacity設定であり、独立レイヤーではない。Agent IDとExecution Role identityは
+安定contract、Runtime／Backend／ModelとRole profile revisionはdeploymentごとに交換可能な
+設定とする。
 
 ## Placement rules
 
 ### Control host
 
 - `rencrow`をAgent、Persona、Memory、route、approvalの正本として一つ置く。
-- `rencrow-llm`をExecution Role profile、target mapping、adapter、正規化の中央境界として置く。
+- `rencrow-llm`をRenCrow LLM Gatewayとして置き、Execution Role profile、
+  Runtime mapping、queue／capacity、status集約を所有させる。
 - Codex subscription credentialを使う場合は、credentialを保持するtrusted host上で
   Codex runtimeを動かし、別compute hostへcredentialを複製しない。
 - 外部API credentialはmoduleのsecret store／environment referenceで管理し、
@@ -72,8 +77,9 @@ deploymentごとに交換可能な設定とする。
 ### Compute host
 
 - host supervisorが`rencrow-llm-node`を常駐化する。
-- NodeがBackend process、Model readiness、GPU/capacity、host-local logを管理する。
-- Backendは原則loopback bindとし、Nodeの認証済みdata planeだけをcontrol hostへ公開する。
+- RenCrow LLM RuntimeがBackend process、Model readiness、GPU/capacity、
+  host-local logを管理する。
+- Backendは原則loopback bindとし、Runtimeの認証済みdata planeだけをcontrol hostへ公開する。
 - Model weights、Backend binary、runtime dependency、Model pathはcompute hostが所有する。
 - control hostからSSH、`taskkill`、`pkill`でBackendを直接管理しない。
 
@@ -83,7 +89,7 @@ host supervisorとして使用できる。supervisorはNodeを監視し、Node�
 ### Interaction host
 
 - PORTALとCMDはCORE Public APIへ接続する。
-- physical target、Node、Backend port、Model名を設定しない。
+- Runtime、Backend port、Model名を設定しない。
 - PORTALはDebug／Ops／LLM管理を中継しない。
 - CMDの管理commandはCOREの認証済みPublic APIだけをfacadeとして呼ぶ。
 
@@ -94,7 +100,7 @@ host supervisorとして使用できる。supervisorはNodeを監視し、Node�
 - `rencrow-llm-node`はRenCrow_LLMのmodule-owned追加artifactとしてGatewayと同じ
   version、status schema、Backend contractで検証する。
 - Model weightsとBackendはGo binaryへ同梱しない。
-- 同一moduleのGatewayとNodeはversionを揃え、status schemaとBackend contractの
+- 同一moduleのGatewayとRuntimeはversionを揃え、status schemaとBackend contractの
   compatibilityを統合試験する。
 
 ## Config ownership
@@ -102,9 +108,9 @@ host supervisorとして使用できる。supervisorはNodeを監視し、Node�
 | Config | 配置 |
 | --- | --- |
 | Agent、Agent -> Execution Role、Persona、Memory、外部送信許可 | CORE control host |
-| Execution Role profile、Role -> target、provider secret reference | LLM central Gateway |
-| Node endpoint、Node certificate／token reference | LLM central Gateway |
-| Backend command、Model path、GPU、local port | compute host Node |
+| Execution Role profile、Role -> Runtime、provider secret reference | RenCrow LLM Gateway |
+| Runtime endpoint、certificate／token reference | RenCrow LLM Gateway |
+| Backend command、Model path、GPU、local port | RenCrow LLM Runtime |
 | PORTAL URL、CMD接続先 | interaction host |
 | component version、artifact checksum、互換性 | EcoSystem manifest |
 
@@ -137,5 +143,5 @@ host supervisorとして使用できる。supervisorはNodeを監視し、Node�
 - `rencrow`、`rencrowctl`、`rencrow-portal`を含む実装済みcomponentのsource versionは
   現在40桁commit SHAへ固定している。release artifactの取得・checksum保証は
   `verified` releaseまで行わない。
-- `rencrow-llm-node`はRenCrow_LLMの追加artifactとして、Gatewayと同じversionおよび
+- `rencrow-llm-node`はRenCrow LLM Runtimeの現行artifactとして、Gatewayと同じversionおよび
   contractで検証する。
