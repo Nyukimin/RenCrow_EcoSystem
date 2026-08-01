@@ -74,13 +74,31 @@ Go Gatewayは文章整形、character／style／voice routing、target adapter�
 
 ## RenCrow_Vision
 
+```text
+primary
+  rencrow-vision          Go binary
+       |
+       v
+companion: vision-backend bundled=false / required=true
+  Wild backend + Model + weights + GPU + optional FFmpeg/FFprobe
+```
+
 `RenCrow_Vision`はCOREとWild backendの間の必須認識interfaceです。media検証、
 動画frame sampling、Wild request、結果正規化を所有します。COREはVisionのbase URLだけを
-持ち、Wild endpoint、Model、media変換parameterを持ちません。
+持ち、Wild endpoint、Model、media変換parameterを持ちません。標準primaryはGo binaryで、
+Python serviceはdevelopment／移行用です。
 
 ## RenCrow_Image
 
+```text
+primary
+  rencrow-image           Go binary
+       |
+       v
+companion: image-backend  bundled=false / required=true
+  ForgeNeo / ComfyUI / Z-Image + Model + weights + GPU + output storage
+```
+
 `RenCrow_Image`はCOREとForgeNeo／Z-Image等のbackendの間の必須画像生成interfaceです。
 公開HTTP contract、backend profile、Model／workflow／生成parameterの所有境界を持ちます。
-現行MVPはPython serviceですが、配布artifactが固定されるまでは`runtime.primary`を
-先行登録しません。
+標準primaryはGo binaryで、Python Gatewayはdevelopment／移行用です。

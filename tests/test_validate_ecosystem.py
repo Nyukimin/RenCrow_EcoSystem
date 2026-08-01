@@ -107,8 +107,26 @@ class EcosystemManifestTest(unittest.TestCase):
         self.assertEqual(tts_runtime["companions"][0]["kind"], "external-compute")
         self.assertFalse(tts_runtime["companions"][0]["bundled"])
 
+    def test_vision_declares_go_primary_and_external_compute(self) -> None:
+        vision_runtime = self.manifest["components"]["vision"]["runtime"]
+
+        self.assertEqual(vision_runtime["primary"]["implementation"], "go")
+        self.assertEqual(vision_runtime["primary"]["artifact"], "rencrow-vision")
+        self.assertEqual(vision_runtime["companions"][0]["id"], "vision-backend")
+        self.assertEqual(vision_runtime["companions"][0]["kind"], "external-compute")
+        self.assertFalse(vision_runtime["companions"][0]["bundled"])
+
+    def test_image_declares_go_primary_and_external_compute(self) -> None:
+        image_runtime = self.manifest["components"]["image"]["runtime"]
+
+        self.assertEqual(image_runtime["primary"]["implementation"], "go")
+        self.assertEqual(image_runtime["primary"]["artifact"], "rencrow-image")
+        self.assertEqual(image_runtime["companions"][0]["id"], "image-backend")
+        self.assertEqual(image_runtime["companions"][0]["kind"], "external-compute")
+        self.assertFalse(image_runtime["companions"][0]["bundled"])
+
     def test_gateways_only_declare_external_compute_targets(self) -> None:
-        for component_id in ("llm", "stt", "tts"):
+        for component_id in ("llm", "stt", "tts", "vision", "image"):
             companions = self.manifest["components"][component_id]["runtime"][
                 "companions"
             ]
@@ -127,9 +145,12 @@ class EcosystemManifestTest(unittest.TestCase):
         self.assertNotIn("ASSISTANT", cmd_role)
         self.assertNotIn("ASSISTANT", portal_role)
 
-    def test_image_is_a_service_and_workspace_is_a_snapshot(self) -> None:
+    def test_vision_and_image_are_binaries_and_workspace_is_a_snapshot(self) -> None:
         self.assertEqual(
-            self.manifest["components"]["image"]["distribution"], "service"
+            self.manifest["components"]["vision"]["distribution"], "binary"
+        )
+        self.assertEqual(
+            self.manifest["components"]["image"]["distribution"], "binary"
         )
         self.assertEqual(
             self.manifest["components"]["workspace"]["distribution"], "snapshot"

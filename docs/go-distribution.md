@@ -1,7 +1,11 @@
 # Go配布方針と実装メモ
 
-Status: in progress。COREの映画カタログsidecar境界とRenCrow_ToolsのGo gatewayは実装済みです。
-Vision／ImageのGo Gateway化とrelease artifactの確定は継続課題です。
+Status: source implemented / release integration pending。CORE、Vision、Image、映画カタログsidecarの
+Go実装は完了しています。checksum付きrelease artifactと統合installerの確定は継続課題です。
+
+標準配布、外部compute、optional sidecarの意味は
+[RenCrow_COREの「標準Go配布境界」](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_アーキテクチャ概要.md#標準go配布境界)
+が正本です。この文書はEcoSystemのartifact登録、配置、統合受入だけを補足します。
 
 ## 目的
 
@@ -20,8 +24,8 @@ Python／Node.jsは標準インストールへ持ち込まず、必要な機能�
 | `RenCrow_LLM` | Go Gateway／Runtime binary | 現行Go。Backend／Modelは外部compute |
 | `RenCrow_STT` | Go Gateway binary | 現行Go。STT targetは外部compute |
 | `RenCrow_TTS` | Go Gateway binary | 現行Go。TTS targetは外部compute |
-| `RenCrow_Vision` | Go Gateway binaryへ移行予定 | 現在はPython service |
-| `RenCrow_Image` | Go Gateway binaryへ移行予定 | 現在はPython service |
+| `RenCrow_Vision` | `rencrow-vision` Go Gateway binary | 実装済み。manifest statusは`development` |
+| `RenCrow_Image` | `rencrow-image` Go Gateway binary | 実装済み。manifest statusは`development` |
 
 `RenCrow_Vision`はWild backend、`RenCrow_Image`はForgeNeo／ComfyUI／Z-Imageへ接続する
 interfaceであり、modelやGPU計算をGo binaryへ同梱する方針ではない。
@@ -46,17 +50,17 @@ interfaceであり、modelやGPU計算をGo binaryへ同梱する方針ではな
 - production DB: Toolが直接正本化せず、staging JSONL等をCOREが検証してimportする
 
 COREの映画カタログbackfillは、`MovieCatalogCrawler`契約とsidecar clientへ分離済みです。
-CrawlerのGo化はoptional sidecarの実装選択であり、catalog domainをCOREから移動しない。
+実装済みのGo Crawlerはoptional sidecarであり、catalog domainをCOREから移動しない。
 
 ## 実装メモ
 
-### P0: Go Gateway化
+### P0: Go Gateway化（完了）
 
-1. `RenCrow_Vision`にGoのserver entrypointを追加する。
-2. `RenCrow_Image`にGoのserver entrypointを追加する。
-3. 既存のHTTP endpoint、health、error、logging、request ID／trace IDの契約を維持する。
-4. Visionの動画処理で使うFFmpeg／FFprobeは、Python依存とは分けて外部実行物として扱う。
-5. Python実装は移行期間のcontract test／比較用に残し、標準artifactの起動経路にはしない。
+1. `RenCrow_Vision`に`rencrow-vision` Go server entrypointを追加した。
+2. `RenCrow_Image`に`rencrow-image` Go server entrypointを追加した。
+3. 既存のHTTP endpoint、health、error、logging、request ID／trace ID契約を維持した。
+4. Visionの動画処理で使うFFmpeg／FFprobeは、Python依存とは分けた外部実行物として扱う。
+5. Python実装はcontract test／比較／移行用に残し、標準artifactの起動経路にはしない。
 
 ### P1: COREの外部取得境界（完了）
 
@@ -68,7 +72,7 @@ CrawlerのGo化はoptional sidecarの実装選択であり、catalog domainをCO
 
 ### P2: 配布・統合
 
-1. Go Gatewayのartifact、checksum、対応OS／architectureが確定してから`ecosystem.yaml`へ反映する。
+1. 実装済みGo Gatewayを`development` primary artifactとして`ecosystem.yaml`へ反映し、release時にchecksum、対応OS／architecture、`available`状態を確定する。
 2. installerは標準profileとoptional profileを分ける。
 3. LLM／STT／TTS／Vision／Imageのexternal compute配置とhealth／E2E確認を別host単位で行う。
 4. CORE、CMD、PORTAL、GAMESのGo build、Vision／ImageのGo build、sidecarなしの標準起動を受入条件にする。

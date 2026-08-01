@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "../RenCrow_CORE",
-      "version": "4d4478c73aeb39d069a792e89289c9cdc2237a77",
+      "version": "256ef62e14e0d52de750f5ec24b426b5c5764ed5",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, approval, route, adapter, and user-facing behavior"
@@ -17,7 +17,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "../RenCrow_PORTAL",
-      "version": "c890b9653a067d4316604de5d89d060aedb506dd",
+      "version": "dc4068605d7372db9fe6774fa5ccbdc920a61fcf",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API"
@@ -41,7 +41,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "../RenCrow_CMD",
-      "version": "a4cf5e9a88aa835ecfd4ae6d292e5f3b73f0e1c5",
+      "version": "b96133227cedbe83d41e5b07a0db077552e2329a",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL"
@@ -49,7 +49,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "../RenCrow_LLM",
-      "version": "413369b6da88df83618d01d0b3b9821bdf05bbbd",
+      "version": "0e4b3aa287683e2d823e0534ba9eaafd13ce29f6",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -73,7 +73,7 @@
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",
       "workspace_path": "../RenCrow_STT",
-      "version": "d16c9e1a5dad5753a7b833d747bcc727a1ac1495",
+      "version": "4684e3b5085ccfbdd18d822b426c9f9b48032e59",
       "required": false,
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
@@ -97,7 +97,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "../RenCrow_TTS",
-      "version": "04730e950dc14a6e85539e5b6634097252b5b869",
+      "version": "d5a7471601ac90dbbd043bf4bdd6289e05b49140",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
@@ -121,15 +121,31 @@
     "vision": {
       "repository": "Nyukimin/RenCrow_Vision",
       "workspace_path": "../RenCrow_Vision",
-      "version": "181b4dadb86c5381658fc5efb5100ffb141b7c7e",
+      "version": "97708cf4647343e9500f7b2156482620dc2bfbbf",
       "required": false,
-      "distribution": "service",
-      "role": "Mandatory image and video recognition interface from CORE to the Wild backend, including media validation, preprocessing, and result normalization"
+      "distribution": "binary",
+      "role": "Go image and video recognition Gateway from CORE to the Wild backend, including media validation, preprocessing, and result normalization",
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "rencrow-vision",
+          "status": "development"
+        },
+        "companions": [
+          {
+            "id": "vision-backend",
+            "kind": "external-compute",
+            "required": true,
+            "bundled": false,
+            "role": "Wild backend, Model, weights, GPU runtime, and optional FFmpeg or FFprobe used for video processing"
+          }
+        ]
+      }
     },
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "../RenCrow_GAMES",
-      "version": "5ecd75b4fabab3b92d0482dedd8ee2f8bdadf5b9",
+      "version": "6c09a6e48414d8ef68bb0698c13102359819b1ab",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI"
@@ -137,7 +153,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "../RenCrow_Tools",
-      "version": "0dde0ad7476c15ba2e6d8d5451189cd457047c50",
+      "version": "2d1af303916eb2c4731f384ff008fa03669fd8a5",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools"
@@ -145,15 +161,31 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "../RenCrow_Image",
-      "version": "1c848c747ccc05e55b1c9b367203a71e56d06bee",
+      "version": "c79e4371ec709c84ea3443327565c120bb96e812",
       "required": false,
-      "distribution": "service",
-      "role": "Mandatory drawing and image-generation HTTP interface from CORE to ForgeNeo, Z-Image, or another configured backend"
+      "distribution": "binary",
+      "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "rencrow-image",
+          "status": "development"
+        },
+        "companions": [
+          {
+            "id": "image-backend",
+            "kind": "external-compute",
+            "required": true,
+            "bundled": false,
+            "role": "ForgeNeo, ComfyUI, Z-Image, Model, weights, GPU runtime, and generated image storage"
+          }
+        ]
+      }
     },
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "../RenCrow_Workspace",
-      "version": "bc2e6d51632d36ce1ae38510662dcb18dfeed7a7",
+      "version": "ad62271edc900f353daeceaa490d9dc49a267f70",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service"

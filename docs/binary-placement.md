@@ -10,7 +10,7 @@ runtime control planeにはならない。
 
 | host role | 配置する主なbinary | 配置しないもの |
 | --- | --- | --- |
-| control host | `rencrow`、RenCrow LLM Gateway（`rencrow-llm`）、必要なcapability Gateway | Model weights、GPU固有Backendを必須にしない |
+| control host | `rencrow`、RenCrow LLM Gateway（`rencrow-llm`）、必要な`rencrow-stt`／`rencrow-tts`／`rencrow-vision`／`rencrow-image` | Model weights、GPU固有Backendを必須にしない |
 | compute host | RenCrow LLM Runtime（`rencrow-llm-node`）、Backend、Model | CORE、PORTAL、EcoSystem、Agent Memory |
 | interaction host | `rencrowctl`、`rencrow-portal`、将来の`rencrow-assistant` | 物理LLM URL、Model path、provider credential |
 | operator workstation | `rencrowctl` | runtime状態の正本 |
@@ -39,6 +39,10 @@ control host
 interaction host
   rencrowctl / rencrow-portal
        -> CORE public API
+
+optional capability host
+  rencrow-stt / rencrow-tts / rencrow-vision / rencrow-image
+       -> external target / backend
 ```
 
 RenCrow LLM Gateway（`rencrow-llm`）はRenCrow環境ごとに一つを標準とする。
@@ -69,6 +73,8 @@ sandbox、capacity設定であり、独立レイヤーではない。Agent IDと
 - `rencrow`をAgent、Persona、Memory、route、approvalの正本として一つ置く。
 - `rencrow-llm`をRenCrow LLM Gatewayとして置き、Execution Role profile、
   Runtime mapping、queue／capacity、status集約を所有させる。
+- 必要なcapability Gatewayだけを配置する。STT／TTS／Vision／Imageの物理target、Model、
+  weights、GPU runtimeは同じhostにある場合でもGatewayの配布artifactへ同梱しない。
 - Codex subscription credentialを使う場合は、credentialを保持するtrusted host上で
   Codex runtimeを動かし、別compute hostへcredentialを複製しない。
 - 外部API credentialはmoduleのsecret store／environment referenceで管理し、
@@ -84,7 +90,7 @@ sandbox、capacity設定であり、独立レイヤーではない。Agent IDと
 - control hostからSSH、`taskkill`、`pkill`でBackendを直接管理しない。
 
 WindowsではWindows ServiceまたはTask Scheduler、macOSではlaunchd、Linuxではsystemdを
-host supervisorとして使用できる。supervisorはNodeを監視し、NodeがBackendを監視する。
+host supervisorとして使用できる。supervisorはRenCrow LLM Runtimeを監視し、RuntimeがBackendを監視する。
 
 ### Interaction host
 

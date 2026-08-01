@@ -11,7 +11,7 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 4. [PORTAL–CORE contract](portal-core-contract.md) — 外部UIと中核runtimeの接続・公開境界
 5. [Modules](modules.md) — 各 repository の責務
 6. [Runtime layers](runtime-layers.md) — primary binaryと外部runtimeの配布境界
-7. [Go distribution](go-distribution.md) — Python／Nodeを標準installへ持ち込まない配布方針と実装メモ
+7. [Go distribution](go-distribution.md) — CORE正本に従うGo artifact、外部compute、optional sidecarの統合状態
 8. [Binary placement](binary-placement.md) — control／compute／interaction hostへの配置規則
 9. [Installation](installation.md) — 現在利用できる導入方法
 10. [Compatibility](compatibility.md) — version 固定と統合 release 手順

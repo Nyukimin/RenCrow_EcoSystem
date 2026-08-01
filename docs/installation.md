@@ -37,9 +37,9 @@ git clone https://github.com/Nyukimin/RenCrow_Workspace.git
 参照してください。EcoSystem 側から未検証の command を複製しません。
 
 Go binaryを標準配布単位とし、Python／Node.jsを標準installerへ持ち込まない境界と
-実装待ち項目は、[Go distribution](go-distribution.md)に記載します。映画カタログのCrawler
-sidecar化は完了済みです。Vision／ImageのGo Gateway化とrelease artifact確定までは、現行の
-Python service構成をdevelopment用として扱い、`ecosystem.yaml`のrelease artifact宣言を先行変更しません。
+統合待ち項目は、[Go distribution](go-distribution.md)に記載します。映画カタログCrawler、
+Vision、ImageのGo化は完了済みです。各primary artifactは`development`としてmanifestへ記録し、
+checksum付きreleaseと統合installerが確定するまで`available`とは扱いません。
 
 ## Planned release installation
 
@@ -55,9 +55,10 @@ Python service構成をdevelopment用として扱い、`ecosystem.yaml`のreleas
 8. secret を repository や command line に残さず設定する。
 9. CORE health と選択した capability の end-to-end check を行う。
 
-RenCrow_LLM、RenCrow_STT、RenCrow_TTSの場合、installerが取得するprimary artifactは
-それぞれ`rencrow-llm`、`rencrow-stt`、`rencrow-tts`です。LLM／STT／TTS targetの
-engine、Model、重み、KV、decoder／codec、音声資産、計算資源は自動同梱せず、
+RenCrow_LLM、RenCrow_STT、RenCrow_TTS、RenCrow_Vision、RenCrow_Imageの場合、installerが
+取得するprimary artifactはそれぞれ`rencrow-llm`、`rencrow-stt`、`rencrow-tts`、
+`rencrow-vision`、`rencrow-image`です。各target／backendのengine、Model、重み、KV、
+decoder／codec、音声資産、FFmpeg／FFprobe、計算資源は自動同梱せず、
 各moduleの利用者Configで接続します。
 
 RenCrow LLM Runtimeの現行binary `rencrow-llm-node`は実装・初回配布済みですが、

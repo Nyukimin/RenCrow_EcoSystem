@@ -48,9 +48,14 @@ checksum、統合互換性の検証済みを意味しません。統合試験後
 
 `ecosystem.yaml` schema v2では、moduleの配布artifactを`runtime.primary`、
 利用環境側で別途動かす演算runtimeなどを`runtime.companions`として分離できます。
-現在はRenCrow_LLM、RenCrow_STT、RenCrow_TTSへ適用し、Go binaryと各演算targetを
+現在はRenCrow_LLM、RenCrow_STT、RenCrow_TTS、RenCrow_Vision、RenCrow_Imageへ適用し、
+Go binaryと各演算targetを
 別の配布層として宣言しています。COREのproduction経路は各Gatewayだけを参照し、
 物理targetへ直接接続しません。
+
+標準Go配布、optional sidecar、外部computeの意味は
+[RenCrow_COREの正本](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_アーキテクチャ概要.md#標準go配布境界)
+に従います。このrepositoryはartifact、配置、互換性を記録し、module間責務を再定義しません。
 
 RenCrow_LLMはRenCrow LLM Gatewayと、compute hostごとのRenCrow LLM Runtimeへ
 deployment roleを分けます。正式経路は
