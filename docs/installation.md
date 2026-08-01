@@ -36,6 +36,11 @@ git clone https://github.com/Nyukimin/RenCrow_Workspace.git
 各 module の build と設定は、その repository の README / AGENTS / docs を
 参照してください。EcoSystem 側から未検証の command を複製しません。
 
+Go binaryを標準配布単位とし、Python／Node.jsを標準installerへ持ち込まない境界と
+実装待ち項目は、[Go distribution](go-distribution.md)に記載します。映画カタログのCrawler
+sidecar化は完了済みです。Vision／ImageのGo Gateway化とrelease artifact確定までは、現行の
+Python service構成をdevelopment用として扱い、`ecosystem.yaml`のrelease artifact宣言を先行変更しません。
+
 ## Planned release installation
 
 統合 release が成立した後、installer は次を行うものとして別仕様化します。

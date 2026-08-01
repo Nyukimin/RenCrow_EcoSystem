@@ -10,10 +10,10 @@
 | `RenCrow_LLM` | Execution RoleをBackend／Modelへ接続するRenCrow LLM Gateway／RenCrow LLM Runtime | optional Gateway binary + Runtime binary + external compute | 正式経路は`CORE -> Gateway -> Runtime -> Backend -> Model`。compute hostへRuntime、Backend、Modelを配置 |
 | `RenCrow_STT` | 公開音声契約と認識target差を吸収するGo Gateway | optional binary + external compute | COREから音声を受け、STT targetの結果を正規化 |
 | `RenCrow_TTS` | character／style／voiceを解決して合成target差を吸収するGo Gateway | optional binary + external compute | COREから発話要求を受け、TTS targetへ接続 |
-| `RenCrow_Vision` | 画像・動画認識interface | optional service | COREからraw mediaを受け、Wildで解析して正規化結果を返す |
+| `RenCrow_Vision` | 画像・動画認識interface | optional service（Go binary化予定） | COREからraw mediaを受け、Wildで解析して正規化結果を返す |
 | `RenCrow_GAMES` | world、rules、title-local controller、決定論的executor、Replay、Observer | optional extension | COREから起動され、resultとObserverFrameをCOREへ返す |
 | `RenCrow_Tools` | 開発、変換、検証、browser sidecar | tooling | CORE / Worker と開発運用を補助 |
-| `RenCrow_Image` | 描画・画像生成interface | optional service | COREから生成要求を受け、ForgeNeo／Z-Image等のbackendへ接続 |
+| `RenCrow_Image` | 描画・画像生成interface | optional service（Go binary化予定） | COREから生成要求を受け、ForgeNeo／Z-Image等のbackendへ接続 |
 | `RenCrow_Workspace` | `~/.rencrow/workspace`のportableな非secret snapshot | snapshot | backup／復旧用。`~/.rencrow/workspace`自体が実行時の正本であり、runtime serviceではない |
 
 ## Ownership rule
@@ -71,6 +71,10 @@ Knowledge、複雑なTaskはCOREへ委譲します。Deviceはcapabilityを申�
 画像生成は`CORE -> RenCrow_Image -> ForgeNeo / Z-Image`を正規経路とします。
 COREはraw mediaをWild／RenCrow_LLMへ直接送りません。ForgeNeo、ComfyUI、
 Z-Image等のbackend endpoint、Model、workflow、生成parameterもCOREへ複製しません。
+
+Vision／Imageの現行service実装はPythonですが、標準配布ではGo Gatewayへ移行します。
+Pythonはbackend／移行用実装として残り得ますが、標準installerの必須runtimeにはしません。
+詳細な実装メモは[Go distribution](go-distribution.md)を参照してください。
 
 ## CORE and GAMES boundary
 
