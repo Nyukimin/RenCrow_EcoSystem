@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "../RenCrow_CORE",
-      "version": "256ef62e14e0d52de750f5ec24b426b5c5764ed5",
+      "version": "8be49e2255359ac56acd5b3ccd549e1cfab21988",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, approval, route, adapter, and user-facing behavior"
@@ -17,7 +17,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "../RenCrow_PORTAL",
-      "version": "dc4068605d7372db9fe6774fa5ccbdc920a61fcf",
+      "version": "30858bf0533e9818e654b77e1efdcb2c81078252",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API"
@@ -41,7 +41,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "../RenCrow_CMD",
-      "version": "b96133227cedbe83d41e5b07a0db077552e2329a",
+      "version": "e2ae8f6d49282a2aaa927cf8dfd6887c8c477d8f",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL"
@@ -49,7 +49,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "../RenCrow_LLM",
-      "version": "0e4b3aa287683e2d823e0534ba9eaafd13ce29f6",
+      "version": "076bffdf97a3e7a3a0a0691e37705ee7889d82b4",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -73,7 +73,7 @@
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",
       "workspace_path": "../RenCrow_STT",
-      "version": "4684e3b5085ccfbdd18d822b426c9f9b48032e59",
+      "version": "e44d06a5728d35cea3b5682ba61cd03efdc3938e",
       "required": false,
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
@@ -97,7 +97,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "../RenCrow_TTS",
-      "version": "d5a7471601ac90dbbd043bf4bdd6289e05b49140",
+      "version": "ff3e0e7fd1f0ecdee1b805ee9cf9e880f37d8938",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
@@ -121,7 +121,7 @@
     "vision": {
       "repository": "Nyukimin/RenCrow_Vision",
       "workspace_path": "../RenCrow_Vision",
-      "version": "97708cf4647343e9500f7b2156482620dc2bfbbf",
+      "version": "dfbb1eb9046286cdcea679d9959aa2f48c3f76c7",
       "required": false,
       "distribution": "binary",
       "role": "Go image and video recognition Gateway from CORE to the Wild backend, including media validation, preprocessing, and result normalization",
@@ -145,7 +145,7 @@
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "../RenCrow_GAMES",
-      "version": "6c09a6e48414d8ef68bb0698c13102359819b1ab",
+      "version": "4bb4bcb35e5509a673668041d0c583baed3d0a79",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI"
@@ -153,7 +153,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "../RenCrow_Tools",
-      "version": "2d1af303916eb2c4731f384ff008fa03669fd8a5",
+      "version": "8e33536a1236e6150c634da6f1b8b783eabbcf5b",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools"
@@ -161,7 +161,7 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "../RenCrow_Image",
-      "version": "c79e4371ec709c84ea3443327565c120bb96e812",
+      "version": "2ab0d34a28da512b3e8da9e17ff134763c954ede",
       "required": false,
       "distribution": "binary",
       "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
@@ -185,7 +185,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "../RenCrow_Workspace",
-      "version": "ad62271edc900f353daeceaa490d9dc49a267f70",
+      "version": "01751ee9491aab59fdca36abc09fb3caf200df28",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service"
