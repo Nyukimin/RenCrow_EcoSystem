@@ -24,6 +24,7 @@ RenCrow_EcoSystem  -- release/catalog reference --> module releases
           Routine / PUSH / Device delivery
 
 RenCrow_CORE ---- contracts ----> LLM / STT / TTS / Vision / Image
+RenCrow_CORE ---- private API ---> TRADE
 RenCrow_CORE -- launch ---------> RenCrow_GAMES
 RenCrow_GAMES -- result / ObserverFrame --> RenCrow_CORE
 Games / Tools / Workspace -------- ecosystem support
@@ -46,8 +47,10 @@ Games / Tools / Workspace -------- ecosystem support
 checksum、統合互換性の検証済みを意味しません。統合試験後に実在するtagと
 検証結果を記録してecosystem releaseを作成します。
 
-`ecosystem.yaml` schema v2では、moduleの配布artifactを`runtime.primary`、
+`ecosystem.yaml` schema v3では、moduleの配布artifactを`runtime.primary`、
 利用環境側で別途動かす演算runtimeなどを`runtime.companions`として分離できます。
+独立Git管理されるhost固有のBackend profileは`runtime_profiles`へ登録し、owner moduleを
+必須にします。runtime profileはAgent、routing owner、独立Public APIではありません。
 現在はRenCrow_LLM、RenCrow_STT、RenCrow_TTS、RenCrow_Vision、RenCrow_Imageへ適用し、
 Go binaryと各演算targetを
 別の配布層として宣言しています。COREのproduction経路は各Gatewayだけを参照し、
@@ -88,6 +91,9 @@ RuleBasedBrainを代用しません。GAMESの決定論的executorが検証・�
 resultとObserverFrameをCOREへ返します。実行画面はGAMES ObserverをCOREが
 same-origin proxyし、PORTAL Gamesが選択・session・観戦UIを提供します。
 PuruPuru overlayはPORTAL、盤面はGAMES、Agent identityと判断はCOREが所有します。
+
+RenCrow_TRADEは金融Source、学習、Replay、Portfolio risk、TradeGate、Ledgerを所有します。
+現時点ではCORE連携、Broker、Paper、LIVEは未実装で、LIVE取引は禁止です。
 
 ## Repository layout
 
@@ -134,6 +140,13 @@ Windowsで`python3` aliasがない場合:
 
 ```bash
 make check-workspace
+```
+
+moduleごとのルール入口、標準test plan、CI、およびworkspace rootの
+`AGENTS.md` snapshot一致まで監査する場合:
+
+```bash
+make check-governance
 ```
 
 Windows workspaceでは`make PYTHON=python check-workspace`を使用します。

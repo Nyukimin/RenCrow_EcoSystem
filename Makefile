@@ -1,4 +1,4 @@
-.PHONY: check check-manifest check-workspace test
+.PHONY: check check-manifest check-workspace check-governance test
 
 PYTHON ?= python3
 
@@ -9,6 +9,9 @@ check-manifest:
 
 check-workspace:
 	$(PYTHON) scripts/validate_ecosystem.py ecosystem.yaml --check-workspace
+
+check-governance:
+	$(PYTHON) scripts/validate_ecosystem.py ecosystem.yaml --check-workspace --check-governance
 
 test:
 ifeq ($(OS),Windows_NT)

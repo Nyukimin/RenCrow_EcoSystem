@@ -12,6 +12,7 @@
 | `RenCrow_TTS` | character／style／voiceを解決して合成target差を吸収するGo Gateway | optional binary + external compute | COREから発話要求を受け、TTS targetへ接続 |
 | `RenCrow_Vision` | 画像・動画認識interface | optional Go binary + external compute | `rencrow-vision`がCOREからraw mediaを受け、Wildで解析して正規化結果を返す |
 | `RenCrow_GAMES` | world、rules、title-local controller、決定論的executor、Replay、Observer | optional extension | COREから起動され、resultとObserverFrameをCOREへ返す |
+| `RenCrow_TRADE` | 金融Source、学習、Replay、銘柄選別、撤退契約、Portfolio risk、TradeGate、Ledger | optional Go binary | CORE private contract配下。Broker／Paper／LIVEは未実装 |
 | `RenCrow_Tools` | 開発、変換、検証、browser sidecar | tooling | CORE / Worker と開発運用を補助 |
 | `RenCrow_Image` | 描画・画像生成interface | optional Go binary + external compute | `rencrow-image`がCOREから生成要求を受け、ForgeNeo／Z-Image等のbackendへ接続 |
 | `RenCrow_Workspace` | `~/.rencrow/workspace`のportableな非secret snapshot | snapshot | backup／復旧用。`~/.rencrow/workspace`自体が実行時の正本であり、runtime serviceではない |
@@ -34,6 +35,10 @@ AgentからExecution Roleへの割当はCOREが所有します。推論経路は
 `CORE -> RenCrow LLM Gateway -> RenCrow LLM Runtime -> Backend -> Model`であり、
 GatewayがRoleからRuntime、RuntimeがBackend／Modelへのmappingを所有します。
 Execution RoleはCOREとRenCrow_LLM間の論理契約であり、物理Model名ではありません。
+
+`RenCrow_GPT120B`、`RenCrow_Qwen36_27B`、`RenCrow_Gemma4`は、独立Git管理される
+host固有のLLM external runtime profileです。`ecosystem.yaml`の`runtime_profiles`で
+ownerを`llm`として宣言しますが、独立module、Agent、routing ownerにはしません。
 
 ## RenCrow_STT / RenCrow_TTS runtime boundary
 

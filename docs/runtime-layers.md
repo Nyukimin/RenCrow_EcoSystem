@@ -22,6 +22,10 @@ user environment
 - companionを独立したRenCrow moduleとして登録するかは、独立repository、release、公開contractを持つ場合だけ別途判断します。
 - module内部の配置、API、Config詳細は各module repositoryを正本とします。
 
+独立Git repositoryを持つhost固有profileは、componentへ昇格させず
+`runtime_profiles`へ登録します。各profileは`owner_component`を必須とし、owner moduleの
+公開contract、正規route、health、認証、response normalizationを迂回できません。
+
 ## RenCrow_LLM
 
 ```text
@@ -37,6 +41,10 @@ BackendとModelはRenCrow LLM Runtimeに付随し、EcoSystemの独立component�
 `rencrow-llm-node`もRenCrow_LLMとBackend契約、status schema、release cadenceを共有するため、
 別moduleにしません。EcoSystemはGateway／Runtimeの同一module version、認証、
 status schema、Backend contract、実生成を組み合わせて互換性を記録します。
+
+現行の`RenCrow_GPT120B`、`RenCrow_Qwen36_27B`、`RenCrow_Gemma4` repositoryは
+このexternal runtime profileに分類します。host固有の起動、health、benchmark、Model取得を
+所有できますが、COREから直接呼ばず、RenCrow_LLM Runtime配下のBackendとしてだけ使います。
 
 ## RenCrow_STT
 

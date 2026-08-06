@@ -2,9 +2,9 @@
 
 ## Manifest semantics
 
-`ecosystem.yaml` は「その ecosystem release で統合確認した component の
-組み合わせ」を表します。各 module の version を同じ番号に揃えるものでは
-ありません。
+`ecosystem.yaml` は「その ecosystem release で統合確認した component と
+external runtime profileの組み合わせ」を表します。各 module の version を同じ番号に
+揃えるものではありません。
 
 現在値:
 
@@ -14,7 +14,7 @@
 - 未実装component version: `planned`
 
 `source-pinned`はsource checkoutの組み合わせを再現するための状態です。
-validatorは各実装済みcomponentのversionが完全なcommit SHAであることを検証し、
+validatorは各実装済みcomponentとruntime profileのversionが完全なcommit SHAであることを検証し、
 workspace検証時はlocal HEADとの一致も確認します。release artifact、checksum、
 統合互換性はまだ保証しません。
 
@@ -42,6 +42,7 @@ manifest の STT version を更新してから ecosystem patch release を作り
 - artifact の checksum が一致する。
 - `runtime.primary`のartifact、implementation、statusがmodule releaseと一致する。
 - required companionがあるcomponentは、bundled／externalの境界と接続確認結果を記録する。
+- runtime profileはowner componentを持ち、ownerの正規routeを迂回しない。
 - CORE が clean environment で起動し health check を通る。
 - required user flow を最低 1 回 end-to-end で確認する。
 - optional component は「install したもの」ごとに接続・失敗時表示を確認する。

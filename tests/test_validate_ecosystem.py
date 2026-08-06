@@ -23,6 +23,9 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_repository_manifest_is_valid(self) -> None:
         VALIDATOR.validate_manifest(self.manifest)
 
+    def test_manifest_uses_governance_schema_version_three(self) -> None:
+        self.assertEqual(self.manifest["schema_version"], 3)
+
     def test_verified_release_rejects_unpinned_components(self) -> None:
         candidate = copy.deepcopy(self.manifest)
         candidate["ecosystem"]["compatibility_status"] = "verified"
@@ -175,6 +178,43 @@ class EcosystemManifestTest(unittest.TestCase):
         )
         self.assertEqual(assistant_runtime["primary"]["status"], "planned")
 
+    def test_trade_declares_development_go_primary(self) -> None:
+        trade = self.manifest["components"]["trade"]
+
+        self.assertEqual(trade["distribution"], "binary")
+        self.assertEqual(trade["runtime"]["primary"]["implementation"], "go")
+        self.assertEqual(
+            trade["runtime"]["primary"]["artifact"], "rencrow-trade"
+        )
+        self.assertEqual(trade["runtime"]["primary"]["status"], "development")
+        self.assertEqual(trade["runtime"]["companions"], [])
+
+    def test_model_repositories_are_llm_external_runtime_profiles(self) -> None:
+        profiles = self.manifest["runtime_profiles"]
+
+        self.assertEqual(set(profiles), {"gpt120b", "qwen36-27b", "gemma4"})
+        for profile in profiles.values():
+            self.assertEqual(profile["owner_component"], "llm")
+            self.assertEqual(profile["kind"], "external-compute")
+            self.assertFalse(profile["required"])
+            self.assertRegex(profile["version"], VALIDATOR.COMMIT_VERSION_PATTERN)
+
+    def test_runtime_profile_owner_must_exist(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        candidate["runtime_profiles"]["gpt120b"]["owner_component"] = "missing"
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "owner_component"):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_runtime_profile_repository_cannot_duplicate_component(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        candidate["runtime_profiles"]["gpt120b"]["repository"] = candidate[
+            "components"
+        ]["llm"]["repository"]
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "duplicate repository"):
+            VALIDATOR.validate_manifest(candidate)
+
     def test_runtime_primary_requires_known_implementation(self) -> None:
         candidate = copy.deepcopy(self.manifest)
         candidate["components"]["llm"]["runtime"]["primary"][
@@ -269,6 +309,151 @@ class EcosystemManifestTest(unittest.TestCase):
                     VALIDATOR.ManifestError, "does not match source-pinned"
                 ):
                     VALIDATOR.validate_workspace(candidate, manifest_path)
+
+    def test_governance_rejects_missing_agents_file(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            workspace = Path(temp_directory)
+            catalog = workspace / "RenCrow_EcoSystem"
+            component = workspace / "RenCrow_CORE"
+            self._write_governance_repository(catalog, with_ci=True)
+            self._write_governance_repository(component, with_ci=True)
+            (workspace / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            manifest_path = catalog / "ecosystem.yaml"
+            manifest_path.touch()
+            (component / "AGENTS.md").unlink()
+            candidate = {
+                "components": {
+                    "core": {
+                        "workspace_path": "../RenCrow_CORE",
+                        "required": True,
+                        "distribution": "binary",
+                    }
+                },
+                "runtime_profiles": {},
+            }
+
+            with self.assertRaisesRegex(VALIDATOR.ManifestError, "AGENTS.md"):
+                VALIDATOR.validate_governance(candidate, manifest_path)
+
+    def test_governance_rejects_active_component_without_ci(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            workspace = Path(temp_directory)
+            catalog = workspace / "RenCrow_EcoSystem"
+            component = workspace / "RenCrow_CORE"
+            self._write_governance_repository(catalog, with_ci=True)
+            self._write_governance_repository(component, with_ci=False)
+            (workspace / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            manifest_path = catalog / "ecosystem.yaml"
+            manifest_path.touch()
+            candidate = {
+                "components": {
+                    "core": {
+                        "workspace_path": "../RenCrow_CORE",
+                        "required": True,
+                        "distribution": "binary",
+                    }
+                },
+                "runtime_profiles": {},
+            }
+
+            with self.assertRaisesRegex(VALIDATOR.ManifestError, "CI workflow"):
+                VALIDATOR.validate_governance(candidate, manifest_path)
+
+    def test_governance_rejects_copied_common_rules_outside_core(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            workspace = Path(temp_directory)
+            catalog = workspace / "RenCrow_EcoSystem"
+            component = workspace / "RenCrow_LLM"
+            self._write_governance_repository(catalog, with_ci=True)
+            self._write_governance_repository(component, with_ci=True)
+            copied_rules = component / "rules" / "common"
+            copied_rules.mkdir(parents=True)
+            (copied_rules / "GLOBAL_AGENT.md").write_text(
+                "copied\n", encoding="utf-8"
+            )
+            (workspace / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            manifest_path = catalog / "ecosystem.yaml"
+            manifest_path.touch()
+            candidate = {
+                "components": {
+                    "llm": {
+                        "workspace_path": "../RenCrow_LLM",
+                        "required": True,
+                        "distribution": "binary",
+                    }
+                },
+                "runtime_profiles": {},
+            }
+
+            with self.assertRaisesRegex(VALIDATOR.ManifestError, "must not copy"):
+                VALIDATOR.validate_governance(candidate, manifest_path)
+
+    def test_governance_runtime_profile_requires_only_rule_entrypoint(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            workspace = Path(temp_directory)
+            catalog = workspace / "RenCrow_EcoSystem"
+            profile = workspace / "RenCrow_Model"
+            self._write_governance_repository(catalog, with_ci=True)
+            profile.mkdir()
+            (profile / "AGENTS.md").write_text("rules\n", encoding="utf-8")
+            (profile / "README.md").write_text("model\n", encoding="utf-8")
+            (workspace / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            manifest_path = catalog / "ecosystem.yaml"
+            manifest_path.touch()
+            candidate = {
+                "components": {},
+                "runtime_profiles": {
+                    "model": {
+                        "workspace_path": "../RenCrow_Model",
+                        "required": False,
+                    }
+                },
+            }
+
+            VALIDATOR.validate_governance(candidate, manifest_path)
+
+    def test_governance_rejects_root_snapshot_drift(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            workspace = Path(temp_directory)
+            catalog = workspace / "RenCrow_EcoSystem"
+            snapshot = workspace / "RenCrow_Workspace"
+            self._write_governance_repository(catalog, with_ci=True)
+            self._write_governance_repository(snapshot, with_ci=False)
+            (snapshot / "project-root").mkdir()
+            (snapshot / "project-root" / "AGENTS.md").write_text(
+                "snapshot\n", encoding="utf-8"
+            )
+            (workspace / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            manifest_path = catalog / "ecosystem.yaml"
+            manifest_path.touch()
+            candidate = {
+                "components": {
+                    "workspace": {
+                        "workspace_path": "../RenCrow_Workspace",
+                        "required": True,
+                        "distribution": "snapshot",
+                    }
+                },
+                "runtime_profiles": {},
+            }
+
+            with self.assertRaisesRegex(VALIDATOR.ManifestError, "does not match"):
+                VALIDATOR.validate_governance(candidate, manifest_path)
+
+    @staticmethod
+    def _write_governance_repository(path: Path, with_ci: bool) -> None:
+        (path / "scripts").mkdir(parents=True)
+        (path / "AGENTS.md").write_text("rules\n", encoding="utf-8")
+        (path / "README.md").write_text("readme\n", encoding="utf-8")
+        (path / "scripts" / "test-local.ps1").write_text("test\n", encoding="utf-8")
+        (path / "scripts" / "test-local.plan.json").write_text(
+            "{}\n", encoding="utf-8"
+        )
+        if with_ci:
+            (path / ".github" / "workflows").mkdir(parents=True)
+            (path / ".github" / "workflows" / "test.yml").write_text(
+                "name: test\n", encoding="utf-8"
+            )
 
 
 if __name__ == "__main__":

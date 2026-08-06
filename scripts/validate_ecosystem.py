@@ -48,7 +48,22 @@ REQUIRED_COMPONENT_FIELDS = {
     "distribution",
     "role",
 }
+REQUIRED_RUNTIME_PROFILE_FIELDS = {
+    "owner_component",
+    "repository",
+    "workspace_path",
+    "version",
+    "required",
+    "kind",
+    "status",
+    "role",
+}
 FORBIDDEN_KEY_PARTS = {"api_key", "password", "private_key", "secret", "token"}
+GOVERNANCE_REQUIRED_FILES = ("AGENTS.md", "README.md")
+LOCAL_TEST_REQUIRED_FILES = (
+    "scripts/test-local.ps1",
+    "scripts/test-local.plan.json",
+)
 
 
 class ManifestError(ValueError):
@@ -80,15 +95,15 @@ def _reject_secret_keys(value: Any, location: str = "manifest") -> None:
             _reject_secret_keys(child, f"{location}[{index}]")
 
 
-def _validate_workspace_path(component_id: str, raw_path: Any) -> None:
+def _validate_workspace_path(location: str, raw_path: Any) -> None:
     if not isinstance(raw_path, str) or not raw_path.startswith("../"):
         raise ManifestError(
-            f"components.{component_id}.workspace_path must be a sibling path"
+            f"{location}.workspace_path must be a sibling path"
         )
     relative_parts = Path(raw_path).parts
     if len(relative_parts) != 2 or relative_parts[0] != "..":
         raise ManifestError(
-            f"components.{component_id}.workspace_path must identify one sibling"
+            f"{location}.workspace_path must identify one sibling"
         )
 
 
@@ -176,8 +191,8 @@ def validate_manifest(data: dict[str, Any]) -> None:
     """Validate structure, uniqueness, release state, and safe metadata."""
     _reject_secret_keys(data)
 
-    if data.get("schema_version") != 2:
-        raise ManifestError("schema_version must be 2")
+    if data.get("schema_version") != 3:
+        raise ManifestError("schema_version must be 3")
 
     ecosystem = data.get("ecosystem")
     if not isinstance(ecosystem, dict):
@@ -216,7 +231,7 @@ def validate_manifest(data: dict[str, Any]) -> None:
         repositories.add(repository)
 
         workspace_path = component["workspace_path"]
-        _validate_workspace_path(component_id, workspace_path)
+        _validate_workspace_path(f"components.{component_id}", workspace_path)
         if workspace_path in workspace_paths:
             raise ManifestError(f"duplicate workspace_path: {workspace_path}")
         workspace_paths.add(workspace_path)
@@ -261,6 +276,66 @@ def validate_manifest(data: dict[str, Any]) -> None:
     if not isinstance(core, dict) or core.get("required") is not True:
         raise ManifestError("core must exist and be required")
 
+    runtime_profiles = data.get("runtime_profiles")
+    if not isinstance(runtime_profiles, dict) or not runtime_profiles:
+        raise ManifestError("runtime_profiles must be a non-empty object")
+
+    for profile_id, profile in runtime_profiles.items():
+        location = f"runtime_profiles.{profile_id}"
+        if not COMPONENT_ID_PATTERN.fullmatch(profile_id):
+            raise ManifestError(f"invalid runtime profile id: {profile_id}")
+        if not isinstance(profile, dict):
+            raise ManifestError(f"{location} must be an object")
+
+        missing_fields = REQUIRED_RUNTIME_PROFILE_FIELDS - profile.keys()
+        if missing_fields:
+            missing = ", ".join(sorted(missing_fields))
+            raise ManifestError(f"{location} missing fields: {missing}")
+
+        owner_component = profile["owner_component"]
+        if owner_component not in components:
+            raise ManifestError(
+                f"{location}.owner_component must reference a component"
+            )
+
+        repository = profile["repository"]
+        if not isinstance(repository, str) or not REPOSITORY_PATTERN.fullmatch(
+            repository
+        ):
+            raise ManifestError(f"{location}.repository is invalid")
+        if repository in repositories:
+            raise ManifestError(f"duplicate repository: {repository}")
+        repositories.add(repository)
+
+        workspace_path = profile["workspace_path"]
+        _validate_workspace_path(f"runtime_profiles.{profile_id}", workspace_path)
+        if workspace_path in workspace_paths:
+            raise ManifestError(f"duplicate workspace_path: {workspace_path}")
+        workspace_paths.add(workspace_path)
+
+        version = profile["version"]
+        if not isinstance(version, str) or not version.strip():
+            raise ManifestError(f"{location}.version must be non-empty")
+        if version == "unpinned":
+            unpinned_components.append(f"runtime-profile:{profile_id}")
+        elif (
+            compatibility_status == "source-pinned"
+            and not COMMIT_VERSION_PATTERN.fullmatch(version)
+        ):
+            raise ManifestError(
+                f"{location}.version must be a full commit SHA for "
+                "source-pinned compatibility"
+            )
+
+        if not isinstance(profile["required"], bool):
+            raise ManifestError(f"{location}.required must be boolean")
+        if profile["kind"] != "external-compute":
+            raise ManifestError(f"{location}.kind must be external-compute")
+        if profile["status"] not in {"development", "available"}:
+            raise ManifestError(f"{location}.status is not supported")
+        if not isinstance(profile["role"], str) or not profile["role"].strip():
+            raise ManifestError(f"{location}.role must be non-empty")
+
     if compatibility_status in {"source-pinned", "verified"} and unpinned_components:
         names = ", ".join(sorted(unpinned_components))
         raise ManifestError(
@@ -288,30 +363,120 @@ def validate_workspace(data: dict[str, Any], manifest_path: Path) -> None:
     """Check sibling repositories and source-pinned revisions in a local workspace."""
     base_directory = manifest_path.resolve().parent
     compatibility_status = data.get("ecosystem", {}).get("compatibility_status")
-    for component_id, component in data["components"].items():
-        component_path = (base_directory / component["workspace_path"]).resolve()
-        if not component_path.is_dir():
-            if component.get("required") is False:
+    entries = [
+        ("components", component_id, component)
+        for component_id, component in data["components"].items()
+    ]
+    entries.extend(
+        ("runtime_profiles", profile_id, profile)
+        for profile_id, profile in data.get("runtime_profiles", {}).items()
+    )
+    for section, entry_id, entry in entries:
+        entry_path = (base_directory / entry["workspace_path"]).resolve()
+        if not entry_path.is_dir():
+            if entry.get("required") is False:
                 continue
             raise ManifestError(
-                f"components.{component_id} workspace is missing: {component_path}"
+                f"{section}.{entry_id} workspace is missing: {entry_path}"
             )
-        if not (component_path / ".git").exists():
+        if not (entry_path / ".git").exists():
             raise ManifestError(
-                f"components.{component_id} is not a Git worktree: {component_path}"
+                f"{section}.{entry_id} is not a Git worktree: {entry_path}"
             )
-        version = component.get("version")
+        version = entry.get("version")
         if (
             compatibility_status == "source-pinned"
             and isinstance(version, str)
             and COMMIT_VERSION_PATTERN.fullmatch(version)
         ):
-            head = _git_head(component_path)
+            head = _git_head(entry_path)
             if head != version:
                 raise ManifestError(
-                    f"components.{component_id} HEAD {head} does not match "
+                    f"{section}.{entry_id} HEAD {head} does not match "
                     f"source-pinned version {version}"
                 )
+
+
+def _require_non_empty_file(entry_id: str, entry_path: Path, relative: str) -> None:
+    path = entry_path / relative
+    if not path.is_file() or path.stat().st_size == 0:
+        raise ManifestError(f"{entry_id} governance file is missing or empty: {path}")
+
+
+def _has_ci_workflow(entry_path: Path) -> bool:
+    workflows = entry_path / ".github" / "workflows"
+    if not workflows.is_dir():
+        return False
+    return any(path.is_file() for pattern in ("*.yml", "*.yaml") for path in workflows.glob(pattern))
+
+
+def _component_requires_test_contract(component: dict[str, Any]) -> bool:
+    runtime = component.get("runtime")
+    primary = runtime.get("primary", {}) if isinstance(runtime, dict) else {}
+    if isinstance(primary, dict) and primary.get("status") == "planned":
+        return False
+    return component.get("distribution") != "snapshot"
+
+
+def validate_governance(data: dict[str, Any], manifest_path: Path) -> None:
+    """Validate repository-local rule, test, CI, and root snapshot contracts."""
+    catalog_path = manifest_path.resolve().parent
+    workspace_root = catalog_path.parent
+
+    for relative in (*GOVERNANCE_REQUIRED_FILES, *LOCAL_TEST_REQUIRED_FILES):
+        _require_non_empty_file("catalog", catalog_path, relative)
+    if not _has_ci_workflow(catalog_path):
+        raise ManifestError(f"catalog CI workflow is missing: {catalog_path}")
+
+    entries = [
+        ("components", component_id, component)
+        for component_id, component in data["components"].items()
+    ]
+    entries.extend(
+        ("runtime_profiles", profile_id, profile)
+        for profile_id, profile in data.get("runtime_profiles", {}).items()
+    )
+    for section, entry_id, entry in entries:
+        entry_path = (catalog_path / entry["workspace_path"]).resolve()
+        if not entry_path.is_dir():
+            if entry.get("required") is False:
+                continue
+            raise ManifestError(f"{section}.{entry_id} workspace is missing: {entry_path}")
+        location = f"{section}.{entry_id}"
+        for relative in GOVERNANCE_REQUIRED_FILES:
+            _require_non_empty_file(location, entry_path, relative)
+
+        copied_common_rules = entry_path / "rules" / "common"
+        if (
+            section == "components"
+            and entry_id != "core"
+            and copied_common_rules.is_dir()
+            and any(path.is_file() for path in copied_common_rules.rglob("*"))
+        ):
+            raise ManifestError(
+                f"{location} must not copy cross-project rules into "
+                f"{copied_common_rules}"
+            )
+
+        if section != "components" or not _component_requires_test_contract(entry):
+            continue
+        for relative in LOCAL_TEST_REQUIRED_FILES:
+            _require_non_empty_file(location, entry_path, relative)
+        if not _has_ci_workflow(entry_path):
+            raise ManifestError(f"{location} CI workflow is missing: {entry_path}")
+
+    workspace_component = data["components"].get("workspace")
+    if isinstance(workspace_component, dict):
+        root_agents = workspace_root / "AGENTS.md"
+        snapshot_agents = (
+            catalog_path / workspace_component["workspace_path"] / "project-root" / "AGENTS.md"
+        ).resolve()
+        _require_non_empty_file("workspace-root", workspace_root, "AGENTS.md")
+        if not snapshot_agents.is_file() or root_agents.read_bytes() != snapshot_agents.read_bytes():
+            raise ManifestError(
+                "workspace root AGENTS.md does not match "
+                f"RenCrow_Workspace snapshot: {snapshot_agents}"
+            )
 
 
 def parse_args() -> argparse.Namespace:
@@ -321,6 +486,11 @@ def parse_args() -> argparse.Namespace:
         "--check-workspace",
         action="store_true",
         help="also require every declared sibling Git repository",
+    )
+    parser.add_argument(
+        "--check-governance",
+        action="store_true",
+        help="also check repository rules, test plans, CI, and root snapshot",
     )
     return parser.parse_args()
 
@@ -332,11 +502,18 @@ def main() -> int:
         validate_manifest(data)
         if args.check_workspace:
             validate_workspace(data, args.manifest)
+        if args.check_governance:
+            validate_governance(data, args.manifest)
     except ManifestError as exc:
         print(f"[NG] {exc}", file=sys.stderr)
         return 1
 
-    suffix = " and workspace" if args.check_workspace else ""
+    checked = []
+    if args.check_workspace:
+        checked.append("workspace")
+    if args.check_governance:
+        checked.append("governance")
+    suffix = f" and {', '.join(checked)}" if checked else ""
     print(f"[OK] validated {args.manifest}{suffix}")
     return 0
 
