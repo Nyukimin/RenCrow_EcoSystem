@@ -70,7 +70,7 @@ sandbox、capacity設定であり、独立レイヤーではない。Agent IDと
 
 ### Control host
 
-- `rencrow`をAgent、Persona、Memory、route、approvalの正本として一つ置く。
+- `rencrow`をAgent、Persona、Memory、route、同期policy判定の正本として一つ置く。
 - `rencrow-llm`をRenCrow LLM Gatewayとして置き、Execution Role profile、
   Runtime mapping、queue／capacity、status集約を所有させる。
 - 必要なcapability Gatewayだけを配置する。STT／TTS／Vision／Imageの物理target、Model、
@@ -128,8 +128,8 @@ host supervisorとして使用できる。supervisorはRenCrow LLM Runtimeを監
   実生成を確認する。
 - Model、tokenizer、chat template、context prefixが変わる場合は旧session／KVを
   再利用しない。
-- localからexternalへの変更は外部送信、課金、保持policyを変えるため、COREの許可と
-  deployment承認を必要とする。
+- localからexternalへの変更は外部送信、課金、保持policyを変えるため、CORE正本、binary hard limit、
+  deployment policyの機械検証を必要とする。範囲外は人待ちにせず`blocked`にする。
 - Agent Persona、会話Session、Memory、RecallはCOREに残し、compute hostやTargetへ
   正本を移さない。
 - EcoSystemは検証済みmodule version、Role profile revision、Target mapping、E2E結果、

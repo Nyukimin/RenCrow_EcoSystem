@@ -12,7 +12,7 @@
       "version": "fc3de56b13b779d53a1e1c330823f002bea40172",
       "required": true,
       "distribution": "binary",
-      "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, approval, route, adapter, and user-facing behavior"
+      "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior"
     },
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",

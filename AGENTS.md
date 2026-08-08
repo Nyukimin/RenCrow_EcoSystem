@@ -35,7 +35,7 @@ This repository owns:
 This repository does not own:
 
 - module implementation source, module-specific APIs, or internal design;
-- production Persona, Memory, Recall, approval, or LLM routing behavior;
+- production Persona, Memory, Recall, synchronous policy decisions, or LLM routing behavior;
 - reusable tools, generated artifacts, runtime state, or secrets;
 - copies of module repositories or Git submodules.
 

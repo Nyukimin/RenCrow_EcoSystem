@@ -30,7 +30,7 @@ Stack-chan / Apple Watch / iPhone / Web
 
 COREにもWorkstream、Task、Scheduler、Heartbeatがありますが、ASSISTANTの生活Routine
 schedulerとは用途を分けます。目覚まし、朝の予定、天気、交通、ニュース配信は
-ASSISTANTが所有し、複数工程、生成、継続調査、承認付きside effectはCOREへ昇格します。
+ASSISTANTが所有し、複数工程、生成、継続調査、同期policy判定を伴うside effectはCOREへ昇格します。
 
 ## Runtime relationship
 

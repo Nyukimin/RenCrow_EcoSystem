@@ -3,7 +3,7 @@
 | Repository | Product role | Distribution | Runtime relationship |
 | --- | --- | --- | --- |
 | `RenCrow_EcoSystem` | 公式入口、構成、互換性、統合 release | metadata/docs | 各 release を参照する。実行されない |
-| `RenCrow_CORE` | 中核server、Debug Viewer、Persona、Memory、承認、routing | required binary | runtimeの中心 |
+| `RenCrow_CORE` | 中核server、Debug Viewer、Persona、Memory、同期policy判定、routing | required binary | runtimeの中心 |
 | `RenCrow_ASSISTANT` | 個人・家族向け生活Routine、PUSH、端末配信、COREへのTask移譲 | planned binary | 実装後はDeviceとCOREの間で生活アシスタント機能を提供 |
 | `RenCrow_PORTAL` | 外部利用者向けChat／IdleChat／Games Web UI、PuruPuru overlay | optional/recommended binary | allowlist内のCORE Public APIだけを中継 |
 | `RenCrow_CMD` | CORE Public API用CLI (`rencrowctl`) | optional/recommended binary | CORE Public API操作とCORE／PORTALのprocess entrypoint |
