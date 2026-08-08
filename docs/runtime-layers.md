@@ -22,6 +22,13 @@ user environment
 - companionを独立したRenCrow moduleとして登録するかは、独立repository、release、公開contractを持つ場合だけ別途判断します。
 - module内部の配置、API、Config詳細は各module repositoryを正本とします。
 
+EcoSystemはPORT実値の二重正本を作りません。配布対象のlistenerは所有moduleのConfigが
+`task_id`と予約PORTを定義し、installer／supervisorは前の同一Taskを停止して解放確認後に
+同じPORTで置換します。別PORTを自動割当せず、別Task／所有不明listenerは競合とします。
+正本は
+[RenCrow_COREの「予約PORTと同一Taskの置換起動契約」](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_アーキテクチャ概要.md#予約portと同一taskの置換起動契約)
+です。
+
 独立Git repositoryを持つhost固有profileは、componentへ昇格させず
 `runtime_profiles`へ登録します。各profileは`owner_component`を必須とし、owner moduleの
 公開contract、正規route、health、認証、response normalizationを迂回できません。
