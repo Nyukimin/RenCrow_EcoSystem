@@ -95,6 +95,26 @@ PuruPuru overlayはPORTAL、盤面はGAMES、Agent identityと判断はCOREが�
 RenCrow_TRADEは金融Source、学習、Replay、Portfolio risk、TradeGate、Ledgerを所有します。
 現時点ではCORE連携、Broker、Paper、LIVEは未実装で、LIVE取引は禁止です。
 
+## Durable Data Store topology
+
+Ubuntu productionの基準では、live dataを`/srv/rencrow/db`、別媒体backupを
+`/srv/rencrow/backup`へ配置します。各moduleは同名subtreeだけを所有し、EcoSystemは配置と
+互換性を記録するだけでDBやbackupを所有しません。
+
+| subtree | owner | 主な内容 |
+| --- | --- | --- |
+| `core/` | RenCrow_CORE | 会話Memory、Knowledge、映画・趣味catalog、CORE DB／artifact |
+| `trade/` | RenCrow_TRADE | Raw Source、Dataset、Learning Run、Portfolio、Ledger |
+| `image/` | RenCrow_Image | 保持対象の生成画像とmanifest |
+| `games/` | RenCrow_GAMES | Replay、world／session export |
+| `tools/` | RenCrow_Tools | 未import artifact、staging、再取得可能cache |
+
+RenCrow_TTS、STT、Vision、LLM Gatewayは共通DBを所有せず、保持が必要な成果物は依頼元domainまたは
+専用所有moduleへ渡します。RenCrow_Workspaceはportable snapshotと暗号化Migration Artifactを扱いますが、
+live storeや通常backupの代替ではありません。format、mount、fail-closed、backup整合性は
+[RenCrow_COREの正本](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/05_設定リファレンス.md#db物理配置とbackup)
+に従い、このREADMEでは再定義しません。
+
 ## Repository layout
 
 ```text
