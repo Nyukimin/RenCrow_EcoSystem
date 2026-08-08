@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "../RenCrow_CORE",
-      "version": "fc3de56b13b779d53a1e1c330823f002bea40172",
+      "version": "9a7f5cca7db0039a0007a9f0f4201bfbbb645702",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior"
@@ -17,7 +17,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "../RenCrow_PORTAL",
-      "version": "1d5f91b201f288b98a5ea1521d381b43cf546b16",
+      "version": "1c423427a21a68ccbbd9014eebe324c7428f2f31",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API"
@@ -41,7 +41,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "../RenCrow_CMD",
-      "version": "ed87f91a2f1d9d352392994ded9c3ab9bba91558",
+      "version": "942f733729ce43fce2cb7c7c5a0fa13bd32de7e2",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL"
@@ -49,7 +49,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "../RenCrow_LLM",
-      "version": "4f671914ab31e64f3a5d710ba198fbe146356608",
+      "version": "07c5d10354c02403a628eb1dacd63b7598e4f042",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -97,7 +97,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "../RenCrow_TTS",
-      "version": "ff3e0e7fd1f0ecdee1b805ee9cf9e880f37d8938",
+      "version": "5754145deade635000108c1b99425fc1540c4b90",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
@@ -145,7 +145,7 @@
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "../RenCrow_GAMES",
-      "version": "4bb4bcb35e5509a673668041d0c583baed3d0a79",
+      "version": "368b89e6deaec6d25bff37bf6724a863cf2f46ab",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI"
@@ -153,7 +153,7 @@
     "trade": {
       "repository": "Nyukimin/RenCrow_TRADE",
       "workspace_path": "../RenCrow_TRADE",
-      "version": "ae8df1117c5f8175613d327f1d5686b3a96d3eae",
+      "version": "0467ccc132326b5221d44bfc42c214c32ac02fb1",
       "required": false,
       "distribution": "binary",
       "role": "Financial research, source-bound learning, offline Replay, portfolio-risk, TradeGate, Ledger, and future Broker adaptation without owning Agent identity or routing",
@@ -169,7 +169,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "../RenCrow_Tools",
-      "version": "e35170c284d7ffeb4ef0f99ec2d75d4d954bfd82",
+      "version": "49fc8f368c60a64064c9a79b13c698907ea20f90",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools"
@@ -177,7 +177,7 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "../RenCrow_Image",
-      "version": "90896229bb3c88ae6dd746ff0649acb5092efdd3",
+      "version": "e8a00b282f50ed53f93ea2ae90600d9809c741e9",
       "required": false,
       "distribution": "binary",
       "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
@@ -201,7 +201,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "../RenCrow_Workspace",
-      "version": "114d14819ea5b867b928adcbc3ce8db6d7e9be80",
+      "version": "48148e9eef98349ba99016c5ca2ad742bbdf9930",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service"
