@@ -99,6 +99,24 @@ host supervisorとして使用できる。supervisorはRenCrow LLM Runtimeを監
 - PORTALはDebug／Ops／LLM管理を中継しない。
 - CMDの管理commandはCOREの認証済みPublic APIだけをfacadeとして呼ぶ。
 
+### Capability Apply supervisor（採用済み・未実装）
+
+Tool／Skill／MCPのStable RuntimeContext反映でCORE置換が必要な場合、CORE配布物に
+含むnative Go supervisor workerが、apply APIのHTTP responseとdurable receipt確定後に固定Task
+`rencrow-core`だけを置換します。停止するCORE process自身は再起動後の成功を判定せず、
+supervisor workerが新instanceのliveness、readiness、Snapshot revision／hashと期待capabilityを
+検証します。
+
+host adapterはLinuxのuser systemd、Windowsのnative service／supervisor、macOSのlaunchdで
+同じ論理契約を実行します。WSLをCORE lifecycleに使わず、RenCrow_Toolsを標準依存に
+しません。任意unit、path、commandを受け取らず、未知ownerを停止せず、別PORTや
+代替Toolへfallbackしません。interaction hostのCMDは認証済みCORE APIだけを呼び、
+supervisorやreceipt状態を別実装しません。
+
+横断責務の詳細はCORE正本の[Capability revisionとapply／restart境界](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E6%A6%82%E8%A6%81.md#capability-revision%E3%81%A8applyrestart%E5%A2%83%E7%95%8C)と
+[Capability Applyとstatus](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/06_Public_API%E4%BB%95%E6%A7%98.md#capability-apply%E3%81%A8status)を参照します。
+CLI、API、receipt store、supervisor workerと三OS E2Eは現時点で未実装です。
+
 ## Artifact rule
 
 - `runtime.primary`はmanifestで利用可能性とchecksumを検証する配布artifactである。

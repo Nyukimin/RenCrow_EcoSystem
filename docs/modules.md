@@ -62,6 +62,15 @@ PORTALはWeb renderer、CMDはterminal clientとして、COREのChat／IdleChat�
 plannedのstateful application serviceです。詳細は
 [Interaction surfaces](interaction-surfaces.md)を参照してください。
 
+Tool／Skill／MCPの追加反映では、COREがsource検証、policy、Runtime Capability
+Snapshot、durable receipt、再起動後検証を所有します。CMDは採用済みの
+`rencrowctl capability apply|status`から認証済みCORE Public APIを呼ぶfacadeだけを
+所有します。Toolsは再利用可能なexecutable helper、Workspaceはportable sourceを
+所有しますが、どちらもCapability control plane、Snapshot、receipt、CORE再起動を
+所有しません。詳細はCORE正本の[Capability revisionとapply／restart境界](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E6%A6%82%E8%A6%81.md#capability-revision%E3%81%A8applyrestart%E5%A2%83%E7%95%8C)と
+[Capability Applyとstatus](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/06_Public_API%E4%BB%95%E6%A7%98.md#capability-apply%E3%81%A8status)を参照します。
+CLI、API、receipt store、supervisorは現時点で採用済み・未実装です。
+
 ## ASSISTANT, CORE, PORTAL and devices
 
 `RenCrow_ASSISTANT`は生活Routine、personal／family scope、proactive delivery、
