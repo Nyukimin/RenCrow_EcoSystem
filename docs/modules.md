@@ -77,6 +77,12 @@ DBをAgent能力として扱うときは、COREがsemantic DB capability catalog
 `hobby_graph`、Mio自動収集、Viewer projectionまでを所有します。RenCrow_Toolsの人物関連providerは
 契約不要の公開sourceを固定・bounded artifactへ変換するoptional providerであり、DB query、catalog、
 assessment、control planeを所有しません。
+次期人物関連revisionは、COREがsummary job／translation／identity mappingを、Toolsが固定IDの外部adapterを
+所有する境界を維持し、受賞はWikidata CC0 statementから公式根拠段階を保持、小説は利用申請不要なNDL全国書誌へ
+限定します。Knowledge Memoryの日本語索引、scope、migration、semantic ToolはCOREだけが所有します。導入順と
+実装完了gateはCORE正本の
+[Person related catalog 次期実装順序と完了契約](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E6%A6%82%E8%A6%81.md#person-related-catalog-%E6%AC%A1%E6%9C%9F%E5%AE%9F%E8%A3%85%E9%A0%86%E5%BA%8F%E3%81%A8%E5%AE%8C%E4%BA%86%E5%A5%91%E7%B4%84)
+に従います。
 RenCrow_ToolsのMovie Catalog gatewayはoptionalな外部crawl artifact providerであり、
 DB query、catalog、control planeの所有者ではありません。詳細契約はCORE正本の
 [DB semantic capability境界](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E6%A6%82%E8%A6%81.md#agent-runtime-capability-catalog)
