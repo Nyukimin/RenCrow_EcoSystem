@@ -71,6 +71,13 @@ Snapshot、durable receipt、再起動後検証を所有します。CMDは採用
 [Capability Applyとstatus](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/06_Public_API%E4%BB%95%E6%A7%98.md#capability-apply%E3%81%A8status)を参照します。
 CLI、API、receipt store、supervisorは現時点で採用済み・未実装です。
 
+DBをAgent能力として扱うときは、COREがsemantic DB capability catalog、用途別の
+`movie_catalog.lookup`／`glossary.lookup`、Debug ViewerのDB Catalogを所有します。
+RenCrow_ToolsのMovie Catalog gatewayはoptionalな外部crawl artifact providerであり、
+DB query、catalog、control planeの所有者ではありません。詳細契約はCORE正本の
+[DB semantic capability境界](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E6%A6%82%E8%A6%81.md#agent-runtime-capability-catalog)
+に従います。
+
 ## ASSISTANT, CORE, PORTAL and devices
 
 `RenCrow_ASSISTANT`は生活Routine、personal／family scope、proactive delivery、
