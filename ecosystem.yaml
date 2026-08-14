@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "../RenCrow_CORE",
-      "version": "71a7048adc62f92ad7a69e73754866a55a0537b1",
+      "version": "09c9ae3425706843a949f83794485409f8e42e17",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior"
@@ -41,7 +41,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "../RenCrow_CMD",
-      "version": "942f733729ce43fce2cb7c7c5a0fa13bd32de7e2",
+      "version": "b8d11fd38ae13953f5b5550908a41ccb826b8720",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL"
@@ -153,7 +153,7 @@
     "trade": {
       "repository": "Nyukimin/RenCrow_TRADE",
       "workspace_path": "../RenCrow_TRADE",
-      "version": "0afb1fc0aeb4e3f4bbf6511bfe44d6c0bdceea25",
+      "version": "20d521ebca1852a95306557f998d76c9f9621848",
       "required": false,
       "distribution": "binary",
       "role": "Financial research, source-bound learning, offline Replay, portfolio-risk, TradeGate, Ledger, and future Broker adaptation without owning Agent identity or routing",
@@ -201,7 +201,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "../RenCrow_Workspace",
-      "version": "669d949cd8356d244a0e601a88aed7b0ca5e0967",
+      "version": "5194474ee0ce9560ae9bd3ae0e2f64d14f41354f",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service"
