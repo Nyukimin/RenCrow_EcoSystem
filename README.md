@@ -115,6 +115,32 @@ live storeや通常backupの代替ではありません。format、mount、fail-
 [RenCrow_COREの正本](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/05_設定リファレンス.md#db物理配置とbackup)
 に従い、このREADMEでは再定義しません。
 
+## Persistent DB capability boundary
+
+物理配置の表は保存先の所有権を示すだけで、AgentがDBへ直接アクセスできることを意味しません。
+永続データをAgent能力として提供する場合は、必ずowner moduleの認証済みAPI／Tool境界を通し、
+purpose、role、authenticated scope、相関IDを持つbounded read projectionと、ownerが検証する
+named write command／workflowを提供します。raw path、SQL、DB driver、別moduleの内部storeへの
+直接アクセスと、ownerを迂回するmodule間read/writeは禁止です。
+
+- RenCrow_COREはCORE semantic DB capability catalogと、CORE所有のConversation／Memory／Knowledge／
+  Catalogおよび各種運用DBのread projection、validated write workflowを所有します。具体的なschema、
+  path、payloadはCORE正本を参照し、このrepositoryへ複製しません。
+- RenCrow_TRADEはSource／Learning／Replay／Portfolio／Ledgerを所有し、`CORE -> RenCrow_TRADE private API gateway`
+  のみを公開境界とします。COREはTRADEの物理DBを直読・直書きしません。
+- RenCrow_GAMES、RenCrow_Image、RenCrow_ASSISTANTは、それぞれのowner serviceがReplay／world、
+  生成artifact、Routine／delivery状態を管理します。PORTAL、CMD、DeviceなどのclientはDBへ直結しません。
+- RenCrow_Toolsは再取得可能なstaging／cache／変換artifactだけを扱い、semantic Memory、catalog、
+  control planeのownerではありません。RenCrow_Workspaceはmachine-readableなportable policy／設定
+  projectionであり、live DB、認証権限、runtime capabilityの正本ではありません。
+- RenCrow_LLM、STT、TTS、Visionは共通product DBを所有せず、成果物を依頼元または専用ownerへ返します。
+  PORTAL、CMD、ASSISTANTはCORE Public API clientであり、COREまたは他moduleのDBへ直接アクセスしません。
+
+Catalogや`restricted`表示だけでは統合互換性を主張しません。`verified`には、各persistent domainの
+authenticated Agent-owned read/write production E2Eと、owner route、scope、projection／receipt、
+fail-closed結果を記録したverification evidenceが必要です。[Modules](docs/modules.md)と
+[Compatibility](docs/compatibility.md)に共通境界とgateを示します。
+
 ## Repository layout
 
 ```text

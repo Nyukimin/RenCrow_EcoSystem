@@ -23,6 +23,30 @@
 所有します。EcoSystem はそれらを複製せず、repository と immutable version を
 参照します。
 
+## Persistent data ownership and Agent boundary
+
+EcoSystemが記録するDB情報はsemantic ownershipと統合境界だけです。schema、raw path、SQL、
+内部store、payload仕様は各owner moduleの正本を参照し、ここへ複製しません。永続データを
+Agent能力として提供するownerは、purpose／role／authenticated scope／相関IDを含むbounded
+read projectionとnamed route／Tool、およびvalidated write command／workflowを自分のservice
+境界で提供します。利用側はraw path、SQL、DB driver、別moduleの内部DBを直接扱いません。
+
+| Owner | Persistent domain at ecosystem level | Agent-facing boundary |
+| --- | --- | --- |
+| `RenCrow_CORE` | CORE catalogへ全20 keyを投影する。ただし各keyのsemantic／physical ownerはCORE正本catalogが定義する | CORE semantic catalogからowner-scoped read projection／named routeとvalidated write workflowを提供 |
+| `RenCrow_TRADE` | Source、Learning、Replay、銘柄選別、`investment projection`、Portfolio、TradeGate、Ledger | `CORE -> RenCrow_TRADE private API gateway`。COREから物理DBを直読・直書きしない |
+| `RenCrow_GAMES` | world、session、Replay、Observer export | CORE Agentのlaunch／decision／result contract。PORTAL／CMDはDBへ直結しない |
+| `RenCrow_Image` | 保持対象の生成画像とmanifest | Image owner serviceのbounded API。ForgeNeo／ComfyUI等へCOREが直結しない |
+| `RenCrow_ASSISTANT` | planned Routine、PUSH、delivery状態 | ASSISTANT service/API境界。ASSISTANT／Device clientはCORE Public APIを使い、DBへ直結せず、Agent／MemoryはCOREへ委譲 |
+| `RenCrow_Tools` | 未import artifact、staging、再取得可能cache | helper／provider境界のみ。semantic Memory、catalog、control planeを所有しない |
+| `RenCrow_Workspace` | machine-readable portable policy／設定projection | snapshotのみ。live DB、認証権限、runtime capabilityの正本ではない |
+| `RenCrow_PORTAL` / `RenCrow_CMD` | なし | CORE Public API client。COREまたは他moduleのDBへ直接アクセスしない |
+| `RenCrow_LLM` / `RenCrow_STT` / `RenCrow_TTS` / `RenCrow_Vision` | 共通product DBなし | Gateway／service contractでownerへ成果物を返し、他moduleのDBを直読しない |
+
+`restricted`やcatalog登録は利用可能性の宣言ではありません。実装済みと記載するには、ownerが
+認証済みscopeを検証し、read projectionとwrite workflowをfail-closedで提供し、Agent actorによる
+production-shaped E2Eの証拠を互換性記録へ残す必要があります。
+
 ## RenCrow_LLM runtime boundary
 
 `RenCrow_LLM`のprimary artifactはRenCrow LLM Gatewayとしてcontrol hostへ置く

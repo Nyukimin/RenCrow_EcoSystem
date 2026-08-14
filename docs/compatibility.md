@@ -52,6 +52,27 @@ manifest の STT version を更新してから ecosystem patch release を作り
 health success だけで音声再生、認識、画像解析、game bridge などの利用可能性を
 主張しません。各 capability は実際の入出力まで確認します。
 
+## Persistent DB capability acceptance
+
+全てのpersistent domainは、catalog上のownerだけでなく、次のread／write契約を満たしてから
+統合互換性を主張します。詳細なDB仕様は各owner moduleとCOREの正本へ戻します。
+
+- owner moduleがpurpose、role、authenticated scope、相関IDを検証し、bounded read projectionと
+  named route／Toolを提供する。取得不能・scope不一致・owner停止は推測せず、`unavailable`、
+  `rejected`、または`blocked`でfail-closedにする。
+- owner moduleがvalidated write command／workflow、重複防止、結果receiptまたは同等の相関証拠を
+  提供する。raw path、SQL、DB driver、別moduleの内部storeを利用する経路は不合格とする。
+- 各persistent domainについて、認証済みCORE Agentをactorとするproduction-shaped E2Eを、readと
+  writeで少なくとも各1回実行する。証拠にはrequest actor、scope、owner route、projection／write
+  receipt、拒否・失敗時のfail-closed結果を記録し、catalog／health／unit testだけでは代用しない。
+- `RenCrow_TRADE`はprivate API gateway経由だけを受け付け、CORE直読を禁止する。PORTAL、CMD、
+  ASSISTANTはCORE Public API clientであり、COREまたは他moduleのDBへ直接アクセスしない。
+- `RenCrow_Workspace`のmachine-readable projectionはportable policy／設定の入力であり、
+  live DB、認証権限、runtime capabilityの正本ではない。
+
+`source-pinned`はsource組み合わせの再現性だけを示します。上記read/write E2Eとowner境界の
+verification evidenceが揃わない限り、statusを`verified`へ変更してはいけません。
+
 ## RenCrow_GAMES acceptance
 
 - COREのAgentから`POST /viewer/games/launch`を実行し、
