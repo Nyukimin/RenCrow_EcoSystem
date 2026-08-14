@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "../RenCrow_CORE",
-      "version": "9a7f5cca7db0039a0007a9f0f4201bfbbb645702",
+      "version": "71a7048adc62f92ad7a69e73754866a55a0537b1",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior"
@@ -153,7 +153,7 @@
     "trade": {
       "repository": "Nyukimin/RenCrow_TRADE",
       "workspace_path": "../RenCrow_TRADE",
-      "version": "0467ccc132326b5221d44bfc42c214c32ac02fb1",
+      "version": "0afb1fc0aeb4e3f4bbf6511bfe44d6c0bdceea25",
       "required": false,
       "distribution": "binary",
       "role": "Financial research, source-bound learning, offline Replay, portfolio-risk, TradeGate, Ledger, and future Broker adaptation without owning Agent identity or routing",
@@ -201,7 +201,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "../RenCrow_Workspace",
-      "version": "48148e9eef98349ba99016c5ca2ad742bbdf9930",
+      "version": "669d949cd8356d244a0e601a88aed7b0ca5e0967",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service"
