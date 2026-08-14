@@ -33,8 +33,8 @@ read projectionとnamed route／Tool、およびvalidated write command／workfl
 
 | Owner | Persistent domain at ecosystem level | Agent-facing boundary |
 | --- | --- | --- |
-| `RenCrow_CORE` | CORE catalogへ全20 keyを投影する。ただし各keyのsemantic／physical ownerはCORE正本catalogが定義する | CORE semantic catalogからowner-scoped read projection／named routeとvalidated write workflowを提供 |
-| `RenCrow_TRADE` | Source、Learning、Replay、銘柄選別、`investment projection`、Portfolio、TradeGate、Ledger | `CORE -> RenCrow_TRADE private API gateway`。COREから物理DBを直読・直書きしない |
+| `RenCrow_CORE` | CORE catalogへ20 storeを投影する。ただし各storeのsemantic／physical ownerはCORE正本catalogが定義する | CORE semantic catalogからowner-scoped read projection／named routeとvalidated write workflowを提供 |
+| `RenCrow_TRADE` | CORE catalog上の一つの`investment` storeを、`source`、`learning`、`market`、`replay`、`portfolio`、`ledger`の六つのlogical domainとして所有 | `CORE -> RenCrow_TRADE private API gateway`。COREから物理DBを直読・直書きしない |
 | `RenCrow_GAMES` | world、session、Replay、Observer export | CORE Agentのlaunch／decision／result contract。PORTAL／CMDはDBへ直結しない |
 | `RenCrow_Image` | 保持対象の生成画像とmanifest | Image owner serviceのbounded API。ForgeNeo／ComfyUI等へCOREが直結しない |
 | `RenCrow_ASSISTANT` | planned Routine、PUSH、delivery状態 | ASSISTANT service/API境界。ASSISTANT／Device clientはCORE Public APIを使い、DBへ直結せず、Agent／MemoryはCOREへ委譲 |
@@ -46,6 +46,21 @@ read projectionとnamed route／Tool、およびvalidated write command／workfl
 `restricted`やcatalog登録は利用可能性の宣言ではありません。実装済みと記載するには、ownerが
 認証済みscopeを検証し、read projectionとwrite workflowをfail-closedで提供し、Agent actorによる
 production-shaped E2Eの証拠を互換性記録へ残す必要があります。
+
+TRADEの六つのdomainに対するCORE Agent operationは次の名前を固定します。
+
+| domain | recall | write |
+| --- | --- | --- |
+| `source` | `source_record` | `collect_source` |
+| `learning` | `learning_candidate` | `import_learning_candidate` |
+| `market` | `market_snapshot` | `import_market_snapshot` |
+| `replay` | `replay_decision` | `record_replay_decision` |
+| `portfolio` | `portfolio_snapshot` | `ensure_portfolio_initialized` |
+| `ledger` | `ledger_outcome_report` | `record_shadow_observation` |
+
+`portfolio_snapshot`は`query=current`、`ensure_portfolio_initialized`はempty object、
+`record_shadow_observation`は`study_id`と`decision_id`を使います。COREがAgent scope、policy、route projectionを
+所有し、TRADEがprivate owner APIとdataを所有する境界は、[RenCrow_CORE/docs/README.md](../../RenCrow_CORE/docs/README.md)を正本とします。
 
 ## RenCrow_LLM runtime boundary
 

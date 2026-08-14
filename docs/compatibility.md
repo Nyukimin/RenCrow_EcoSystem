@@ -65,6 +65,14 @@ health success だけで音声再生、認識、画像解析、game bridge な�
 - 各persistent domainについて、認証済みCORE Agentをactorとするproduction-shaped E2Eを、readと
   writeで少なくとも各1回実行する。証拠にはrequest actor、scope、owner route、projection／write
   receipt、拒否・失敗時のfail-closed結果を記録し、catalog／health／unit testだけでは代用しない。
+- CORE catalog上の一つの`investment` storeは、TRADEの`source`、`learning`、`market`、`replay`、
+  `portfolio`、`ledger`六domainへ写像する。operationはrecallが`source_record`、`learning_candidate`、
+  `market_snapshot`、`replay_decision`、`portfolio_snapshot`、`ledger_outcome_report`、writeが
+  `collect_source`、`import_learning_candidate`、`import_market_snapshot`、`record_replay_decision`、
+  `ensure_portfolio_initialized`、`record_shadow_observation`で固定する。
+- TRADEの互換性は、認証済み実CORE Agentが同一runでwrite→readを完了し、restart後のdurability／idempotent
+  replay、raw leakageなし、外部financial executionなしを確認するまで主張しない。2026-08-14に認証済みproduction
+  Shiro/WorkerがTRADE六domainでこれらを完了した。
 - `RenCrow_TRADE`はprivate API gateway経由だけを受け付け、CORE直読を禁止する。PORTAL、CMD、
   ASSISTANTはCORE Public API clientであり、COREまたは他moduleのDBへ直接アクセスしない。
 - `RenCrow_Workspace`のmachine-readable projectionはportable policy／設定の入力であり、
