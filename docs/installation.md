@@ -2,8 +2,10 @@
 
 ## Current development setup
 
-初期段階では統合 installer を公開していません。開発者は ecosystem repo と、
-必要な module repo だけを sibling directory として clone します。
+初期段階ではrelease artifact用の統合 installer を公開していません。開発者は
+ecosystem repoとTools repoを取得し、必要なmodule repoを独立したsibling directoryとして
+cloneします。workspace root自体をGit管理する場合も薄い管理repositoryに限定し、
+module repoは親のGit管理対象やGit submoduleにしません。
 `source-pinned` manifestのversionはcheckoutするcommit SHAであり、配布artifact名では
 ありません。`--check-workspace`検証では各local HEADがこのSHAと一致することを確認します。
 
@@ -11,23 +13,27 @@
 mkdir -p RenCrow
 cd RenCrow
 git clone https://github.com/Nyukimin/RenCrow_EcoSystem.git
-git clone https://github.com/Nyukimin/RenCrow_CORE.git
+git clone https://github.com/Nyukimin/RenCrow_Tools.git
 ```
 
-音声、視覚、CLI、ゲームなどが必要な場合だけ対応 repository を追加します。
+RenCrow_Toolsのsource checkout用bootstrapは、この`ecosystem.yaml`だけを読み、
+未存在repositoryをcloneしてsource-pinned SHAへcheckoutします。最初にread-only planを
+確認し、その後applyします。
 
 ```bash
-git clone https://github.com/Nyukimin/RenCrow_PORTAL.git
-git clone https://github.com/Nyukimin/RenCrow_CMD.git
-git clone https://github.com/Nyukimin/RenCrow_LLM.git
-git clone https://github.com/Nyukimin/RenCrow_STT.git
-git clone https://github.com/Nyukimin/RenCrow_TTS.git
-git clone https://github.com/Nyukimin/RenCrow_Vision.git
-git clone https://github.com/Nyukimin/RenCrow_Image.git
-git clone https://github.com/Nyukimin/RenCrow_GAMES.git
-git clone https://github.com/Nyukimin/RenCrow_Tools.git
-git clone https://github.com/Nyukimin/RenCrow_Workspace.git
+go -C ./RenCrow_Tools/tools/workspace/ecosystem_bootstrap \
+  run ./cmd/rencrow-bootstrap plan \
+  --manifest ../../../../RenCrow_EcoSystem/ecosystem.yaml \
+  --workspace ../../../..
+go -C ./RenCrow_Tools/tools/workspace/ecosystem_bootstrap \
+  run ./cmd/rencrow-bootstrap apply \
+  --manifest ../../../../RenCrow_EcoSystem/ecosystem.yaml \
+  --workspace ../../../..
 ```
+
+特定moduleだけを取得する場合は`--include core`のようにIDを指定し、複数回指定できます。
+`planned` entryは取得しません。既存repositoryは自動checkoutせず、originとHEADがmanifestに
+一致しない場合は変更せず停止します。bootstrapはmanifestを書き換えず、互換性を主張しません。
 
 外部向けWeb画面を使う場合は`RenCrow_PORTAL`、CORE Public APIのterminal clientを
 使う場合は`RenCrow_CMD`を追加します。既定バイナリはそれぞれ`rencrow-portal`と

@@ -38,6 +38,10 @@ Games / Tools / Workspace -------- ecosystem support
 - module から EcoSystem の実装へ依存しません。
 - 実行時連携は HTTP、WebSocket、CLI、設定ファイルなどの公開契約を使います。
 - Git submodule は使用しません。
+- workspace root自体をGit管理する場合も、rootの共通文書だけを所有する薄い
+  管理repositoryとし、各module repositoryは親側の`.gitignore`で除外します。
+- source checkoutの一括準備は、RenCrow_Toolsの`rencrow-bootstrap`が
+  `ecosystem.yaml`を読み、独立したsibling repositoryとしてcloneします。
 
 ## 現在の状態
 
@@ -168,6 +172,9 @@ fail-closed結果を記録したverification evidenceが必要です。[Modules]
 
 `ecosystem.yaml` は外部 YAML dependency を不要にするため、YAML 1.2 で有効な
 JSON-compatible syntax を採用しています。
+
+source checkout用bootstrapの実装はRenCrow_Toolsが所有します。このrepositoryは
+repository、workspace path、versionの正本と検証を所有し、clone処理を複製しません。
 
 ## Validation
 
