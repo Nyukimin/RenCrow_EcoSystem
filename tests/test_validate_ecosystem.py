@@ -23,8 +23,8 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_repository_manifest_is_valid(self) -> None:
         VALIDATOR.validate_manifest(self.manifest)
 
-    def test_manifest_uses_governance_schema_version_three(self) -> None:
-        self.assertEqual(self.manifest["schema_version"], 3)
+    def test_manifest_uses_governance_schema_version_four(self) -> None:
+        self.assertEqual(self.manifest["schema_version"], 4)
 
     def test_verified_release_rejects_unpinned_components(self) -> None:
         candidate = copy.deepcopy(self.manifest)
@@ -75,12 +75,25 @@ class EcosystemManifestTest(unittest.TestCase):
         with self.assertRaisesRegex(VALIDATOR.ManifestError, "secret-like key"):
             VALIDATOR.validate_manifest(candidate)
 
-    def test_workspace_path_must_be_one_sibling(self) -> None:
-        candidate = copy.deepcopy(self.manifest)
-        candidate["components"]["core"]["workspace_path"] = "../../RenCrow_CORE"
+    def test_workspace_path_must_be_one_ascii_direct_child(self) -> None:
+        invalid_paths = (
+            "../RenCrow_CORE",
+            "RenCrow_CORE",
+            "./nested/RenCrow_CORE",
+            "./../RenCrow_CORE",
+            r".\RenCrow_CORE",
+            "./RenCrow CORE",
+            "./RenCrow/CORE",
+            "./_RenCrow_CORE",
+            "./RenCrow-é",
+        )
+        for invalid_path in invalid_paths:
+            with self.subTest(invalid_path=invalid_path):
+                candidate = copy.deepcopy(self.manifest)
+                candidate["components"]["core"]["workspace_path"] = invalid_path
 
-        with self.assertRaisesRegex(VALIDATOR.ManifestError, "one sibling"):
-            VALIDATOR.validate_manifest(candidate)
+                with self.assertRaisesRegex(VALIDATOR.ManifestError, "direct child"):
+                    VALIDATOR.validate_manifest(candidate)
 
     def test_llm_declares_go_primary_and_external_compute(self) -> None:
         llm_runtime = self.manifest["components"]["llm"]["runtime"]
@@ -244,19 +257,17 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_workspace_validation_skips_missing_optional_component(self) -> None:
         with tempfile.TemporaryDirectory() as temp_directory:
             workspace = Path(temp_directory)
-            ecosystem = workspace / "RenCrow_EcoSystem"
-            ecosystem.mkdir()
-            manifest_path = ecosystem / "ecosystem.yaml"
+            manifest_path = workspace / "ecosystem.yaml"
             manifest_path.touch()
             (workspace / "RenCrow_CORE" / ".git").mkdir(parents=True)
             candidate = {
                 "components": {
                     "core": {
-                        "workspace_path": "../RenCrow_CORE",
+                        "workspace_path": "./RenCrow_CORE",
                         "required": True,
                     },
                     "assistant": {
-                        "workspace_path": "../RenCrow_ASSISTANT",
+                        "workspace_path": "./RenCrow_ASSISTANT",
                         "required": False,
                     },
                 }
@@ -267,14 +278,12 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_workspace_validation_rejects_missing_required_component(self) -> None:
         with tempfile.TemporaryDirectory() as temp_directory:
             workspace = Path(temp_directory)
-            ecosystem = workspace / "RenCrow_EcoSystem"
-            ecosystem.mkdir()
-            manifest_path = ecosystem / "ecosystem.yaml"
+            manifest_path = workspace / "ecosystem.yaml"
             manifest_path.touch()
             candidate = {
                 "components": {
                     "core": {
-                        "workspace_path": "../RenCrow_CORE",
+                        "workspace_path": "./RenCrow_CORE",
                         "required": True,
                     }
                 }
@@ -288,16 +297,14 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_workspace_validation_checks_source_pinned_head(self) -> None:
         with tempfile.TemporaryDirectory() as temp_directory:
             workspace = Path(temp_directory)
-            ecosystem = workspace / "RenCrow_EcoSystem"
-            ecosystem.mkdir()
-            manifest_path = ecosystem / "ecosystem.yaml"
+            manifest_path = workspace / "ecosystem.yaml"
             manifest_path.touch()
             (workspace / "RenCrow_CORE" / ".git").mkdir(parents=True)
             candidate = {
                 "ecosystem": {"compatibility_status": "source-pinned"},
                 "components": {
                     "core": {
-                        "workspace_path": "../RenCrow_CORE",
+                        "workspace_path": "./RenCrow_CORE",
                         "required": True,
                         "version": "a" * 40,
                     }
@@ -313,18 +320,18 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_governance_rejects_missing_agents_file(self) -> None:
         with tempfile.TemporaryDirectory() as temp_directory:
             workspace = Path(temp_directory)
-            catalog = workspace / "RenCrow_EcoSystem"
+            catalog = workspace
             component = workspace / "RenCrow_CORE"
             self._write_governance_repository(catalog, with_ci=True)
             self._write_governance_repository(component, with_ci=True)
-            (workspace / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            (catalog / "AGENTS.md").write_text("root\n", encoding="utf-8")
             manifest_path = catalog / "ecosystem.yaml"
             manifest_path.touch()
             (component / "AGENTS.md").unlink()
             candidate = {
                 "components": {
                     "core": {
-                        "workspace_path": "../RenCrow_CORE",
+                        "workspace_path": "./RenCrow_CORE",
                         "required": True,
                         "distribution": "binary",
                     }
@@ -338,17 +345,17 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_governance_rejects_active_component_without_ci(self) -> None:
         with tempfile.TemporaryDirectory() as temp_directory:
             workspace = Path(temp_directory)
-            catalog = workspace / "RenCrow_EcoSystem"
+            catalog = workspace
             component = workspace / "RenCrow_CORE"
             self._write_governance_repository(catalog, with_ci=True)
             self._write_governance_repository(component, with_ci=False)
-            (workspace / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            (catalog / "AGENTS.md").write_text("root\n", encoding="utf-8")
             manifest_path = catalog / "ecosystem.yaml"
             manifest_path.touch()
             candidate = {
                 "components": {
                     "core": {
-                        "workspace_path": "../RenCrow_CORE",
+                        "workspace_path": "./RenCrow_CORE",
                         "required": True,
                         "distribution": "binary",
                     }
@@ -362,7 +369,7 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_governance_rejects_copied_common_rules_outside_core(self) -> None:
         with tempfile.TemporaryDirectory() as temp_directory:
             workspace = Path(temp_directory)
-            catalog = workspace / "RenCrow_EcoSystem"
+            catalog = workspace
             component = workspace / "RenCrow_LLM"
             self._write_governance_repository(catalog, with_ci=True)
             self._write_governance_repository(component, with_ci=True)
@@ -371,13 +378,13 @@ class EcosystemManifestTest(unittest.TestCase):
             (copied_rules / "GLOBAL_AGENT.md").write_text(
                 "copied\n", encoding="utf-8"
             )
-            (workspace / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            (catalog / "AGENTS.md").write_text("root\n", encoding="utf-8")
             manifest_path = catalog / "ecosystem.yaml"
             manifest_path.touch()
             candidate = {
                 "components": {
                     "llm": {
-                        "workspace_path": "../RenCrow_LLM",
+                        "workspace_path": "./RenCrow_LLM",
                         "required": True,
                         "distribution": "binary",
                     }
@@ -391,20 +398,20 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_governance_runtime_profile_requires_only_rule_entrypoint(self) -> None:
         with tempfile.TemporaryDirectory() as temp_directory:
             workspace = Path(temp_directory)
-            catalog = workspace / "RenCrow_EcoSystem"
+            catalog = workspace
             profile = workspace / "RenCrow_Model"
             self._write_governance_repository(catalog, with_ci=True)
             profile.mkdir()
             (profile / "AGENTS.md").write_text("rules\n", encoding="utf-8")
             (profile / "README.md").write_text("model\n", encoding="utf-8")
-            (workspace / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            (catalog / "AGENTS.md").write_text("root\n", encoding="utf-8")
             manifest_path = catalog / "ecosystem.yaml"
             manifest_path.touch()
             candidate = {
                 "components": {},
                 "runtime_profiles": {
                     "model": {
-                        "workspace_path": "../RenCrow_Model",
+                        "workspace_path": "./RenCrow_Model",
                         "required": False,
                     }
                 },
@@ -412,10 +419,37 @@ class EcosystemManifestTest(unittest.TestCase):
 
             VALIDATOR.validate_governance(candidate, manifest_path)
 
+    def test_governance_accepts_matching_root_snapshot(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            workspace = Path(temp_directory)
+            catalog = workspace
+            snapshot = workspace / "RenCrow_Workspace"
+            self._write_governance_repository(catalog, with_ci=True)
+            self._write_governance_repository(snapshot, with_ci=False)
+            (snapshot / "project-root").mkdir()
+            (catalog / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            (snapshot / "project-root" / "AGENTS.md").write_text(
+                "root\n", encoding="utf-8"
+            )
+            manifest_path = catalog / "ecosystem.yaml"
+            manifest_path.touch()
+            candidate = {
+                "components": {
+                    "workspace": {
+                        "workspace_path": "./RenCrow_Workspace",
+                        "required": True,
+                        "distribution": "snapshot",
+                    }
+                },
+                "runtime_profiles": {},
+            }
+
+            VALIDATOR.validate_governance(candidate, manifest_path)
+
     def test_governance_rejects_root_snapshot_drift(self) -> None:
         with tempfile.TemporaryDirectory() as temp_directory:
             workspace = Path(temp_directory)
-            catalog = workspace / "RenCrow_EcoSystem"
+            catalog = workspace
             snapshot = workspace / "RenCrow_Workspace"
             self._write_governance_repository(catalog, with_ci=True)
             self._write_governance_repository(snapshot, with_ci=False)
@@ -423,13 +457,13 @@ class EcosystemManifestTest(unittest.TestCase):
             (snapshot / "project-root" / "AGENTS.md").write_text(
                 "snapshot\n", encoding="utf-8"
             )
-            (workspace / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            (catalog / "AGENTS.md").write_text("root\n", encoding="utf-8")
             manifest_path = catalog / "ecosystem.yaml"
             manifest_path.touch()
             candidate = {
                 "components": {
                     "workspace": {
-                        "workspace_path": "../RenCrow_Workspace",
+                        "workspace_path": "./RenCrow_Workspace",
                         "required": True,
                         "distribution": "snapshot",
                     }

@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "ecosystem": {
     "name": "RenCrow",
     "release": "development",
@@ -8,7 +8,7 @@
   "components": {
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
-      "workspace_path": "../RenCrow_CORE",
+      "workspace_path": "./RenCrow_CORE",
       "version": "09c9ae3425706843a949f83794485409f8e42e17",
       "required": true,
       "distribution": "binary",
@@ -16,7 +16,7 @@
     },
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
-      "workspace_path": "../RenCrow_PORTAL",
+      "workspace_path": "./RenCrow_PORTAL",
       "version": "1c423427a21a68ccbbd9014eebe324c7428f2f31",
       "required": false,
       "distribution": "binary",
@@ -24,7 +24,7 @@
     },
     "assistant": {
       "repository": "Nyukimin/RenCrow_ASSISTANT",
-      "workspace_path": "../RenCrow_ASSISTANT",
+      "workspace_path": "./RenCrow_ASSISTANT",
       "version": "planned",
       "required": false,
       "distribution": "binary",
@@ -40,7 +40,7 @@
     },
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
-      "workspace_path": "../RenCrow_CMD",
+      "workspace_path": "./RenCrow_CMD",
       "version": "b8d11fd38ae13953f5b5550908a41ccb826b8720",
       "required": false,
       "distribution": "binary",
@@ -48,7 +48,7 @@
     },
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
-      "workspace_path": "../RenCrow_LLM",
+      "workspace_path": "./RenCrow_LLM",
       "version": "07c5d10354c02403a628eb1dacd63b7598e4f042",
       "required": false,
       "distribution": "binary",
@@ -72,7 +72,7 @@
     },
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",
-      "workspace_path": "../RenCrow_STT",
+      "workspace_path": "./RenCrow_STT",
       "version": "e44d06a5728d35cea3b5682ba61cd03efdc3938e",
       "required": false,
       "distribution": "binary",
@@ -96,7 +96,7 @@
     },
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
-      "workspace_path": "../RenCrow_TTS",
+      "workspace_path": "./RenCrow_TTS",
       "version": "5754145deade635000108c1b99425fc1540c4b90",
       "required": false,
       "distribution": "binary",
@@ -120,7 +120,7 @@
     },
     "vision": {
       "repository": "Nyukimin/RenCrow_Vision",
-      "workspace_path": "../RenCrow_Vision",
+      "workspace_path": "./RenCrow_Vision",
       "version": "39bf27bbebaa2c8971634a21ca1eb599675fa31a",
       "required": false,
       "distribution": "binary",
@@ -144,7 +144,7 @@
     },
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
-      "workspace_path": "../RenCrow_GAMES",
+      "workspace_path": "./RenCrow_GAMES",
       "version": "368b89e6deaec6d25bff37bf6724a863cf2f46ab",
       "required": false,
       "distribution": "extension",
@@ -152,7 +152,7 @@
     },
     "trade": {
       "repository": "Nyukimin/RenCrow_TRADE",
-      "workspace_path": "../RenCrow_TRADE",
+      "workspace_path": "./RenCrow_TRADE",
       "version": "20d521ebca1852a95306557f998d76c9f9621848",
       "required": false,
       "distribution": "binary",
@@ -168,15 +168,15 @@
     },
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
-      "workspace_path": "../RenCrow_Tools",
-      "version": "f43ce6e4f01fac776db052fc57dbafa7e4ab2c74",
+      "workspace_path": "./RenCrow_Tools",
+      "version": "1d2fb76cb55259c787925b422571455214ab61b0",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools"
     },
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
-      "workspace_path": "../RenCrow_Image",
+      "workspace_path": "./RenCrow_Image",
       "version": "e8a00b282f50ed53f93ea2ae90600d9809c741e9",
       "required": false,
       "distribution": "binary",
@@ -200,8 +200,8 @@
     },
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
-      "workspace_path": "../RenCrow_Workspace",
-      "version": "5194474ee0ce9560ae9bd3ae0e2f64d14f41354f",
+      "workspace_path": "./RenCrow_Workspace",
+      "version": "7b13e7a8237e8b5bf40479ea6f177911e095cdcf",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service"
@@ -211,7 +211,7 @@
     "gpt120b": {
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_GPT120B",
-      "workspace_path": "../RenCrow_GPT120B",
+      "workspace_path": "./RenCrow_GPT120B",
       "version": "2e87fc4a6bd18ddd2ccbb74f6d5f3d0ccbda925b",
       "required": false,
       "kind": "external-compute",
@@ -221,7 +221,7 @@
     "qwen36-27b": {
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_Qwen36_27B",
-      "workspace_path": "../RenCrow_Qwen36_27B",
+      "workspace_path": "./RenCrow_Qwen36_27B",
       "version": "0093132891a5ea65aa0ab394b38372c8eed280a6",
       "required": false,
       "kind": "external-compute",
@@ -231,7 +231,7 @@
     "gemma4": {
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_Gemma4",
-      "workspace_path": "../RenCrow_Gemma4",
+      "workspace_path": "./RenCrow_Gemma4",
       "version": "ddc5114ab50b32820d3916d85dcbb8760b4df793",
       "required": false,
       "kind": "external-compute",

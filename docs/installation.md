@@ -3,16 +3,16 @@
 ## Current development setup
 
 初期段階ではrelease artifact用の統合 installer を公開していません。開発者は
-ecosystem repoとTools repoを取得し、必要なmodule repoを独立したsibling directoryとして
-cloneします。workspace root自体をGit管理する場合も薄い管理repositoryに限定し、
-module repoは親のGit管理対象やGit submoduleにしません。
+EcoSystem repositoryを`RenCrow`というworkspace rootとして取得し、Toolsと必要なmoduleを
+root直下の独立したchild repositoryとしてcloneします。module repoは親のGit管理対象や
+Git submoduleにしません。root checkoutはこのcatalog自身が管理し、別の薄い親repositoryを
+用意しません。
 `source-pinned` manifestのversionはcheckoutするcommit SHAであり、配布artifact名では
 ありません。`--check-workspace`検証では各local HEADがこのSHAと一致することを確認します。
 
 ```bash
-mkdir -p RenCrow
+git clone https://github.com/Nyukimin/RenCrow_EcoSystem.git RenCrow
 cd RenCrow
-git clone https://github.com/Nyukimin/RenCrow_EcoSystem.git
 git clone https://github.com/Nyukimin/RenCrow_Tools.git
 ```
 
@@ -23,11 +23,11 @@ RenCrow_Toolsのsource checkout用bootstrapは、この`ecosystem.yaml`だけを
 ```bash
 go -C ./RenCrow_Tools/tools/workspace/ecosystem_bootstrap \
   run ./cmd/rencrow-bootstrap plan \
-  --manifest ../../../../RenCrow_EcoSystem/ecosystem.yaml \
+  --manifest ../../../../ecosystem.yaml \
   --workspace ../../../..
 go -C ./RenCrow_Tools/tools/workspace/ecosystem_bootstrap \
   run ./cmd/rencrow-bootstrap apply \
-  --manifest ../../../../RenCrow_EcoSystem/ecosystem.yaml \
+  --manifest ../../../../ecosystem.yaml \
   --workspace ../../../..
 ```
 

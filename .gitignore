@@ -4,9 +4,24 @@
 !.env.example
 *.pem
 *.key
+*.db
+*.sqlite
+
+# Workspace child repositories and private local tooling
+/RenCrow_*/
+/ChatGPT_20260713/
+/ChatGPT_20260713.zip
+/.codex/
+/.claude/
+/.agents/
+/.playwright-cli/
+/.serena/
+/Legacy_CORE_PreRenCrow_20260811/
+/worktrees/
 
 # Runtime and generated artifacts
 /Tmp/
+/tmp/
 artifacts/
 cache/
 dist/
@@ -19,6 +34,7 @@ tmp/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.ruff_cache/
 .coverage
 
 # Editors and operating systems

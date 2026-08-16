@@ -4,13 +4,14 @@ RenCrow EcoSystem は、独立した RenCrow 各リポジトリを一つの製�
 理解・導入・検証・リリースするための公式入口です。
 
 このリポジトリ自体は実行時サーバではなく、各 module のソースコードも
-内包しません。全体アーキテクチャ、module の役割、導入順序、動作確認済みの
-組み合わせを管理します。
+内包しません。標準 checkout は `RenCrow` という workspace root であり、
+全体アーキテクチャ、module の役割、導入順序、動作確認済みの組み合わせを
+その root から管理します。
 
 ## 基本関係
 
 ```text
-RenCrow_EcoSystem  -- release/catalog reference --> module releases
+RenCrow (EcoSystem workspace root) -- release/catalog reference --> module releases
 
                          RenCrow_CORE
                     ^              ^
@@ -38,10 +39,12 @@ Games / Tools / Workspace -------- ecosystem support
 - module から EcoSystem の実装へ依存しません。
 - 実行時連携は HTTP、WebSocket、CLI、設定ファイルなどの公開契約を使います。
 - Git submodule は使用しません。
-- workspace root自体をGit管理する場合も、rootの共通文書だけを所有する薄い
-  管理repositoryとし、各module repositoryは親側の`.gitignore`で除外します。
+- この repository は workspace root 自身を管理します。標準 clone directory は
+  `RenCrow` です。
+- `RenCrow_*` は root 直下の独立した Git repository として配置し、この catalog の
+  `.gitignore` で除外します。Git submodule や親 repository の管理対象にはしません。
 - source checkoutの一括準備は、RenCrow_Toolsの`rencrow-bootstrap`が
-  `ecosystem.yaml`を読み、独立したsibling repositoryとしてcloneします。
+  `ecosystem.yaml`を読み、root直下の独立した repository としてcloneします。
 
 ## 現在の状態
 
@@ -51,7 +54,7 @@ Games / Tools / Workspace -------- ecosystem support
 checksum、統合互換性の検証済みを意味しません。統合試験後に実在するtagと
 検証結果を記録してecosystem releaseを作成します。
 
-`ecosystem.yaml` schema v3では、moduleの配布artifactを`runtime.primary`、
+`ecosystem.yaml` schema v4では、moduleの配布artifactを`runtime.primary`、
 利用環境側で別途動かす演算runtimeなどを`runtime.companions`として分離できます。
 独立Git管理されるhost固有のBackend profileは`runtime_profiles`へ登録し、owner moduleを
 必須にします。runtime profileはAgent、routing owner、独立Public APIではありません。
@@ -166,15 +169,23 @@ fail-closed結果を記録したverification evidenceが必要です。[Modules]
 │   └── runtime-layers.md
 ├── scripts/
 │   └── validate_ecosystem.py
-└── tests/
-    └── test_validate_ecosystem.py
+├── tests/
+│   └── test_validate_ecosystem.py
+├── RenCrow_CORE/       # ignored independent repository
+├── RenCrow_Tools/      # ignored independent repository
+└── RenCrow_*/           # other ignored independent repositories
 ```
 
+workspace rootには、manifestで宣言した各 child repositoryを同じ形式で配置します。
+
 `ecosystem.yaml` は外部 YAML dependency を不要にするため、YAML 1.2 で有効な
-JSON-compatible syntax を採用しています。
+JSON-compatible syntax を採用しています。schema v4 の `workspace_path` は
+`./OneDirectChild` 形式の root 直下だけを指します。
 
 source checkout用bootstrapの実装はRenCrow_Toolsが所有します。このrepositoryは
 repository、workspace path、versionの正本と検証を所有し、clone処理を複製しません。
+root checkout後は `RenCrow_Tools` から `ecosystem.yaml` を読み、各 child repository を
+`RenCrow` workspace root直下へ配置します。
 
 ## Validation
 

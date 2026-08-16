@@ -1,29 +1,24 @@
-# AGENTS.md
+# RenCrow Project Rules
 
 ## Model Roles
 
 - GPT-5.6 sol (max reasoning effort) is the orchestrator. It plans, delegates, monitors progress, reviews results, and coordinates the work.
 - GPT Luna (max reasoning effort) is the executor. It performs implementation, modification, testing, and other hands-on tasks.
 
-## Branch Policy
+## Read Order
 
-- ユーザーが明示的に指示しない限り、新しい Git ブランチを作成してはいけない。
-- 作業は現在のブランチで継続する。
+1. `AGENTS.md`
+2. `README.md`
+3. `docs/README.md`
+4. `ecosystem.yaml`
+5. The authoritative docs in every affected module repository
 
-## Repository-local test runtime
-
-- ローカルWindowsでは
-  `.\scripts\test-local.ps1`
-  のようにrunner経由でtestを実行する。
-- runnerは一時fileとcacheをrepo内の`Tmp/test-runtime/`へ限定する。
-- `Tmp/`はGit管理外とし、security softwareの停止や除外設定は行わない。
-- repo内`Tmp`でもblockされた場合は、errorを記録してLinux／CI検証へ切り替える。
-
-## Role
+## RenCrow EcoSystem Role
 
 `RenCrow_EcoSystem` is the official entry point and integration catalog for the
-RenCrow product family. It describes how independently released RenCrow
-repositories form one product.
+RenCrow product family. This repository is also the workspace-root management
+repository, normally cloned as `RenCrow`; independently released child
+repositories remain direct children and are never copied into this repository.
 
 This repository owns:
 
@@ -39,21 +34,8 @@ This repository does not own:
 - reusable tools, generated artifacts, runtime state, or secrets;
 - copies of module repositories or Git submodules.
 
-## Read Order
+## EcoSystem Source-of-Truth Rules
 
-1. `/home/nyukimi/RenCrow/AGENTS.md`
-2. This file
-3. `README.md`
-4. `docs/README.md`
-5. `ecosystem.yaml`
-6. The authoritative docs in every affected module repository
-
-## Source-of-Truth Rules
-
-- `RenCrow_CORE` is authoritative for shared Viewer, runtime, route, adapter,
-  Public API, and user-facing behavior across the RenCrow system.
-- `RenCrow_CMD` is the terminal client and command facade for the CORE Public
-  API. It is not an independent runtime or API source of truth.
 - A module repository is authoritative for its source, API, build, tests,
   configuration, and module-specific roadmap.
 - This repository is authoritative for declared source pins, tested release
@@ -65,13 +47,13 @@ This repository does not own:
   checks have passed.
 - `development`, `source-pinned`, `unpinned`, and `verified` are explicit states.
   `source-pinned` uses full Git commit SHAs for implemented components and
-  `planned` only for an optional runtime that does not exist yet. Never invent a
-  release tag or commit to make the matrix look complete.
+  `planned` only for an optional runtime that does not exist yet. Never invent
+  a release tag or commit to make the matrix look complete.
 - Describe only the current architecture and explicitly planned components.
   Remove superseded systems and interfaces from the manifest and documentation
   instead of retaining migration or rejection narratives.
 
-## Repository Rules
+## EcoSystem Repository Rules
 
 - Keep each component as an independent Git repository with its own CI, tags,
   and releases.
@@ -82,29 +64,248 @@ This repository does not own:
   databases, generated binaries, model files, or downloaded release archives.
 - Changes to compatibility claims require evidence in the change description or
   a repo-native verification record.
+- Child `RenCrow_*` repositories belong directly under this catalog root and
+  are ignored by this repository's `.gitignore`.
 
-## Validation
+## EcoSystem Validation
 
-Run before considering a change complete:
+Run before considering a catalog change complete:
 
 ```bash
 make check
 ```
 
-When all sibling repositories are available in the standard RenCrow workspace,
-also run:
+When all declared child repositories are available at the catalog root, also run:
 
 ```bash
 make check-workspace
 ```
 
-## Cross-Platform Requirement
+To verify repository rules, local test contracts, CI, and the Workspace root
+snapshot, run:
 
-This repository must work on Windows, Linux, and macOS. Do not write code or tests that pass on only one of them.
+```bash
+make check-governance
+```
 
-- Join paths with `filepath.Join()` in Go and `pathlib.Path` in Python. Never concatenate `/` or `\` into a path string.
-- Escape any path embedded in YAML, JSON, or a shell command. Use `strconv.Quote()` in Go. Windows paths contain `\`, so a raw embed is read as an escape sequence such as `\U` and fails to parse.
-- Do not use absolute paths such as `/tmp` or `/home/<user>` as real I/O targets. Use `t.TempDir()` in Go or `tempfile` in Python. Strings only passed through as configuration values are out of scope.
+On Windows use `.\scripts\test-local.ps1` or the repository's documented
+`make PYTHON=python` command, and confirm Linux coverage through `make check`
+or the corresponding CI job.
+
+## EcoSystem Cross-Platform Requirement
+
+This repository must work on Windows, Linux, and macOS. Do not write code or
+tests that pass on only one of them.
+
+- Join paths with `pathlib.Path` in Python. Never concatenate `/` or `\\` into a
+  path string.
+- Escape any path embedded in YAML, JSON, or a shell command. Windows paths
+  contain `\\`, so a raw embed is read as an escape sequence such as `\\U` and
+  fails to parse.
 - Do not depend on a specific line ending (LF or CRLF) in comparisons or tests.
 - Do not assume executable bits, symlinks, or a case-sensitive filesystem.
-- Before calling work complete, run the tests on both Windows and Linux, or check the corresponding CI job. Do not report completion from one platform alone.
+
+## Simplicity and Top-Down Traceability
+
+- Requirements, safety, and consistency being equal, always choose the simpler and easier-to-explain design.
+- Layers and modules exist to help humans understand the system. A primary use case must be traceable in one direction from entrypoint through orchestration and domain decisions to storage or external I/O.
+- Each step must make its input, decision, output, and next owner apparent. A design that requires repeated cross-file backtracking to understand is not acceptable.
+- Do not add unnecessary abstractions, interfaces, registries, wrappers, forwarding layers, or speculative extension points. Prefer integration when it is easier to read than separation.
+
+## Sol-Orchestrated Bounded Luna Execution
+
+- Sol owns the whole-system plan, canonical module and contract identification,
+  design decisions, dependency ordering, delegation, monitoring, direct diff
+  review, integration, and final validation. Delegation does not transfer
+  Sol's final responsibility.
+- Delegate a `bounded execution unit`, not merely a small number of lines. The
+  unit must have closed responsibility, inputs, outputs, allowed file scope,
+  and machine-checkable success criteria. Do not delegate an ambiguous problem,
+  an unresolved source-of-truth question, or a cross-module design decision.
+- Luna may receive only these task types:
+  - `read-only evidence collection`: specify the exact question, target paths
+    or commands, and an output limit; Luna returns concise facts and unknowns.
+  - `implementation/verification`: Sol must first settle the design, scope,
+    contract, and acceptance criteria before issuing the task.
+- Every delegation packet must state: purpose and acceptance criteria; owning
+  module and exact files; observed evidence and current behavior; exact allowed
+  changes; forbidden changes; contracts and invariants; validation commands;
+  and the expected return of changed files, diff summary, commands and results,
+  and unresolved blockers.
+- Luna reads only the specified `AGENTS.md` chain, target files, and their
+  direct dependencies. Workspace-wide exploration and scope expansion are
+  forbidden. If information is insufficient or contradictory, a design choice
+  is required, another module or file is needed, or validation is impossible,
+  Luna must not guess, use an alternate route, or expand scope; it stops and
+  returns evidence to Sol.
+- Luna's output is advisory. Completion requires Sol to review the actual diff,
+  scope, canonical boundary, tests and results, and integration impact. Sol
+  directly rechecks important facts when needed.
+- Parallel delegation is allowed only when files, state, and contracts do not
+  overlap and each task is independently verifiable. Shared contracts,
+  generated artifacts, runtime state, or the same file require dependency-
+  ordered serial execution.
+- Keep delegation token-efficient: Luna returns concise evidence, diffs, and
+  test results, not large source dumps or general discussion. Sol consolidates
+  only necessary evidence and does not repeatedly delegate workspace-wide
+  rediscovery. After failure, Sol redesigns the assumptions, decomposition, or
+  route; it does not repeat the same ambiguous task.
+- Even when included in the user's scope, Luna may not perform commit, push,
+  PR, restart, install, delete, destructive, or other external mutation without
+  an independent explicit packet issued after Sol has reviewed Luna's diff.
+
+## Codex User Authorization / RenCrow No-Human-Gate
+
+- Codexがrepository、runtime、host、外部systemへ変更を加えるには、ユーザーの明示指示を作業scopeの根拠にする。scope拡大や破壊的操作は新しい明示指示なしに行わない。
+- このCodex実行権限をRenCrow製品へ移植しない。RenCrow runtimeは人の判断待ちを作らず、CORE正本、machine-readable policy、認証済みrequest scopeを同期評価して、直ちに実行、`rejected`、`blocked`を確定する。
+- RenCrowのAgent、workflow、API、DBへ、人の返答で解除するstatus、grant、reference、queueを追加しない。利用者の発話は新しい目的・制約・事実を持つrequestであり、待機artifactへの判子ではない。
+- RenCrow内で案が`rejected`になった場合は、reject理由を証拠として、前提、分解、route、Tool、設計、必要なら思想まで再考した新revisionを作る。同案の言い換え、安全制約の弱体化、無限再試行は禁止する。
+
+## Branch Policy
+
+- ユーザーが明示的に指示しない限り、新しい Git ブランチを作成してはいけない。
+- 作業は現在のブランチで継続する。
+
+## Repository-local test runtime
+
+- ローカルWindowsでRenCrow各repoのtestを実行するときは、各repoの引数なし
+  `scripts/test-local.ps1`を正規入口にする。全repoの一括実行は
+  `RenCrow_CORE/scripts/test-rencrow-system.ps1`を使う。
+- testは実装内容を検証する工程であり、Push操作そのものの必須hookではない。同一内容で
+  relevant checkがすでに成功している場合、Push時に同じtestを再実行しない。
+- 一時clean worktreeは差分分離とCommit作成に使い、元の作業ツリーで検証済みの内容と
+  `git diff`／hashが一致する場合、その一時worktreeでcold cacheのtestを重複実行しない。
+  relevant fileが検証後に変わった場合、成功結果がない場合、またはRenが明示した場合だけ
+  relevant checkを再実行する。
+- test commandが設定したtimeoutへ達した場合、同じstepをtimeout延長だけで自動再実行しない。
+  残留processを停止し、cache、network、security software、child processのどこで止まったかを
+  先に診断する。Push時はtest未完了を明記し、Renの判断またはGitHub Actionsへ切り替える。
+- Go repoのローカルWindows planは`go vet ./...`と`go build ./...`を使い、
+  `.test.exe`を生成・実行する`go test`は含めない。Goの振る舞いtestは
+  GitHub ActionsのUbuntu jobで実行する。
+- runnerは`TEMP`、`TMP`、`TMPDIR`、`GOTMPDIR`、Go／Python／Nodeのcacheを
+  各repo内の`Tmp/test-runtime/`へ向ける。
+- testが子processを起動するときは親environmentを置換せずmergeする。
+  Pythonは`{**os.environ, ...}`、Goは`append(os.Environ(), ...)`、
+  Nodeは`{...process.env, ...}`を使う。
+- system tempやuser profileのcacheへtest生成物を書かない。
+- security softwareは有効なまま維持し、停止、除外設定、testのskip・弱体化を行わない。
+- repo内`Tmp`でも実行fileがblockされた場合は、renameや繰り返し実行で通そうとせず、
+  pathとerrorを記録してGitHub ActionsのUbuntu testへ切り替える。
+
+## Repository Relationship
+
+`RenCrow_CORE` is the main server and source repository for shared Viewer,
+runtime, route, adapter, and user-facing behavior in this project.
+
+`RenCrow_CMD` is the CLI/client/entrypoint for `RenCrow_CORE`.
+It must not be treated as an independent product fork unless Ren explicitly says so.
+
+When changing shared Viewer, CLI, runtime, route, adapter, or user-facing behavior:
+
+1. Check whether the source of truth belongs in `RenCrow_CORE`.
+2. Apply or port the change to `RenCrow_CORE` first when applicable.
+3. Mirror or sync the corresponding change into `RenCrow_CMD` only after the upstream-side change is handled.
+4. Do not leave behavior implemented only in `RenCrow_CMD` when it should exist in the upstream source.
+
+If a change is intentionally `RenCrow_CMD`-only, state that reason clearly before implementation.
+
+Cross-module input/output semantics and responsibility boundaries are canonical
+in `RenCrow_CORE/docs/README.md` and the specifications listed there. Sibling
+module documentation may refine module-internal implementation but must not
+override the CORE canon. The CORE/RenCrow_LLM Chat boundary is defined in
+`RenCrow_CORE/docs/04_アーキテクチャ概要.md`.
+
+## Standard Runtime and OS Portability Rule
+
+- `RenCrow_CORE/docs/04_アーキテクチャ概要.md`の「標準Go配布境界」を、
+  Go primary runtime、外部system、三OS共通契約、CUDA用WSLの最上位正本とする。
+- RenCrowは可能な限りnative Go binaryだけで動かし、Ubuntu、Windows、macOSで
+  同じmodule-facing protocol、Config、health／readiness、error／unavailableを提供する。
+- 標準profileの起動条件へPython、Node.js、Docker、WSL、外部database、queue、
+  vector storeを追加しない。外部systemが不可避な場合は所有moduleの境界外へ隔離し、
+  三OSで同等のcontractと失敗時挙動を提供する。
+- WindowsのWSLは、明示的に選択したCUDA／GPU external computeだけに使う。
+  CORE、module Gateway、database、news収集、storage、browser、一般sidecarをWSLへ置かない。
+- WSL内の成功をWindows native runtimeの検証結果として扱わない。両者を別に検証する。
+- Codexが標準構成の例外を実装する場合はユーザーがその変更を明示指示したときだけ有効とし、対象、理由、OS、影響、失敗時挙動、
+  再評価条件を記録する。
+
+## World Actor Rule
+
+- The actors in the RenCrow world are authenticated users and CORE-managed
+  Agents. Mio, Shiro, Kuro, and Midori are Agent identities.
+- An LLM, model, provider, Agent Runtime, Execution Role, controller, or brain
+  adapter is an implementation mechanism, not an actor and not an Agent
+  identity.
+- Production conversation, work, and gameplay must be attributable to a user or
+  an actual CORE Agent. A test double must not claim Agent identity, Persona,
+  memory, experience, or an Agent-owned E2E result.
+- `RuleBasedBrain` and `DummyBrain` are valid for unit tests, integration tests,
+  deterministic simulation, and local observer checks. Agent gameplay E2E must
+  request every player decision from the corresponding CORE Agent.
+
+## Runtime Routing Rule
+
+Runtime requests from `RenCrow_CORE` must go through the corresponding
+`RenCrow_XXX` module. Do not call model backends or tool backends directly from
+the Viewer or CORE server. Codex may implement an exception only when the user
+explicitly instructs that topology change; RenCrow runtime never asks for it.
+
+Default routing:
+
+- LLM: `RenCrow_CORE -> RenCrow LLM Gateway -> RenCrow LLM Runtime -> Backend -> Model`
+- TTS: `RenCrow_CORE -> RenCrow_TTS -> TTS backend`
+- STT: `RenCrow_CORE -> RenCrow_STT -> STT backend`
+- Vision/camera analysis: `RenCrow_CORE -> RenCrow_Vision -> Wild backend -> RenCrow_Vision -> RenCrow_CORE`
+- Image generation: `RenCrow_CORE -> RenCrow_Image -> ForgeNeo / Z-Image`
+
+Module notes:
+
+- `RenCrow_CMD` is a CLI operation surface, not an independent runtime fork.
+- `RenCrow_Image` is the mandatory interface module for drawing and image generation.
+  `RenCrow_CORE` must not call ForgeNeo, ComfyUI, or another image backend directly.
+- `RenCrow_Vision` is the mandatory interface module for image and video recognition.
+  `RenCrow_CORE` must not send raw image or video data directly to Wild,
+  `RenCrow_LLM`, or another recognition backend. `RenCrow_Vision` owns the
+  Wild request, media preprocessing, and result normalization.
+- As a narrow exception, Mio, Shiro, Midori, and Kuro may use ImageGen through
+  CodexExe as part of text generation. This exception does not permit a normal
+  CORE image-generation route to bypass `RenCrow_Image`.
+
+## Canonical Runtime Recovery Rule
+
+- When the canonical runtime path is unavailable, first restore that exact path:
+  verify its configuration, credentials, module process, network reachability,
+  RenCrow LLM Runtime, Backend readiness, and logs.
+- Do not create or start a direct-backend route, local substitute, fake server,
+  test double, alternate model, or shortened module chain merely to make an E2E
+  test pass.
+- Codex may create a fallback or alternate topology only when the user explicitly
+  instructs that specific change after the canonical-path failure and impact are
+  reported. RenCrow runtime uses only fallbacks already defined by the CORE canon
+  and deployment policy; otherwise it returns `blocked` without waiting for a person.
+- If the canonical path still cannot run after safe in-scope recovery attempts,
+  stop and report the exact failing boundary and evidence. Never describe an
+  alternate-path result as canonical runtime or Agent-owned E2E success.
+
+## UTF-8 and Path Handling
+
+All source code, docs, config, JSON, and JSONL files in RenCrow should be treated
+as UTF-8 text unless they are explicitly binary files.
+
+When handling file names across Windows, Linux, and macOS:
+
+- Treat file names as Unicode paths, not as locale-specific byte strings.
+- Do not pass Japanese or other non-ASCII paths as hard-coded string literals
+  through PowerShell or cmd when a script can discover them with filesystem APIs.
+- Prefer path enumeration APIs such as Python `pathlib.Path.rglob()` or
+  PowerShell `Get-ChildItem` objects, then operate on the returned path objects.
+- On Windows, set UTF-8 process I/O for scripts when printing or parsing paths
+  (`PYTHONUTF8=1`, `PYTHONIOENCODING=utf-8`, and PowerShell output encoding when
+  needed).
+- If a file name appears garbled, verify the actual filesystem Unicode name
+  before renaming. Only rename when the real name contains replacement
+  characters or clear mojibake and the intended UTF-8 name can be determined.
+- Git octal-escaped path display is not filename corruption. Use local
+  `git config core.quotepath false` for readable non-ASCII paths.

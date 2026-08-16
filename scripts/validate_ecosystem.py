@@ -32,6 +32,7 @@ ALLOWED_COMPANION_KINDS = {
     "system-service",
 }
 ARTIFACT_NAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
+WORKSPACE_PATH_PATTERN = re.compile(r"^\./[A-Za-z0-9][A-Za-z0-9._-]*$")
 REQUIRED_PRIMARY_RUNTIME_FIELDS = {"implementation", "artifact", "status"}
 REQUIRED_COMPANION_RUNTIME_FIELDS = {
     "id",
@@ -96,14 +97,9 @@ def _reject_secret_keys(value: Any, location: str = "manifest") -> None:
 
 
 def _validate_workspace_path(location: str, raw_path: Any) -> None:
-    if not isinstance(raw_path, str) or not raw_path.startswith("../"):
+    if not isinstance(raw_path, str) or not WORKSPACE_PATH_PATTERN.fullmatch(raw_path):
         raise ManifestError(
-            f"{location}.workspace_path must be a sibling path"
-        )
-    relative_parts = Path(raw_path).parts
-    if len(relative_parts) != 2 or relative_parts[0] != "..":
-        raise ManifestError(
-            f"{location}.workspace_path must identify one sibling"
+            f"{location}.workspace_path must be a direct child path in the form ./Name"
         )
 
 
@@ -191,8 +187,8 @@ def validate_manifest(data: dict[str, Any]) -> None:
     """Validate structure, uniqueness, release state, and safe metadata."""
     _reject_secret_keys(data)
 
-    if data.get("schema_version") != 3:
-        raise ManifestError("schema_version must be 3")
+    if data.get("schema_version") != 4:
+        raise ManifestError("schema_version must be 4")
 
     ecosystem = data.get("ecosystem")
     if not isinstance(ecosystem, dict):
@@ -421,7 +417,7 @@ def _component_requires_test_contract(component: dict[str, Any]) -> bool:
 def validate_governance(data: dict[str, Any], manifest_path: Path) -> None:
     """Validate repository-local rule, test, CI, and root snapshot contracts."""
     catalog_path = manifest_path.resolve().parent
-    workspace_root = catalog_path.parent
+    workspace_root = catalog_path
 
     for relative in (*GOVERNANCE_REQUIRED_FILES, *LOCAL_TEST_REQUIRED_FILES):
         _require_non_empty_file("catalog", catalog_path, relative)

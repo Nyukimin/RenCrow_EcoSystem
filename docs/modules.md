@@ -60,7 +60,7 @@ TRADEの六つのdomainに対するCORE Agent operationは次の名前を固定�
 
 `portfolio_snapshot`は`query=current`、`ensure_portfolio_initialized`はempty object、
 `record_shadow_observation`は`study_id`と`decision_id`を使います。COREがAgent scope、policy、route projectionを
-所有し、TRADEがprivate owner APIとdataを所有する境界は、[RenCrow_CORE/docs/README.md](../../RenCrow_CORE/docs/README.md)を正本とします。
+所有し、TRADEがprivate owner APIとdataを所有する境界は、[RenCrow_CORE/docs/README.md](../RenCrow_CORE/docs/README.md)を正本とします。
 
 ## RenCrow_LLM runtime boundary
 
