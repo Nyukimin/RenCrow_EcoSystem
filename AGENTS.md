@@ -1,5 +1,43 @@
 # RenCrow Project Rules
 
+このファイルが Cursor / Codex / Claude の workspace 常時ルールの唯一の正本である。本文を `~/.codex/AGENTS.md` や `~/.cursor/rules` へ複製しない。モジュール固有の `AGENTS.md`（例: `RenCrow_CORE/AGENTS.md`）は module-local の追加制約であり、本ファイルの複製ではない。矛盾する場合は本ファイルを優先し、module 側は CORE 正本と module 所有範囲だけを扱う。
+
+## Agent 配置
+
+- Cursor: workspace が catalog root のときは本ファイルを直接読む。子 repository だけを workspace にしたときは、`~/.cursor/rules/rencrow-workspace.mdc` が本ファイルへの参照だけを持つ（本文のコピーは禁止）。
+- Codex: 子 Git repository 起動では Git root より上を辿らない。`~/.codex/AGENTS.md` は本ファイルへのシンボリックリンクにする。通常ファイルへの全文コピーは禁止。
+- Claude: `CLAUDE.md` は入口であり、本ファイルと食い違えば本ファイルが勝つ。
+- 補助 Skill（`~/.codex/skills/global-engineering-rules`、`modularization-rules` 等）は判断軸であり、本ファイルの境界・禁止事項を上書きしない。
+
+## 完了整合性
+
+- 編集前に、目的・所有リポジトリ／モジュール・正本・稼働成果物・許可範囲・要求ごとの終端証拠を確定する。不明なら編集せず調査する。
+- ユーザー訂正は競合する仮説・証拠を無効化して現行制約へ昇格し、目的変更またはコンテキスト圧縮後は要求と証拠表を再構築する。
+- 要求終端条件に未確認が一つでもあれば「完了」「達成(100%)」と報告せず、一部達成と不足境界を示す。サブエージェントの成果は主エージェントが実際の差分・範囲・試験・境界を確認するまで助言扱いとする。
+
+## Workspace Module Roots
+
+Work in the specific module root instead of treating the parent directory as one source tree.
+
+| Module | Root |
+| ------ | ---- |
+| CORE / Chat / Viewer | `RenCrow_CORE` |
+| CMD / CLI | `RenCrow_CMD` |
+| PORTAL | `RenCrow_PORTAL` |
+| ASSISTANT | `RenCrow_ASSISTANT` |
+| LLM | `RenCrow_LLM` |
+| STT | `RenCrow_STT` |
+| TTS | `RenCrow_TTS` |
+| Vision | `RenCrow_Vision` |
+| Image | `RenCrow_Image` |
+| TRADE | `RenCrow_TRADE` |
+| GAMES | `RenCrow_GAMES` |
+| Tools | `RenCrow_Tools` |
+| Workspace snapshot | `RenCrow_Workspace` |
+| Ecosystem catalog | catalog root（本リポジトリ） |
+
+Model-specific repositories such as `RenCrow_GPT120B`, `RenCrow_Qwen36_27B`, and `RenCrow_Gemma4` are LLM external-runtime profiles. They are not CORE, Agent, or independent routing owners.
+
 ## Model Roles
 
 - GPT-5.6 sol (max reasoning effort) is the orchestrator. It plans, delegates, monitors progress, reviews results, and coordinates the work.
@@ -111,6 +149,16 @@ tests that pass on only one of them.
 - Layers and modules exist to help humans understand the system. A primary use case must be traceable in one direction from entrypoint through orchestration and domain decisions to storage or external I/O.
 - Each step must make its input, decision, output, and next owner apparent. A design that requires repeated cross-file backtracking to understand is not acceptable.
 - Do not add unnecessary abstractions, interfaces, registries, wrappers, forwarding layers, or speculative extension points. Prefer integration when it is easier to read than separation.
+
+## CLI-First / LLM-Residual Rule
+
+- システム構築の各フローでは、まず各工程がCLIで決定的に完了できるかを分類する。
+- 取得、検証、変換、計算、状態遷移、オーケストレーション、外部操作のうち決定的に完了できるものは、LLMに任せず所有モジュールのCLIで完了させる。
+- CLIの契約は、明示的な入力、機械可読で境界のある出力、終了ステータス／失敗、再現可能なreceipt／証跡を公開する。
+- LLMは曖昧さの解消、意味判断、選択・計画、言語・創作生成を要する残余だけを扱う。LLMの決定的な仕事をCLIで包むだけのwrapperをCLI-firstとは呼ばない。
+- LLM出力が状態変更または外部効果を起こし得る場合は、所有CLI／policyが検証し、決定的に実行または拒否する。
+- RenCrowでの`CLI`は実行・契約の形を示すもので、`RenCrow_CMD`の自動的な所有権を意味しない。実際の所有モジュール、認証／policy、canonical runtime routeを維持し、CLI-firstのためにmodule routeを短縮／迂回しない。
+- 検証では、決定的CLIの動作と、該当する場合は境界付きLLM残余の動作を分けて証明する。
 
 ## Sol-Orchestrated Bounded Luna Execution
 

@@ -1,25 +1,18 @@
-# CLAUDE.md - RenCrow_EcoSystem working notes
+# CLAUDE.md - RenCrow_EcoSystem 入口
 
-## Purpose of this file
+## このファイルの役割
 
-This file is a short entry point for Claude Code or an equivalent AI development environment working in RenCrow_EcoSystem. It is not the authoritative product specification.
+Claude Code または同等の AI 開発環境が RenCrow_EcoSystem（catalog root）で作業するための
+短い入口です。製品仕様の正本でも、作業ルールの正本でもありません。
 
-Detailed working constraints live in `AGENTS.md`. If this file and `AGENTS.md` disagree, `AGENTS.md` wins.
+workspace 常時ルールの唯一の正本は同ディレクトリの `AGENTS.md` です。このファイルへ
+正本の policy 本文を複製しません。両者が食い違う場合は `AGENTS.md` が勝ちます。
 
-## Read order
+## 参照方法
 
-1. `AGENTS.md`
-2. `README.md`
-3. Relevant specs under `docs/`
-4. Related code, tests, and configuration
-
-## Cross-Platform Requirement
-
-This repository must work on Windows, Linux, and macOS. Do not write code or tests that pass on only one of them.
-
-- Join paths with `filepath.Join()` in Go and `pathlib.Path` in Python. Never concatenate `/` or `\` into a path string.
-- Escape any path embedded in YAML, JSON, or a shell command. Use `strconv.Quote()` in Go. Windows paths contain `\`, so a raw embed is read as an escape sequence such as `\U` and fails to parse.
-- Do not use absolute paths such as `/tmp` or `/home/<user>` as real I/O targets. Use `t.TempDir()` in Go or `tempfile` in Python. Strings only passed through as configuration values are out of scope.
-- Do not depend on a specific line ending (LF or CRLF) in comparisons or tests.
-- Do not assume executable bits, symlinks, or a case-sensitive filesystem.
-- Before calling work complete, run the tests on both Windows and Linux, or check the corresponding CI job. Do not report completion from one platform alone.
+- 読む順番は `AGENTS.md` の Read Order に従う。
+- 作業対象の module root は `AGENTS.md` の Workspace Module Roots で確認し、
+  catalog root を一つの source tree として扱わない。
+- cross-platform 要件、validation command、branch policy、runtime routing、
+  Sol/Luna 委譲、No-Human-Gate、完了整合性は `AGENTS.md` を直接参照する。
+  ここへ写さない。
