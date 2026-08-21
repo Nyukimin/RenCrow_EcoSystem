@@ -131,6 +131,15 @@ systemd unitと完全一致し、同じunitを複数componentで宣言できな�
 readiness確認に失敗した場合、退避したbinaryへ戻し、同じ稼働unitへ同じ契約を適用して
 復帰を確認する。復帰しない場合は退避先のpathを明示して報告する。
 
+### 配置receipt
+
+dry-runを除く再配置試行は、既定で
+`~/.rencrow/receipts/binary-redeployment.jsonl`へ1試行1行のUTF-8 JSONLを残す。
+各recordはschema version、receipt ID、UTC開始・終了時刻、component、binary、配置前後の
+revision、再起動対象unit、最終phase、成功／失敗、backup path、readiness失敗unit、
+rollback結果を持つ。receipt logを事前に作成・fsyncできない場合は、build、backup、stop、
+copyを始めずfail closedする。dry-runはreceiptを作らない。
+
 ## Guard
 
 | 対象 | 既定 | 理由 |
@@ -164,6 +173,7 @@ python3 scripts/check_deployed_binaries.py ecosystem.yaml --check-readiness
 | `--check-readiness` | off | unitを変更せずmanifest readinessを確認する |
 | `--dry-run` | off | `--apply`の計画だけを表示する |
 | `--only` | 空 | 対象componentをカンマ区切りで限定する |
+| `--receipt-log` | `~/.rencrow/receipts/binary-redeployment.jsonl` | 再配置receiptのJSONL path |
 | `--prefix` | `rencrow` | 対象とするsystemd unitの接頭辞 |
 | `--workspace` | manifestのdirectory | catalog root |
 
@@ -187,4 +197,3 @@ pinを更新したら配置も追随させる。pinだけを進めるとMATCHだ
 
 - Linux user systemd以外のhost adapter。Windows service、launchdは未対応。
 - pinへの追随を促す通知。現状はoperatorがcommandを実行した時にだけ分かる。
-- 配置結果のreceipt永続化。現在は標準出力にのみ残る。

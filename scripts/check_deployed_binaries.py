@@ -21,6 +21,7 @@ inherit uncommitted local edits.
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timezone
 import json
 import os
 import re
@@ -32,6 +33,7 @@ import tempfile
 import time
 import urllib.error
 import urllib.request
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -49,6 +51,76 @@ ONESHOT_TIMEOUT_SECONDS = 600
 GUARDED_COMPONENTS = {"core"}
 
 BACKUP_DIR = Path.home() / ".rencrow" / "backups"
+DEFAULT_RECEIPT_LOG = Path.home() / ".rencrow" / "receipts" / "binary-redeployment.jsonl"
+
+
+def utc_timestamp() -> str:
+    """Return a machine-readable UTC timestamp for a redeployment receipt."""
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def prepare_receipt_log(path: Path) -> None:
+    """Ensure that the receipt log can be appended durably before mutation.
+
+    The probe writes no record.  It creates a private parent directory and
+    opens/fsyncs the log, so a receipt I/O failure is observed before build,
+    backup, stop, or copy can change the host.
+    """
+    path = Path(path).expanduser()
+    parent = path.parent
+    if str(parent) not in {"", "."}:
+        parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        if os.name != "nt":
+            os.chmod(parent, 0o700)
+    with path.open("a", encoding="utf-8", newline="\n") as handle:
+        if os.name != "nt":
+            os.chmod(path, 0o600)
+        handle.flush()
+        os.fsync(handle.fileno())
+
+
+def append_receipt(path: Path, receipt: dict[str, Any]) -> None:
+    """Append exactly one UTF-8 JSONL receipt and fsync it to the log."""
+    path = Path(path).expanduser()
+    with path.open("a", encoding="utf-8", newline="\n") as handle:
+        if os.name != "nt":
+            os.chmod(path, 0o600)
+        handle.write(json.dumps(receipt, ensure_ascii=False, separators=(",", ":")))
+        handle.write("\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+
+
+def new_receipt(row: dict[str, Any]) -> dict[str, Any]:
+    """Build the stable receipt fields for one non-dry redeploy attempt."""
+    return {
+        "schema_version": 1,
+        "receipt_id": uuid.uuid4().hex,
+        "started_at": utc_timestamp(),
+        "finished_at": "",
+        "component": row["component"],
+        "binary_path": str(row["binary"]),
+        "from_revision": row.get("built", ""),
+        "target_revision": row.get("pin", ""),
+        "running_units": [],
+        "phase": "preflight",
+        "outcome": "failure",
+        "rollback_outcome": "not_attempted",
+    }
+
+
+def set_receipt_failure(
+    receipt: dict[str, Any],
+    phase: str,
+    error: str,
+    failed_unit: str | None = None,
+) -> None:
+    """Set bounded failure information without exposing command secrets."""
+    receipt["phase"] = phase
+    receipt["outcome"] = "failure"
+    if failed_unit:
+        receipt["failed_unit"] = failed_unit
+    receipt["error"] = error.strip()[:500]
 
 
 def report_exit_code(rows: list[dict[str, Any]]) -> int:
@@ -564,6 +636,23 @@ def check_declared_readiness(
     return True
 
 
+class _RedeployAbort(Exception):
+    """Internal control flow for a recorded redeployment failure."""
+
+    def __init__(
+        self,
+        phase: str,
+        error: str,
+        failed_unit: str | None = None,
+        rollback_outcome: str | None = None,
+    ) -> None:
+        super().__init__(error)
+        self.phase = phase
+        self.error = error
+        self.failed_unit = failed_unit
+        self.rollback_outcome = rollback_outcome
+
+
 def redeploy(
     row: dict[str, Any],
     components: dict[str, dict[str, Any]],
@@ -571,6 +660,7 @@ def redeploy(
     dry: bool,
     *,
     runner: Any | None = None,
+    receipt_log: Path | None = None,
 ) -> bool:
     """Rebuild one component at its pinned commit and reinstall it."""
     runner = runner or run
@@ -587,91 +677,159 @@ def redeploy(
               f"{row['binary']} へ設置、{', '.join(row['units'])} を再起動", flush=True)
         return True
 
-    # Resolve the readiness contract before any build, backup, stop, or copy.
-    # A missing contract must never leave a binary half-replaced.
-    running = _running_units(row["units"], runner)
-    if running is None:
-        print("  [NG] 稼働状態を確認できません。バイナリを変更しません", flush=True)
-        return False
-    readiness = _unit_contracts(comp, running)
-    if readiness is None:
-        missing = [unit for unit in running if not _unit_contracts(comp, [unit])]
-        print(f"  [NG] 稼働中unitにreadiness contractがありません: "
-              f"{', '.join(missing or running)}", flush=True)
-        return False
-
-    code, _, _ = runner(
-        ["git", "-C", str(module_dir), "cat-file", "-e", f"{pin}^{{commit}}"]
-    )
-    if code != 0:
-        print(f"  [NG] pin {pin[:7]} がローカルに存在しない。fetchが必要", flush=True)
+    receipt_path = Path(receipt_log or DEFAULT_RECEIPT_LOG).expanduser()
+    receipt = new_receipt(row)
+    try:
+        # This is deliberately before any build, backup, stop, or copy.  The
+        # probe creates no JSONL record; the completed attempt appends exactly
+        # one below after the outcome is known.
+        prepare_receipt_log(receipt_path)
+    except (OSError, ValueError, TypeError) as exc:
+        print(f"  [NG] receipt logを準備できません。バイナリを変更しません: {exc}",
+              flush=True)
         return False
 
     # A linked worktree keeps .git as a file, and Go silently omits the VCS
     # stamp when it sees that, which would make every rebuilt binary
     # unverifiable. A local clone has a real .git directory, so stamping works
     # and the checkout is guaranteed clean.
-    tmp = tempfile.mkdtemp(prefix="rencrow-redeploy-")
-    checkout = os.path.join(tmp, "src")
-    staged = os.path.join(tmp, "_staged_binary")
+    tmp: str | None = None
+    phase = "preflight"
+    result = False
     try:
+        # Resolve the readiness contract before any build, backup, stop, or
+        # copy. A missing contract must never leave a binary half-replaced.
+        running = _running_units(row["units"], runner)
+        receipt["running_units"] = running or []
+        if running is None:
+            raise _RedeployAbort(
+                "preflight", "稼働状態を確認できません。バイナリを変更しません"
+            )
+        readiness = _unit_contracts(comp, running)
+        if readiness is None:
+            missing = [unit for unit in running if not _unit_contracts(comp, [unit])]
+            raise _RedeployAbort(
+                "preflight",
+                "稼働中unitにreadiness contractがありません: "
+                + ", ".join(missing or running),
+                missing[0] if missing else running[0],
+            )
+
+        code, _, _ = runner(
+            ["git", "-C", str(module_dir), "cat-file", "-e", f"{pin}^{{commit}}"]
+        )
+        if code != 0:
+            raise _RedeployAbort(
+                "preflight", f"pin {pin[:7]} がローカルに存在しない。fetchが必要"
+            )
+
+        phase = "build"
+        tmp = tempfile.mkdtemp(prefix="rencrow-redeploy-")
+        checkout = os.path.join(tmp, "src")
+        staged = os.path.join(tmp, "_staged_binary")
         code, _, err = runner(["git", "clone", "--local", "--no-checkout",
                                str(module_dir), checkout], timeout=900)
         if code != 0:
-            print(f"  [NG] clone失敗: {err.strip()[:300]}", flush=True)
-            return False
+            raise _RedeployAbort("build", f"clone失敗: {err.strip()[:300]}")
         code, _, err = runner(["git", "-C", checkout, "checkout", "--detach", pin])
         if code != 0:
-            print(f"  [NG] pin {pin[:7]} のcheckout失敗: {err.strip()[:300]}", flush=True)
-            return False
+            raise _RedeployAbort(
+                "build", f"pin {pin[:7]} のcheckout失敗: {err.strip()[:300]}"
+            )
 
         build_dir = os.path.join(checkout, module_rel) if module_rel else checkout
         print(f"  ビルド中 {target} @ {pin[:7]} ...", flush=True)
         code, _, err = runner(["go", "build", "-o", staged, target], cwd=build_dir)
         if code != 0:
-            print(f"  [NG] ビルド失敗: {err.strip()[:400]}", flush=True)
-            return False
+            raise _RedeployAbort("build", f"ビルド失敗: {err.strip()[:400]}")
 
         # A rebuild that does not actually clear the drift is worse than none,
         # so the new binary is verified before anything on the host is touched.
         fresh = build_info(staged)
         if not fresh or fresh["revision"] != pin or fresh["modified"]:
             got = (fresh or {}).get("revision", "?")[:7]
-            print(f"  [NG] ビルド結果が pin と一致しない (built={got}, "
-                  f"dirty={(fresh or {}).get('modified')})", flush=True)
-            return False
+            raise _RedeployAbort(
+                "build",
+                f"ビルド結果が pin と一致しない (built={got}, "
+                f"dirty={(fresh or {}).get('modified')})",
+            )
 
+        phase = "backup"
         BACKUP_DIR.mkdir(parents=True, exist_ok=True)
         backup = BACKUP_DIR / f"{row['name']}.replaced-{row['built'][:7] or 'unstamped'}"
         shutil.copy2(row["binary"], backup)
+        receipt["backup_path"] = str(backup)
         print(f"  旧バイナリを退避: {backup}", flush=True)
 
+        phase = "stop"
         for unit in row["units"]:
             runner(["systemctl", "--user", "stop", unit])
+        phase = "copy"
         shutil.copy2(staged, row["binary"])
         os.chmod(row["binary"], 0o755)
 
+        phase = "readiness"
         broken = start_and_settle(running, readiness, runner=runner)
         if broken:
             print(f"  [NG] {broken} が新バイナリで安定しません。ロールバックします",
                   flush=True)
-            for unit in row["units"]:
-                runner(["systemctl", "--user", "stop", unit])
-            shutil.copy2(backup, row["binary"])
-            os.chmod(row["binary"], 0o755)
-            still_broken = start_and_settle(running, readiness, runner=runner)
+            phase = "rollback"
+            try:
+                for unit in row["units"]:
+                    runner(["systemctl", "--user", "stop", unit])
+                shutil.copy2(backup, row["binary"])
+                os.chmod(row["binary"], 0o755)
+                still_broken = start_and_settle(running, readiness, runner=runner)
+            except Exception as exc:
+                raise _RedeployAbort(
+                    "rollback",
+                    f"{broken} のreadiness失敗。ロールバック失敗: {exc}",
+                    broken,
+                    "failed",
+                ) from exc
             if still_broken:
                 print(f"  [NG] ロールバック後も {still_broken} が復帰しません。"
                       f"退避先: {backup}", flush=True)
-            else:
-                print(f"  [OK] {row['built'][:7]} へ巻き戻し、稼働を確認しました",
-                      flush=True)
-            return False
+                raise _RedeployAbort(
+                    "rollback",
+                    f"{broken} のreadiness失敗。ロールバック後も "
+                    f"{still_broken} が復帰しません。退避先: {backup}",
+                    broken,
+                    "failed",
+                )
+            print(f"  [OK] {row['built'][:7]} へ巻き戻し、稼働を確認しました",
+                  flush=True)
+            raise _RedeployAbort(
+                "rollback",
+                f"{broken} のreadiness失敗。旧バイナリへ巻き戻しました",
+                broken,
+                "success",
+            )
 
+        receipt["phase"] = "complete"
+        receipt["outcome"] = "success"
         print(f"  [OK] {row['name']} を {pin[:7]} へ更新", flush=True)
-        return True
+        result = True
+    except _RedeployAbort as exc:
+        set_receipt_failure(receipt, exc.phase, exc.error, exc.failed_unit)
+        if exc.rollback_outcome is not None:
+            receipt["rollback_outcome"] = exc.rollback_outcome
+        print(f"  [NG] {exc.error}", flush=True)
+    except Exception as exc:
+        set_receipt_failure(receipt, phase, str(exc))
+        print(f"  [NG] {phase}: {exc}", flush=True)
     finally:
-        shutil.rmtree(tmp, ignore_errors=True)
+        receipt["finished_at"] = utc_timestamp()
+        try:
+            append_receipt(receipt_path, receipt)
+        except (OSError, ValueError, TypeError) as exc:
+            # The preflight probe makes this exceptional, but a final write
+            # failure must never be reported as a successful redeployment.
+            print(f"  [NG] receiptを書き込めませんでした: {exc}", flush=True)
+            result = False
+        if tmp is not None:
+            shutil.rmtree(tmp, ignore_errors=True)
+    return result
 
 
 def render(rows: list[dict[str, Any]]) -> None:
@@ -703,6 +861,11 @@ def main() -> int:
                         help="--apply の実行計画だけを表示する")
     parser.add_argument("--only", default="",
                         help="対象componentをカンマ区切りで限定する")
+    parser.add_argument(
+        "--receipt-log",
+        default=str(DEFAULT_RECEIPT_LOG),
+        help="再配置receiptのJSONL path",
+    )
     args = parser.parse_args()
     if args.apply and args.check_readiness:
         parser.error("--apply と --check-readiness は同時に指定できません")
@@ -759,7 +922,13 @@ def main() -> int:
         for row in targets:
             print(f"\n=== {row['name']} ({row['component']}) "
                   f"{row['built'][:7]} -> {row['pin'][:7]} ===", flush=True)
-            if not redeploy(row, components, workspace, args.dry_run):
+            if not redeploy(
+                row,
+                components,
+                workspace,
+                args.dry_run,
+                receipt_log=Path(args.receipt_log),
+            ):
                 failed += 1
         if failed:
             return 1

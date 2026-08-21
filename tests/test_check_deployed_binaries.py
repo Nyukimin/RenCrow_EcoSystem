@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import tempfile
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -338,16 +339,213 @@ class ReadinessContractTest(unittest.TestCase):
             }
         }
 
-        result = CHECKER.redeploy(
-            row,
-            components,
-            REPOSITORY_ROOT,
-            dry=False,
-            runner=self.runner(state, calls),
-        )
+        with tempfile.TemporaryDirectory() as directory:
+            result = CHECKER.redeploy(
+                row,
+                components,
+                REPOSITORY_ROOT,
+                dry=False,
+                runner=self.runner(state, calls),
+                receipt_log=Path(directory) / "receipts.jsonl",
+            )
 
         self.assertFalse(result)
         self.assertFalse(any(command[2:3] == ["stop"] for command in calls))
+
+
+class RedeployReceiptTest(unittest.TestCase):
+    ROW = {
+        "component": "tts",
+        "units": ["rencrow-test.service", "rencrow-test-learning.service"],
+        "binary": "/tmp/rencrow-test",
+        "name": "rencrow-test",
+        "module": "github.com/Nyukimin/RenCrow_TTS",
+        "main_package": "github.com/Nyukimin/RenCrow_TTS/cmd/rencrow-tts",
+        "pin": "a" * 40,
+        "built": "b" * 40,
+    }
+    COMPONENTS = {
+        "tts": {
+            "repository": "Nyukimin/RenCrow_TTS",
+            "workspace_path": "./RenCrow_TTS",
+            "deployment": {
+                "user_systemd": [
+                    {
+                        "unit": "rencrow-test.service",
+                        "kind": "http_json",
+                        "url": "http://127.0.0.1:9999/ready",
+                        "timeout_seconds": 1,
+                        "expect": {"path": "ready", "equals": True},
+                    },
+                    {
+                        "unit": "rencrow-test-learning.service",
+                        "kind": "oneshot",
+                    },
+                ]
+            },
+        }
+    }
+
+    @staticmethod
+    def runner(calls: list[list[str]]) -> object:
+        def run(command: list[str], **_: object) -> tuple[int, str, str]:
+            calls.append(command)
+            if command[2:3] == ["show"]:
+                if "--value" in command:
+                    if command[3] == "rencrow-test-learning.service":
+                        return 0, "inactive\n", ""
+                    return 0, "active\n", ""
+                return 0, "ActiveState=active\nSubState=running\n", ""
+            return 0, "", ""
+
+        return run
+
+    @staticmethod
+    def fresh_build_info() -> dict[str, object]:
+        return {
+            "main_package": "github.com/Nyukimin/RenCrow_TTS/cmd/rencrow-tts",
+            "module": "github.com/Nyukimin/RenCrow_TTS",
+            "revision": "a" * 40,
+            "modified": False,
+        }
+
+    def invoke(
+        self,
+        root: Path,
+        calls: list[list[str]],
+        *,
+        start_results: list[str | None] | None = None,
+        prepare_receipt: object | None = None,
+    ) -> tuple[bool, Path]:
+        receipt_log = root / "receipts" / "binary-redeployment.jsonl"
+        with mock.patch.object(
+            CHECKER, "build_info", return_value=self.fresh_build_info()
+        ), mock.patch.object(CHECKER.shutil, "copy2"), mock.patch.object(
+            CHECKER.os, "chmod"
+        ), mock.patch.object(
+            CHECKER, "start_and_settle",
+            side_effect=start_results or [None],
+        ):
+            if prepare_receipt is None:
+                result = CHECKER.redeploy(
+                    self.ROW,
+                    self.COMPONENTS,
+                    root,
+                    dry=False,
+                    runner=self.runner(calls),
+                    receipt_log=receipt_log,
+                )
+            else:
+                with mock.patch.object(CHECKER, "prepare_receipt_log", prepare_receipt):
+                    result = CHECKER.redeploy(
+                        self.ROW,
+                        self.COMPONENTS,
+                        root,
+                        dry=False,
+                        runner=self.runner(calls),
+                        receipt_log=receipt_log,
+                    )
+        return result, receipt_log
+
+    def test_success_writes_one_durable_receipt(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result, receipt_log = self.invoke(Path(directory), [])
+
+            self.assertTrue(result)
+            lines = receipt_log.read_text(encoding="utf-8").splitlines()
+            self.assertEqual(len(lines), 1)
+            receipt = json.loads(lines[0])
+            self.assertEqual(receipt["schema_version"], 1)
+            self.assertTrue(receipt["receipt_id"])
+            self.assertEqual(receipt["component"], "tts")
+            self.assertEqual(receipt["binary_path"], self.ROW["binary"])
+            self.assertEqual(receipt["from_revision"], "b" * 40)
+            self.assertEqual(receipt["target_revision"], "a" * 40)
+            self.assertEqual(receipt["running_units"], ["rencrow-test.service"])
+            self.assertEqual(receipt["outcome"], "success")
+            self.assertEqual(receipt["rollback_outcome"], "not_attempted")
+            self.assertIn("backup_path", receipt)
+            self.assertTrue(receipt["started_at"].endswith("Z"))
+            self.assertTrue(receipt["finished_at"].endswith("Z"))
+
+    def test_preflight_failure_writes_receipt_without_mutation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            calls: list[list[str]] = []
+            receipt_log = Path(directory) / "receipts" / "binary-redeployment.jsonl"
+            bad_components = {
+                "tts": {
+                    **self.COMPONENTS["tts"],
+                    "deployment": {"user_systemd": []},
+                }
+            }
+            result = CHECKER.redeploy(
+                self.ROW,
+                bad_components,
+                Path(directory),
+                dry=False,
+                runner=self.runner(calls),
+                receipt_log=receipt_log,
+            )
+
+            self.assertFalse(result)
+            self.assertEqual(len(receipt_log.read_text(encoding="utf-8").splitlines()), 1)
+
+    def test_readiness_failure_records_successful_rollback(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result, receipt_log = self.invoke(
+                Path(directory), [], start_results=["rencrow-test.service", None]
+            )
+
+            self.assertFalse(result)
+            receipt = json.loads(receipt_log.read_text(encoding="utf-8"))
+            self.assertEqual(receipt["outcome"], "failure")
+            self.assertEqual(receipt["failed_unit"], "rencrow-test.service")
+            self.assertEqual(receipt["rollback_outcome"], "success")
+
+    def test_rollback_failure_is_recorded(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result, receipt_log = self.invoke(
+                Path(directory), [],
+                start_results=["rencrow-test.service", "rencrow-test.service"],
+            )
+
+            self.assertFalse(result)
+            receipt = json.loads(receipt_log.read_text(encoding="utf-8"))
+            self.assertEqual(receipt["outcome"], "failure")
+            self.assertEqual(receipt["rollback_outcome"], "failed")
+
+    def test_receipt_open_failure_happens_before_mutation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            calls: list[list[str]] = []
+
+            def fail_open(_path: Path) -> None:
+                raise OSError("receipt unavailable")
+
+            result, receipt_log = self.invoke(
+                Path(directory), calls, prepare_receipt=fail_open
+            )
+
+            self.assertFalse(result)
+            self.assertFalse(receipt_log.exists())
+            self.assertFalse(any(command[2:3] in (["stop"], ["copy"]) for command in calls))
+            self.assertFalse(any(command[0] == "go" for command in calls))
+
+    def test_dry_run_does_not_write_receipt(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            receipt_log = Path(directory) / "receipts" / "binary-redeployment.jsonl"
+            with mock.patch.object(CHECKER, "prepare_receipt_log") as prepare:
+                result = CHECKER.redeploy(
+                    self.ROW,
+                    self.COMPONENTS,
+                    Path(directory),
+                    dry=True,
+                    runner=self.runner([]),
+                    receipt_log=receipt_log,
+                )
+
+            self.assertTrue(result)
+            self.assertFalse(receipt_log.exists())
+            prepare.assert_not_called()
 
 
 if __name__ == "__main__":
