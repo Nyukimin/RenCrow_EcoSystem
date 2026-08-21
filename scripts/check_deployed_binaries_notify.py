@@ -22,7 +22,10 @@ def utc_now() -> str:
 
 
 def command_runner(command: list[str]) -> tuple[int, str, str]:
-    result = subprocess.run(command, capture_output=True, text=True, timeout=120)
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, timeout=120)
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        return 2, "", str(exc)
     return result.returncode, result.stdout, result.stderr
 
 
