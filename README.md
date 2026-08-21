@@ -36,6 +36,9 @@ Games / Tools / Workspace -------- ecosystem support
 - EcoSystem は統合確認済みの組み合わせを `ecosystem.yaml` に記録します。
 - shared Viewer、runtime、route、adapter、Public API、user-facing behaviorは
   RenCrow_COREを正本とします。
+- Atlas / Backlog / Implementation Lifecycle の状態、Evidence gate、singleton WIP lease、
+  Viewer/API は RenCrow_CORE が所有し、RenCrow_CMD は一要求をその owner API へ中継する
+  terminal facade だけを提供します。詳細契約は CORE 正本を参照します。
 - module から EcoSystem の実装へ依存しません。
 - 実行時連携は HTTP、WebSocket、CLI、設定ファイルなどの公開契約を使います。
 - Git submodule は使用しません。
