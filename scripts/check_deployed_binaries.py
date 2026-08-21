@@ -14,7 +14,7 @@ Every mapping is derived, not hand-maintained:
   module       -> manifest component    (matched on the repository field)
 
 Reporting is the default. Redeploying requires --apply and rebuilds from a
-detached worktree at the pinned commit, so an installed binary can never
+local clone checked out at the pinned commit, so an installed binary can never
 inherit uncommitted local edits.
 """
 
@@ -219,6 +219,10 @@ def start_and_settle(units: list[str], dwell: int = 8) -> str | None:
     That is exactly how rencrow-tts stayed "deployed" while failing. Waiting and
     re-reading the state is what turns that into a detectable failure. Oneshot
     units legitimately finish and go inactive, so only a failed result counts.
+
+    This proves the process survived, not that it is serving. CORE needs about
+    145 seconds to bind its port, so a dwell shorter than that says nothing
+    about readiness; raise --dwell for services with a long startup.
     """
     for unit in units:
         run(["systemctl", "--user", "reset-failed", unit])
@@ -251,7 +255,7 @@ def start_and_settle(units: list[str], dwell: int = 8) -> str | None:
 
 
 def redeploy(row: dict[str, Any], components: dict[str, dict[str, Any]],
-             workspace: Path, dry: bool) -> bool:
+             workspace: Path, dry: bool, dwell: int) -> bool:
     """Rebuild one component at its pinned commit and reinstall it."""
     comp = components[row["component"]]
     module_dir = workspace / comp["workspace_path"]
@@ -306,16 +310,29 @@ def redeploy(row: dict[str, Any], components: dict[str, dict[str, Any]],
             return False
 
         BACKUP_DIR.mkdir(parents=True, exist_ok=True)
-        backup = BACKUP_DIR / f"{row['name']}.replaced-{row['built'][:7]}"
+        backup = BACKUP_DIR / f"{row['name']}.replaced-{row['built'][:7] or 'unstamped'}"
         shutil.copy2(row["binary"], backup)
         print(f"  旧バイナリを退避: {backup}", flush=True)
+
+        # Only units that were running get started again. Several binaries also
+        # back a manually invoked Type=oneshot unit (rencrow-trade-learning runs
+        # an offline learning job), and starting those would execute work nobody
+        # asked for.
+        running = []
+        for unit in row["units"]:
+            _, state, _ = run(["systemctl", "--user", "show", unit,
+                               "-p", "ActiveState", "--value"])
+            if state.strip() in ("active", "activating", "reloading"):
+                running.append(unit)
+            else:
+                print(f"  {unit} は停止中のまま据え置きます", flush=True)
 
         for unit in row["units"]:
             run(["systemctl", "--user", "stop", unit])
         shutil.copy2(staged, row["binary"])
         os.chmod(row["binary"], 0o755)
 
-        broken = start_and_settle(row["units"])
+        broken = start_and_settle(running, dwell)
         if broken:
             print(f"  [NG] {broken} が新バイナリで安定しません。ロールバックします",
                   flush=True)
@@ -323,7 +340,7 @@ def redeploy(row: dict[str, Any], components: dict[str, dict[str, Any]],
                 run(["systemctl", "--user", "stop", unit])
             shutil.copy2(backup, row["binary"])
             os.chmod(row["binary"], 0o755)
-            still_broken = start_and_settle(row["units"])
+            still_broken = start_and_settle(running, dwell)
             if still_broken:
                 print(f"  [NG] ロールバック後も {still_broken} が復帰しません。"
                       f"退避先: {backup}", flush=True)
@@ -363,6 +380,9 @@ def main() -> int:
                         help="MISMATCH を pin の clean worktree から再ビルドして再配置する")
     parser.add_argument("--dry-run", action="store_true",
                         help="--apply の実行計画だけを表示する")
+    parser.add_argument("--dwell", type=int, default=8,
+                        help="再起動後に生存を確認する秒数。COREのように listen まで "
+                             "2分以上かかるserviceは長めにする (既定: 8)")
     parser.add_argument("--only", default="",
                         help="対象componentをカンマ区切りで限定する")
     args = parser.parse_args()
@@ -396,8 +416,17 @@ def main() -> int:
     if args.apply:
         only = {s.strip() for s in args.only.split(",") if s.strip()}
         components = load_components(manifest)
+        # An UNSTAMPED binary carries no revision, so drift cannot be measured
+        # at all. Rebuilding is the only way to make it verifiable, but that is
+        # a judgement call rather than a detected mismatch, so it is only done
+        # for a component named explicitly.
+        candidates = list(drifted)
+        if only:
+            candidates += [r for r in rows
+                           if r["status"] == UNSTAMPED and r["component"] in only]
+
         targets = []
-        for row in drifted:
+        for row in candidates:
             if only and row["component"] not in only:
                 continue
             if row["component"] in GUARDED_COMPONENTS and row["component"] not in only:
@@ -412,7 +441,7 @@ def main() -> int:
         for row in targets:
             print(f"\n=== {row['name']} ({row['component']}) "
                   f"{row['built'][:7]} -> {row['pin'][:7]} ===", flush=True)
-            if not redeploy(row, components, workspace, args.dry_run):
+            if not redeploy(row, components, workspace, args.dry_run, args.dwell):
                 failed += 1
         if failed:
             return 1
