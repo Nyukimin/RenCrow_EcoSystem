@@ -137,6 +137,21 @@ class EcosystemManifestTest(unittest.TestCase):
         with self.assertRaisesRegex(VALIDATOR.ManifestError, "readiness contract"):
             VALIDATOR.validate_manifest(candidate)
 
+    def test_managed_file_contracts_are_validated(self) -> None:
+        files = self.manifest["components"]["core"]["deployment"]["files"]
+        self.assertEqual(len(files), 3)
+        self.assertEqual(files[0]["mode"], "0755")
+
+        candidate = copy.deepcopy(self.manifest)
+        candidate["components"]["core"]["deployment"]["files"][0]["source_path"] = "../secret"
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "safe relative"):
+            VALIDATOR.validate_manifest(candidate)
+
+        candidate = copy.deepcopy(self.manifest)
+        candidate["components"]["core"]["deployment"]["files"][0]["sha256"] = "bad"
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "SHA-256"):
+            VALIDATOR.validate_manifest(candidate)
+
     def test_readiness_contract_rejects_duplicate_units_globally(self) -> None:
         candidate = copy.deepcopy(self.manifest)
         duplicate = copy.deepcopy(

@@ -548,5 +548,74 @@ class RedeployReceiptTest(unittest.TestCase):
             prepare.assert_not_called()
 
 
+class ManagedFileTest(unittest.TestCase):
+    def test_collect_reports_match_mismatch_and_missing(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            matching = root / "matching.sh"
+            changed = root / "changed.sh"
+            matching.write_bytes(b"same\n")
+            changed.write_bytes(b"changed\n")
+            expected = CHECKER.hashlib.sha256(b"same\n").hexdigest()
+            components = {
+                "core": {
+                    "deployment": {"files": [
+                        {"source_path": "scripts/a.sh", "installed_path": "%workspace%/matching.sh", "sha256": expected, "mode": "0755"},
+                        {"source_path": "scripts/b.sh", "installed_path": "%workspace%/changed.sh", "sha256": expected, "mode": "0755"},
+                        {"source_path": "scripts/c.sh", "installed_path": "%workspace%/missing.sh", "sha256": expected, "mode": "0755"},
+                    ]}
+                }
+            }
+            rows = CHECKER.collect_managed_files(components, root)
+            self.assertEqual([row["status"] for row in rows], [CHECKER.MATCH, CHECKER.MISMATCH, CHECKER.MISMATCH])
+            self.assertEqual(rows[-1]["note"], "配置fileが存在しない")
+
+    def test_redeploy_installs_pinned_blob_and_writes_receipt(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / "installed" / "tool.sh"
+            target.parent.mkdir()
+            target.write_text("old\n", encoding="utf-8")
+            content = b"new\n"
+            expected = CHECKER.hashlib.sha256(content).hexdigest()
+            row = {
+                "artifact_kind": "managed_file", "component": "core", "units": [],
+                "binary": str(target), "name": "tool.sh", "built": "b" * 64,
+                "pin": expected, "source_path": "scripts/tool.sh", "mode": "0755",
+            }
+            components = {"core": {"workspace_path": "./RenCrow_CORE", "version": "a" * 40}}
+            receipt = root / "receipt.jsonl"
+            def runner(_command: list[str], **_kwargs: object):
+                return 0, "", ""
+            with mock.patch.object(CHECKER, "BACKUP_DIR", root / "backups"):
+                ok = CHECKER.redeploy_managed_file(
+                    row, components, root, False, runner=runner,
+                    blob_loader=lambda *_args: content, receipt_log=receipt
+                )
+            self.assertTrue(ok)
+            self.assertEqual(target.read_bytes(), content)
+            self.assertEqual(json.loads(receipt.read_text())["outcome"], "success")
+
+    def test_redeploy_rejects_manifest_hash_mismatch_before_install(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / "tool.sh"
+            target.write_text("old\n", encoding="utf-8")
+            row = {
+                "artifact_kind": "managed_file", "component": "core", "units": [],
+                "binary": str(target), "name": "tool.sh", "built": "b" * 64,
+                "pin": "a" * 64, "source_path": "scripts/tool.sh", "mode": "0755",
+            }
+            components = {"core": {"workspace_path": "./RenCrow_CORE", "version": "c" * 40}}
+            ok = CHECKER.redeploy_managed_file(
+                row, components, root, False,
+                runner=lambda *_args, **_kwargs: (0, "", ""),
+                blob_loader=lambda *_args: b"unexpected\n",
+                receipt_log=root / "receipt.jsonl",
+            )
+            self.assertFalse(ok)
+            self.assertEqual(target.read_text(encoding="utf-8"), "old\n")
+
+
 if __name__ == "__main__":
     unittest.main()

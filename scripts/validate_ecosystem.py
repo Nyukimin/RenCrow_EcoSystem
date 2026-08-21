@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import ipaddress
 import json
 import math
@@ -38,6 +39,8 @@ ARTIFACT_NAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 WORKSPACE_PATH_PATTERN = re.compile(r"^\./[A-Za-z0-9][A-Za-z0-9._-]*$")
 USER_SYSTEMD_UNIT_PATTERN = re.compile(r"^rencrow[A-Za-z0-9_.@:-]*\.service$")
 JSON_PATH_PATTERN = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*$")
+DEPLOYMENT_SOURCE_PATH_PATTERN = re.compile(r"^[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*$")
+SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 REQUIRED_PRIMARY_RUNTIME_FIELDS = {"implementation", "artifact", "status"}
 REQUIRED_COMPANION_RUNTIME_FIELDS = {
     "id",
@@ -239,10 +242,30 @@ def _validate_user_systemd_deployment(
     location = f"components.{component_id}.deployment"
     if not isinstance(deployment, dict):
         raise _readiness_error(location, "must be an object")
-    if set(deployment) != {"user_systemd"}:
+    if not deployment or not set(deployment) <= {"user_systemd", "files"}:
         raise _readiness_error(location, "contains unsupported keys")
 
-    contracts = deployment["user_systemd"]
+    files = deployment.get("files", [])
+    if not isinstance(files, list):
+        raise ManifestError(f"{location}.files must be an array")
+    for index, artifact in enumerate(files):
+        artifact_location = f"{location}.files[{index}]"
+        if not isinstance(artifact, dict) or set(artifact) != {
+            "source_path", "installed_path", "sha256", "mode"
+        }:
+            raise ManifestError(f"{artifact_location} must contain exactly source_path, installed_path, sha256, mode")
+        source = artifact["source_path"]
+        if not isinstance(source, str) or not DEPLOYMENT_SOURCE_PATH_PATTERN.fullmatch(source) or ".." in source.split("/"):
+            raise ManifestError(f"{artifact_location}.source_path must be a safe relative POSIX path")
+        installed = artifact["installed_path"]
+        if not isinstance(installed, str) or not installed.startswith(("%h/", "%workspace%/")):
+            raise ManifestError(f"{artifact_location}.installed_path must start with %h/ or %workspace%/")
+        if not isinstance(artifact["sha256"], str) or not SHA256_PATTERN.fullmatch(artifact["sha256"]):
+            raise ManifestError(f"{artifact_location}.sha256 must be lowercase SHA-256")
+        if artifact["mode"] not in {"0644", "0755"}:
+            raise ManifestError(f"{artifact_location}.mode must be 0644 or 0755")
+
+    contracts = deployment.get("user_systemd", [])
     if not isinstance(contracts, list):
         raise _readiness_error(f"{location}.user_systemd", "must be an array")
 
@@ -462,6 +485,18 @@ def _git_head(component_path: Path) -> str:
     return result.stdout.strip().lower()
 
 
+def _git_blob_sha256(component_path: Path, revision: str, source_path: str) -> str:
+    result = subprocess.run(
+        ["git", "-C", str(component_path), "show", f"{revision}:{source_path}"],
+        check=False,
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        detail = result.stderr.decode("utf-8", errors="replace").strip() or "git show failed"
+        raise ManifestError(f"cannot read managed file {source_path}: {detail}")
+    return hashlib.sha256(result.stdout).hexdigest()
+
+
 def validate_workspace(data: dict[str, Any], manifest_path: Path) -> None:
     """Check sibling repositories and source-pinned revisions in a local workspace."""
     base_directory = manifest_path.resolve().parent
@@ -498,6 +533,16 @@ def validate_workspace(data: dict[str, Any], manifest_path: Path) -> None:
                     f"{section}.{entry_id} HEAD {head} does not match "
                     f"source-pinned version {version}"
                 )
+        deployment = entry.get("deployment")
+        managed_files = deployment.get("files", []) if isinstance(deployment, dict) else []
+        if managed_files and isinstance(version, str) and COMMIT_VERSION_PATTERN.fullmatch(version):
+            for artifact in managed_files:
+                actual_hash = _git_blob_sha256(entry_path, version, artifact["source_path"])
+                if actual_hash != artifact["sha256"]:
+                    raise ManifestError(
+                        f"{section}.{entry_id} managed file {artifact['source_path']} "
+                        f"hash {actual_hash} does not match manifest {artifact['sha256']}"
+                    )
 
 
 def _require_non_empty_file(entry_id: str, entry_path: Path, relative: str) -> None:

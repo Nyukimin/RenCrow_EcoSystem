@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
+import hashlib
 import json
 import os
 import re
@@ -274,6 +275,7 @@ def collect(manifest: Path, workspace: Path, prefix: str) -> list[dict[str, Any]
         seen.add(binary)
 
         row: dict[str, Any] = {
+            "artifact_kind": "go_binary",
             "units": [unit],
             "binary": binary,
             "name": os.path.basename(binary),
@@ -331,6 +333,77 @@ def collect(manifest: Path, workspace: Path, prefix: str) -> list[dict[str, Any]
                     row["note"] += " / 未コミット差分入り"
         rows.append(row)
 
+    managed = collect_managed_files(components, workspace)
+    managed_by_path = {row["binary"]: row for row in managed}
+    remaining: list[dict[str, Any]] = []
+    for row in rows:
+        managed_row = managed_by_path.get(row["binary"])
+        if managed_row is not None and row["status"] == UNMAPPED:
+            managed_row["units"].extend(row["units"])
+            continue
+        remaining.append(row)
+    remaining.extend(managed)
+    return remaining
+
+
+def _installed_file_path(raw: str, workspace: Path) -> Path:
+    if raw.startswith("%h/"):
+        return Path.home() / Path(raw[len("%h/"):])
+    if raw.startswith("%workspace%/"):
+        return workspace / Path(raw[len("%workspace%/"):])
+    raise ValueError(f"unsupported installed_path: {raw}")
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _git_blob(module_dir: Path, revision: str, source_path: str) -> bytes:
+    result = subprocess.run(
+        ["git", "-C", str(module_dir), "show", f"{revision}:{source_path}"],
+        capture_output=True,
+        timeout=60,
+    )
+    if result.returncode != 0:
+        detail = result.stderr.decode("utf-8", errors="replace").strip()
+        raise OSError(detail or "git show failed")
+    return result.stdout
+
+
+def collect_managed_files(
+    components: dict[str, dict[str, Any]], workspace: Path
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for component_id, component in components.items():
+        deployment = component.get("deployment")
+        files = deployment.get("files", []) if isinstance(deployment, dict) else []
+        for artifact in files:
+            installed = _installed_file_path(artifact["installed_path"], workspace)
+            expected = artifact["sha256"]
+            actual = _sha256_file(installed) if installed.is_file() else ""
+            rows.append({
+                "artifact_kind": "managed_file",
+                "units": [],
+                "binary": str(installed),
+                "name": installed.name,
+                "component": component_id,
+                "module": "",
+                "main_package": artifact["source_path"],
+                "built": actual,
+                "pin": expected,
+                "modified": None,
+                "behind": None,
+                "status": MATCH if actual == expected else MISMATCH,
+                "note": "content hash一致" if actual == expected else (
+                    "配置fileが存在しない" if not actual else "content hash不一致"
+                ),
+                "source_path": artifact["source_path"],
+                "mode": artifact["mode"],
+            })
     return rows
 
 
@@ -599,6 +672,8 @@ def check_declared_readiness(
     runner = runner or run
     checked = 0
     for row in rows:
+        if row.get("artifact_kind") == "managed_file":
+            continue
         component_id = row.get("component")
         if not isinstance(component_id, str) or component_id not in components:
             continue
@@ -832,6 +907,99 @@ def redeploy(
     return result
 
 
+def redeploy_managed_file(
+    row: dict[str, Any],
+    components: dict[str, dict[str, Any]],
+    workspace: Path,
+    dry: bool,
+    *,
+    runner: Any | None = None,
+    blob_loader: Any | None = None,
+    receipt_log: Path | None = None,
+) -> bool:
+    """Install one manifest-hashed file from the component's pinned Git blob."""
+    runner = runner or run
+    blob_loader = blob_loader or _git_blob
+    component = components[row["component"]]
+    module_dir = workspace / component["workspace_path"]
+    pin = component["version"]
+    source_path = row["source_path"]
+    target = Path(row["binary"])
+    if dry:
+        print(f"  [DRY] {module_dir}@{pin[:7]}:{source_path} を {target} へ配置", flush=True)
+        return True
+
+    receipt_path = Path(receipt_log or DEFAULT_RECEIPT_LOG).expanduser()
+    receipt = new_receipt(row)
+    receipt["source_path"] = source_path
+    try:
+        prepare_receipt_log(receipt_path)
+    except (OSError, ValueError, TypeError) as exc:
+        print(f"  [NG] receipt logを準備できません。fileを変更しません: {exc}", flush=True)
+        return False
+
+    result = False
+    phase = "preflight"
+    tmp: Path | None = None
+    try:
+        code, _, error = runner(
+            ["git", "-C", str(module_dir), "cat-file", "-e", f"{pin}:{source_path}"]
+        )
+        if code != 0:
+            raise _RedeployAbort("preflight", f"pinned sourceを読めません: {error.strip()[:300]}")
+        content = blob_loader(module_dir, pin, source_path)
+        actual_hash = hashlib.sha256(content).hexdigest()
+        if actual_hash != row["pin"]:
+            raise _RedeployAbort(
+                "preflight",
+                f"pinned source hashがmanifestと不一致 ({actual_hash[:7]} != {row['pin'][:7]})",
+            )
+
+        phase = "backup"
+        if target.exists():
+            BACKUP_DIR.mkdir(parents=True, exist_ok=True)
+            backup = BACKUP_DIR / f"{row['name']}.replaced-{row['built'][:7] or 'missing'}"
+            shutil.copy2(target, backup)
+            receipt["backup_path"] = str(backup)
+
+        phase = "install"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        handle, raw_tmp = tempfile.mkstemp(prefix=target.name + ".", dir=target.parent)
+        tmp = Path(raw_tmp)
+        with os.fdopen(handle, "wb") as stream:
+            stream.write(content)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.chmod(tmp, int(row["mode"], 8))
+        os.replace(tmp, target)
+        tmp = None
+        if _sha256_file(target) != row["pin"]:
+            raise _RedeployAbort("verify", "配置後content hashが一致しません")
+        receipt["phase"] = "complete"
+        receipt["outcome"] = "success"
+        print(f"  [OK] {row['name']} を content hash {row['pin'][:7]} へ更新", flush=True)
+        result = True
+    except _RedeployAbort as exc:
+        set_receipt_failure(receipt, exc.phase, exc.error)
+        print(f"  [NG] {exc.error}", flush=True)
+    except Exception as exc:
+        set_receipt_failure(receipt, phase, str(exc))
+        print(f"  [NG] {phase}: {exc}", flush=True)
+    finally:
+        if tmp is not None:
+            try:
+                tmp.unlink()
+            except FileNotFoundError:
+                pass
+        receipt["finished_at"] = utc_timestamp()
+        try:
+            append_receipt(receipt_path, receipt)
+        except (OSError, ValueError, TypeError) as exc:
+            print(f"  [NG] receiptを書き込めませんでした: {exc}", flush=True)
+            result = False
+    return result
+
+
 def render(rows: list[dict[str, Any]]) -> None:
     width = max([len(r["name"]) for r in rows] + [8])
     print(f"{'BINARY'.ljust(width)}  {'COMPONENT':<11} {'BUILT':<8} {'PIN':<8} "
@@ -922,13 +1090,9 @@ def main() -> int:
         for row in targets:
             print(f"\n=== {row['name']} ({row['component']}) "
                   f"{row['built'][:7]} -> {row['pin'][:7]} ===", flush=True)
-            if not redeploy(
-                row,
-                components,
-                workspace,
-                args.dry_run,
-                receipt_log=Path(args.receipt_log),
-            ):
+            deployer = redeploy_managed_file if row.get("artifact_kind") == "managed_file" else redeploy
+            if not deployer(row, components, workspace, args.dry_run,
+                            receipt_log=Path(args.receipt_log)):
                 failed += 1
         if failed:
             return 1

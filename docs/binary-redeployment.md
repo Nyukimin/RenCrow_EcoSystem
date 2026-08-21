@@ -205,12 +205,25 @@ systemctl --user status rencrow-binary-drift-notify.timer --no-pager
 timerは`OnCalendar=hourly`と`Persistent=true`を使う。検出と通知だけを行い、binaryのbuild、
 停止、再配置、再起動は行わない。
 
+## Go以外のmanaged file
+
+Go build stampを持たないrepo所有scriptは、componentの
+`deployment.files`に`source_path`、`installed_path`、SHA-256、modeを宣言する。
+checkerは配置fileのbytesをhashし、manifestと違えば`MISMATCH`として同じ終了code・通知経路へ
+載せる。`--apply --only <component>`では、componentのpinにあるGit blobをbytesのまま読み、
+manifest hashを事前検証してからbackup、atomic install、配置後hash検証、receipt記録を行う。
+worktreeの未commit差分やOSの改行変換は配置内容へ混ぜない。
+
+現在のmanaged fileはCOREのlog rotate、storage backup、data schedulerと、Toolsのsystem
+monitorである。外部backendの`llama-server`、Docker/Gitea、host所有backup scriptはrepo配布物
+ではないため、このhash契約へ偽装して取り込まず`UNMAPPED`のまま所有境界を明示する。
+
 ## 既知の限界
 
 - **`vcs.modified`はbuild時点の作業treeの状態であり、現在の状態ではない。**
   `DIRTY`はSHAで内容を保証できないことのみを示し、差分の中身は分からない。
-- **Go以外のbinaryは対象外。** shell script、docker、llama-server等は`UNMAPPED`として
-  素通りする。これらのversion管理は別の手段を必要とする。
+- **外部systemは対象外。** Docker/Gitea、`llama-server`、host所有scriptは`UNMAPPED`として
+  素通りする。repo所有scriptは上記content hash契約で検証する。
 - **hostの`go`に依存する。** buildだけでなくstampの読み取りにも`go version -m`を使う。
 
 ## 未実装

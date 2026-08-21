@@ -14,6 +14,26 @@
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
       "deployment": {
+        "files": [
+          {
+            "source_path": "scripts/rencrow_log_rotate.sh",
+            "installed_path": "%h/.local/share/rencrow/scripts/rencrow_log_rotate.sh",
+            "sha256": "0c1994f61673c32e93d0b58686c27e3f498afc1f03c14e4e72f11f73ea5db2a9",
+            "mode": "0755"
+          },
+          {
+            "source_path": "scripts/rencrow-storage-backup",
+            "installed_path": "%h/.local/bin/rencrow-storage-backup",
+            "sha256": "e52e4f74cf42090d3788dd47fc4595e2279c3aaf26fcd0c45cab8408579f40c1",
+            "mode": "0755"
+          },
+          {
+            "source_path": "scripts/rencrow_data_scheduler.sh",
+            "installed_path": "%h/.local/share/rencrow/scripts/rencrow_data_scheduler.sh",
+            "sha256": "ec8f476e067e999c08d90144ec4fc7b78f001ed1779767cdb9dd091fa467eddf",
+            "mode": "0755"
+          }
+        ],
         "user_systemd": [
           {
             "unit": "rencrow.service",
@@ -294,6 +314,14 @@
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools",
       "deployment": {
+        "files": [
+          {
+            "source_path": "tools/system_monitor/rencrow_system_monitor.sh",
+            "installed_path": "%workspace%/RenCrow_Tools/tools/system_monitor/rencrow_system_monitor.sh",
+            "sha256": "05228de61e3a8bbd56414f1e759fc50c57eec4ef9395116b1a935280e9daab07",
+            "mode": "0755"
+          }
+        ],
         "user_systemd": [
           {
             "unit": "rencrow-lyrics-collector.service",
