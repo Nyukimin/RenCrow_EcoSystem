@@ -309,7 +309,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "./RenCrow_Tools",
-      "version": "588e4fd7fe098a24ade9937ce1be6d9c5426d70b",
+      "version": "bc58362b9c186cc55a0de5c890be972bae5017b6",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools",
@@ -317,8 +317,8 @@
         "files": [
           {
             "source_path": "tools/system_monitor/rencrow_system_monitor.sh",
-            "installed_path": "%workspace%/RenCrow_Tools/tools/system_monitor/rencrow_system_monitor.sh",
-            "sha256": "05228de61e3a8bbd56414f1e759fc50c57eec4ef9395116b1a935280e9daab07",
+            "installed_path": "%h/.local/share/rencrow/tools/system_monitor/rencrow_system_monitor.sh",
+            "sha256": "37384244c07f0eae955cd282c229cd06db36d210d93bc6dd38b0ed1f98e2e125",
             "mode": "0755"
           }
         ],
