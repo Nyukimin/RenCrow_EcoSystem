@@ -395,6 +395,8 @@ class RedeployReceiptTest(unittest.TestCase):
                     if command[3] == "rencrow-test-learning.service":
                         return 0, "inactive\n", ""
                     return 0, "active\n", ""
+                if command[3] == "rencrow-test-learning.service":
+                    return 0, "ActiveState=inactive\nSubState=dead\nResult=success\nExecMainStatus=0\n", ""
                 return 0, "ActiveState=active\nSubState=running\n", ""
             return 0, "", ""
 

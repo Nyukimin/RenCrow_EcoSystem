@@ -13,7 +13,11 @@ def install(root: Path, home: Path, runner=subprocess.run) -> None:
     units = home / ".config/systemd/user"
     runtime.mkdir(parents=True, exist_ok=True)
     units.mkdir(parents=True, exist_ok=True)
-    for name in ("check_deployed_binaries.py", "check_deployed_binaries_notify.py"):
+    for name in (
+        "check_deployed_binaries.py",
+        "check_deployed_binaries_notify.py",
+        "deployment_host_adapters.py",
+    ):
         shutil.copy2(root / "scripts" / name, runtime / name)
         (runtime / name).chmod(0o755)
     shutil.copy2(root / "ecosystem.yaml", runtime / "ecosystem.yaml")

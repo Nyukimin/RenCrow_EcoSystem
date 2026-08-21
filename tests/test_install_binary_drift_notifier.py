@@ -22,6 +22,7 @@ class InstallerTest(unittest.TestCase):
             units = home / ".config/systemd/user"
             self.assertTrue((runtime / "check_deployed_binaries.py").is_file())
             self.assertTrue((runtime / "check_deployed_binaries_notify.py").is_file())
+            self.assertTrue((runtime / "deployment_host_adapters.py").is_file())
             self.assertEqual((runtime / "ecosystem.yaml").read_bytes(), (ROOT / "ecosystem.yaml").read_bytes())
             self.assertTrue((units / "rencrow-binary-drift-notify.service").is_file())
             service = (units / "rencrow-binary-drift-notify.service").read_text(encoding="utf-8")

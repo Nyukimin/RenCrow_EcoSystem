@@ -126,6 +126,24 @@ systemd unitと完全一致し、同じunitを複数componentで宣言できな�
 - どちらもsystemdの`failed`または`auto-restart`を即時失敗とする。process生存だけでは成功にしない。
 - 稼働中unitの契約がmanifestに無い場合は、build、backup、stop、copyを行わずfail closedする。
 
+### native host adapter
+
+同じ検出・backup・stop・atomic install・start・readiness・rollback・receipt契約を、
+`--host-adapter auto`でOS native supervisorへ投影する。
+
+| OS | adapter | service identity |
+| --- | --- | --- |
+| Linux | user systemd | `rencrow-image.service` |
+| Windows | Windows Service | `rencrow-image`（`.service`を除いた同名） |
+| macOS | user launchd | `com.rencrow.image`（COREは`com.rencrow.core`） |
+
+Windows adapterは`Win32_Service`の`PathName`から配置binaryを読み、`Get-Service`、
+`Stop-Service`、`Start-Service`だけを使う。launchd adapterは
+`~/Library/LaunchAgents`のplistに宣言されたLabelとProgramArgumentsを読み、現在userの
+`gui/<uid>` domainだけを`bootout`／`bootstrap`する。どちらもprefix外service、任意command、
+未知plistを操作しない。service identityを上表からLinux logical unitへ正規化し、manifestの
+同じHTTP JSON／oneshot readinessを再利用する。
+
 ### rollback
 
 readiness確認に失敗した場合、退避したbinaryへ戻し、同じ稼働unitへ同じ契約を適用して
@@ -174,7 +192,8 @@ python3 scripts/check_deployed_binaries.py ecosystem.yaml --check-readiness
 | `--dry-run` | off | `--apply`の計画だけを表示する |
 | `--only` | 空 | 対象componentをカンマ区切りで限定する |
 | `--receipt-log` | `~/.rencrow/receipts/binary-redeployment.jsonl` | 再配置receiptのJSONL path |
-| `--prefix` | `rencrow` | 対象とするsystemd unitの接頭辞 |
+| `--prefix` | `rencrow` | 対象native service identityの接頭辞 |
+| `--host-adapter` | `auto` | `systemd`／`windows`／`launchd`を明示、またはOSから自動判定 |
 | `--workspace` | manifestのdirectory | catalog root |
 
 | exit code | 意味 |
@@ -225,7 +244,3 @@ monitorである。外部backendの`llama-server`、Docker/Gitea、host所有bac
 - **外部systemは対象外。** Docker/Gitea、`llama-server`、host所有scriptは`UNMAPPED`として
   素通りする。repo所有scriptは上記content hash契約で検証する。
 - **hostの`go`に依存する。** buildだけでなくstampの読み取りにも`go version -m`を使う。
-
-## 未実装
-
-- Linux user systemd以外のhost adapter。Windows service、launchdは未対応。

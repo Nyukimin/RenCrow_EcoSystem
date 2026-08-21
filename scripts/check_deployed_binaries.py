@@ -38,6 +38,11 @@ import uuid
 from pathlib import Path
 from typing import Any
 
+_SCRIPT_DIR = str(Path(__file__).resolve().parent)
+if _SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, _SCRIPT_DIR)
+from deployment_host_adapters import HostAdapter, SystemdUserAdapter, create_adapter
+
 MATCH = "MATCH"
 MISMATCH = "MISMATCH"
 DIRTY = "DIRTY"
@@ -257,13 +262,19 @@ def commits_between(module_dir: Path, old: str, new: str) -> int | None:
         return None
 
 
-def collect(manifest: Path, workspace: Path, prefix: str) -> list[dict[str, Any]]:
+def collect(
+    manifest: Path,
+    workspace: Path,
+    prefix: str,
+    adapter: HostAdapter | None = None,
+) -> list[dict[str, Any]]:
+    adapter = adapter or SystemdUserAdapter(run)
     components = load_components(manifest)
     rows: list[dict[str, Any]] = []
     seen: set[str] = set()
 
-    for unit in sorted(systemd_units(prefix)):
-        binary = unit_exec_path(unit)
+    for unit in adapter.services(prefix):
+        binary = adapter.exec_path(unit)
         if not binary or not os.path.exists(binary):
             continue
         if binary in seen:
@@ -407,7 +418,11 @@ def collect_managed_files(
     return rows
 
 
-def _systemd_properties(unit: str, runner: Any) -> dict[str, str] | None:
+def _systemd_properties(
+    unit: str, runner: Any, adapter: HostAdapter | None = None
+) -> dict[str, str] | None:
+    if adapter is not None:
+        return adapter.properties(unit)
     code, output, _ = runner(
         [
             "systemctl",
@@ -502,6 +517,7 @@ def start_and_settle(
     http_opener: Any | None = None,
     sleep_fn: Any | None = None,
     clock: Any | None = None,
+    adapter: HostAdapter | None = None,
 ) -> str | None:
     """Start units and require their manifest-owned readiness contracts.
 
@@ -511,6 +527,7 @@ def start_and_settle(
     before any unit is started.
     """
     runner = runner or run
+    adapter = adapter or SystemdUserAdapter(runner)
 
     missing = [unit for unit in units if unit not in contracts]
     if missing:
@@ -518,8 +535,8 @@ def start_and_settle(
         return missing[0]
 
     for unit in units:
-        runner(["systemctl", "--user", "reset-failed", unit])
-        code, _, err = runner(["systemctl", "--user", "start", unit])
+        adapter.reset_failed(unit)
+        code, _, err = adapter.start(unit)
         if code != 0:
             print(f"  {unit} の起動コマンドが失敗: {err.strip()[:200]}", flush=True)
             return unit
@@ -531,6 +548,7 @@ def start_and_settle(
         http_opener=http_opener,
         sleep_fn=sleep_fn,
         clock=clock,
+        adapter=adapter,
     )
 
 
@@ -542,12 +560,14 @@ def wait_for_readiness(
     http_opener: Any | None = None,
     sleep_fn: Any | None = None,
     clock: Any | None = None,
+    adapter: HostAdapter | None = None,
 ) -> str | None:
     """Poll manifest readiness without changing unit state."""
     runner = runner or run
     http_opener = http_opener or urllib.request.urlopen
     sleep_fn = sleep_fn or time.sleep
     clock = clock or time.monotonic
+    adapter = adapter or SystemdUserAdapter(runner)
 
     missing = [unit for unit in units if unit not in contracts]
     if missing:
@@ -560,7 +580,7 @@ def wait_for_readiness(
         now = clock()
         for unit in list(pending):
             contract = contracts[unit]
-            properties = _systemd_properties(unit, runner)
+            properties = _systemd_properties(unit, runner, adapter)
             if properties is None:
                 print(f"  {unit} のsystemd状態を取得できません", flush=True)
                 return unit
@@ -617,7 +637,7 @@ def wait_for_readiness(
             sleep_fn(max(0, min(POLL_INTERVAL_SECONDS, next_timeout)))
 
     for unit in units:
-        properties = _systemd_properties(unit, runner) or {}
+        properties = _systemd_properties(unit, runner, adapter) or {}
         print(
             f"  {unit} -> {properties.get('ActiveState', '')} "
             f"(NRestarts={properties.get('NRestarts', '')})",
@@ -626,16 +646,17 @@ def wait_for_readiness(
     return None
 
 
-def _running_units(units: list[str], runner: Any) -> list[str] | None:
+def _running_units(
+    units: list[str], runner: Any, adapter: HostAdapter | None = None
+) -> list[str] | None:
+    adapter = adapter or SystemdUserAdapter(runner)
     running: list[str] = []
     for unit in units:
-        code, state, _ = runner(
-            ["systemctl", "--user", "show", unit, "-p", "ActiveState", "--value"]
-        )
-        if code != 0:
+        properties = adapter.properties(unit)
+        if properties is None:
             print(f"  {unit} のsystemd状態を取得できないため中止します", flush=True)
             return None
-        if state.strip() in ("active", "activating", "reloading"):
+        if properties.get("ActiveState") in ("active", "activating", "reloading"):
             running.append(unit)
         else:
             print(f"  {unit} は停止中のまま据え置きます", flush=True)
@@ -645,7 +666,9 @@ def _running_units(units: list[str], runner: Any) -> list[str] | None:
 def _unit_contracts(
     component: dict[str, Any],
     units: list[str],
+    adapter: HostAdapter | None = None,
 ) -> dict[str, dict[str, Any]] | None:
+    adapter = adapter or SystemdUserAdapter(run)
     deployment = component.get("deployment")
     raw_contracts = deployment.get("user_systemd") if isinstance(deployment, dict) else None
     if not isinstance(raw_contracts, list):
@@ -654,11 +677,13 @@ def _unit_contracts(
     for contract in raw_contracts:
         if not isinstance(contract, dict):
             continue
-        unit = contract.get("unit")
-        if isinstance(unit, str) and unit in units:
-            if unit in contracts:
-                return None
-            contracts[unit] = contract
+        contract_unit = contract.get("unit")
+        for unit in units:
+            if isinstance(contract_unit, str) and contract_unit == adapter.contract_unit(unit):
+                if unit in contracts:
+                    return None
+                contracts[unit] = contract
+                break
     return contracts if len(contracts) == len(units) else None
 
 
@@ -667,9 +692,11 @@ def check_declared_readiness(
     components: dict[str, dict[str, Any]],
     *,
     runner: Any | None = None,
+    adapter: HostAdapter | None = None,
 ) -> bool:
     """Check deployed mapped units without starting, stopping, or resetting them."""
     runner = runner or run
+    adapter = adapter or SystemdUserAdapter(runner)
     checked = 0
     for row in rows:
         if row.get("artifact_kind") == "managed_file":
@@ -677,7 +704,7 @@ def check_declared_readiness(
         component_id = row.get("component")
         if not isinstance(component_id, str) or component_id not in components:
             continue
-        contracts = _unit_contracts(components[component_id], row["units"])
+        contracts = _unit_contracts(components[component_id], row["units"], adapter)
         if contracts is None:
             print(
                 f"[NG] {row['name']}: unitのreadiness contractが不足しています",
@@ -691,19 +718,17 @@ def check_declared_readiness(
             if contract["kind"] == "http_json":
                 units.append(unit)
                 continue
-            code, state, _ = runner(
-                ["systemctl", "--user", "show", unit, "-p", "ActiveState", "--value"]
-            )
-            if code != 0:
+            properties = adapter.properties(unit)
+            if properties is None:
                 print(f"[NG] {unit}: systemd状態を取得できません", flush=True)
                 return False
-            if state.strip() in {"active", "activating", "reloading"}:
+            if properties.get("ActiveState") in {"active", "activating", "reloading"}:
                 units.append(unit)
 
         if not units:
             continue
         print(f"readiness: {row['name']} ({', '.join(units)})", flush=True)
-        if wait_for_readiness(units, contracts, runner=runner):
+        if wait_for_readiness(units, contracts, runner=runner, adapter=adapter):
             return False
         checked += len(units)
 
@@ -736,9 +761,11 @@ def redeploy(
     *,
     runner: Any | None = None,
     receipt_log: Path | None = None,
+    adapter: HostAdapter | None = None,
 ) -> bool:
     """Rebuild one component at its pinned commit and reinstall it."""
     runner = runner or run
+    adapter = adapter or SystemdUserAdapter(runner)
     comp = components[row["component"]]
     module_dir = workspace / comp["workspace_path"]
     pin = row["pin"]
@@ -774,15 +801,15 @@ def redeploy(
     try:
         # Resolve the readiness contract before any build, backup, stop, or
         # copy. A missing contract must never leave a binary half-replaced.
-        running = _running_units(row["units"], runner)
+        running = _running_units(row["units"], runner, adapter)
         receipt["running_units"] = running or []
         if running is None:
             raise _RedeployAbort(
                 "preflight", "稼働状態を確認できません。バイナリを変更しません"
             )
-        readiness = _unit_contracts(comp, running)
+        readiness = _unit_contracts(comp, running, adapter)
         if readiness is None:
-            missing = [unit for unit in running if not _unit_contracts(comp, [unit])]
+            missing = [unit for unit in running if not _unit_contracts(comp, [unit], adapter)]
             raise _RedeployAbort(
                 "preflight",
                 "稼働中unitにreadiness contractがありません: "
@@ -838,23 +865,23 @@ def redeploy(
 
         phase = "stop"
         for unit in row["units"]:
-            runner(["systemctl", "--user", "stop", unit])
+            adapter.stop(unit)
         phase = "copy"
         shutil.copy2(staged, row["binary"])
         os.chmod(row["binary"], 0o755)
 
         phase = "readiness"
-        broken = start_and_settle(running, readiness, runner=runner)
+        broken = start_and_settle(running, readiness, runner=runner, adapter=adapter)
         if broken:
             print(f"  [NG] {broken} が新バイナリで安定しません。ロールバックします",
                   flush=True)
             phase = "rollback"
             try:
                 for unit in row["units"]:
-                    runner(["systemctl", "--user", "stop", unit])
+                    adapter.stop(unit)
                 shutil.copy2(backup, row["binary"])
                 os.chmod(row["binary"], 0o755)
-                still_broken = start_and_settle(running, readiness, runner=runner)
+                still_broken = start_and_settle(running, readiness, runner=runner, adapter=adapter)
             except Exception as exc:
                 raise _RedeployAbort(
                     "rollback",
@@ -1019,7 +1046,13 @@ def main() -> int:
     parser.add_argument("--workspace", default=None,
                         help="catalog root (既定: manifestのあるディレクトリ)")
     parser.add_argument("--prefix", default="rencrow",
-                        help="対象とする systemd unit の接頭辞")
+                        help="対象native service identityの接頭辞")
+    parser.add_argument(
+        "--host-adapter",
+        choices=("auto", "systemd", "windows", "launchd"),
+        default="auto",
+        help="native service manager (既定: OSから自動判定)",
+    )
     parser.add_argument("--json", action="store_true", help="JSONで出力する")
     parser.add_argument("--apply", action="store_true",
                         help="MISMATCH を pin の local clone から再ビルドして再配置する")
@@ -1044,7 +1077,8 @@ def main() -> int:
         return 2
     workspace = Path(args.workspace).resolve() if args.workspace else manifest.parent
 
-    rows = collect(manifest, workspace, args.prefix)
+    adapter = create_adapter(args.host_adapter, run)
+    rows = collect(manifest, workspace, args.prefix, adapter)
     if not rows:
         print("対象unitが見つかりません", file=sys.stderr)
         return 2
@@ -1091,8 +1125,10 @@ def main() -> int:
             print(f"\n=== {row['name']} ({row['component']}) "
                   f"{row['built'][:7]} -> {row['pin'][:7]} ===", flush=True)
             deployer = redeploy_managed_file if row.get("artifact_kind") == "managed_file" else redeploy
-            if not deployer(row, components, workspace, args.dry_run,
-                            receipt_log=Path(args.receipt_log)):
+            deploy_kwargs: dict[str, Any] = {"receipt_log": Path(args.receipt_log)}
+            if deployer is redeploy:
+                deploy_kwargs["adapter"] = adapter
+            if not deployer(row, components, workspace, args.dry_run, **deploy_kwargs):
                 failed += 1
         if failed:
             return 1
@@ -1100,7 +1136,7 @@ def main() -> int:
 
     if args.check_readiness:
         components = load_components(manifest)
-        return 0 if check_declared_readiness(rows, components) else 1
+        return 0 if check_declared_readiness(rows, components, adapter=adapter) else 1
 
     return report_exit_code(rows)
 
