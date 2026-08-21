@@ -44,6 +44,17 @@ GUARDED_COMPONENTS = {"core"}
 BACKUP_DIR = Path.home() / ".rencrow" / "backups"
 
 
+def report_exit_code(rows: list[dict[str, Any]]) -> int:
+    """Return non-zero unless every mapped Go binary is SHA-verifiable.
+
+    UNMAPPED entries are outside this tool's contract.  MISMATCH, DIRTY, and
+    UNSTAMPED are all actionable failures: either the pin differs or the
+    deployed contents cannot be proven from the recorded revision.
+    """
+    failing = {MISMATCH, DIRTY, UNSTAMPED}
+    return 1 if any(row["status"] in failing for row in rows) else 0
+
+
 def run(cmd: list[str], cwd: str | None = None, timeout: int = 600) -> tuple[int, str, str]:
     proc = subprocess.run(
         cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout
@@ -404,8 +415,6 @@ def main() -> int:
         render(rows)
 
     drifted = [r for r in rows if r["status"] == MISMATCH]
-    unverifiable = [r for r in rows if r["status"] in (UNSTAMPED, DIRTY)]
-
     if not args.json:
         print()
         print(f"MATCH {len([r for r in rows if r['status'] == MATCH])} / "
@@ -447,11 +456,7 @@ def main() -> int:
             return 1
         return 0
 
-    if drifted:
-        return 1
-    if unverifiable:
-        return 0
-    return 0
+    return report_exit_code(rows)
 
 
 if __name__ == "__main__":

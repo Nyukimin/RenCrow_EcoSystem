@@ -159,8 +159,8 @@ python3 scripts/check_deployed_binaries.py ecosystem.yaml --apply --only core --
 
 | exit code | 意味 |
 | --- | --- |
-| 0 | driftなし、または`--apply`が全件成功 |
-| 1 | `MISMATCH`を検出、または`--apply`に失敗があった |
+| 0 | `MATCH`／対象外の`UNMAPPED`のみ、または`--apply`が全件成功 |
+| 1 | `MISMATCH`、`DIRTY`、`UNSTAMPED`を検出、または`--apply`に失敗があった |
 | 2 | manifestが無い、対象unitが無い |
 
 pinを更新したら配置も追随させる。pinだけを進めるとMATCHだったbinaryがMISMATCHへ変わる。
@@ -170,9 +170,6 @@ pinを更新したら配置も追随させる。pinだけを進めるとMATCHだ
 - **滞留確認はreadinessを保証しない。** 確認できるのはprocessが生存していることだけで、
   serviceが応答可能かは見ていない。COREはlistenまで実測で約145秒かかるため、
   既定の8秒はCOREについて何も言っていない。起動の遅いserviceは`--dwell`を延ばす。
-- **`DIRTY`と`UNSTAMPED`はexit code 0を返す。** driftを検出していないためだが、
-  検証不能な状態が正常終了として扱われる。監視へ組み込む場合は`--json`のstatusを
-  直接判定する。
 - **`vcs.modified`はbuild時点の作業treeの状態であり、現在の状態ではない。**
   `DIRTY`はSHAで内容を保証できないことのみを示し、差分の中身は分からない。
 - **Go以外のbinaryは対象外。** shell script、docker、llama-server等は`UNMAPPED`として
