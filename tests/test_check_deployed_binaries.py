@@ -32,5 +32,39 @@ class ReportExitCodeTest(unittest.TestCase):
         )
 
 
+class ExecStartPathTest(unittest.TestCase):
+    def test_direct_exec_start_returns_path(self) -> None:
+        rendered = (
+            "{ path=/home/ren/.local/bin/rencrow-tts ; "
+            "argv[]=/home/ren/.local/bin/rencrow-tts --config /etc/rencrow ; ... }"
+        )
+        self.assertEqual(
+            CHECKER.parse_exec_start_path(rendered),
+            "/home/ren/.local/bin/rencrow-tts",
+        )
+
+    def test_bounded_flock_exec_start_returns_locked_command(self) -> None:
+        rendered = (
+            "{ path=/usr/bin/flock ; "
+            "argv[]=/usr/bin/flock -n /home/ren/.rencrow/config/lyrics-collector.lock "
+            "/home/ren/.local/bin/rencrow-lyrics-catalog collect --limit 10 ; ... }"
+        )
+        self.assertEqual(
+            CHECKER.parse_exec_start_path(rendered),
+            "/home/ren/.local/bin/rencrow-lyrics-catalog",
+        )
+
+    def test_malformed_flock_exec_start_stays_visible_as_wrapper(self) -> None:
+        rendered = (
+            "{ path=/usr/bin/flock ; "
+            "argv[]=/usr/bin/flock --exclusive /home/ren/.rencrow/config/lock "
+            "/home/ren/.local/bin/rencrow-lyrics-catalog collect ; ... }"
+        )
+        self.assertEqual(
+            CHECKER.parse_exec_start_path(rendered),
+            "/usr/bin/flock",
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

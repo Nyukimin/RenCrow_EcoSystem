@@ -24,6 +24,7 @@ import argparse
 import json
 import os
 import re
+import shlex
 import shutil
 import subprocess
 import sys
@@ -77,14 +78,47 @@ def systemd_units(prefix: str) -> list[str]:
     return units
 
 
+def parse_exec_start_path(rendered: str) -> str | None:
+    """Return the executable path from systemd's rendered ``ExecStart``.
+
+    The checker follows the executable directly for ordinary units.  The
+    lyrics collector is intentionally wrapped in the bounded form
+    ``flock -n LOCK COMMAND ...``; in that case return the command path so its
+    Go build stamp can still be inspected.  Any other flock shape remains
+    visible as the wrapper instead of guessing which argument is executable.
+    """
+    # systemd renders ExecStart as "{ path=/usr/bin/foo ; argv[]=... ; ... }",
+    # so the path token carries the leading brace.
+    match = re.search(r"\bpath=([^\s;]+)", rendered)
+    if not match:
+        return None
+
+    wrapper = match.group(1)
+    if os.path.basename(wrapper) != "flock":
+        return wrapper
+
+    argv_match = re.search(
+        r"\bargv\[\]=(.+?)(?:\s*;\s*|\s*}\s*$)", rendered
+    )
+    if not argv_match:
+        return wrapper
+    try:
+        argv = shlex.split(argv_match.group(1).strip())
+    except ValueError:
+        return wrapper
+
+    if len(argv) < 4 or argv[0] != wrapper or argv[1] != "-n":
+        return wrapper
+    if argv[2] in {"", ";", "}"} or argv[3] in {"", ";", "}"}:
+        return wrapper
+    return argv[3]
+
+
 def unit_exec_path(unit: str) -> str | None:
     code, out, _ = run(["systemctl", "--user", "show", unit, "-p", "ExecStart", "--value"])
     if code != 0:
         return None
-    # systemd renders ExecStart as "{ path=/usr/bin/foo ; argv[]=... ; ... }",
-    # so the path token carries the leading brace.
-    match = re.search(r"\bpath=([^\s;]+)", out)
-    return match.group(1) if match else None
+    return parse_exec_start_path(out)
 
 
 def build_info(binary: str) -> dict[str, Any] | None:
