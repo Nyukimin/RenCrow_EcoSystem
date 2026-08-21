@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -70,8 +71,9 @@ class NotifierTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "private" / "state.json"
             NOTIFIER.write_state(path, {"schema_version": 1})
-            self.assertEqual(path.stat().st_mode & 0o777, 0o600)
-            self.assertEqual(path.parent.stat().st_mode & 0o777, 0o700)
+            if os.name != "nt":
+                self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+                self.assertEqual(path.parent.stat().st_mode & 0o777, 0o700)
 
 
 if __name__ == "__main__":
