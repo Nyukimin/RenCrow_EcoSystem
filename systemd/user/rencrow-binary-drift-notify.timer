@@ -1,0 +1,11 @@
+[Unit]
+Description=Periodically check RenCrow deployed binary drift
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+RandomizedDelaySec=5min
+Unit=rencrow-binary-drift-notify.service
+
+[Install]
+WantedBy=timers.target

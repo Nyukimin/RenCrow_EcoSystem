@@ -1,0 +1,6 @@
+[Unit]
+Description=Check RenCrow deployed binary drift and notify on state change
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/share/rencrow/binary-drift-monitor/check_deployed_binaries_notify.py

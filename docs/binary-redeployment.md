@@ -185,6 +185,26 @@ python3 scripts/check_deployed_binaries.py ecosystem.yaml --check-readiness
 
 pinを更新したら配置も追随させる。pinだけを進めるとMATCHだったbinaryがMISMATCHへ変わる。
 
+## read-only drift通知
+
+`scripts/check_deployed_binaries_notify.py`はcheckerの`--json`だけを実行し、`--apply`を
+呼ばない。`MISMATCH`、`DIRTY`、`UNSTAMPED`の集合が変化した時と、driftが解消した時だけ、
+CORE正規経路の`rencrow channels send`で通知する。同じ状態を毎時間繰り返し通知しない。
+送信に失敗した場合はstateを進めず、次回timerで再試行する。stateは
+`~/.rencrow/state/binary-drift-notifier.json`へmode 0600でatomicに保存する。
+
+Linux user systemdへの導入は明示的に次を実行する。installerはchecker、notifier、
+`ecosystem.yaml`のsnapshotとunitをuser領域へ配置し、hourly timerを有効化する。
+
+```bash
+python3 scripts/install_binary_drift_notifier.py
+systemctl --user start rencrow-binary-drift-notify.service
+systemctl --user status rencrow-binary-drift-notify.timer --no-pager
+```
+
+timerは`OnCalendar=hourly`と`Persistent=true`を使う。検出と通知だけを行い、binaryのbuild、
+停止、再配置、再起動は行わない。
+
 ## 既知の限界
 
 - **`vcs.modified`はbuild時点の作業treeの状態であり、現在の状態ではない。**
@@ -196,4 +216,3 @@ pinを更新したら配置も追随させる。pinだけを進めるとMATCHだ
 ## 未実装
 
 - Linux user systemd以外のhost adapter。Windows service、launchdは未対応。
-- pinへの追随を促す通知。現状はoperatorがcommandを実行した時にだけ分かる。
