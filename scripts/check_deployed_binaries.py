@@ -377,7 +377,7 @@ def main() -> int:
                         help="対象とする systemd unit の接頭辞")
     parser.add_argument("--json", action="store_true", help="JSONで出力する")
     parser.add_argument("--apply", action="store_true",
-                        help="MISMATCH を pin の clean worktree から再ビルドして再配置する")
+                        help="MISMATCH を pin の local clone から再ビルドして再配置する")
     parser.add_argument("--dry-run", action="store_true",
                         help="--apply の実行計画だけを表示する")
     parser.add_argument("--dwell", type=int, default=8,

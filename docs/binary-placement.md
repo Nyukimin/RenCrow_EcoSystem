@@ -6,6 +6,9 @@ RenCrowの各binaryを、役割の異なるhostへ重複配置せず、状態と
 EcoSystemは配置規則と検証済み組み合わせを記録するが、processを起動・制御する
 runtime control planeにはならない。
 
+配置済みbinaryが`ecosystem.yaml`のpinと一致しているかの検証と、ズレた場合の
+再build・再配置は[Binary redeployment](binary-redeployment.md)が定める。
+
 ## Host role
 
 | host role | 配置する主なbinary | 配置しないもの |
