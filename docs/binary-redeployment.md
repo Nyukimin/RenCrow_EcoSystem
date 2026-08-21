@@ -100,7 +100,7 @@ buildしたbinaryは、**hostへ触れる前に**検証する。
 2. 入れ替え前に各unitの`ActiveState`を記録する。
 3. 全unitを停止し、binaryを差し替える。
 4. **入れ替え前にactiveだったunitだけ**を起動する。
-5. 滞留確認を行う。
+5. manifestのreadiness契約を満たすまで確認する。
 6. 異常なら旧binaryへ戻し、再度起動して復帰を確認する。
 
 ### 停止中unitを起動しない
@@ -110,19 +110,26 @@ binaryを共有するunitには、timerを持たない`Type=oneshot`が混ざる
 reconcileであり、再配置の巻き添えで起動すると誰も依頼していない処理が走る。
 停止していたunitは停止したまま据え置く。
 
-### 滞留確認
+### manifest-owned readiness
 
 `Type=simple`はprocessをforkした時点で起動成功を返す。configを拒否して即座に終了する
 binaryも「起動した」ように見える。**TTSが13日間「配置済み」であり続けたのはこの性質による。**
 
-したがって起動後に一定時間待ち、`ActiveState`と`SubState`を読み直して
-`failed`または`auto-restart`を検出する。oneshotは正常終了してinactiveになるため、
-inactive自体は異常としない。
+各 production unit の契約は`ecosystem.yaml`の
+`components.<id>.deployment.user_systemd`が正本である。契約の`unit`は実際の
+systemd unitと完全一致し、同じunitを複数componentで宣言できない。
+
+- `kind: http_json`は`url`へGETを行い、契約の`timeout_seconds`（1--600秒）内に
+  HTTP 2xx、JSON、指定されたdotted `expect.path`とscalar `expect.equals`の一致を要求する。
+- `kind: oneshot`は`ActiveState=inactive`かつ`SubState=dead`、`Result=success`、
+  `ExecMainStatus=0`を要求する。timeoutはcheckerの固定上限600秒である。
+- どちらもsystemdの`failed`または`auto-restart`を即時失敗とする。process生存だけでは成功にしない。
+- 稼働中unitの契約がmanifestに無い場合は、build、backup、stop、copyを行わずfail closedする。
 
 ### rollback
 
-滞留確認に失敗した場合、退避したbinaryへ戻し、同じunitを起動し直して復帰を確認する。
-復帰しない場合は退避先のpathを明示して報告する。
+readiness確認に失敗した場合、退避したbinaryへ戻し、同じ稼働unitへ同じ契約を適用して
+復帰を確認する。復帰しない場合は退避先のpathを明示して報告する。
 
 ## Guard
 
@@ -143,17 +150,20 @@ python3 scripts/check_deployed_binaries.py ecosystem.yaml --apply --dry-run
 # 再配置
 python3 scripts/check_deployed_binaries.py ecosystem.yaml --apply --only vision,stt
 
-# 起動の遅いserviceは滞留を延ばす
-python3 scripts/check_deployed_binaries.py ecosystem.yaml --apply --only core --dwell 180
+# COREもmanifestのreadiness timeout（300秒）で確認する
+python3 scripts/check_deployed_binaries.py ecosystem.yaml --apply --only core
+
+# unitを変更せず現在のreadinessだけを確認する
+python3 scripts/check_deployed_binaries.py ecosystem.yaml --check-readiness
 ```
 
 | option | 既定 | 意味 |
 | --- | --- | --- |
 | `--json` | off | 機械可読出力 |
 | `--apply` | off | 再build・再配置を実行する |
+| `--check-readiness` | off | unitを変更せずmanifest readinessを確認する |
 | `--dry-run` | off | `--apply`の計画だけを表示する |
 | `--only` | 空 | 対象componentをカンマ区切りで限定する |
-| `--dwell` | 8 | 再起動後に生存を確認する秒数 |
 | `--prefix` | `rencrow` | 対象とするsystemd unitの接頭辞 |
 | `--workspace` | manifestのdirectory | catalog root |
 
@@ -167,9 +177,6 @@ pinを更新したら配置も追随させる。pinだけを進めるとMATCHだ
 
 ## 既知の限界
 
-- **滞留確認はreadinessを保証しない。** 確認できるのはprocessが生存していることだけで、
-  serviceが応答可能かは見ていない。COREはlistenまで実測で約145秒かかるため、
-  既定の8秒はCOREについて何も言っていない。起動の遅いserviceは`--dwell`を延ばす。
 - **`vcs.modified`はbuild時点の作業treeの状態であり、現在の状態ではない。**
   `DIRTY`はSHAで内容を保証できないことのみを示し、差分の中身は分からない。
 - **Go以外のbinaryは対象外。** shell script、docker、llama-server等は`UNMAPPED`として

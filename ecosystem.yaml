@@ -12,7 +12,25 @@
       "version": "d5f181a337e221709b49432e6f229ab451b5d9b5",
       "required": true,
       "distribution": "binary",
-      "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior"
+      "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
+      "deployment": {
+        "user_systemd": [
+          {
+            "unit": "rencrow.service",
+            "kind": "http_json",
+            "url": "http://127.0.0.1:18790/health/ready",
+            "timeout_seconds": 300,
+            "expect": {
+              "path": "ready",
+              "equals": true
+            }
+          },
+          {
+            "unit": "rencrow-resilience.service",
+            "kind": "oneshot"
+          }
+        ]
+      }
     },
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
@@ -20,7 +38,21 @@
       "version": "ceef7cc7941ce0c2cbdc0cddb0f2623343ffba4e",
       "required": false,
       "distribution": "binary",
-      "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API"
+      "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API",
+      "deployment": {
+        "user_systemd": [
+          {
+            "unit": "rencrow-portal.service",
+            "kind": "http_json",
+            "url": "http://127.0.0.1:18791/health/ready",
+            "timeout_seconds": 180,
+            "expect": {
+              "path": "status",
+              "equals": "ready"
+            }
+          }
+        ]
+      }
     },
     "assistant": {
       "repository": "Nyukimin/RenCrow_ASSISTANT",
@@ -53,6 +85,20 @@
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
+      "deployment": {
+        "user_systemd": [
+          {
+            "unit": "rencrow-llm.service",
+            "kind": "http_json",
+            "url": "http://127.0.0.1:8090/health",
+            "timeout_seconds": 180,
+            "expect": {
+              "path": "status",
+              "equals": "ok"
+            }
+          }
+        ]
+      },
       "runtime": {
         "primary": {
           "implementation": "go",
@@ -77,6 +123,20 @@
       "required": false,
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
+      "deployment": {
+        "user_systemd": [
+          {
+            "unit": "rencrow-stt.service",
+            "kind": "http_json",
+            "url": "http://127.0.0.1:8766/health/ready",
+            "timeout_seconds": 180,
+            "expect": {
+              "path": "ready",
+              "equals": true
+            }
+          }
+        ]
+      },
       "runtime": {
         "primary": {
           "implementation": "go",
@@ -101,6 +161,20 @@
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
+      "deployment": {
+        "user_systemd": [
+          {
+            "unit": "rencrow-tts.service",
+            "kind": "http_json",
+            "url": "http://127.0.0.1:7870/health/ready",
+            "timeout_seconds": 180,
+            "expect": {
+              "path": "status",
+              "equals": "ready"
+            }
+          }
+        ]
+      },
       "runtime": {
         "primary": {
           "implementation": "go",
@@ -125,6 +199,20 @@
       "required": false,
       "distribution": "binary",
       "role": "Go image and video recognition Gateway from CORE to the Wild backend, including media validation, preprocessing, and result normalization",
+      "deployment": {
+        "user_systemd": [
+          {
+            "unit": "rencrow-vision.service",
+            "kind": "http_json",
+            "url": "http://127.0.0.1:8770/health",
+            "timeout_seconds": 180,
+            "expect": {
+              "path": "status",
+              "equals": "ready"
+            }
+          }
+        ]
+      },
       "runtime": {
         "primary": {
           "implementation": "go",
@@ -148,7 +236,21 @@
       "version": "40c42aa142c0b30bf21d364c8438a905e6c16203",
       "required": false,
       "distribution": "extension",
-      "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI"
+      "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI",
+      "deployment": {
+        "user_systemd": [
+          {
+            "unit": "rencrow-games-observer.service",
+            "kind": "http_json",
+            "url": "http://127.0.0.1:18796/games/status",
+            "timeout_seconds": 60,
+            "expect": {
+              "path": "ok",
+              "equals": true
+            }
+          }
+        ]
+      }
     },
     "trade": {
       "repository": "Nyukimin/RenCrow_TRADE",
@@ -157,6 +259,24 @@
       "required": false,
       "distribution": "binary",
       "role": "Financial research, source-bound learning, offline Replay, portfolio-risk, TradeGate, Ledger, and future Broker adaptation without owning Agent identity or routing",
+      "deployment": {
+        "user_systemd": [
+          {
+            "unit": "rencrow-trade.service",
+            "kind": "http_json",
+            "url": "http://127.0.0.1:8767/ready",
+            "timeout_seconds": 120,
+            "expect": {
+              "path": "ready",
+              "equals": true
+            }
+          },
+          {
+            "unit": "rencrow-trade-learning.service",
+            "kind": "oneshot"
+          }
+        ]
+      },
       "runtime": {
         "primary": {
           "implementation": "go",
@@ -172,7 +292,35 @@
       "version": "588e4fd7fe098a24ade9937ce1be6d9c5426d70b",
       "required": false,
       "distribution": "tooling",
-      "role": "Reusable development, conversion, validation, and browser tools"
+      "role": "Reusable development, conversion, validation, and browser tools",
+      "deployment": {
+        "user_systemd": [
+          {
+            "unit": "rencrow-lyrics-collector.service",
+            "kind": "oneshot"
+          },
+          {
+            "unit": "rencrow-movie-catalog.service",
+            "kind": "http_json",
+            "url": "http://127.0.0.1:8790/health",
+            "timeout_seconds": 60,
+            "expect": {
+              "path": "status",
+              "equals": "ready"
+            }
+          },
+          {
+            "unit": "rencrow-person-related-catalog.service",
+            "kind": "http_json",
+            "url": "http://127.0.0.1:18087/ready",
+            "timeout_seconds": 60,
+            "expect": {
+              "path": "status",
+              "equals": "ok"
+            }
+          }
+        ]
+      }
     },
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
@@ -181,6 +329,20 @@
       "required": false,
       "distribution": "binary",
       "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
+      "deployment": {
+        "user_systemd": [
+          {
+            "unit": "rencrow-image.service",
+            "kind": "http_json",
+            "url": "http://127.0.0.1:8780/health",
+            "timeout_seconds": 180,
+            "expect": {
+              "path": "status",
+              "equals": "ready"
+            }
+          }
+        ]
+      },
       "runtime": {
         "primary": {
           "implementation": "go",

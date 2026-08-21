@@ -4,12 +4,15 @@
 from __future__ import annotations
 
 import argparse
+import ipaddress
 import json
+import math
 import re
 import subprocess
 import sys
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 
 COMPONENT_ID_PATTERN = re.compile(r"^[a-z][a-z0-9_-]*$")
@@ -33,6 +36,8 @@ ALLOWED_COMPANION_KINDS = {
 }
 ARTIFACT_NAME_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 WORKSPACE_PATH_PATTERN = re.compile(r"^\./[A-Za-z0-9][A-Za-z0-9._-]*$")
+USER_SYSTEMD_UNIT_PATTERN = re.compile(r"^rencrow[A-Za-z0-9_.@:-]*\.service$")
+JSON_PATH_PATTERN = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*$")
 REQUIRED_PRIMARY_RUNTIME_FIELDS = {"implementation", "artifact", "status"}
 REQUIRED_COMPANION_RUNTIME_FIELDS = {
     "id",
@@ -183,6 +188,104 @@ def _validate_runtime(component_id: str, component: dict[str, Any]) -> None:
             raise ManifestError(f"{location} external-compute cannot be bundled")
 
 
+def _readiness_error(location: str, message: str) -> ManifestError:
+    return ManifestError(f"{location} readiness contract {message}")
+
+
+def _is_loopback_host(host: str) -> bool:
+    if host.lower() == "localhost":
+        return True
+    try:
+        return ipaddress.ip_address(host).is_loopback
+    except ValueError:
+        return False
+
+
+def _validate_readiness_url(location: str, raw_url: Any) -> None:
+    if not isinstance(raw_url, str) or not raw_url.strip():
+        raise _readiness_error(location, "url must be a non-empty absolute URL")
+    try:
+        parsed = urlsplit(raw_url)
+        hostname = parsed.hostname
+        _ = parsed.port
+    except ValueError as exc:
+        raise _readiness_error(location, f"url is invalid: {exc}") from exc
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc or not hostname:
+        raise _readiness_error(location, "url must be an absolute http(s) URL")
+    if parsed.username is not None or parsed.password is not None:
+        raise _readiness_error(location, "url must not contain userinfo")
+    if parsed.query or parsed.fragment or "?" in raw_url or "#" in raw_url:
+        raise _readiness_error(location, "url must not contain query or fragment")
+    if not _is_loopback_host(hostname):
+        raise _readiness_error(location, "url host must be localhost or loopback")
+
+
+def _validate_scalar(location: str, value: Any) -> None:
+    if value is None or isinstance(value, (str, bool, int)):
+        return
+    if isinstance(value, float) and math.isfinite(value):
+        return
+    raise _readiness_error(location, "expect.equals must be a JSON scalar")
+
+
+def _validate_user_systemd_deployment(
+    component_id: str,
+    component: dict[str, Any],
+    global_units: set[str],
+) -> None:
+    deployment = component.get("deployment")
+    if deployment is None:
+        return
+    location = f"components.{component_id}.deployment"
+    if not isinstance(deployment, dict):
+        raise _readiness_error(location, "must be an object")
+    if set(deployment) != {"user_systemd"}:
+        raise _readiness_error(location, "contains unsupported keys")
+
+    contracts = deployment["user_systemd"]
+    if not isinstance(contracts, list):
+        raise _readiness_error(f"{location}.user_systemd", "must be an array")
+
+    local_units: set[str] = set()
+    for index, contract in enumerate(contracts):
+        contract_location = f"{location}.user_systemd[{index}]"
+        if not isinstance(contract, dict):
+            raise _readiness_error(contract_location, "must be an object")
+        if "unit" not in contract or "kind" not in contract:
+            raise _readiness_error(contract_location, "must contain unit and kind")
+
+        unit = contract["unit"]
+        if not isinstance(unit, str) or not USER_SYSTEMD_UNIT_PATTERN.fullmatch(unit):
+            raise _readiness_error(contract_location, "unit must match rencrow*.service")
+        if unit in local_units or unit in global_units:
+            raise ManifestError(f"duplicate user systemd unit: {unit}")
+        local_units.add(unit)
+        global_units.add(unit)
+
+        kind = contract["kind"]
+        if kind == "oneshot":
+            if set(contract) != {"unit", "kind"}:
+                raise _readiness_error(contract_location, "oneshot contains unsupported keys")
+            continue
+        if kind != "http_json":
+            raise _readiness_error(contract_location, "kind must be http_json or oneshot")
+        if set(contract) != {"unit", "kind", "url", "timeout_seconds", "expect"}:
+            raise _readiness_error(contract_location, "contains unsupported keys")
+
+        _validate_readiness_url(contract_location, contract["url"])
+        timeout = contract["timeout_seconds"]
+        if type(timeout) is not int or not 1 <= timeout <= 600:
+            raise _readiness_error(contract_location, "timeout_seconds must be an integer from 1 to 600")
+
+        expect = contract["expect"]
+        if not isinstance(expect, dict) or set(expect) != {"path", "equals"}:
+            raise _readiness_error(contract_location, "expect must contain exactly path and equals")
+        path = expect["path"]
+        if not isinstance(path, str) or not JSON_PATH_PATTERN.fullmatch(path):
+            raise _readiness_error(contract_location, "expect.path must be a dotted JSON path")
+        _validate_scalar(contract_location, expect["equals"])
+
+
 def validate_manifest(data: dict[str, Any]) -> None:
     """Validate structure, uniqueness, release state, and safe metadata."""
     _reject_secret_keys(data)
@@ -206,6 +309,7 @@ def validate_manifest(data: dict[str, Any]) -> None:
 
     repositories: set[str] = set()
     workspace_paths: set[str] = set()
+    user_systemd_units: set[str] = set()
     unpinned_components: list[str] = []
 
     for component_id, component in components.items():
@@ -267,6 +371,9 @@ def validate_manifest(data: dict[str, Any]) -> None:
         if not isinstance(component["role"], str) or not component["role"].strip():
             raise ManifestError(f"components.{component_id}.role must be non-empty")
         _validate_runtime(component_id, component)
+        _validate_user_systemd_deployment(
+            component_id, component, user_systemd_units
+        )
 
     core = components.get("core")
     if not isinstance(core, dict) or core.get("required") is not True:

@@ -23,6 +23,60 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_repository_manifest_is_valid(self) -> None:
         VALIDATOR.validate_manifest(self.manifest)
 
+    def test_production_user_systemd_readiness_contracts_are_declared(self) -> None:
+        expected = {
+            "core": {
+                "rencrow.service": ("http_json", "http://127.0.0.1:18790/health/ready", 300, "ready", True),
+                "rencrow-resilience.service": ("oneshot", None, None, None, None),
+            },
+            "games": {
+                "rencrow-games-observer.service": ("http_json", "http://127.0.0.1:18796/games/status", 60, "ok", True),
+            },
+            "image": {
+                "rencrow-image.service": ("http_json", "http://127.0.0.1:8780/health", 180, "status", "ready"),
+            },
+            "llm": {
+                "rencrow-llm.service": ("http_json", "http://127.0.0.1:8090/health", 180, "status", "ok"),
+            },
+            "tools": {
+                "rencrow-lyrics-collector.service": ("oneshot", None, None, None, None),
+                "rencrow-movie-catalog.service": ("http_json", "http://127.0.0.1:8790/health", 60, "status", "ready"),
+                "rencrow-person-related-catalog.service": ("http_json", "http://127.0.0.1:18087/ready", 60, "status", "ok"),
+            },
+            "portal": {
+                "rencrow-portal.service": ("http_json", "http://127.0.0.1:18791/health/ready", 180, "status", "ready"),
+            },
+            "stt": {
+                "rencrow-stt.service": ("http_json", "http://127.0.0.1:8766/health/ready", 180, "ready", True),
+            },
+            "trade": {
+                "rencrow-trade.service": ("http_json", "http://127.0.0.1:8767/ready", 120, "ready", True),
+                "rencrow-trade-learning.service": ("oneshot", None, None, None, None),
+            },
+            "tts": {
+                "rencrow-tts.service": ("http_json", "http://127.0.0.1:7870/health/ready", 180, "status", "ready"),
+            },
+            "vision": {
+                "rencrow-vision.service": ("http_json", "http://127.0.0.1:8770/health", 180, "status", "ready"),
+            },
+        }
+
+        for component_id, contracts in expected.items():
+            with self.subTest(component_id=component_id):
+                declared = self.manifest["components"][component_id]["deployment"][
+                    "user_systemd"
+                ]
+                self.assertEqual({item["unit"] for item in declared}, set(contracts))
+                for item in declared:
+                    kind, url, timeout, path, equals = contracts[item["unit"]]
+                    self.assertEqual(item["kind"], kind)
+                    if kind == "oneshot":
+                        self.assertEqual(set(item), {"unit", "kind"})
+                    else:
+                        self.assertEqual(item["url"], url)
+                        self.assertEqual(item["timeout_seconds"], timeout)
+                        self.assertEqual(item["expect"], {"path": path, "equals": equals})
+
     def test_manifest_uses_governance_schema_version_four(self) -> None:
         self.assertEqual(self.manifest["schema_version"], 4)
 
@@ -73,6 +127,39 @@ class EcosystemManifestTest(unittest.TestCase):
         candidate["ecosystem"]["api_key"] = "must-not-be-here"
 
         with self.assertRaisesRegex(VALIDATOR.ManifestError, "secret-like key"):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_readiness_contract_rejects_extra_keys(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        contract = candidate["components"]["core"]["deployment"]["user_systemd"][0]
+        contract["unexpected"] = True
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "readiness contract"):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_readiness_contract_rejects_duplicate_units_globally(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        duplicate = copy.deepcopy(
+            candidate["components"]["core"]["deployment"]["user_systemd"][0]
+        )
+        candidate["components"]["portal"]["deployment"]["user_systemd"].append(
+            duplicate
+        )
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "duplicate user systemd unit"):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_readiness_contract_rejects_non_loopback_url_and_non_scalar_expectation(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        contract = candidate["components"]["core"]["deployment"]["user_systemd"][0]
+        contract["url"] = "https://example.invalid/health/ready"
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "loopback"):
+            VALIDATOR.validate_manifest(candidate)
+
+        contract["url"] = "http://127.0.0.1:18790/health/ready"
+        contract["expect"]["equals"] = {"ready": True}
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "scalar"):
             VALIDATOR.validate_manifest(candidate)
 
     def test_workspace_path_must_be_one_ascii_direct_child(self) -> None:
