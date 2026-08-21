@@ -169,7 +169,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "./RenCrow_Tools",
-      "version": "dd27cb6628163f8f5ca2e61583fa54896f86c8d5",
+      "version": "588e4fd7fe098a24ade9937ce1be6d9c5426d70b",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools"
