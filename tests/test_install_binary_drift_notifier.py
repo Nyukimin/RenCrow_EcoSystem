@@ -26,6 +26,7 @@ class InstallerTest(unittest.TestCase):
             self.assertTrue((units / "rencrow-binary-drift-notify.service").is_file())
             service = (units / "rencrow-binary-drift-notify.service").read_text(encoding="utf-8")
             self.assertIn("Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin", service)
+            self.assertIn("Environment=RENCROW_CONFIG=%h/.rencrow/config/core.yaml", service)
             self.assertEqual(calls[-1][0], ["systemctl", "--user", "enable", "--now", "rencrow-binary-drift-notify.timer"])
 
 
