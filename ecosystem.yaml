@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "e2e7b59a651c4f2c9d5453957a9efca04af5f6da",
+      "version": "7bdf19a16c0cbc0a2562cc81c3938008d8ba29f8",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -25,6 +25,12 @@
             "source_path": "scripts/rencrow-storage-backup",
             "installed_path": "%h/.local/bin/rencrow-storage-backup",
             "sha256": "06c31ca6b91815c793c83b460dc780a38ae5f3279000d070c9aeda8ba6b2fb95",
+            "mode": "0755"
+          },
+          {
+            "source_path": "scripts/rencrow-storage-restore-check",
+            "installed_path": "%h/.local/bin/rencrow-storage-restore-check",
+            "sha256": "3a428d0a8fbad30adabce1b6c8c3d850f342a22985f2e3cb47dd671808a84e41",
             "mode": "0755"
           },
           {
