@@ -139,7 +139,7 @@ class EcosystemManifestTest(unittest.TestCase):
 
     def test_managed_file_contracts_are_validated(self) -> None:
         files = self.manifest["components"]["core"]["deployment"]["files"]
-        self.assertEqual(len(files), 3)
+        self.assertEqual(len(files), 4)
         self.assertEqual(files[0]["mode"], "0755")
 
         candidate = copy.deepcopy(self.manifest)

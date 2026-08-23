@@ -107,8 +107,9 @@ RenCrow_TRADEは金融Source、学習、Replay、Portfolio risk、TradeGate、Le
 
 ## Durable Data Store topology
 
-Ubuntu productionの基準では、live dataを`/srv/rencrow/db`、別媒体backupを
-`/srv/rencrow/backup`へ配置します。各moduleは同名subtreeだけを所有し、EcoSystemは配置と
+Ubuntu productionの基準では、利用可能なlocal durable媒体を2 TB HDD 2基に限定し、live dataを
+`/srv/rencrow/db`、別媒体backupを`/srv/rencrow/backup`へ配置します。追加のlocal HDDをKnowledge、
+staging、backup、fallbackに使用しません。各moduleは同名subtreeだけを所有し、EcoSystemは配置と
 互換性を記録するだけでDBやbackupを所有しません。
 
 | subtree | owner | 主な内容 |
