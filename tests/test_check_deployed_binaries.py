@@ -353,6 +353,50 @@ class ReadinessContractTest(unittest.TestCase):
         self.assertFalse(any(command[2:3] == ["stop"] for command in calls))
 
 
+class AtomicCopyTest(unittest.TestCase):
+    def test_copy_uses_sibling_temp_then_replaces_destination(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "staged"
+            destination = root / "installed"
+            source.write_bytes(b"new")
+            destination.write_bytes(b"old")
+            copied = mock.Mock(wraps=CHECKER.shutil.copy2)
+            replaced = mock.Mock(wraps=CHECKER.os.replace)
+
+            with mock.patch.object(CHECKER.shutil, "copy2", copied), mock.patch.object(
+                CHECKER.os, "replace", replaced
+            ):
+                CHECKER._atomic_copy(source, destination, mode=0o755)
+
+            copied_source, copied_destination = copied.call_args.args[:2]
+            self.assertEqual(Path(copied_source), source)
+            temporary = Path(copied_destination)
+            self.assertNotEqual(temporary, destination)
+            self.assertEqual(temporary.parent, destination.parent)
+            replaced.assert_called_once_with(temporary, destination)
+            self.assertEqual(destination.read_bytes(), b"new")
+            self.assertEqual(destination.stat().st_mode & 0o777, 0o755)
+            self.assertFalse(temporary.exists())
+
+    def test_copy_cleans_sibling_temp_when_replace_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "staged"
+            destination = root / "installed"
+            source.write_bytes(b"new")
+            destination.write_bytes(b"old")
+
+            with mock.patch.object(
+                CHECKER.os, "replace", side_effect=OSError("replace failed")
+            ):
+                with self.assertRaises(OSError):
+                    CHECKER._atomic_copy(source, destination, mode=0o755)
+
+            self.assertEqual(destination.read_bytes(), b"old")
+            self.assertEqual(sorted(path.name for path in root.iterdir()), ["installed", "staged"])
+
+
 class RedeployReceiptTest(unittest.TestCase):
     ROW = {
         "component": "tts",
@@ -420,17 +464,20 @@ class RedeployReceiptTest(unittest.TestCase):
         prepare_receipt: object | None = None,
     ) -> tuple[bool, Path]:
         receipt_log = root / "receipts" / "binary-redeployment.jsonl"
+        row = {**self.ROW, "binary": str(root / self.ROW["name"])}
         with mock.patch.object(
             CHECKER, "build_info", return_value=self.fresh_build_info()
         ), mock.patch.object(CHECKER.shutil, "copy2"), mock.patch.object(
             CHECKER.os, "chmod"
+        ), mock.patch.object(
+            CHECKER, "BACKUP_DIR", root / "backups"
         ), mock.patch.object(
             CHECKER, "start_and_settle",
             side_effect=start_results or [None],
         ):
             if prepare_receipt is None:
                 result = CHECKER.redeploy(
-                    self.ROW,
+                    row,
                     self.COMPONENTS,
                     root,
                     dry=False,
@@ -440,7 +487,7 @@ class RedeployReceiptTest(unittest.TestCase):
             else:
                 with mock.patch.object(CHECKER, "prepare_receipt_log", prepare_receipt):
                     result = CHECKER.redeploy(
-                        self.ROW,
+                        row,
                         self.COMPONENTS,
                         root,
                         dry=False,
@@ -460,7 +507,7 @@ class RedeployReceiptTest(unittest.TestCase):
             self.assertEqual(receipt["schema_version"], 1)
             self.assertTrue(receipt["receipt_id"])
             self.assertEqual(receipt["component"], "tts")
-            self.assertEqual(receipt["binary_path"], self.ROW["binary"])
+            self.assertEqual(receipt["binary_path"], str(Path(directory) / self.ROW["name"]))
             self.assertEqual(receipt["from_revision"], "b" * 40)
             self.assertEqual(receipt["target_revision"], "a" * 40)
             self.assertEqual(receipt["running_units"], ["rencrow-test.service"])

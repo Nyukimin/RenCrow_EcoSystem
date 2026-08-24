@@ -753,6 +753,31 @@ class _RedeployAbort(Exception):
         self.rollback_outcome = rollback_outcome
 
 
+def _atomic_copy(
+    source: str | Path,
+    destination: str | Path,
+    *,
+    mode: int,
+) -> None:
+    """Copy an artifact beside its destination, then replace it atomically."""
+    destination_path = Path(destination)
+    handle, raw_tmp = tempfile.mkstemp(
+        prefix=f".{destination_path.name}.",
+        dir=destination_path.parent,
+    )
+    temporary = Path(raw_tmp)
+    try:
+        os.close(handle)
+        shutil.copy2(source, temporary)
+        os.chmod(temporary, mode)
+        os.replace(temporary, destination_path)
+    finally:
+        try:
+            temporary.unlink()
+        except FileNotFoundError:
+            pass
+
+
 def redeploy(
     row: dict[str, Any],
     components: dict[str, dict[str, Any]],
@@ -867,8 +892,7 @@ def redeploy(
         for unit in row["units"]:
             adapter.stop(unit)
         phase = "copy"
-        shutil.copy2(staged, row["binary"])
-        os.chmod(row["binary"], 0o755)
+        _atomic_copy(staged, row["binary"], mode=0o755)
 
         phase = "readiness"
         broken = start_and_settle(running, readiness, runner=runner, adapter=adapter)
@@ -879,8 +903,7 @@ def redeploy(
             try:
                 for unit in row["units"]:
                     adapter.stop(unit)
-                shutil.copy2(backup, row["binary"])
-                os.chmod(row["binary"], 0o755)
+                _atomic_copy(backup, row["binary"], mode=0o755)
                 still_broken = start_and_settle(running, readiness, runner=runner, adapter=adapter)
             except Exception as exc:
                 raise _RedeployAbort(
