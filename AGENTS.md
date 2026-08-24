@@ -160,6 +160,19 @@ tests that pass on only one of them.
 - RenCrowでの`CLI`は実行・契約の形を示すもので、`RenCrow_CMD`の自動的な所有権を意味しない。実際の所有モジュール、認証／policy、canonical runtime routeを維持し、CLI-firstのためにmodule routeを短縮／迂回しない。
 - 検証では、決定的CLIの動作と、該当する場合は境界付きLLM残余の動作を分けて証明する。
 
+### CLI / LLM Classification Gate
+
+- 調査、仕様作成、設計、実装、修正、運用フローの各案件では、編集または実装計画を確定する前に、対象工程を最低限次の3区分へ分類してユーザーへ提示する。
+  - `CLI`: 入力と規則が明示され、同じ入力から再現可能な結果、終了status、receipt／証跡を決定的に生成できる工程。
+  - `LLM`: 曖昧な意味の復元、複数の妥当案からの選択、自然言語理解・計画・創作など、決定規則だけでは完了できない工程。
+  - `Boundary`: LLM出力のschema検証、policy判定、認証、状態変更、外部効果、保存、再試行、監査など、LLMの前後を決定的に拘束する所有CLI／runtime工程。
+- 分類結果には、工程、区分、所有module、入力、出力、失敗時status、証跡、LLMを使う場合はその採用理由を記録する。採用理由は、意味判断等によりLLMが不可欠な`必須性`、または同一の評価dataset・品質指標・制約下で決定的手法より有意かつ十分に高い品質を示す`品質優位性`のいずれかで立証する。「便利」「柔軟」「既存がLLMを使う」だけでは採用理由にならない。
+- `LLM`へ分類する前に、parser、schema、query、state machine、policy、既存API／CLIで決定可能かを確認する。決定可能でもLLMの品質優位性を採用理由にする場合は、決定的baselineとLLM方式を同じ入力、評価指標、失敗条件、費用・遅延・再現性・安全制約で比較し、評価結果を証跡として残す。品質差が不明、僅少、または制約上の不利益を正当化できない場合は`CLI`を選ぶ。
+- 決定可能な部分と意味判断または品質優位性を必要とする部分が混在する場合は工程を分割し、前者を`CLI`または`Boundary`、後者だけを`LLM`へ分類する。LLMを採用してもschema検証、policy、状態変更、外部効果、保存、監査は`Boundary`から移さない。
+- 分類が未完了、所有moduleが未確定、またはLLMの必須性／品質優位性を説明できない状態では、仕様確定、実装、state変更、外部操作へ進まない。追加調査または比較評価を行い、未確定境界を報告する。
+- 受入条件と試験も区分ごとに分ける。`CLI`／`Boundary`は再現可能なcommand、機械可読出力、exit status、receiptで検証し、`LLM`は入力境界、出力schema、品質基準、失敗・拒否経路を検証する。LLMの自然言語報告を決定的工程の証跡にしない。
+- 最終報告では、当初の分類と実装後の実経路を照合し、決定的にCLI化できた工程、残ったLLM必須工程、未解決境界を明示する。
+
 ## Sol-Orchestrated Bounded Luna Execution
 
 - Sol owns the whole-system plan, canonical module and contract identification,
