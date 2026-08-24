@@ -15,6 +15,20 @@
 - ユーザー訂正は競合する仮説・証拠を無効化して現行制約へ昇格し、目的変更またはコンテキスト圧縮後は要求と証拠表を再構築する。
 - 要求終端条件に未確認が一つでもあれば「完了」「達成(100%)」と報告せず、一部達成と不足境界を示す。サブエージェントの成果は主エージェントが実際の差分・範囲・試験・境界を確認するまで助言扱いとする。
 
+## Operational Outcome Definition of Done
+
+- ユーザーのGoalは、指定された中間成果物ではなく、それによって利用主体が達成したい運用成果として解釈する。仕様、schema、ストア、API、CLI、GUI、コード、unit test、build、deploy、healthの個別成功は部品の完成であり、単独でシステムの完了証拠にしない。
+- 着手前に、`source -> owner -> policy -> state -> runtime route -> 実際の利用主体 -> 利用者に見える結果 -> receipt/trace`の終端経路を受入条件として定義する。対象がBacklog由来であっても、「実装項目をDONEにした」ではなく、正規routeで運用目的が達成し、再起動後も維持された証拠を終端とする。
+- 対象データの取得、保存、変換、投影が成功しても、本来の運用経路から参照・判断・利用できなければ未完了とする。例えば記憶取込は、原文保存やcandidate生成ではなく、必要な状態確定、Recall投影、CORE Agentによる実際の想起・利用、traceまでを終端とする。
+- E2Eは内部function、test double、バックエンド単体で代用せず、本番と同じ認証、policy、owner module、runtime route、実Actorを通して証明する。
+
+## User Decision GUI Requirement
+
+- 運用上ユーザーの意味判断、価値判断、選択、確定が必要な機能は、その判断を完結できるGUIを同じImplementation Unitの必須成果に含める。CLI、API、DB row、log、JSON、手順書だけを渡して利用者の手作業に委ねない。
+- 判断GUIは少なくとも、判断対象、必要理由、原文／Evidence、現在状態、選択肢、推奨案と根拠、各選択肢の影響・リスク、編集可能範囲、実行／拒否／保留、未処理件数と進捗、実行後のreceiptを表示する。任意filesystem path、任意SQL、owner外のデータは公開しない。
+- 判断対象はサイレントな`blocked`や内部queueに留めず、認証済みownerがGUIから発見して必要情報を読み、一回の明示操作で次状態を確定できるようにする。GUI操作後はCORE正本へ即時反映し、実際の利用経路とreceiptまでE2Eで確認する。
+- 認証済みrequest scopeとmachine-readable policyで決定可能な工程は従来どおり直ちに実行・`rejected`・`blocked`を確定し、GUI判断へ不要に逃がさない。GUIはpolicyで代替できない利用者固有の意味・価値判断の操作面であり、ユーザーの返答待ちで内部workflowを解除する汎用human gateにしない。GUI送信は新しい認証済みrequestとして同期評価し、即時に終端状態とreceiptを返す。
+
 ## Workspace Module Roots
 
 Work in the specific module root instead of treating the parent directory as one source tree.
@@ -220,6 +234,7 @@ tests that pass on only one of them.
 - Codexがrepository、runtime、host、外部systemへ変更を加えるには、ユーザーの明示指示を作業scopeの根拠にする。scope拡大や破壊的操作は新しい明示指示なしに行わない。
 - このCodex実行権限をRenCrow製品へ移植しない。RenCrow runtimeは人の判断待ちを作らず、CORE正本、machine-readable policy、認証済みrequest scopeを同期評価して、直ちに実行、`rejected`、`blocked`を確定する。
 - RenCrowのAgent、workflow、API、DBへ、人の返答で解除するstatus、grant、reference、queueを追加しない。利用者の発話は新しい目的・制約・事実を持つrequestであり、待機artifactへの判子ではない。
+- このNo-Human-Gateは`User Decision GUI Requirement`を禁止しない。policyで決められない利用者固有の判断が機能上必要なら、判断材料と操作をGUIで提供する。その操作は待機中workflowへの承認印ではなく、COREが即時評価する新しい認証済みrequestとする。
 - RenCrow内で案が`rejected`になった場合は、reject理由を証拠として、前提、分解、route、Tool、設計、必要なら思想まで再考した新revisionを作る。同案の言い換え、安全制約の弱体化、無限再試行は禁止する。
 
 ## Branch Policy
