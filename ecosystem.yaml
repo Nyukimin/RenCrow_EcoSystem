@@ -499,7 +499,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",
-      "version": "9ee11d612fddeba795a23fe0649c63545b255b3a",
+      "version": "f6a0940198832839c8031788b0fb23649894445c",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service",
