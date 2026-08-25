@@ -139,8 +139,34 @@ class EcosystemManifestTest(unittest.TestCase):
 
     def test_managed_file_contracts_are_validated(self) -> None:
         files = self.manifest["components"]["core"]["deployment"]["files"]
-        self.assertEqual(len(files), 5)
+        self.assertEqual(len(files), 6)
         self.assertEqual(files[0]["mode"], "0755")
+        check_manifest = files[-1]
+        self.assertEqual(check_manifest["source_path"], "config/checks/core.json")
+        self.assertEqual(
+            check_manifest["installed_path"],
+            "%h/.local/share/rencrow/checks/core.json",
+        )
+        self.assertEqual(check_manifest["mode"], "0644")
+
+        for component_id in (
+            "portal",
+            "llm",
+            "stt",
+            "tts",
+            "vision",
+            "games",
+            "trade",
+            "image",
+        ):
+            module_files = self.manifest["components"][component_id]["deployment"][
+                "files"
+            ]
+            self.assertEqual(len(module_files), 1, component_id)
+            self.assertEqual(
+                module_files[0]["source_path"], "config/checks/runtime.json"
+            )
+            self.assertEqual(module_files[0]["mode"], "0644")
 
         candidate = copy.deepcopy(self.manifest)
         candidate["components"]["core"]["deployment"]["files"][0]["source_path"] = "../secret"

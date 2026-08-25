@@ -17,6 +17,12 @@ RenCrowは検査開始前に、要求されたpurposeとphaseに必要なcheck�
 
 RenCrow_CMDは将来facadeを提供しても判定を所有しません。LLMは自動pruningへ参加せず、意味的類似から同一保証を推測しません。
 
+Runtime owner manifestは各module repositoryの`config/checks/runtime.json`を正本とします。
+現在の対象はCORE、LLM、STT、TTS、Vision、Image、TRADE、GAMES、PORTALです。
+Toolsは横断plannerでありmodule-wide runtime serviceではないため、Tools自身のruntime manifestを
+作りません。各manifestは軽量runtime checkと、runtimeでは`wrong_phase`になる高コストな
+diagnostic／E2E checkを分離します。manifestを配置してもcheck実行主体はownerから移りません。
+
 ## Input contract
 
 `schema_version`は`1`です。requestは`purpose`、`phase`、`checks`を持ちます。各checkは次を宣言します。
