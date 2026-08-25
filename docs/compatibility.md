@@ -151,7 +151,7 @@ PORTALを含む組み合わせでは、一般的なminimum acceptanceに加え�
 
 ## ASSISTANT acceptance
 
-plannedのASSISTANTをreleaseへ含める段階では、一般的なminimum acceptanceに加えて
+ASSISTANTの常駐serviceをreleaseへ含める段階では、一般的なminimum acceptanceに加えて
 次を確認します。
 
 - 生活Routineが指定時刻・条件で一度だけ発火し、重複deliveryを起こさない。
@@ -162,7 +162,7 @@ plannedのASSISTANTをreleaseへ含める段階では、一般的なminimum acce
 - 実際のDevice clientでPUSH、表示または発話、利用者応答までend-to-endで確認する。
 
 詳細な境界は[ASSISTANT boundary](assistant-boundary.md)を参照してください。
-module固有の仕様と実装状態は、実装repositoryの作成後にその`docs/`を正本とします。
+module固有の仕様と実装状態は、ASSISTANT repositoryの`docs/`を正本とします。
 
 ## Interaction profile acceptance
 

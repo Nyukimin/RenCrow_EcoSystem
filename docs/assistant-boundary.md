@@ -2,8 +2,9 @@
 
 ## Product role
 
-`RenCrow_ASSISTANT`はplannedの、PUSH機能を持つ個人・家族向け生活アシスタント
-serviceです。実装後は利用者ごとの生活Routineを実行し、端末へ届け、複雑な仕事だけを
+`RenCrow_ASSISTANT`は段階実装中の、PUSH機能を持つ個人・家族向け生活アシスタント
+serviceです。現在はInteraction profile、delivery renderer、local-first Delivery記録、
+CORE LINE adapterを使う手動通知CLIまで利用できます。将来は利用者ごとの生活Routineを実行し、端末へ届け、複雑な仕事だけを
 `RenCrow_CORE`へ移譲します。
 
 ```text
@@ -34,13 +35,13 @@ ASSISTANTが所有し、複数工程、生成、継続調査、同期policy判�
 
 ## Runtime relationship
 
-- `rencrow-assistant`はplannedのGo binaryです。
+- `rencrow-assistant`はsource実装済みのGo binaryですが、常駐serverではなく現在は手動通知CLIです。
 - Device clientはHTTPとWebSocketでASSISTANTへ接続します。
 - ASSISTANTはCORE Public APIを利用し、debug/admin APIを利用しません。
 - plannedのPORTAL連携はASSISTANT公開APIのallowlistを必要とし、読み取りsurfaceから
   writeしません。
-- ASSISTANTが未実装の現在、manifestのversionとruntime statusはともに`planned`です。
-  実在しないcommitやrelease artifactを割り当てません。
+- EcoSystem manifestは実在するsource commitをpinし、runtime statusを`development`とします。
+  Routine scheduler、acknowledgement、snooze、端末client、常駐serverは未実装です。
 - ASSISTANTは実装後にPORTALやCMDと共通のInteraction意味論を利用しますが、時刻・条件発火、
   PUSH、Device deliveryと生活領域の状態だけはASSISTANT固有です。
 - PUSHを別の会話systemにせず、CORE応答と生活通知を共通のInteraction outputとして
@@ -54,7 +55,6 @@ ASSISTANTが所有し、複数工程、生成、継続調査、同期policy判�
   別利用者のprivate memoryを共有する意味ではありません。
 - Device、PORTAL、COREへ渡すcontextは、利用者とscopeを確定して最小化します。
 
-ASSISTANT固有の機能、data、API、設定、MVPは、実装repositoryの作成後にその`docs/`を
-正本とします。
+ASSISTANT固有の機能、data、API、設定、MVPは、ASSISTANT repositoryの`docs/`を正本とします。
 PORTAL、CMDとの共通能力とprofile差は[Interaction surfaces](interaction-surfaces.md)を
 参照してください。

@@ -4,7 +4,7 @@
 | --- | --- | --- | --- |
 | `RenCrow_EcoSystem` | 公式入口、構成、互換性、統合 release | metadata/docs | 各 release を参照する。実行されない |
 | `RenCrow_CORE` | 中核server、Debug Viewer、Persona、Memory、同期policy判定、routing | required binary | runtimeの中心 |
-| `RenCrow_ASSISTANT` | 個人・家族向け生活Routine、PUSH、端末配信、COREへのTask移譲 | planned binary | 実装後はDeviceとCOREの間で生活アシスタント機能を提供 |
+| `RenCrow_ASSISTANT` | 個人・家族向け生活Routine、PUSH、端末配信、COREへのTask移譲 | development binary | 手動通知CLIを提供。常駐server、Routine、ack／snooze、端末clientは未実装 |
 | `RenCrow_PORTAL` | 外部利用者向けChat／IdleChat／Games Web UI、PuruPuru overlay | optional/recommended binary | allowlist内のCORE Public APIだけを中継 |
 | `RenCrow_CMD` | CORE Public API用CLI (`rencrowctl`) | optional/recommended binary | CORE Public API操作とCORE／PORTALのprocess entrypoint |
 | `RenCrow_LLM` | Execution RoleをBackend／Modelへ接続するRenCrow LLM Gateway／RenCrow LLM Runtime | optional Gateway binary + Runtime binary + external compute | 正式経路は`CORE -> Gateway -> Runtime -> Backend -> Model`。compute hostへRuntime、Backend、Modelを配置 |
@@ -37,7 +37,7 @@ read projectionとnamed route／Tool、およびvalidated write command／workfl
 | `RenCrow_TRADE` | CORE catalog上の一つの`investment` storeを、`source`、`learning`、`market`、`replay`、`portfolio`、`ledger`の六つのlogical domainとして所有 | `CORE -> RenCrow_TRADE private API gateway`。COREから物理DBを直読・直書きしない |
 | `RenCrow_GAMES` | world、session、Replay、Observer export | CORE Agentのlaunch／decision／result contract。PORTAL／CMDはDBへ直結しない |
 | `RenCrow_Image` | 保持対象の生成画像とmanifest | Image owner serviceのbounded API。ForgeNeo／ComfyUI等へCOREが直結しない |
-| `RenCrow_ASSISTANT` | planned Routine、PUSH、delivery状態 | ASSISTANT service/API境界。ASSISTANT／Device clientはCORE Public APIを使い、DBへ直結せず、Agent／MemoryはCOREへ委譲 |
+| `RenCrow_ASSISTANT` | Routine、PUSH、delivery状態。現在はlocal-first Delivery記録と手動通知CLIまで | ASSISTANT service/API境界。ASSISTANT／Device clientはCORE Public APIを使い、DBへ直結せず、Agent／MemoryはCOREへ委譲 |
 | `RenCrow_Tools` | 未import artifact、staging、再取得可能cache | helper／provider境界のみ。semantic Memory、catalog、control planeを所有しない |
 | `RenCrow_Workspace` | machine-readable portable policy／設定projection | snapshotのみ。live DB、認証権限、runtime capabilityの正本ではない |
 | `RenCrow_PORTAL` / `RenCrow_CMD` | なし | CORE Public API client。COREまたは他moduleのDBへ直接アクセスしない |

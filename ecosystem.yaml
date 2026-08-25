@@ -103,15 +103,25 @@
     "assistant": {
       "repository": "Nyukimin/RenCrow_ASSISTANT",
       "workspace_path": "./RenCrow_ASSISTANT",
-      "version": "planned",
+      "version": "64606f6faabb7510718cc3444909056d144f91f4",
       "required": false,
       "distribution": "binary",
       "role": "Stateful proactive interaction profile for personal and family routines, push delivery, devices, and optional CORE task escalation",
+      "deployment": {
+        "files": [
+          {
+            "source_path": "config/checks/runtime.json",
+            "installed_path": "%h/.local/share/rencrow/checks/assistant.json",
+            "sha256": "85363483372794b099f5ee68a3a048ed0c08c328859e295ec4fb06f32b331154",
+            "mode": "0644"
+          }
+        ]
+      },
       "runtime": {
         "primary": {
           "implementation": "go",
           "artifact": "rencrow-assistant",
-          "status": "planned"
+          "status": "development"
         },
         "companions": []
       }
@@ -119,10 +129,20 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "./RenCrow_CMD",
-      "version": "dad57344299be59bf7ac777ae340e6f582a5573c",
+      "version": "c23ea6ed2ac2196469f6d1534df7ad2ba1f9e332",
       "required": false,
       "distribution": "binary",
-      "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL"
+      "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL",
+      "deployment": {
+        "files": [
+          {
+            "source_path": "config/checks/runtime.json",
+            "installed_path": "%h/.local/share/rencrow/checks/cmd.json",
+            "sha256": "fbcca36ae35bfc5bc45f54486043cf81b0c83659840cb10d972602c07288e32a",
+            "mode": "0644"
+          }
+        ]
+      }
     },
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
@@ -383,7 +403,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "./RenCrow_Tools",
-      "version": "56e3134fe0e6afbaf0f5f4d1987e186ec5fad4fc",
+      "version": "aecefcdc3b0bcddf8a564b3c2f6ed294d8af0cb2",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools",
@@ -394,6 +414,12 @@
             "installed_path": "%h/.local/share/rencrow/tools/system_monitor/rencrow_system_monitor.sh",
             "sha256": "37384244c07f0eae955cd282c229cd06db36d210d93bc6dd38b0ed1f98e2e125",
             "mode": "0755"
+          },
+          {
+            "source_path": "config/checks/runtime.json",
+            "installed_path": "%h/.local/share/rencrow/checks/tools.json",
+            "sha256": "2f1093ceffcd98b1db216a9317447f0c0e4bdb9861d8ea84f7d076e94ec43535",
+            "mode": "0644"
           }
         ],
         "user_systemd": [
@@ -473,10 +499,20 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",
-      "version": "8bbecc463a8f2ecdc4f8eeabfd84acb1c24f54e2",
+      "version": "9ee11d612fddeba795a23fe0649c63545b255b3a",
       "required": false,
       "distribution": "snapshot",
-      "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service"
+      "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service",
+      "deployment": {
+        "files": [
+          {
+            "source_path": "config/checks/runtime.json",
+            "installed_path": "%h/.local/share/rencrow/checks/workspace.json",
+            "sha256": "fd061610cd6cdc930b731f5e437b3ce65b63dba533c308a58c40e54dfba2e4e0",
+            "mode": "0644"
+          }
+        ]
+      }
     }
   },
   "runtime_profiles": {

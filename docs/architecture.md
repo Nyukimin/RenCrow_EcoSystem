@@ -16,7 +16,7 @@ extension、tooling、設定 snapshot からなる複数 repository の product 
   required runtime   interaction layer   optional capability       extension/support
         |                   |                   |                   |
   RenCrow_CORE       PORTAL/CMD             LLM/STT/TTS/Vision/Image  GAMES/Tools + Workspace(snapshot)
-                      ASSISTANT (planned)
+                      ASSISTANT (development)
 ```
 
 `RenCrow_EcoSystem` は control plane や runtime service ではありません。
@@ -29,8 +29,8 @@ shared Viewer、runtime、route、adapter、Public API、user-facing behaviorの
 EcoSystem --references--> immutable module release artifacts
 CMD       --public API--> CORE
 PORTAL    --Chat / IdleChat / Games allowlist--> CORE
-Device    --HTTP/WebSocket--> ASSISTANT  (planned)
-ASSISTANT --public API/task escalation--> CORE  (planned)
+Device    --HTTP/WebSocket--> ASSISTANT  (planned runtime route)
+ASSISTANT --public API/task escalation--> CORE  (planned route; manual LINE contract exists)
 CORE      --launch------> GAMES
 GAMES     --result / ObserverFrame----> CORE
 CORE      --contracts---> LLM / STT / TTS / Vision / Image

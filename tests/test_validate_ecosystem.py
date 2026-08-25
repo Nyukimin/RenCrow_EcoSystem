@@ -151,22 +151,31 @@ class EcosystemManifestTest(unittest.TestCase):
 
         for component_id in (
             "portal",
+            "assistant",
+            "cmd",
             "llm",
             "stt",
             "tts",
             "vision",
             "games",
             "trade",
+            "tools",
             "image",
+            "workspace",
         ):
             module_files = self.manifest["components"][component_id]["deployment"][
                 "files"
             ]
-            self.assertEqual(len(module_files), 1, component_id)
+            check_files = [
+                item
+                for item in module_files
+                if item["source_path"] == "config/checks/runtime.json"
+            ]
+            self.assertEqual(len(check_files), 1, component_id)
             self.assertEqual(
-                module_files[0]["source_path"], "config/checks/runtime.json"
+                check_files[0]["source_path"], "config/checks/runtime.json"
             )
-            self.assertEqual(module_files[0]["mode"], "0644")
+            self.assertEqual(check_files[0]["mode"], "0644")
 
         candidate = copy.deepcopy(self.manifest)
         candidate["components"]["core"]["deployment"]["files"][0]["source_path"] = "../secret"
@@ -308,7 +317,7 @@ class EcosystemManifestTest(unittest.TestCase):
         self.assertIn("deterministic execution", games_role)
         self.assertIn("result delivery", games_role)
 
-    def test_assistant_declares_planned_go_primary(self) -> None:
+    def test_assistant_declares_development_go_primary(self) -> None:
         assistant = self.manifest["components"]["assistant"]
         assistant_runtime = assistant["runtime"]
 
@@ -317,7 +326,7 @@ class EcosystemManifestTest(unittest.TestCase):
         self.assertEqual(
             assistant_runtime["primary"]["artifact"], "rencrow-assistant"
         )
-        self.assertEqual(assistant_runtime["primary"]["status"], "planned")
+        self.assertEqual(assistant_runtime["primary"]["status"], "development")
 
     def test_trade_declares_development_go_primary(self) -> None:
         trade = self.manifest["components"]["trade"]

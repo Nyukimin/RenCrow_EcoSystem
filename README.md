@@ -21,8 +21,8 @@ RenCrow (EcoSystem workspace root) -- release/catalog reference --> module relea
                     |              |
                  Browser    Terminal / Script
 
-          RenCrow_ASSISTANT (planned)
-          Routine / PUSH / Device delivery
+          RenCrow_ASSISTANT (development)
+          Manual PUSH CLI / future Routine / Device delivery
 
 RenCrow_CORE ---- contracts ----> LLM / STT / TTS / Vision / Image
 RenCrow_CORE ---- private API ---> TRADE
@@ -52,8 +52,8 @@ Games / Tools / Workspace -------- ecosystem support
 ## 現在の状態
 
 現在の構成は`development`かつ`source-pinned`です。実装済みcomponentは
-現在のGit commit SHAへ固定し、未実装のRenCrow_ASSISTANTだけを`planned`として
-明示します。これによりsourceの組み合わせは再現できますが、release artifact、
+現在のGit commit SHAへ固定します。RenCrow_ASSISTANTも手動通知CLIまで実装されたため
+実在commitを`development`として固定します。これによりsourceの組み合わせは再現できますが、release artifact、
 checksum、統合互換性の検証済みを意味しません。統合試験後に実在するtagと
 検証結果を記録してecosystem releaseを作成します。
 
@@ -82,12 +82,12 @@ GatewayがRole profileからRuntimeを、RuntimeがBackendとModelを解決し�
 Role profileはExecution Roleに付随する設定レコードであり、独立した人格層ではありません。
 
 RenCrow_ASSISTANTは、個人・家族向けの生活Routine、PUSH、端末配信、COREへの
-Task移譲を所有するplannedのGo serviceです。Mio等のAgentやPORTALのWeb画面を
+Task移譲を所有する段階実装中のGo componentです。現在は手動通知CLIまでで、Mio等のAgentやPORTALのWeb画面を
 所有するmoduleではありません。
 
 PORTALはCOREのChat、IdleChat、Gamesを提供するWeb clientです。CMDはCORE Public APIだけを
 利用するterminal client兼command facadeで、COREとPORTALのprocess entrypointも提供します。
-ASSISTANTはproactive triggerとDevice deliveryを担うplanned serviceであり、実装後も
+ASSISTANTはproactive triggerとDevice deliveryを担うcomponentであり、現在の手動通知CLIも将来の常駐serviceも
 COREの公開契約を利用します。
 
 RenCrow_Visionは画像・動画認識の必須interface、RenCrow_Imageは描画・画像生成の

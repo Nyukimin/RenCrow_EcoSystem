@@ -2,7 +2,7 @@
 
 ## 目的と位置づけ
 
-この文書は、現行の`RenCrow_PORTAL`と`RenCrow_CMD`、およびplannedの
+この文書は、現行の`RenCrow_PORTAL`と`RenCrow_CMD`、および段階実装中の
 `RenCrow_ASSISTANT`を、COREの共通Interaction能力に接続するための
 ecosystem-level contractです。
 
@@ -16,14 +16,14 @@ endpoint、payload、command、画面、永続化の詳細は各module repositor
                          Public API
                     ^          ^          ^
                     |          |          |
-            RenCrow_PORTAL  RenCrow_CMD  RenCrow_ASSISTANT (planned)
+            RenCrow_PORTAL  RenCrow_CMD  RenCrow_ASSISTANT (development)
             Web profile     CLI profile  Proactive profile
                                            |
                                            v
                                      Device clients
 ```
 
-PORTALとCMDは状態を所有しない現行client surfaceです。ASSISTANTは実装後に
+PORTALとCMDは状態を所有しない現行client surfaceです。ASSISTANTは現在の手動通知CLIから段階的に
 共通Interaction能力を利用しながら生活領域の状態を所有する常駐application serviceです。
 
 ## 共通Interaction意味論
@@ -79,7 +79,7 @@ RenCrow_ASSISTANT
 | `cmd-idlechat` | CMD IdleChat status／event／start／stop |
 | `cmd-diagnostics` | CMDによるCOREのhealth／status／agent診断 |
 | `cmd-control` | CMDによるCOREの許可済み管理操作 |
-| `assistant-core` | plannedのASSISTANTからCOREへのChat送信とevent購読 |
+| `assistant-core` | 将来のASSISTANTからCOREへのChat送信とevent購読。現在の手動LINE通知は別の既存internal contractを使用 |
 
 clientは`X-RenCrow-Client`と`X-RenCrow-Interaction-Profile`を組で送ります。これは
 capability policyの入力であり、認証credentialではありません。
@@ -107,9 +107,9 @@ COREから戻った会話・Task結果も、利用者、source、category、本�
 - PORTALはCOREのallowlisted Public APIだけを表示・操作し、COREの状態を正本にしない。
 - CMDはCORE Public APIだけを利用し、CORE／PORTALのprocess entrypointを提供するが、
   runtime状態を複製しない。
-- plannedのASSISTANTからCOREへの移譲は、Agent会話、生成、深い調査、複数工程Taskなど
+- ASSISTANTからCOREへの将来のTask移譲は、Agent会話、生成、深い調査、複数工程Taskなど
   必要時だけ行う。
-- plannedのASSISTANTは、PORTALが閉じていても決定論的Routineとcache済みPUSHを継続する。
+- ASSISTANTの将来の常駐serviceは、PORTALが閉じていても決定論的Routineとcache済みPUSHを継続する。
 - Device clientはASSISTANT Device Contractへ接続する。固定alarm音や端末内蔵発話はCOREを
   通さず配信でき、動的なAgent会話はCORE／TTS contractを利用できる。
 
@@ -134,8 +134,8 @@ ASSISTANT実装後は、利用者ごとの選定、既読、件数、時刻、PU
 | PORTAL Chat／IdleChat／Games Web profile | 実装済み |
 | CMD Chat CLI profile | 実装済み |
 | CMD IdleChat `watch`／`start`／`stop` | 実装済み |
-| ASSISTANT Interaction profile／Device delivery renderer | 仕様策定済み・runtime未実装 |
-| ASSISTANT runtime／Routine／PUSH | planned・未実装 |
+| ASSISTANT Interaction profile／Device delivery renderer／手動LINE通知CLI | source実装済み |
+| ASSISTANT常駐server／Routine／acknowledgement／snooze／端末client | 未実装 |
 | profile名を使うcapability guard | 実装済み |
 | 共通Interaction SDK | 未採用。実callerと重複が確認されるまで先行作成しない |
 

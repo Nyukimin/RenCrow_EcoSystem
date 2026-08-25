@@ -37,7 +37,8 @@ go -C ./RenCrow_Tools/tools/workspace/ecosystem_bootstrap \
 
 外部向けWeb画面を使う場合は`RenCrow_PORTAL`、CORE Public APIのterminal clientを
 使う場合は`RenCrow_CMD`を追加します。既定バイナリはそれぞれ`rencrow-portal`と
-`rencrowctl`です。`RenCrow_ASSISTANT`はplannedであり、現行のclone対象には含めません。
+`rencrowctl`です。`RenCrow_ASSISTANT`は手動通知CLIまで実装されたdevelopment componentとして
+source-pinned clone対象ですが、常駐serviceとしては起動しません。
 
 各 module の build と設定は、その repository の README / AGENTS / docs を
 参照してください。EcoSystem 側から未検証の command を複製しません。
