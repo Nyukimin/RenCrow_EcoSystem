@@ -376,7 +376,8 @@ class AtomicCopyTest(unittest.TestCase):
             self.assertEqual(temporary.parent, destination.parent)
             replaced.assert_called_once_with(temporary, destination)
             self.assertEqual(destination.read_bytes(), b"new")
-            self.assertEqual(destination.stat().st_mode & 0o777, 0o755)
+            if CHECKER.os.name == "posix":
+                self.assertEqual(destination.stat().st_mode & 0o777, 0o755)
             self.assertFalse(temporary.exists())
 
     def test_copy_cleans_sibling_temp_when_replace_fails(self) -> None:
