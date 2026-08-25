@@ -35,7 +35,6 @@ interfaceであり、modelやGPU計算をGo binaryへ同梱する方針ではな
 - `RenCrow_Tools`の開発、変換、検証ツール
 - Browser ActorのNode.js／Playwright sidecar
 - WebwrightのPython sidecar
-- `rencrow-data`のPython data pipeline
 - LLM／STT／TTS／Vision／Imageの物理Backend、Model、weights、GPU runtime
 
 未配置のoptional capabilityは、COREで成功扱いにせず、`disabled`または`unavailable`として

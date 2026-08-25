@@ -139,7 +139,7 @@ class EcosystemManifestTest(unittest.TestCase):
 
     def test_managed_file_contracts_are_validated(self) -> None:
         files = self.manifest["components"]["core"]["deployment"]["files"]
-        self.assertEqual(len(files), 6)
+        self.assertEqual(len(files), 5)
         self.assertEqual(files[0]["mode"], "0755")
         check_manifest = files[-1]
         self.assertEqual(check_manifest["source_path"], "config/checks/core.json")
