@@ -174,6 +174,16 @@ tests that pass on only one of them.
 - RenCrowでの`CLI`は実行・契約の形を示すもので、`RenCrow_CMD`の自動的な所有権を意味しない。実際の所有モジュール、認証／policy、canonical runtime routeを維持し、CLI-firstのためにmodule routeを短縮／迂回しない。
 - 検証では、決定的CLIの動作と、該当する場合は境界付きLLM残余の動作を分けて証明する。
 
+### Check Plan Pruning Rule
+
+- 検査を実行する前に、対象purposeとphaseに対するmachine-readable Check Planを確定する。各checkは最低限、`check_id`、保証対象、owner、実行phase、結果consumer、failure actionを宣言する。
+- checkの高コスト、timeout、失敗、都合の悪い結果だけを理由に除外してはいけない。safety／security／認証／policy gateは、より強い同一保証の正本Evidenceがあっても暗黙に削除しない。
+- 現在phaseと異なるcheckは`deferred`、consumerまたはfailure actionを持たない非safety checkは`excluded`、同じ保証を持つ明示replacementの有効なpassed receiptがあるcheckだけを`duplicate`として除外できる。意味的類似をLLMや文字列類似で推測して削除しない。
+- malformedなsafety check、存在しないreplacement、保証不一致、曖昧な定義はfail closedでPlanを`blocked`にする。除外できないcheckは実行対象へ残す。
+- Planは入力、評価時刻、included／excluded／deferred、理由、replacement receiptをcanonical JSONとhashで固定する。検査runnerは固定Planだけを消費し、Plan作成と検査実行の間でcheckを再解釈しない。
+- runtimeのPlan pruningはsource codeを削除しない。恒久削除は運用Evidenceを確認し、仕様更新、TDD、通常のreviewを通す別の実装変更として扱う。
+- 横断planner executableとschema validationは`RenCrow_Tools`、module固有checkとreceiptは各owner module、cross-module契約はEcoSystemが所有する。EcoSystemやCOREへ各moduleのcheck判定ロジックを複製しない。
+
 ### CLI / LLM Classification Gate
 
 - 調査、仕様作成、設計、実装、修正、運用フローの各案件では、編集または実装計画を確定する前に、対象工程を最低限次の3区分へ分類してユーザーへ提示する。
