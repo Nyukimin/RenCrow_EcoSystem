@@ -141,7 +141,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "69af44696c191cbd9498236067cff1e7c321ddd7",
+      "version": "92d21d66018457534a65a27def71064f887c99ff",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -279,7 +279,7 @@
     "vision": {
       "repository": "Nyukimin/RenCrow_Vision",
       "workspace_path": "./RenCrow_Vision",
-      "version": "1959cbe86ce36e8dbd7bf9bda280977e5f616fdb",
+      "version": "0b412618b1eae08abb5b99658e638b681ca3ab3d",
       "required": false,
       "distribution": "binary",
       "role": "Go image and video recognition Gateway from CORE to the Wild backend, including media validation, preprocessing, and result normalization",
@@ -524,7 +524,7 @@
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_Qwen36_27B",
       "workspace_path": "./RenCrow_Qwen36_27B",
-      "version": "d3534aa7df378be4cf95be4edc85386bead74ad1",
+      "version": "d2ad9aafa850c37d3c4bfcf8f981aa5a0902eac0",
       "required": false,
       "kind": "external-compute",
       "status": "development",
