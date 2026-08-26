@@ -95,6 +95,30 @@ def notification_message(items: list[dict[str, str]], recovered: bool) -> str:
     return f"RenCrow binary drift detected ({len(items)}): {details}{suffix}"
 
 
+def is_notification_destination_unavailable_receipt(output: str) -> bool:
+    """Return whether CORE returned its exact unavailable destination receipt."""
+    try:
+        value = json.loads(output)
+    except (json.JSONDecodeError, TypeError, UnicodeError):
+        return False
+    if not isinstance(value, dict):
+        return False
+    timestamp = value.get("timestamp")
+    if not isinstance(timestamp, str) or not timestamp.strip():
+        return False
+    try:
+        parsed_timestamp = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    return (
+        parsed_timestamp.tzinfo is not None
+        and value.get("ok") is False
+        and value.get("component") == "channels"
+        and value.get("status") == "unavailable"
+        and value.get("code") == "E_NOTIFICATION_DESTINATION_UNAVAILABLE"
+    )
+
+
 def run_notifier(
     *,
     checker: Path,
@@ -129,6 +153,15 @@ def run_notifier(
             command.append("--dry-run")
         send_code, send_out, send_error = runner(command)
         if send_code != 0:
+            if is_notification_destination_unavailable_receipt(send_out):
+                return 0, {
+                    "ok": True,
+                    "status": "notification_deferred",
+                    "changed": notify,
+                    "count": len(items),
+                    "fingerprint": current_fingerprint,
+                    "state_path": str(state_path.expanduser()),
+                }
             return 1, {
                 "ok": False,
                 "status": "notification_failed",

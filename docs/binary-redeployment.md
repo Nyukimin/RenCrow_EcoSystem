@@ -208,8 +208,17 @@ pinを更新したら配置も追随させる。pinだけを進めるとMATCHだ
 
 `scripts/check_deployed_binaries_notify.py`はcheckerの`--json`だけを実行し、`--apply`を
 呼ばない。`MISMATCH`、`DIRTY`、`UNSTAMPED`の集合が変化した時と、driftが解消した時だけ、
-CORE正規経路の`rencrow channels send`で通知する。同じ状態を毎時間繰り返し通知しない。
-送信に失敗した場合はstateを進めず、次回timerで再試行する。stateは
+CORE正規経路の`rencrow channels send --message <text> --json`を1回実行する。
+送信がexit 1でも、stdoutがCOREの厳密な通知先未登録receipt
+(`ok=false`, `component=channels`, `status=unavailable`,
+`code=E_NOTIFICATION_DESTINATION_UNAVAILABLE`, RFC3339 `timestamp`)なら、exit 0で
+`notification_deferred`を返す。この場合は現在のdrift件数とfingerprintだけを返し、stateを
+進めないため、通知先が登録された後の次回timerで同じ通知を再試行できる。
+
+送信のstdoutが空、JSON不正、または別のreceipt／codeの場合は従来どおりexit 1
+(`notification_failed`)とし、stateを変更しない。送信成功後だけstateを更新する。deferred判定は
+stdoutの構造化receiptだけで行い、stderr文字列やLINE固有のpathには依存しない。
+stateは
 `~/.rencrow/state/binary-drift-notifier.json`へmode 0600でatomicに保存する。
 
 Linux user systemdへの導入は明示的に次を実行する。installerはchecker、notifier、
