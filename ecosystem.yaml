@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "72c5f7df2347f867992e82b590ef549ab5fd4e65",
+      "version": "89452e0a98f65469eb15d32056728075f7703fba",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -233,7 +233,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "./RenCrow_TTS",
-      "version": "9e5efc817dd9b1c0fa1a669e7f67f14b5198600c",
+      "version": "d3bc27c2baeae6af325f16a4e49c552affb76e01",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
@@ -279,7 +279,7 @@
     "vision": {
       "repository": "Nyukimin/RenCrow_Vision",
       "workspace_path": "./RenCrow_Vision",
-      "version": "f3a61f4a66b171ba9d747f704add5b6556fbb1fa",
+      "version": "f554bc08786b5e5b9319a45849b1201f32c6ae45",
       "required": false,
       "distribution": "binary",
       "role": "Go image and video recognition Gateway from CORE to the Wild backend, including media validation, preprocessing, and result normalization",
