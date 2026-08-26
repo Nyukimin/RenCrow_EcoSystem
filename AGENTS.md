@@ -359,6 +359,34 @@ Module notes:
   CodexExe as part of text generation. This exception does not permit a normal
   CORE image-generation route to bypass `RenCrow_Image`.
 
+## Fixed Port and Runtime Identity Rule
+
+- Module仕様、配備manifest、またはユーザー指示で固定されたportは契約であり、競合回避、
+  暫定復旧、検証簡略化を理由に変更、再割当、auto-incrementしてはいけない。競合時は
+  listener owner、起動元、期待する正規ownerを特定し、portではなくprocess lifecycleを是正する。
+- `同一processの古い方`はcommand名やport番号だけで判定しない。少なくとも実行file、完全な
+  command line、service/cgroupまたは親process、設定path、listen endpoint、起動時刻を照合する。
+  同じowner・同じ役割・同じ設定から残った旧generationであることを確認した場合だけ、正規の
+  service managerまたはowner CLIから停止する。新generationのreadinessと実request成功を確認して
+  から旧generationが消えたことを検証する。
+- owner、役割、設定、実行fileのいずれかが異なるprocessは別processとして扱い、停止、削除、
+  port変更を行わず、競合の有無、実consumer、影響を報告する。同じhost上の似た名前のproxy、
+  backend、Runtime、Gatewayを旧世代と推定してはいけない。
+- Runtime経路変更前に、正本仕様とactive configから`入口 -> Gateway -> Runtime -> Backend`の
+  endpoint、認証、streaming、tool call、error contractを固定する。古いproxy、direct backend、
+  短縮経路を正規routeへ昇格せず、正規Runtime ingressを復旧する。
+- HTTP 200、listener、health、Backend単体成功だけではroute互換としない。正規Gateway aliasを
+  通した実requestで、最初の有効content、最終content、tool call、streaming event、typed errorの
+  うち用途に必要な契約を検証する。proxy前後でraw responseを比較し、field欠落や変換差があれば
+  そのproxyを正常経路として採用しない。
+- 配備時はsource、build artifact、installed binary、active config、service PID、socket destination、
+  実request receiptを一つの証拠鎖として照合する。設定検索ではactive config、backup、example、
+  disabled sectionを区別し、文字列の残存だけでlive consumerまたは削除対象と判定しない。
+- 固定portまたはruntime routeを変更する実装には、少なくとも次を機械検査へ含める: 固定portの
+  drift検査、旧endpointへのactive consumer/socketが0であること、全aliasの正規route smoke、
+  credential非漏洩、再起動後のowner/readiness、利用主体からのE2E receipt。時間依存checkは
+  `deferred`として期限とconsumerを残し、未確認のまま全体完了としない。
+
 ## Canonical Runtime Recovery Rule
 
 - When the canonical runtime path is unavailable, first restore that exact path:
