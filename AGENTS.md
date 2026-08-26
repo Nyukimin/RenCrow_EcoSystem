@@ -164,6 +164,55 @@ tests that pass on only one of them.
 - Each step must make its input, decision, output, and next owner apparent. A design that requires repeated cross-file backtracking to understand is not acceptable.
 - Do not add unnecessary abstractions, interfaces, registries, wrappers, forwarding layers, or speculative extension points. Prefer integration when it is easier to read than separation.
 
+## Conceptual Integrity Guardrail v0.1
+
+この節は常時適用する。個別機能が動作しても、責務境界、知識、正本、実行経路が重複・分散・例外化した状態を完成としない。コード量ではなく概念数と責務境界を管理し、変更後の構造を「なぜこの形か」説明できる状態に保つ。
+
+### Principle
+
+- 一つの責務、判断、設定、仕様には一つのownerと一つの正本を持たせ、他の場所は参照、adapter、生成物、配備snapshotに限定する。
+- 提案、意味判断、policy判定、状態変更、外部実行を不用意に同じ責務へ混ぜない。
+- 新しい経路、形式、rule、例外を作る前に、既存ownerとcanonical routeを拡張できないか確認する。例外追加より、既存構造の一般化、統合、削除を先に検討する。
+- コードの見た目が似ているだけでDRY共通化しない。同じ知識・責務・変更理由を持つかを確認し、責務、変化軸、障害分離、安全境界が異なる重複は許容できる。
+
+### Hard Invariant
+
+- Coder、LLM、model、provider、controllerを実行主体、Agent identity、正本ownerにしない。実Actor、owner module、認証、policy、実行責任を維持する。
+- 正本となる仕様、設定、schema、policy、状態は一意にする。派生data、cache、index、snapshot、互換表現を独立更新可能な正本にしない。
+- owner API、認証、policy、安全境界を迂回する実行経路を作らない。新経路が既存routeを置換する場合、旧経路を同じImplementation Unitで削除する。
+- 同じ意味的変更を同じ理由で複数箇所へ手修正する構造を新設しない。不可避な複製はcanonical sourceから決定的に生成・検証し、独立編集を禁止する。
+- Hard Invariantは文章だけに依存させず、可能な限りAPI境界、権限、型、schema、lint、CI、architecture testで強制する。強制手段が未実装なら完了条件の未確認境界として報告する。
+
+### Architecture SmellとSemantic Duplication
+
+次をArchitecture Smellとして変更前後に確認する: 判定logicや設定値の複数管理、同一責務の複数Agent／module所有、旧実装と新実装の併存、複数DBでの同一data独立更新、同一概念の複数名称、特定機能だけの別route／形式／rule、同期変更を要する複数箇所、「今回だけ」の例外、不要な抽象化・互換layer・未使用route。
+
+一つの意味的変更のため複数箇所を同じ理由で変更する状態を`Semantic Duplication`とする。検出時は即座に共通化せず、「同じ知識・責務か、偶然似ているだけか」をowner、変更理由、lifecycle、failure domainで判定する。責務が異なる、独立変化する、障害分離や安全性に必要、不自然な依存を避ける場合は、理由と検証を記録して重複を許容できる。
+
+### 実装前Gateと完了条件
+
+実装計画を確定する前に、次をEvidence付きで確認する。
+
+1. 同じ責務、data、設定、判断を持つ既存実装と正本がないか。
+2. 新routeを追加せず既存canonical routeを拡張できないか。
+3. 新例外が不可欠か、既存概念の一般化で表現できないか。
+4. 変更によって削除できる旧code、互換layer、設定、経路がないか。
+5. 将来の同一変更が複数箇所への同期修正を要求しないか。
+6. 新概念が本当に必要か、既存概念で説明できないか。
+
+機能test成功だけでは完了としない。Hard Invariant、Semantic Duplication、Architecture Smell、旧経路削除、正本仕様更新を確認し、必要なFailure Knowledgeとarchitecture／behavioral testを追加する。未確認または未強制の項目があれば一部達成として境界を示す。
+
+### Failure Knowledge
+
+再発防止に必要な設計失敗は、owner moduleの正本仕様、`docs/調査/`、既存testのうち適切な場所へ、`Failure / Problem / Cause / Lesson / Invariant / Enforcement / Tests`を記録する。禁止文だけを残さず、Invariantの根拠と機械的な強制・検証方法を結び付ける。横断Failure Knowledgeの索引はEcoSystemが所有できるが、module内部仕様を複製しない。
+
+### Architecture Reviewと再構築
+
+- 大きな機能追加、cross-module契約変更、例外追加、同一領域の反復修正、または一定量の変更蓄積時は、通常reviewとは別にArchitecture Reviewを行う。
+- review対象は、責務・知識の重複、正本分裂、不要な抽象化／互換layer／未使用route、例外増殖、異名同概念、Agent間責務侵食とする。
+- 「現在のcodeを捨て、現行Specification、Principle、Failure Knowledge、Invariantだけで再実装しても同じ構造を選ぶか」を判断基準にし、Noなら再構築候補として記録する。
+- Refactoringは局所整理に限定しない。要件と安全性を保つ範囲で、統合、削除、再抽象化、subsystem単位の再実装を通常の選択肢とする。長期資産はcode量ではなく、Specification、Principle、Failure Knowledge、Invariant、architecture test、behavioral testである。
+
 ## CLI-First / LLM-Residual Rule
 
 - システム構築の各フローでは、まず各工程がCLIで決定的に完了できるかを分類する。

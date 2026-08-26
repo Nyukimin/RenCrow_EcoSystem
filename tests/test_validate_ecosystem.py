@@ -564,9 +564,12 @@ class EcosystemManifestTest(unittest.TestCase):
             self._write_governance_repository(catalog, with_ci=True)
             self._write_governance_repository(snapshot, with_ci=False)
             (snapshot / "project-root").mkdir()
-            (catalog / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            root_rules = (
+                "\n".join(VALIDATOR.CONCEPTUAL_INTEGRITY_REQUIRED_MARKERS) + "\n"
+            )
+            (catalog / "AGENTS.md").write_text(root_rules, encoding="utf-8")
             (snapshot / "project-root" / "AGENTS.md").write_text(
-                "root\n", encoding="utf-8"
+                root_rules, encoding="utf-8"
             )
             manifest_path = catalog / "ecosystem.yaml"
             manifest_path.touch()
@@ -591,10 +594,13 @@ class EcosystemManifestTest(unittest.TestCase):
             self._write_governance_repository(catalog, with_ci=True)
             self._write_governance_repository(snapshot, with_ci=False)
             (snapshot / "project-root").mkdir()
-            (snapshot / "project-root" / "AGENTS.md").write_text(
-                "snapshot\n", encoding="utf-8"
+            root_rules = (
+                "\n".join(VALIDATOR.CONCEPTUAL_INTEGRITY_REQUIRED_MARKERS) + "\n"
             )
-            (catalog / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            (snapshot / "project-root" / "AGENTS.md").write_text(
+                root_rules + "snapshot drift\n", encoding="utf-8"
+            )
+            (catalog / "AGENTS.md").write_text(root_rules, encoding="utf-8")
             manifest_path = catalog / "ecosystem.yaml"
             manifest_path.touch()
             candidate = {
@@ -609,6 +615,35 @@ class EcosystemManifestTest(unittest.TestCase):
             }
 
             with self.assertRaisesRegex(VALIDATOR.ManifestError, "does not match"):
+                VALIDATOR.validate_governance(candidate, manifest_path)
+
+    def test_governance_rejects_missing_conceptual_integrity_guardrail(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            catalog = Path(temp_directory)
+            snapshot = catalog / "RenCrow_Workspace"
+            self._write_governance_repository(catalog, with_ci=True)
+            self._write_governance_repository(snapshot, with_ci=False)
+            (snapshot / "project-root").mkdir()
+            (catalog / "AGENTS.md").write_text("root\n", encoding="utf-8")
+            (snapshot / "project-root" / "AGENTS.md").write_text(
+                "root\n", encoding="utf-8"
+            )
+            manifest_path = catalog / "ecosystem.yaml"
+            manifest_path.touch()
+            candidate = {
+                "components": {
+                    "workspace": {
+                        "workspace_path": "./RenCrow_Workspace",
+                        "required": True,
+                        "distribution": "snapshot",
+                    }
+                },
+                "runtime_profiles": {},
+            }
+
+            with self.assertRaisesRegex(
+                VALIDATOR.ManifestError, "missing Conceptual Integrity Guardrail"
+            ):
                 VALIDATOR.validate_governance(candidate, manifest_path)
 
     @staticmethod

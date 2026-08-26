@@ -69,6 +69,13 @@ REQUIRED_RUNTIME_PROFILE_FIELDS = {
 }
 FORBIDDEN_KEY_PARTS = {"api_key", "password", "private_key", "secret", "token"}
 GOVERNANCE_REQUIRED_FILES = ("AGENTS.md", "README.md")
+CONCEPTUAL_INTEGRITY_REQUIRED_MARKERS = (
+    "## Conceptual Integrity Guardrail v0.1",
+    "### Hard Invariant",
+    "### Architecture SmellとSemantic Duplication",
+    "### Failure Knowledge",
+    "### Architecture Reviewと再構築",
+)
 LOCAL_TEST_REQUIRED_FILES = (
     "scripts/test-local.ps1",
     "scripts/test-local.plan.json",
@@ -620,6 +627,17 @@ def validate_governance(data: dict[str, Any], manifest_path: Path) -> None:
             catalog_path / workspace_component["workspace_path"] / "project-root" / "AGENTS.md"
         ).resolve()
         _require_non_empty_file("workspace-root", workspace_root, "AGENTS.md")
+        root_agents_text = root_agents.read_text(encoding="utf-8")
+        missing_markers = [
+            marker
+            for marker in CONCEPTUAL_INTEGRITY_REQUIRED_MARKERS
+            if marker not in root_agents_text
+        ]
+        if missing_markers:
+            raise ManifestError(
+                "workspace root AGENTS.md is missing Conceptual Integrity "
+                f"Guardrail markers: {', '.join(missing_markers)}"
+            )
         if not snapshot_agents.is_file() or root_agents.read_bytes() != snapshot_agents.read_bytes():
             raise ManifestError(
                 "workspace root AGENTS.md does not match "
