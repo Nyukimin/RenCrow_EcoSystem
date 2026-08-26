@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "d0d0290f63cae4f57b16c8d9f69235e72a93d43b",
+      "version": "bfb930918de0a484cbc68f20b470d22179439eb5",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -141,7 +141,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "c53667274faeafcf82aa9c9c0537255534a33ba2",
+      "version": "b9278aa9dbb6b36f47da52041f18b279757cf47e",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -493,7 +493,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",
-      "version": "f6a0940198832839c8031788b0fb23649894445c",
+      "version": "742cc26fb4ebb15812952c1c58569c37bd666a54",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service",

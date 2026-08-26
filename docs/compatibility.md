@@ -22,6 +22,24 @@ workspace検証時はlocal HEADとの一致も確認します。release artifact
 現在のmanifestでは使用しません。`verified`はrelease artifactと統合試験まで
 完了した組み合わせだけに使用します。
 
+## Development pin update flow
+
+moduleの`main`を更新したら、EcoSystemを完了またはPushする前に、catalog rootで次を実行します。
+
+```bash
+make check-pins
+make sync-pins
+make check-workspace
+make check-governance
+```
+
+`check-pins`はread-onlyで、manifestと各`workspace_path`のGit HEADに差があればexit 1を返します。
+`sync-pins`だけが`ecosystem.yaml`を更新し、`planned` componentと未配置のoptional repositoryは
+変更しません。required repositoryの欠落、Git HEAD取得不能、40桁SHAでないversionはfail closedに
+します。複数moduleをPushする場合は、moduleとWorkspace snapshotを先に確定し、最後に
+`sync-pins`を実行してEcoSystemをPushします。これにより、後続commitでpinが直ちに古くなる順序を
+避けます。
+
 ## Release flow
 
 1. source-pinned commitでmodule固有testを通す。
