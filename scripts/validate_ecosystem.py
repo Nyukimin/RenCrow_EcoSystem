@@ -80,6 +80,55 @@ LOCAL_TEST_REQUIRED_FILES = (
     "scripts/test-local.ps1",
     "scripts/test-local.plan.json",
 )
+COVERAGE_POLICY_SCHEMA_VERSION = 1
+GUARANTEE_CLASSES = (
+    "source_identity",
+    "artifact_identity",
+    "runtime_identity",
+    "readiness",
+    "canonical_e2e",
+    "actor_result",
+    "receipt_trace",
+    "security_exposure",
+    "durability",
+    "lifecycle",
+    "publication",
+)
+CROSS_SYSTEM_REQUIREMENTS = (
+    "browser_ui",
+    "route_security_exposure",
+    "backup_restore",
+    "lifecycle_resources",
+    "publication",
+)
+COVERAGE_POLICY_FIELDS = {
+    "schema_version",
+    "guarantee_classes",
+    "required_phases",
+    "component_requirements",
+    "cross_system_requirements",
+}
+REQUIRED_FULL_SYSTEM_PHASES = (
+    "startup",
+    "runtime",
+    "deploy",
+    "backup",
+    "diagnostic",
+)
+COVERAGE_POLICY_FORBIDDEN_KEY_PARTS = {
+    "command",
+    "commands",
+    "port",
+    "ports",
+    "endpoint",
+    "endpoints",
+    "test",
+    "tests",
+    "executor",
+    "execution",
+    "script",
+    "url",
+}
 
 
 class ManifestError(ValueError):
@@ -99,6 +148,19 @@ def load_manifest(path: Path) -> dict[str, Any]:
     return data
 
 
+def load_coverage_policy(path: Path) -> dict[str, Any]:
+    """Load the catalog-level full-system coverage policy."""
+    try:
+        with path.open(encoding="utf-8") as policy_file:
+            data = json.load(policy_file)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ManifestError(f"cannot load coverage policy {path}: {exc}") from exc
+
+    if not isinstance(data, dict):
+        raise ManifestError("coverage policy root must be an object")
+    return data
+
+
 def _reject_secret_keys(value: Any, location: str = "manifest") -> None:
     if isinstance(value, dict):
         for key, child in value.items():
@@ -109,6 +171,171 @@ def _reject_secret_keys(value: Any, location: str = "manifest") -> None:
     elif isinstance(value, list):
         for index, child in enumerate(value):
             _reject_secret_keys(child, f"{location}[{index}]")
+
+
+def _reject_coverage_operational_keys(
+    value: Any, location: str = "coverage policy"
+) -> None:
+    """Keep operational commands and module-level check details out of policy."""
+    if isinstance(value, dict):
+        for key, child in value.items():
+            normalized_key = str(key).lower().replace("-", "_")
+            key_parts = set(normalized_key.split("_"))
+            if key_parts & COVERAGE_POLICY_FORBIDDEN_KEY_PARTS:
+                raise ManifestError(
+                    "coverage policy contains operational detail key at "
+                    f"{location}.{key}"
+                )
+            _reject_coverage_operational_keys(child, f"{location}.{key}")
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            _reject_coverage_operational_keys(child, f"{location}[{index}]")
+
+
+def _validate_coverage_class_list(
+    raw_classes: Any,
+    location: str,
+    known_classes: set[str],
+) -> list[str]:
+    if not isinstance(raw_classes, list):
+        raise ManifestError(f"{location} must be an array of guarantee classes")
+    if not raw_classes:
+        raise ManifestError(f"{location} must be non-empty")
+
+    seen: set[str] = set()
+    validated: list[str] = []
+    for index, class_id in enumerate(raw_classes):
+        class_location = f"{location}[{index}]"
+        if not isinstance(class_id, str) or not class_id.strip():
+            raise ManifestError(f"{class_location} must not be an empty guarantee class")
+        if class_id not in known_classes:
+            raise ManifestError(
+                f"{class_location} contains unknown guarantee class: {class_id}"
+            )
+        if class_id in seen:
+            raise ManifestError(
+                f"{location} contains duplicate guarantee class: {class_id}"
+            )
+        seen.add(class_id)
+        validated.append(class_id)
+    return validated
+
+
+def validate_coverage_policy(
+    policy: dict[str, Any], manifest: dict[str, Any]
+) -> None:
+    """Validate catalog-wide guarantee classes and component coverage declarations."""
+    if not isinstance(policy, dict):
+        raise ManifestError("coverage policy root must be an object")
+    if not isinstance(manifest, dict):
+        raise ManifestError("manifest root must be an object")
+    _reject_secret_keys(policy, "coverage policy")
+    _reject_coverage_operational_keys(policy)
+
+    if (
+        type(policy.get("schema_version")) is not int
+        or policy["schema_version"] != COVERAGE_POLICY_SCHEMA_VERSION
+    ):
+        raise ManifestError(
+            "coverage policy schema_version must be "
+            f"{COVERAGE_POLICY_SCHEMA_VERSION}"
+        )
+
+    missing_fields = COVERAGE_POLICY_FIELDS - policy.keys()
+    if missing_fields:
+        raise ManifestError(
+            "coverage policy missing fields: " + ", ".join(sorted(missing_fields))
+        )
+    unsupported_fields = policy.keys() - COVERAGE_POLICY_FIELDS
+    if unsupported_fields:
+        raise ManifestError(
+            "coverage policy contains unsupported fields: "
+            + ", ".join(sorted(unsupported_fields))
+        )
+
+    known_classes = set(GUARANTEE_CLASSES)
+    declared_classes = _validate_coverage_class_list(
+        policy["guarantee_classes"], "coverage policy.guarantee_classes", known_classes
+    )
+    if set(declared_classes) != known_classes:
+        missing_classes = known_classes - set(declared_classes)
+        if missing_classes:
+            raise ManifestError(
+                "coverage policy missing guarantee class: "
+                + ", ".join(sorted(missing_classes))
+            )
+
+    required_phases = policy["required_phases"]
+    if not isinstance(required_phases, list) or required_phases != list(
+        REQUIRED_FULL_SYSTEM_PHASES
+    ):
+        raise ManifestError(
+            "coverage policy.required_phases must exactly match the canonical phase order"
+        )
+
+    manifest_components = manifest.get("components")
+    if not isinstance(manifest_components, dict) or not manifest_components:
+        raise ManifestError("manifest components must be a non-empty object")
+
+    component_requirements = policy["component_requirements"]
+    if not isinstance(component_requirements, dict) or not component_requirements:
+        raise ManifestError(
+            "coverage policy.component_requirements must be a non-empty object"
+        )
+
+    manifest_component_ids = set(manifest_components)
+    requirement_component_ids = set(component_requirements)
+    missing_components = manifest_component_ids - requirement_component_ids
+    if missing_components:
+        raise ManifestError(
+            "coverage policy component_requirements missing component: "
+            + ", ".join(sorted(missing_components))
+        )
+    extra_components = requirement_component_ids - manifest_component_ids
+    if extra_components:
+        raise ManifestError(
+            "coverage policy component_requirements has extra component: "
+            + ", ".join(sorted(extra_components))
+        )
+
+    requirement_sets: set[frozenset[str]] = set()
+    for component_id in sorted(manifest_component_ids):
+        classes = _validate_coverage_class_list(
+            component_requirements[component_id],
+            f"coverage policy.component_requirements.{component_id}",
+            known_classes,
+        )
+        requirement_sets.add(frozenset(classes))
+    if len(requirement_sets) < 2:
+        raise ManifestError(
+            "coverage policy component requirements must vary by component type"
+        )
+
+    cross_system_requirements = policy["cross_system_requirements"]
+    if not isinstance(cross_system_requirements, dict) or not cross_system_requirements:
+        raise ManifestError(
+            "coverage policy.cross_system_requirements must be a non-empty object"
+        )
+    expected_cross_ids = set(CROSS_SYSTEM_REQUIREMENTS)
+    declared_cross_ids = set(cross_system_requirements)
+    missing_cross_ids = expected_cross_ids - declared_cross_ids
+    if missing_cross_ids:
+        raise ManifestError(
+            "coverage policy.cross_system_requirements missing requirement: "
+            + ", ".join(sorted(missing_cross_ids))
+        )
+    extra_cross_ids = declared_cross_ids - expected_cross_ids
+    if extra_cross_ids:
+        raise ManifestError(
+            "coverage policy.cross_system_requirements has extra requirement: "
+            + ", ".join(sorted(extra_cross_ids))
+        )
+    for requirement_id in CROSS_SYSTEM_REQUIREMENTS:
+        _validate_coverage_class_list(
+            cross_system_requirements[requirement_id],
+            f"coverage policy.cross_system_requirements.{requirement_id}",
+            known_classes,
+        )
 
 
 def _validate_workspace_path(location: str, raw_path: Any) -> None:
@@ -649,6 +876,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("manifest", type=Path, help="path to ecosystem.yaml")
     parser.add_argument(
+        "--coverage-policy",
+        type=Path,
+        help="path to the catalog full-system coverage policy",
+    )
+    parser.add_argument(
         "--check-workspace",
         action="store_true",
         help="also require every declared sibling Git repository",
@@ -666,6 +898,11 @@ def main() -> int:
     try:
         data = load_manifest(args.manifest)
         validate_manifest(data)
+        coverage_policy_path = args.coverage_policy or (
+            args.manifest.resolve().parent / "config" / "full-system-coverage.json"
+        )
+        coverage_policy = load_coverage_policy(coverage_policy_path)
+        validate_coverage_policy(coverage_policy, data)
         if args.check_workspace:
             validate_workspace(data, args.manifest)
         if args.check_governance:

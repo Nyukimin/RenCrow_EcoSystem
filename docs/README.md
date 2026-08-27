@@ -17,6 +17,7 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 10. [Installation](installation.md) — 現在利用できる導入方法
 11. [Compatibility](compatibility.md) — version 固定と統合 release 手順
 12. [Check Plan pruning](check-plan-pruning.md) — 検査前の不要check除外とEvidence契約
+13. [Full-system verification](full-system-verification.md) — 全owner check、5 phase Plan、receipt集約契約
 
 ## Documentation boundary
 

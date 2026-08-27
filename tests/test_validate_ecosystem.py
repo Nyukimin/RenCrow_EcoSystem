@@ -19,6 +19,112 @@ SPEC.loader.exec_module(VALIDATOR)
 class EcosystemManifestTest(unittest.TestCase):
     def setUp(self) -> None:
         self.manifest = VALIDATOR.load_manifest(REPOSITORY_ROOT / "ecosystem.yaml")
+        self.coverage_policy = VALIDATOR.load_coverage_policy(
+            REPOSITORY_ROOT / "config" / "full-system-coverage.json"
+        )
+
+    def test_full_system_coverage_policy_is_valid(self) -> None:
+        VALIDATOR.validate_coverage_policy(self.coverage_policy, self.manifest)
+
+    def test_full_system_coverage_policy_declares_exact_guarantee_classes(self) -> None:
+        self.assertEqual(
+            self.coverage_policy["guarantee_classes"],
+            [
+                "source_identity",
+                "artifact_identity",
+                "runtime_identity",
+                "readiness",
+                "canonical_e2e",
+                "actor_result",
+                "receipt_trace",
+                "security_exposure",
+                "durability",
+                "lifecycle",
+                "publication",
+            ],
+        )
+
+    def test_full_system_coverage_policy_declares_every_required_phase(self) -> None:
+        self.assertEqual(
+            self.coverage_policy["required_phases"],
+            ["startup", "runtime", "deploy", "backup", "diagnostic"],
+        )
+
+        candidate = copy.deepcopy(self.coverage_policy)
+        candidate["required_phases"].remove("startup")
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "required_phases"):
+            VALIDATOR.validate_coverage_policy(candidate, self.manifest)
+
+    def test_full_system_coverage_policy_varies_requirements_by_component_type(
+        self,
+    ) -> None:
+        requirements = self.coverage_policy["component_requirements"]
+        self.assertNotEqual(requirements["core"], requirements["portal"])
+        self.assertNotEqual(requirements["llm"], requirements["workspace"])
+        self.assertNotEqual(requirements["games"], requirements["tools"])
+        self.assertTrue(all(requirements.values()))
+
+    def test_coverage_policy_rejects_missing_component_requirement(self) -> None:
+        candidate = copy.deepcopy(self.coverage_policy)
+        del candidate["component_requirements"]["core"]
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "missing component"):
+            VALIDATOR.validate_coverage_policy(candidate, self.manifest)
+
+    def test_coverage_policy_rejects_extra_component_requirement(self) -> None:
+        candidate = copy.deepcopy(self.coverage_policy)
+        candidate["component_requirements"]["not_in_manifest"] = [
+            "source_identity"
+        ]
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "extra component"):
+            VALIDATOR.validate_coverage_policy(candidate, self.manifest)
+
+    def test_coverage_policy_rejects_unknown_duplicate_and_empty_classes(self) -> None:
+        candidate = copy.deepcopy(self.coverage_policy)
+        candidate["component_requirements"]["core"] = ["unknown_class"]
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "unknown guarantee class"):
+            VALIDATOR.validate_coverage_policy(candidate, self.manifest)
+
+        candidate = copy.deepcopy(self.coverage_policy)
+        candidate["component_requirements"]["core"] = [
+            "source_identity",
+            "source_identity",
+        ]
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "duplicate guarantee class"):
+            VALIDATOR.validate_coverage_policy(candidate, self.manifest)
+
+        candidate = copy.deepcopy(self.coverage_policy)
+        candidate["component_requirements"]["core"] = []
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "must be non-empty"):
+            VALIDATOR.validate_coverage_policy(candidate, self.manifest)
+
+    def test_coverage_policy_rejects_malformed_cross_system_requirement(self) -> None:
+        candidate = copy.deepcopy(self.coverage_policy)
+        candidate["cross_system_requirements"]["browser_ui"] = [
+            "unknown_class"
+        ]
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "cross_system_requirements"):
+            VALIDATOR.validate_coverage_policy(candidate, self.manifest)
+
+        candidate = copy.deepcopy(self.coverage_policy)
+        del candidate["cross_system_requirements"]["backup_restore"]
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "cross_system_requirements"):
+            VALIDATOR.validate_coverage_policy(candidate, self.manifest)
+
+    def test_coverage_policy_rejects_secret_like_and_operational_keys(self) -> None:
+        candidate = copy.deepcopy(self.coverage_policy)
+        candidate["secret_token"] = "must-not-be-here"
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "secret-like key"):
+            VALIDATOR.validate_coverage_policy(candidate, self.manifest)
+
+        candidate = copy.deepcopy(self.coverage_policy)
+        candidate["cross_system_requirements"]["browser_ui"] = {
+            "commands": ["pytest"]
+        }
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "operational detail"):
+            VALIDATOR.validate_coverage_policy(candidate, self.manifest)
 
     def test_repository_manifest_is_valid(self) -> None:
         VALIDATOR.validate_manifest(self.manifest)

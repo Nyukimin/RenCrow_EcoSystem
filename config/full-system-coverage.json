@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "guarantee_classes": [
+    "source_identity",
+    "artifact_identity",
+    "runtime_identity",
+    "readiness",
+    "canonical_e2e",
+    "actor_result",
+    "receipt_trace",
+    "security_exposure",
+    "durability",
+    "lifecycle",
+    "publication"
+  ],
+  "required_phases": [
+    "startup",
+    "runtime",
+    "deploy",
+    "backup",
+    "diagnostic"
+  ],
+  "component_requirements": {
+    "core": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "actor_result",
+      "receipt_trace",
+      "security_exposure",
+      "durability",
+      "lifecycle",
+      "publication"
+    ],
+    "portal": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "actor_result",
+      "receipt_trace",
+      "security_exposure",
+      "lifecycle",
+      "publication"
+    ],
+    "assistant": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "actor_result",
+      "receipt_trace",
+      "security_exposure",
+      "lifecycle",
+      "publication"
+    ],
+    "cmd": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "actor_result",
+      "receipt_trace",
+      "security_exposure",
+      "lifecycle",
+      "publication"
+    ],
+    "llm": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "actor_result",
+      "receipt_trace",
+      "security_exposure",
+      "lifecycle",
+      "publication"
+    ],
+    "stt": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "receipt_trace",
+      "security_exposure",
+      "lifecycle",
+      "publication"
+    ],
+    "tts": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "receipt_trace",
+      "security_exposure",
+      "lifecycle",
+      "publication"
+    ],
+    "vision": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "receipt_trace",
+      "security_exposure",
+      "lifecycle",
+      "publication"
+    ],
+    "games": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "actor_result",
+      "receipt_trace",
+      "security_exposure",
+      "durability",
+      "lifecycle",
+      "publication"
+    ],
+    "trade": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "receipt_trace",
+      "security_exposure",
+      "durability",
+      "lifecycle",
+      "publication"
+    ],
+    "tools": [
+      "source_identity",
+      "artifact_identity",
+      "security_exposure",
+      "lifecycle",
+      "publication"
+    ],
+    "image": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "receipt_trace",
+      "security_exposure",
+      "lifecycle",
+      "publication"
+    ],
+    "workspace": [
+      "source_identity",
+      "artifact_identity",
+      "receipt_trace",
+      "security_exposure",
+      "durability",
+      "lifecycle",
+      "publication"
+    ]
+  },
+  "cross_system_requirements": {
+    "browser_ui": [
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "actor_result",
+      "receipt_trace",
+      "security_exposure",
+      "publication"
+    ],
+    "route_security_exposure": [
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "actor_result",
+      "receipt_trace",
+      "security_exposure"
+    ],
+    "backup_restore": [
+      "source_identity",
+      "artifact_identity",
+      "receipt_trace",
+      "security_exposure",
+      "durability",
+      "lifecycle"
+    ],
+    "lifecycle_resources": [
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "receipt_trace",
+      "security_exposure",
+      "lifecycle"
+    ],
+    "publication": [
+      "source_identity",
+      "artifact_identity",
+      "receipt_trace",
+      "security_exposure",
+      "publication"
+    ]
+  }
+}

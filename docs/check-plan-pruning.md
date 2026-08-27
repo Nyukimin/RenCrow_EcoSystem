@@ -6,6 +6,12 @@ RenCrowは検査開始前に、要求されたpurposeとphaseに必要なcheck�
 
 本機能はcheck sourceを自動削除しません。現在の実行Planから安全に除外または別phaseへ延期し、理由と代替Evidenceを機械可読receiptとして残します。
 
+全体保証の分類と、各component／cross-system surfaceが要求する分類は
+[`config/full-system-coverage.json`](../config/full-system-coverage.json)を正本とします。
+このpolicyは保証クラスとcoverageの宣言だけを持ち、module固有のcheck、実行コマンド、
+endpoint、port、またはexecutor logicを複製しません。manifestの全componentとの対応は
+`scripts/validate_ecosystem.py`で検証します。
+
 ## Ownership
 
 | Contract | Owner |
@@ -22,6 +28,14 @@ Owner manifestはCOREの`config/checks/core.json`、その他の各module reposi
 STT、TTS、Vision、Image、TRADE、GAMES、Tools、Workspaceです。各manifestは実在する軽量
 runtime checkと、runtimeでは`wrong_phase`になるdeploy／backup／diagnostic／E2E checkを
 分離します。
+
+全体監査ではowner manifest schema v2を使います。planner v1 fieldsに加えて、各checkは
+`coverage`、`executor: {kind: owner_cli, command_id}`、
+`receipt_schema: rencrow.check-receipt.v1`、必要な場合だけ`surfaces`を宣言します。
+RenCrow_Toolsの`rencrow-full-system-verification compose`はv2 extensionを検証してから
+planner互換v1 Requestへ投影し、check自体は実行しません。各owner CLIのreceiptを5 phase分
+集めた後、`aggregate-set`だけが全体の`all_clear`を決定します。単一phaseの成功、
+`wrong_phase` deferred、自然言語要約を全体成功へ昇格しません。
 
 ASSISTANTは常駐server未実装、Workspaceはsnapshot repositoryなので、通常runtime Planの
 included checkが0件でも正常です。存在しないhealth routeを作りません。CMDはterminal facadeの
