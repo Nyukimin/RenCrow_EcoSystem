@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "aeeaec86c7a519ebb68c38293a223701e71863fd",
+      "version": "1273c93d1ae337430efff4d89902cb74b6a659ce",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -24,7 +24,7 @@
           {
             "source_path": "scripts/rencrow-storage-backup",
             "installed_path": "%h/.local/bin/rencrow-storage-backup",
-            "sha256": "06c31ca6b91815c793c83b460dc780a38ae5f3279000d070c9aeda8ba6b2fb95",
+            "sha256": "2ae9b6841b5cd9574fdd17bd496ae8487e572522b9ef783773205d6dec3292c7",
             "mode": "0755"
           },
           {
@@ -67,7 +67,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "./RenCrow_PORTAL",
-      "version": "d69aca505aba1c1af24126453d82df1e6bd5c5d3",
+      "version": "2b73b6ec62927c543a7aa7b958ebb4623a7ed64b",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API",
@@ -325,7 +325,7 @@
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "./RenCrow_GAMES",
-      "version": "e44fbc55e89ef4ab9f36df5c72902c1e856bd994",
+      "version": "3a40acf551dd6b40ea655ebaf7889c236637389f",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI",
@@ -355,7 +355,7 @@
     "trade": {
       "repository": "Nyukimin/RenCrow_TRADE",
       "workspace_path": "./RenCrow_TRADE",
-      "version": "396640cd1483155b82fea93a1b4fb3aa1be7325b",
+      "version": "27fc471c75b4efb248e1cb64c2bf4c2b171e1a54",
       "required": false,
       "distribution": "binary",
       "role": "Financial research, source-bound learning, offline Replay, portfolio-risk, TradeGate, Ledger, and future Broker adaptation without owning Agent identity or routing",
@@ -397,7 +397,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "./RenCrow_Tools",
-      "version": "7e5041514ce0da132d2f6662716973802b6abb47",
+      "version": "8b89f46001523c135da01bf7efab651ac6183b3d",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools",
@@ -447,7 +447,7 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "./RenCrow_Image",
-      "version": "ee1c31ff3f6a18c6544acb4b68dc228714bd5a6a",
+      "version": "f9ea002e1feeb9f7f6c76841496196a5c07d34bd",
       "required": false,
       "distribution": "binary",
       "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
