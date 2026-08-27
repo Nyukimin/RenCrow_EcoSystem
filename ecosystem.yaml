@@ -355,7 +355,7 @@
     "trade": {
       "repository": "Nyukimin/RenCrow_TRADE",
       "workspace_path": "./RenCrow_TRADE",
-      "version": "a54ad87aa4939223c4dd806c78ef98dd816585b5",
+      "version": "396640cd1483155b82fea93a1b4fb3aa1be7325b",
       "required": false,
       "distribution": "binary",
       "role": "Financial research, source-bound learning, offline Replay, portfolio-risk, TradeGate, Ledger, and future Broker adaptation without owning Agent identity or routing",
