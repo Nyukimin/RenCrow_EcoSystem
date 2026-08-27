@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "3b76382a6775d1e99c50ef1f718c4ca474214be9",
+      "version": "4e7d8a60a90002e5b97a539322b5ecac4b165583",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -187,7 +187,7 @@
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",
       "workspace_path": "./RenCrow_STT",
-      "version": "cf8c69091f6aaa3f527d5e7c3cd1313ac29f0ff9",
+      "version": "d71bb110a6c97076d9c19cebde2ba54b3a655318",
       "required": false,
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
@@ -279,7 +279,7 @@
     "vision": {
       "repository": "Nyukimin/RenCrow_Vision",
       "workspace_path": "./RenCrow_Vision",
-      "version": "1fa4bfb9235dbac656a9744a8ea9c96ee02466a3",
+      "version": "085a495468eefae5a4acd30113b6fd25592a8019",
       "required": false,
       "distribution": "binary",
       "role": "Go image and video recognition Gateway from CORE to the Wild backend, including media validation, preprocessing, and result normalization",
@@ -397,7 +397,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "./RenCrow_Tools",
-      "version": "8eaab44927723e80a60f3ddce802e52cd9e6c097",
+      "version": "b215f22a65545d3eb188030c4629a53d150fce0d",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools",
@@ -447,7 +447,7 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "./RenCrow_Image",
-      "version": "d1f5c1fadcffd92914e49283c4f06e8104d72000",
+      "version": "07e4874308890c56a4fe2101fad264e771e8e32a",
       "required": false,
       "distribution": "binary",
       "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
