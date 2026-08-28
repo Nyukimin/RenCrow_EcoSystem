@@ -67,7 +67,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "./RenCrow_PORTAL",
-      "version": "ff4d3d7a7c347b0285d3a27153e3e0ee9591836c",
+      "version": "acb8c16f77d389bd240f16d535631ce48705c3ca",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API",
@@ -76,7 +76,7 @@
           {
             "source_path": "config/checks/runtime.json",
             "installed_path": "%h/.local/share/rencrow/checks/portal.json",
-            "sha256": "d1fe1218d869facdab0f5e0f0555029317229854ddeca4212aab9d49d85a0061",
+            "sha256": "f3516ccecff73cd819a79a58fa044484c5e8670aa823af6cf90d34e76bcc8d6f",
             "mode": "0644"
           }
         ],
@@ -141,7 +141,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "f82f1d9fd9c363711dbd2b283b5631736edd7d54",
+      "version": "310124509d613932cf5fc46db6615975e537ed7d",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -157,14 +157,14 @@
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_LLM/gateway/cmd/rencrow-llm-verify",
             "installed_path": "%h/.local/bin/rencrow-llm-verify",
-            "version": "f82f1d9fd9c363711dbd2b283b5631736edd7d54"
+            "version": "310124509d613932cf5fc46db6615975e537ed7d"
           }
         ],
         "files": [
           {
             "source_path": "config/checks/runtime.json",
             "installed_path": "%h/.local/share/rencrow/checks/llm.json",
-            "sha256": "eff28865c5d783e7490609a6b344764778591e56547113713b2a718ba56f643c",
+            "sha256": "4fb1bb28249656587cb2808ccfae9024fd644beecff3afe8f5cb89c9d291c2ac",
             "mode": "0644"
           }
         ],
@@ -201,7 +201,7 @@
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",
       "workspace_path": "./RenCrow_STT",
-      "version": "d71bb110a6c97076d9c19cebde2ba54b3a655318",
+      "version": "64ac55ff0a04d4a9539a0c8f15c5dec402572788",
       "required": false,
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
@@ -210,7 +210,7 @@
           {
             "source_path": "config/checks/runtime.json",
             "installed_path": "%h/.local/share/rencrow/checks/stt.json",
-            "sha256": "3770eb43ac619a883d7e8d6f11d8df9f87b81ad24def658217b78fa65a814fcb",
+            "sha256": "99faeeb6bbb8e51cfd2cf107a34b4a035d81fdaf30bc539d1a96762983112612",
             "mode": "0644"
           }
         ],
@@ -247,7 +247,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "./RenCrow_TTS",
-      "version": "93e58269a0d3424aebd735f15ae2e7d773f995d1",
+      "version": "d1e959d3a57b6d0c44f5d45ca1bb3c0efce41080",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
@@ -256,7 +256,7 @@
           {
             "source_path": "config/checks/runtime.json",
             "installed_path": "%h/.local/share/rencrow/checks/tts.json",
-            "sha256": "1af43ebfb656b1b849c3ec2b20e926309967e74e7cd2719e026b1adad2971026",
+            "sha256": "ca7c3b9de352dacdeabdc9ac1bc67c7bf7cfef722f158cb9f9f1c9a06c90467b",
             "mode": "0644"
           }
         ],
@@ -293,7 +293,7 @@
     "vision": {
       "repository": "Nyukimin/RenCrow_Vision",
       "workspace_path": "./RenCrow_Vision",
-      "version": "b303fe69bb52d5b6dde91397656c6f44e27eefe9",
+      "version": "4f9aa1140869e28217dedf19d7608ce7d87e7e92",
       "required": false,
       "distribution": "binary",
       "role": "Go image and video recognition Gateway from CORE to the Wild backend, including media validation, preprocessing, and result normalization",
@@ -303,7 +303,7 @@
             "module": "github.com/Nyukimin/RenCrow_Vision",
             "main_package": "github.com/Nyukimin/RenCrow_Vision/cmd/rencrow-vision",
             "installed_path": "%h/.local/bin/rencrow-vision",
-            "version": "b303fe69bb52d5b6dde91397656c6f44e27eefe9"
+            "version": "4f9aa1140869e28217dedf19d7608ce7d87e7e92"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_Vision",
@@ -316,7 +316,7 @@
           {
             "source_path": "config/checks/runtime.json",
             "installed_path": "%h/.local/share/rencrow/checks/vision.json",
-            "sha256": "f664e97402e91140e9f8c82c3ead6844aeb2383d5120934c02400aec93518434",
+            "sha256": "fa379db50be89e47b1c9268ca89db7fa4940ab5e48da87883f15b68e6cd0d0dd",
             "mode": "0644"
           }
         ],
@@ -383,7 +383,7 @@
     "trade": {
       "repository": "Nyukimin/RenCrow_TRADE",
       "workspace_path": "./RenCrow_TRADE",
-      "version": "5480b8dad91c09a20431cc4e21d2f1816c850c18",
+      "version": "8db3f7a0a994a3d4da3f78a1188d18411ca9ba33",
       "required": false,
       "distribution": "binary",
       "role": "Financial research, source-bound learning, offline Replay, portfolio-risk, TradeGate, Ledger, and future Broker adaptation without owning Agent identity or routing",
@@ -399,14 +399,14 @@
             "module": "github.com/Nyukimin/RenCrow_TRADE",
             "main_package": "github.com/Nyukimin/RenCrow_TRADE/cmd/rencrow-trade-verify",
             "installed_path": "%h/.local/bin/rencrow-trade-verify",
-            "version": "5480b8dad91c09a20431cc4e21d2f1816c850c18"
+            "version": "8db3f7a0a994a3d4da3f78a1188d18411ca9ba33"
           }
         ],
         "files": [
           {
             "source_path": "config/checks/runtime.json",
             "installed_path": "%h/.local/share/rencrow/checks/trade.json",
-            "sha256": "4a9133b7cdf5750ab4fdc86f4ce2654f454b54d779dc67175d9124169fc02af1",
+            "sha256": "2b08070f32a1b078c6ce8625b55a3c166887f2bb593f535d586c44a1267a8b7e",
             "mode": "0644"
           }
         ],
@@ -439,7 +439,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "./RenCrow_Tools",
-      "version": "13d8ea67545b35f17b7deea2434f30b864e6bbf5",
+      "version": "15466fb0ab0f82259464b8af4eb8aa2d61927d47",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools",
@@ -467,7 +467,7 @@
             "module": "github.com/Nyukimin/RenCrow_Tools/tools/quality/full_system_verification",
             "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/quality/full_system_verification/cmd/rencrow-tools-verify",
             "installed_path": "%h/.local/bin/rencrow-tools-verify",
-            "version": "13d8ea67545b35f17b7deea2434f30b864e6bbf5"
+            "version": "15466fb0ab0f82259464b8af4eb8aa2d61927d47"
           }
         ],
         "files": [
@@ -480,7 +480,7 @@
           {
             "source_path": "config/checks/runtime.json",
             "installed_path": "%h/.local/share/rencrow/checks/tools.json",
-            "sha256": "ea8e718f22b514f7a68fa794cdd796735e3f38b275d2561cfc06211107ab581c",
+            "sha256": "bd6183be6bddcc0035f7ecf350b8c5112d29be7b02083027c07cf66b55696d3c",
             "mode": "0644"
           }
         ],
@@ -561,7 +561,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",
-      "version": "8431241df96e90e7b5d71eb4fe33c98dc1e736d5",
+      "version": "70e024df1b74b622ce0a408513e1d8579ad26348",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service",
@@ -571,7 +571,7 @@
             "module": "github.com/Nyukimin/RenCrow_Workspace",
             "main_package": "github.com/Nyukimin/RenCrow_Workspace/cmd/rencrow-workspace",
             "installed_path": "%h/.local/bin/rencrow-workspace",
-            "version": "8431241df96e90e7b5d71eb4fe33c98dc1e736d5"
+            "version": "70e024df1b74b622ce0a408513e1d8579ad26348"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_Workspace",
@@ -584,7 +584,7 @@
           {
             "source_path": "config/checks/runtime.json",
             "installed_path": "%h/.local/share/rencrow/checks/workspace.json",
-            "sha256": "a91f45ef71fa85bbe1b53b8f9be7aaf55b2bdb9e522032f3799cf0fb56c69c12",
+            "sha256": "5da144802cbcfac2cf6b71635bea75fd3ada08cc7715e0d0e790027c451cb0f1",
             "mode": "0644"
           }
         ]
