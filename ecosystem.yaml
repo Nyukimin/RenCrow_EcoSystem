@@ -183,7 +183,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "310124509d613932cf5fc46db6615975e537ed7d",
+      "version": "5bb392ebdf587dc668eba04d54a8da1aa4f8e940",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -193,13 +193,13 @@
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_LLM/gateway/cmd/rencrow-llm",
             "installed_path": "%h/.local/bin/rencrow-llm",
-            "version": "a8311808258f3333e3c650cdc41a8393cabd7e37"
+            "version": "5bb392ebdf587dc668eba04d54a8da1aa4f8e940"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_LLM/gateway/cmd/rencrow-llm-verify",
             "installed_path": "%h/.local/bin/rencrow-llm-verify",
-            "version": "310124509d613932cf5fc46db6615975e537ed7d"
+            "version": "5bb392ebdf587dc668eba04d54a8da1aa4f8e940"
           }
         ],
         "files": [
