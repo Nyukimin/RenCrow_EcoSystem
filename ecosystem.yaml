@@ -183,7 +183,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "5bb392ebdf587dc668eba04d54a8da1aa4f8e940",
+      "version": "22257f6a40042a0731c8ecca520f2c20743c1c4d",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -193,13 +193,13 @@
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_LLM/gateway/cmd/rencrow-llm",
             "installed_path": "%h/.local/bin/rencrow-llm",
-            "version": "5bb392ebdf587dc668eba04d54a8da1aa4f8e940"
+            "version": "22257f6a40042a0731c8ecca520f2c20743c1c4d"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_LLM/gateway/cmd/rencrow-llm-verify",
             "installed_path": "%h/.local/bin/rencrow-llm-verify",
-            "version": "5bb392ebdf587dc668eba04d54a8da1aa4f8e940"
+            "version": "22257f6a40042a0731c8ecca520f2c20743c1c4d"
           }
         ],
         "files": [
@@ -659,7 +659,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",
-      "version": "194c87667768c402b2cb2b0770223d9de1c099ff",
+      "version": "36eb21a81f4c707cf1dea3fbf417f3072beb9506",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service",
