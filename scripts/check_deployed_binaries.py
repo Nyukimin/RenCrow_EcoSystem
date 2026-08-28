@@ -753,6 +753,14 @@ class _RedeployAbort(Exception):
         self.rollback_outcome = rollback_outcome
 
 
+class _RedeployDeferred(Exception):
+    """Stop before mutation because an owner job is currently in progress."""
+
+    def __init__(self, units: list[str]) -> None:
+        super().__init__("稼働中oneshotの完了待ち: " + ", ".join(units))
+        self.units = units
+
+
 def _atomic_copy(
     source: str | Path,
     destination: str | Path,
@@ -841,6 +849,11 @@ def redeploy(
                 + ", ".join(missing or running),
                 missing[0] if missing else running[0],
             )
+        active_oneshots = [
+            unit for unit in running if readiness[unit].get("kind") == "oneshot"
+        ]
+        if active_oneshots:
+            raise _RedeployDeferred(active_oneshots)
 
         code, _, _ = runner(
             ["git", "-C", str(module_dir), "cat-file", "-e", f"{pin}^{{commit}}"]
@@ -935,6 +948,12 @@ def redeploy(
         receipt["outcome"] = "success"
         print(f"  [OK] {row['name']} を {pin[:7]} へ更新", flush=True)
         result = True
+    except _RedeployDeferred as exc:
+        receipt["phase"] = "preflight"
+        receipt["outcome"] = "deferred"
+        receipt["deferred_units"] = exc.units
+        receipt["reason"] = str(exc)[:500]
+        print(f"  [DEFER] {exc}", flush=True)
     except _RedeployAbort as exc:
         set_receipt_failure(receipt, exc.phase, exc.error, exc.failed_unit)
         if exc.rollback_outcome is not None:

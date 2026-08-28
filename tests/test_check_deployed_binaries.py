@@ -540,6 +540,27 @@ class RedeployReceiptTest(unittest.TestCase):
             self.assertFalse(result)
             self.assertEqual(len(receipt_log.read_text(encoding="utf-8").splitlines()), 1)
 
+    def test_active_oneshot_is_deferred_before_build_or_stop(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            calls: list[list[str]] = []
+            with mock.patch.object(
+                CHECKER,
+                "_running_units",
+                return_value=["rencrow-test-learning.service"],
+            ):
+                result, receipt_log = self.invoke(root, calls)
+
+            self.assertFalse(result)
+            receipt = json.loads(receipt_log.read_text(encoding="utf-8"))
+            self.assertEqual(receipt["outcome"], "deferred")
+            self.assertEqual(receipt["phase"], "preflight")
+            self.assertEqual(
+                receipt["deferred_units"], ["rencrow-test-learning.service"]
+            )
+            self.assertFalse(any(command[0] in {"git", "go"} for command in calls))
+            self.assertFalse(any("stop" in command for command in calls))
+
     def test_readiness_failure_records_successful_rollback(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             result, receipt_log = self.invoke(

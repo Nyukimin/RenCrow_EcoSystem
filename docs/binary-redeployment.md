@@ -97,7 +97,8 @@ buildしたbinaryは、**hostへ触れる前に**検証する。
 検証を通過した後、次の順で行う。
 
 1. 旧binaryを`~/.rencrow/backups/<name>.replaced-<sha>`へ退避する。
-2. 入れ替え前に各unitの`ActiveState`を記録する。
+2. 入れ替え前に各unitの`ActiveState`を記録する。`oneshot`が`active`または`activating`なら、
+   build・backup・stop・copyを行わず`deferred` receiptを残して終了する。
 3. 全unitを停止し、binaryを差し替える。
 4. **入れ替え前にactiveだったunitだけ**を起動する。
 5. manifestのreadiness契約を満たすまで確認する。
@@ -109,6 +110,9 @@ binaryを共有するunitには、timerを持たない`Type=oneshot`が混ざる
 `rencrow-trade-learning.service`はoffline学習ジョブ、`rencrow-resilience.service`は
 reconcileであり、再配置の巻き添えで起動すると誰も依頼していない処理が走る。
 停止していたunitは停止したまま据え置く。
+
+稼働中oneshotも配置都合で中断しない。完了後の新しいoperator requestで再配置する。
+`deferred`は配備成功ではなく、対象revisionのdriftを残した非完了状態として扱う。
 
 ### manifest-owned readiness
 
