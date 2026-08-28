@@ -161,7 +161,7 @@
             "module": "github.com/Nyukimin/RenCrow_CMD",
             "main_package": "github.com/Nyukimin/RenCrow_CMD/cmd/rencrow",
             "installed_path": "%h/.local/bin/rencrowctl",
-            "version": "875a2214a58b116df697f6d2621654a85572f048"
+            "version": "706ba77ea3933f7cb1292fffa3ac4f0eb4d30d8d"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CMD",
