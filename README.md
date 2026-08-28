@@ -39,6 +39,9 @@ Games / Tools / Workspace -------- ecosystem support
 - Atlas / Backlog / Implementation Lifecycle の状態、Evidence gate、singleton WIP lease、
   Viewer/API は RenCrow_CORE が所有し、RenCrow_CMD は一要求をその owner API へ中継する
   terminal facade だけを提供します。詳細契約は CORE 正本を参照します。
+- Development Methodologyも同じAtlas owner、Workstream artifact、Skill Registry、Event／Traceを
+  拡張し、別WIP、別Delivery state、別ledger DBを作りません。CMDはmethodology stateを所有せず、
+  COREのunit／task／Evidence／Ruling／Review投影を読むfacadeだけを提供します。
 - module から EcoSystem の実装へ依存しません。
 - 実行時連携は HTTP、WebSocket、CLI、設定ファイルなどの公開契約を使います。
 - Git submodule は使用しません。

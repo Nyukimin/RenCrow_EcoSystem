@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "2aed93ddbde7135190006ecc4877231f6f43776b",
+      "version": "7c7401bbb62f3be6ec25b2163caf49d4586c9002",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -19,13 +19,13 @@
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow",
             "installed_path": "%h/.local/bin/rencrow",
-            "version": "2aed93ddbde7135190006ecc4877231f6f43776b"
+            "version": "7c7401bbb62f3be6ec25b2163caf49d4586c9002"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow-core-verify",
             "installed_path": "%h/.local/bin/rencrow-core-verify",
-            "version": "2aed93ddbde7135190006ecc4877231f6f43776b"
+            "version": "7c7401bbb62f3be6ec25b2163caf49d4586c9002"
           }
         ],
         "files": [
@@ -151,7 +151,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "./RenCrow_CMD",
-      "version": "706ba77ea3933f7cb1292fffa3ac4f0eb4d30d8d",
+      "version": "9ade316bceeab7ac3e526851fa2ee0fa22b45832",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL",
@@ -161,13 +161,13 @@
             "module": "github.com/Nyukimin/RenCrow_CMD",
             "main_package": "github.com/Nyukimin/RenCrow_CMD/cmd/rencrow",
             "installed_path": "%h/.local/bin/rencrowctl",
-            "version": "706ba77ea3933f7cb1292fffa3ac4f0eb4d30d8d"
+            "version": "9ade316bceeab7ac3e526851fa2ee0fa22b45832"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CMD",
             "main_package": "github.com/Nyukimin/RenCrow_CMD/cmd/rencrow-cmd-verify",
             "installed_path": "%h/.local/bin/rencrow-cmd-verify",
-            "version": "706ba77ea3933f7cb1292fffa3ac4f0eb4d30d8d"
+            "version": "9ade316bceeab7ac3e526851fa2ee0fa22b45832"
           }
         ],
         "files": [
