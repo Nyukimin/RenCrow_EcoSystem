@@ -363,7 +363,7 @@
     "vision": {
       "repository": "Nyukimin/RenCrow_Vision",
       "workspace_path": "./RenCrow_Vision",
-      "version": "4f9aa1140869e28217dedf19d7608ce7d87e7e92",
+      "version": "870014f11d7c618817f44a9901229705be72f0da",
       "required": false,
       "distribution": "binary",
       "role": "Go image and video recognition Gateway from CORE to the Wild backend, including media validation, preprocessing, and result normalization",
@@ -379,7 +379,7 @@
             "module": "github.com/Nyukimin/RenCrow_Vision",
             "main_package": "github.com/Nyukimin/RenCrow_Vision/cmd/rencrow-vision-verify",
             "installed_path": "%h/.local/bin/rencrow-vision-verify",
-            "version": "4f9aa1140869e28217dedf19d7608ce7d87e7e92"
+            "version": "870014f11d7c618817f44a9901229705be72f0da"
           }
         ],
         "files": [
