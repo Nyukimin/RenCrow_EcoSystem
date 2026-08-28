@@ -206,6 +206,20 @@
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
       "deployment": {
+        "go_binaries": [
+          {
+            "module": "github.com/Nyukimin/RenCrow_STT/gateway",
+            "main_package": "github.com/Nyukimin/RenCrow_STT/gateway/cmd/rencrow-stt",
+            "installed_path": "%h/.local/bin/rencrow-stt",
+            "version": "d71bb110a6c97076d9c19cebde2ba54b3a655318"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_STT/gateway",
+            "main_package": "github.com/Nyukimin/RenCrow_STT/gateway/cmd/rencrow-stt-verify",
+            "installed_path": "%h/.local/bin/rencrow-stt-verify",
+            "version": "64ac55ff0a04d4a9539a0c8f15c5dec402572788"
+          }
+        ],
         "files": [
           {
             "source_path": "config/checks/runtime.json",
@@ -252,6 +266,20 @@
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
       "deployment": {
+        "go_binaries": [
+          {
+            "module": "github.com/Nyukimin/RenCrow_TTS/gateway",
+            "main_package": "github.com/Nyukimin/RenCrow_TTS/gateway/cmd/rencrow-tts",
+            "installed_path": "%h/.local/bin/rencrow-tts",
+            "version": "93e58269a0d3424aebd735f15ae2e7d773f995d1"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_TTS/gateway",
+            "main_package": "github.com/Nyukimin/RenCrow_TTS/gateway/cmd/rencrow-tts-verify",
+            "installed_path": "%h/.local/bin/rencrow-tts-verify",
+            "version": "d1e959d3a57b6d0c44f5d45ca1bb3c0efce41080"
+          }
+        ],
         "files": [
           {
             "source_path": "config/checks/runtime.json",
