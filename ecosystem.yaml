@@ -433,7 +433,7 @@
             "module": "github.com/Nyukimin/RenCrow_GAMES",
             "main_package": "github.com/Nyukimin/RenCrow_GAMES/cmd/observer",
             "installed_path": "%h/.local/lib/rencrow-games/bin/observer",
-            "version": "16ca315332d022fbdf3b3d8e1be4f1dc1113e9ab"
+            "version": "8387c8ededed1ebb7a13760705fbfb62cba3ec46"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_GAMES",
