@@ -86,6 +86,20 @@
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API",
       "deployment": {
+        "go_binaries": [
+          {
+            "module": "github.com/Nyukimin/RenCrow_PORTAL",
+            "main_package": "github.com/Nyukimin/RenCrow_PORTAL/cmd/rencrow-portal",
+            "installed_path": "%h/.local/bin/rencrow-portal",
+            "version": "acb8c16f77d389bd240f16d535631ce48705c3ca"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_PORTAL",
+            "main_package": "github.com/Nyukimin/RenCrow_PORTAL/cmd/rencrow-portal-verify",
+            "installed_path": "%h/.local/bin/rencrow-portal-verify",
+            "version": "acb8c16f77d389bd240f16d535631ce48705c3ca"
+          }
+        ],
         "files": [
           {
             "source_path": "config/checks/runtime.json",
