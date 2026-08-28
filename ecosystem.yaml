@@ -303,7 +303,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "./RenCrow_TTS",
-      "version": "d1e959d3a57b6d0c44f5d45ca1bb3c0efce41080",
+      "version": "a2655964e8e3926635a7334aec9c528e9990820f",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
@@ -319,7 +319,7 @@
             "module": "github.com/Nyukimin/RenCrow_TTS/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_TTS/gateway/cmd/rencrow-tts-verify",
             "installed_path": "%h/.local/bin/rencrow-tts-verify",
-            "version": "d1e959d3a57b6d0c44f5d45ca1bb3c0efce41080"
+            "version": "a2655964e8e3926635a7334aec9c528e9990820f"
           }
         ],
         "files": [
