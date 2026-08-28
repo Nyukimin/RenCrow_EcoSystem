@@ -402,6 +402,32 @@
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools",
       "deployment": {
+        "go_binaries": [
+          {
+            "module": "github.com/Nyukimin/RenCrow_Tools/tools/music/lyrics_catalog",
+            "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/music/lyrics_catalog",
+            "installed_path": "%h/.local/bin/rencrow-lyrics-catalog",
+            "version": "404e13bb99a92442ec108421990be8575c66ab60"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_Tools/tools/eiga_catalog_gateway",
+            "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/eiga_catalog_gateway/cmd/eiga-catalog-gateway",
+            "installed_path": "%h/.local/bin/rencrow-eiga-catalog-gateway",
+            "version": "404e13bb99a92442ec108421990be8575c66ab60"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_Tools/tools/person_related_catalog_provider",
+            "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/person_related_catalog_provider/cmd/person-related-catalog-provider",
+            "installed_path": "%h/.local/bin/rencrow-person-related-catalog-provider",
+            "version": "404e13bb99a92442ec108421990be8575c66ab60"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_Tools/tools/quality/full_system_verification",
+            "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/quality/full_system_verification/cmd/rencrow-tools-verify",
+            "installed_path": "%h/.local/bin/rencrow-tools-verify",
+            "version": "404e13bb99a92442ec108421990be8575c66ab60"
+          }
+        ],
         "files": [
           {
             "source_path": "tools/system_monitor/rencrow_system_monitor.sh",

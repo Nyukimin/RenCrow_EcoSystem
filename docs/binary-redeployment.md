@@ -52,6 +52,13 @@ pin整合を扱うものであり、supervisor workerを代替しない。
 段3はmoduleがrepository直下に無い場合がある（RenCrow_TTSはmoduleが`gateway/`配下）ため
 前方一致とし、nested moduleが親repositoryへ誤解決しないよう最長一致を採る。
 
+一つのrepositoryが独立配備される複数Go moduleを持つ場合は、
+`components.<id>.deployment.go_binaries`で`module`、`main_package`、`installed_path`、
+`version`を宣言する。componentの`version`はrepository source pin、各binaryの`version`は
+その成果物をbuildしたartifact pinであり、未宣言binaryだけがsource pinを継承する。
+これにより検証toolだけの変更で無関係なprovider binaryを再build・再起動しない。
+serviceを持たないowner verifierも同じ宣言からinventoryと標準再配置の対象にする。
+
 同一binaryを複数unitが共有する場合（`rencrow-trade`は`rencrow-trade.service`と
 `rencrow-trade-learning.service`が共有）、それらを1件へ束ねる。
 

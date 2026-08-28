@@ -40,6 +40,7 @@ WORKSPACE_PATH_PATTERN = re.compile(r"^\./[A-Za-z0-9][A-Za-z0-9._-]*$")
 USER_SYSTEMD_UNIT_PATTERN = re.compile(r"^rencrow[A-Za-z0-9_.@:-]*\.service$")
 JSON_PATH_PATTERN = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*$")
 DEPLOYMENT_SOURCE_PATH_PATTERN = re.compile(r"^[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)*$")
+GO_IMPORT_PATH_PATTERN = re.compile(r"^[A-Za-z0-9._-]+(?:/[A-Za-z0-9._-]+)+$")
 SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 REQUIRED_PRIMARY_RUNTIME_FIELDS = {"implementation", "artifact", "status"}
 REQUIRED_COMPANION_RUNTIME_FIELDS = {
@@ -512,8 +513,35 @@ def _validate_user_systemd_deployment(
     location = f"components.{component_id}.deployment"
     if not isinstance(deployment, dict):
         raise _readiness_error(location, "must be an object")
-    if not deployment or not set(deployment) <= {"user_systemd", "files"}:
+    if not deployment or not set(deployment) <= {"user_systemd", "files", "go_binaries"}:
         raise _readiness_error(location, "contains unsupported keys")
+
+    go_binaries = deployment.get("go_binaries", [])
+    if not isinstance(go_binaries, list):
+        raise ManifestError(f"{location}.go_binaries must be an array")
+    seen_main_packages: set[str] = set()
+    seen_binary_paths: set[str] = set()
+    repository_root = f"github.com/{component['repository']}"
+    for index, binary in enumerate(go_binaries):
+        binary_location = f"{location}.go_binaries[{index}]"
+        required = {"module", "main_package", "installed_path", "version"}
+        if not isinstance(binary, dict) or set(binary) != required:
+            raise ManifestError(f"{binary_location} must contain exactly module, main_package, installed_path, version")
+        module = binary["module"]
+        main_package = binary["main_package"]
+        if not isinstance(module, str) or not GO_IMPORT_PATH_PATTERN.fullmatch(module) or not (module == repository_root or module.startswith(repository_root + "/")):
+            raise ManifestError(f"{binary_location}.module must belong to the component repository")
+        if not isinstance(main_package, str) or not GO_IMPORT_PATH_PATTERN.fullmatch(main_package) or not (main_package == module or main_package.startswith(module + "/")):
+            raise ManifestError(f"{binary_location}.main_package must belong to module")
+        installed = binary["installed_path"]
+        if not isinstance(installed, str) or not installed.startswith(("%h/", "%workspace%/")):
+            raise ManifestError(f"{binary_location}.installed_path must start with %h/ or %workspace%/")
+        if not isinstance(binary["version"], str) or not COMMIT_VERSION_PATTERN.fullmatch(binary["version"]):
+            raise ManifestError(f"{binary_location}.version must be a full Git commit SHA")
+        if main_package in seen_main_packages or installed in seen_binary_paths:
+            raise ManifestError(f"{binary_location} duplicates a Go binary identity")
+        seen_main_packages.add(main_package)
+        seen_binary_paths.add(installed)
 
     files = deployment.get("files", [])
     if not isinstance(files, list):

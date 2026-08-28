@@ -213,6 +213,18 @@ class EcosystemManifestTest(unittest.TestCase):
                         self.assertEqual(item["timeout_seconds"], timeout)
                         self.assertEqual(item["expect"], {"path": path, "equals": equals})
 
+    def test_go_binary_deployment_contract_is_accepted(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        candidate["components"]["tools"]["deployment"]["go_binaries"] = [
+            {
+                "module": "github.com/Nyukimin/RenCrow_Tools/tools/example",
+                "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/example/cmd/example",
+                "installed_path": "%h/.local/bin/example",
+                "version": "a" * 40,
+            }
+        ]
+        VALIDATOR.validate_manifest(candidate)
+
     def test_manifest_uses_governance_schema_version_four(self) -> None:
         self.assertEqual(self.manifest["schema_version"], 4)
 

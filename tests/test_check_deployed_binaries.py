@@ -35,6 +35,68 @@ class ReportExitCodeTest(unittest.TestCase):
         )
 
 
+class GoBinaryDeploymentPinTest(unittest.TestCase):
+    def test_declared_binary_pin_overrides_component_source_pin(self) -> None:
+        component = {
+            "version": "a" * 40,
+            "deployment": {
+                "go_binaries": [
+                    {
+                        "module": "github.com/Nyukimin/RenCrow_Tools/tools/example",
+                        "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/example/cmd/example",
+                        "installed_path": "%h/.local/bin/example",
+                        "version": "b" * 40,
+                    }
+                ]
+            },
+        }
+        self.assertEqual(
+            CHECKER.go_binary_pin(
+                component,
+                "github.com/Nyukimin/RenCrow_Tools/tools/example",
+                "github.com/Nyukimin/RenCrow_Tools/tools/example/cmd/example",
+            ),
+            "b" * 40,
+        )
+
+    def test_declared_non_service_binary_is_included_in_inventory(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            installed = root / "rencrow-tools-verify"
+            installed.write_bytes(b"binary")
+            revision = "b" * 40
+            manifest = root / "ecosystem.yaml"
+            manifest.write_text(json.dumps({
+                "components": {
+                    "tools": {
+                        "repository": "Nyukimin/RenCrow_Tools",
+                        "workspace_path": "./RenCrow_Tools",
+                        "version": "a" * 40,
+                        "deployment": {"go_binaries": [{
+                            "module": "github.com/Nyukimin/RenCrow_Tools/tools/quality/full_system_verification",
+                            "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/quality/full_system_verification/cmd/rencrow-tools-verify",
+                            "installed_path": "%workspace%/rencrow-tools-verify",
+                            "version": revision,
+                        }]},
+                    }
+                }
+            }), encoding="utf-8")
+            adapter = mock.Mock()
+            adapter.services.return_value = []
+            info = {
+                "module": "github.com/Nyukimin/RenCrow_Tools/tools/quality/full_system_verification",
+                "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/quality/full_system_verification/cmd/rencrow-tools-verify",
+                "revision": revision,
+                "modified": False,
+            }
+            with mock.patch.object(CHECKER, "build_info", return_value=info):
+                rows = CHECKER.collect(manifest, root, "rencrow", adapter)
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows[0]["name"], "rencrow-tools-verify")
+            self.assertEqual(rows[0]["status"], CHECKER.MATCH)
+            self.assertEqual(rows[0]["units"], [])
+
+
 class ExecStartPathTest(unittest.TestCase):
     def test_direct_exec_start_returns_path(self) -> None:
         rendered = (

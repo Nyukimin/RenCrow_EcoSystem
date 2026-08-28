@@ -252,6 +252,18 @@ def match_component(module: str, components: dict[str, dict[str, Any]]) -> str |
     return best[1] if best else None
 
 
+def go_binary_pin(component: dict[str, Any], module: str, main_package: str) -> str:
+    """Return an artifact pin when declared, otherwise the component source pin."""
+    deployment = component.get("deployment")
+    declarations = deployment.get("go_binaries", []) if isinstance(deployment, dict) else []
+    for declaration in declarations:
+        if not isinstance(declaration, dict):
+            continue
+        if declaration.get("module") == module and declaration.get("main_package") == main_package:
+            return str(declaration.get("version", ""))
+    return str(component.get("version", ""))
+
+
 def commits_between(module_dir: Path, old: str, new: str) -> int | None:
     code, out, _ = run(["git", "-C", str(module_dir), "rev-list", "--count", f"{old}..{new}"])
     if code != 0:
@@ -319,7 +331,7 @@ def collect(
             continue
 
         row["component"] = comp_id
-        row["pin"] = components[comp_id].get("version", "")
+        row["pin"] = go_binary_pin(components[comp_id], info["module"], info["main_package"])
 
         if not info["revision"]:
             row["status"] = UNSTAMPED
@@ -343,6 +355,48 @@ def collect(
                 if info["modified"]:
                     row["note"] += " / 未コミット差分入り"
         rows.append(row)
+
+    for component_id, component in components.items():
+        deployment = component.get("deployment")
+        declarations = deployment.get("go_binaries", []) if isinstance(deployment, dict) else []
+        for declaration in declarations:
+            installed = _installed_file_path(declaration["installed_path"], workspace)
+            binary = str(installed)
+            if binary in seen:
+                continue
+            seen.add(binary)
+            row = {
+                "artifact_kind": "go_binary",
+                "units": [],
+                "binary": binary,
+                "name": installed.name,
+                "component": component_id,
+                "module": declaration["module"],
+                "main_package": declaration["main_package"],
+                "built": "",
+                "pin": declaration["version"],
+                "modified": None,
+                "behind": None,
+                "status": MISMATCH,
+                "note": "配置binaryが存在しない",
+            }
+            info = build_info(binary) if installed.is_file() else None
+            if info is not None:
+                row["built"] = info["revision"]
+                row["modified"] = info["modified"]
+                if info["module"] != row["module"] or info["main_package"] != row["main_package"]:
+                    row["note"] = "manifestと配置binaryのGo identityが不一致"
+                elif not info["revision"]:
+                    row["status"] = UNSTAMPED
+                    row["note"] = "vcs情報なし。SHAで検証できない"
+                elif info["revision"] == row["pin"]:
+                    row["status"] = DIRTY if info["modified"] else MATCH
+                    row["note"] = "pinと同一SHAだが未コミット差分入り" if info["modified"] else ""
+                else:
+                    module_dir = workspace / component["workspace_path"]
+                    row["behind"] = commits_between(module_dir, row["built"], row["pin"])
+                    row["note"] = "artifact pinとrevisionが不一致"
+            rows.append(row)
 
     managed = collect_managed_files(components, workspace)
     managed_by_path = {row["binary"]: row for row in managed}
@@ -895,11 +949,13 @@ def redeploy(
             )
 
         phase = "backup"
-        BACKUP_DIR.mkdir(parents=True, exist_ok=True)
-        backup = BACKUP_DIR / f"{row['name']}.replaced-{row['built'][:7] or 'unstamped'}"
-        shutil.copy2(row["binary"], backup)
-        receipt["backup_path"] = str(backup)
-        print(f"  旧バイナリを退避: {backup}", flush=True)
+        backup: Path | None = None
+        if row.get("built") or Path(row["binary"]).is_file():
+            BACKUP_DIR.mkdir(parents=True, exist_ok=True)
+            backup = BACKUP_DIR / f"{row['name']}.replaced-{row['built'][:7] or 'unstamped'}"
+            shutil.copy2(row["binary"], backup)
+            receipt["backup_path"] = str(backup)
+            print(f"  旧バイナリを退避: {backup}", flush=True)
 
         phase = "stop"
         for unit in row["units"]:
@@ -916,6 +972,8 @@ def redeploy(
             try:
                 for unit in row["units"]:
                     adapter.stop(unit)
+                if backup is None:
+                    raise RuntimeError("rollback artifact is unavailable")
                 _atomic_copy(backup, row["binary"], mode=0o755)
                 still_broken = start_and_settle(running, readiness, runner=runner, adapter=adapter)
             except Exception as exc:
