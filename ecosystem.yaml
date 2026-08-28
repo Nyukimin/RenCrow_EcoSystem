@@ -243,7 +243,7 @@
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",
       "workspace_path": "./RenCrow_STT",
-      "version": "8bc00d0a09a1c5644082eef853c061d02b50548f",
+      "version": "350d268403aabbf7301298480fd0dd56345443c1",
       "required": false,
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
@@ -253,7 +253,7 @@
             "module": "github.com/Nyukimin/RenCrow_STT/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_STT/gateway/cmd/rencrow-stt",
             "installed_path": "%h/.local/bin/rencrow-stt",
-            "version": "d71bb110a6c97076d9c19cebde2ba54b3a655318"
+            "version": "350d268403aabbf7301298480fd0dd56345443c1"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_STT/gateway",
