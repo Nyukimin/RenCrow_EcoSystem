@@ -447,7 +447,7 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "./RenCrow_Image",
-      "version": "8e93a5522ef02ebed8f5228374cb188a862ece3e",
+      "version": "641ef5ab4960145df27a1d448cdb022bf84a3192",
       "required": false,
       "distribution": "binary",
       "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
