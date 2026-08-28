@@ -123,7 +123,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "./RenCrow_CMD",
-      "version": "0ae937c2c66d42c3d17cf6d779a960fe363f7b89",
+      "version": "8d0d95259fb77b5d7a69f96579ce6a54963e1fac",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL",
