@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "f2b46a0641c6f4b61d6a615b423eef6c986d7400",
+      "version": "538424ad05eb39e8aad02fb435358bb8df071960",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -19,13 +19,13 @@
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow",
             "installed_path": "%h/.local/bin/rencrow",
-            "version": "f2b46a0641c6f4b61d6a615b423eef6c986d7400"
+            "version": "538424ad05eb39e8aad02fb435358bb8df071960"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow-core-verify",
             "installed_path": "%h/.local/bin/rencrow-core-verify",
-            "version": "f2b46a0641c6f4b61d6a615b423eef6c986d7400"
+            "version": "538424ad05eb39e8aad02fb435358bb8df071960"
           }
         ],
         "files": [
@@ -303,7 +303,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "./RenCrow_TTS",
-      "version": "a2655964e8e3926635a7334aec9c528e9990820f",
+      "version": "b0450bb34e49a1eb34378ef7b0d0903a379962b9",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
@@ -313,13 +313,13 @@
             "module": "github.com/Nyukimin/RenCrow_TTS/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_TTS/gateway/cmd/rencrow-tts",
             "installed_path": "%h/.local/bin/rencrow-tts",
-            "version": "93e58269a0d3424aebd735f15ae2e7d773f995d1"
+            "version": "b0450bb34e49a1eb34378ef7b0d0903a379962b9"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_TTS/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_TTS/gateway/cmd/rencrow-tts-verify",
             "installed_path": "%h/.local/bin/rencrow-tts-verify",
-            "version": "a2655964e8e3926635a7334aec9c528e9990820f"
+            "version": "b0450bb34e49a1eb34378ef7b0d0903a379962b9"
           }
         ],
         "files": [
