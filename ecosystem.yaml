@@ -609,7 +609,7 @@
             "module": "github.com/Nyukimin/RenCrow_Image",
             "main_package": "github.com/Nyukimin/RenCrow_Image/cmd/rencrow-image",
             "installed_path": "%h/.local/bin/rencrow-image",
-            "version": "641ef5ab4960145df27a1d448cdb022bf84a3192"
+            "version": "57d2dda3fc20a14f0b7fca25130403e9598ca412"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_Image",
