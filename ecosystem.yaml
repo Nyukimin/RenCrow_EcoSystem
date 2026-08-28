@@ -9,11 +9,25 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "2caefbc5295daeceebd18896c0ba638275c03472",
+      "version": "f2b46a0641c6f4b61d6a615b423eef6c986d7400",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
       "deployment": {
+        "go_binaries": [
+          {
+            "module": "github.com/Nyukimin/RenCrow_CORE",
+            "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow",
+            "installed_path": "%h/.local/bin/rencrow",
+            "version": "2caefbc5295daeceebd18896c0ba638275c03472"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_CORE",
+            "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow-core-verify",
+            "installed_path": "%h/.local/bin/rencrow-core-verify",
+            "version": "f2b46a0641c6f4b61d6a615b423eef6c986d7400"
+          }
+        ],
         "files": [
           {
             "source_path": "scripts/rencrow_log_rotate.sh",
@@ -42,7 +56,7 @@
           {
             "source_path": "config/checks/core.json",
             "installed_path": "%h/.local/share/rencrow/checks/core.json",
-            "sha256": "c1839255efa8db302e356681865ec034e86dddf1bca25223ddfa0c691350cfbb",
+            "sha256": "86b276daa4423748689430581f9134fd544b835132456938d58e31799e2fb4c7",
             "mode": "0644"
           }
         ],
@@ -123,16 +137,30 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "./RenCrow_CMD",
-      "version": "875a2214a58b116df697f6d2621654a85572f048",
+      "version": "706ba77ea3933f7cb1292fffa3ac4f0eb4d30d8d",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL",
       "deployment": {
+        "go_binaries": [
+          {
+            "module": "github.com/Nyukimin/RenCrow_CMD",
+            "main_package": "github.com/Nyukimin/RenCrow_CMD/cmd/rencrow",
+            "installed_path": "%h/.local/bin/rencrowctl",
+            "version": "875a2214a58b116df697f6d2621654a85572f048"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_CMD",
+            "main_package": "github.com/Nyukimin/RenCrow_CMD/cmd/rencrow-cmd-verify",
+            "installed_path": "%h/.local/bin/rencrow-cmd-verify",
+            "version": "706ba77ea3933f7cb1292fffa3ac4f0eb4d30d8d"
+          }
+        ],
         "files": [
           {
             "source_path": "config/checks/runtime.json",
             "installed_path": "%h/.local/share/rencrow/checks/cmd.json",
-            "sha256": "0292e7085b3be2673c7f0e2de93ed4fdafbbe4fa020ce5d861823a36c62f2c97",
+            "sha256": "3642ba7e5ae2cfa2cfbb5db595cdf93c427b19703a60ee799a37130ed6fbdfdd",
             "mode": "0644"
           }
         ]
@@ -381,16 +409,30 @@
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "./RenCrow_GAMES",
-      "version": "16ca315332d022fbdf3b3d8e1be4f1dc1113e9ab",
+      "version": "8387c8ededed1ebb7a13760705fbfb62cba3ec46",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI",
       "deployment": {
+        "go_binaries": [
+          {
+            "module": "github.com/Nyukimin/RenCrow_GAMES",
+            "main_package": "github.com/Nyukimin/RenCrow_GAMES/cmd/observer",
+            "installed_path": "%h/.local/lib/rencrow-games/bin/observer",
+            "version": "16ca315332d022fbdf3b3d8e1be4f1dc1113e9ab"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_GAMES",
+            "main_package": "github.com/Nyukimin/RenCrow_GAMES/cmd/rencrow-games-verify",
+            "installed_path": "%h/.local/bin/rencrow-games-verify",
+            "version": "8387c8ededed1ebb7a13760705fbfb62cba3ec46"
+          }
+        ],
         "files": [
           {
             "source_path": "config/checks/runtime.json",
             "installed_path": "%h/.local/share/rencrow/checks/games.json",
-            "sha256": "ab7856201d87a3f065713121b47c85320bf7e7af0a130fbb1f652efbfd017eef",
+            "sha256": "3d797aa4e78abfeaad6c9ff7dcc47074942ba8ee12c2727b4dc462a60fd970e1",
             "mode": "0644"
           }
         ],
@@ -543,16 +585,30 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "./RenCrow_Image",
-      "version": "641ef5ab4960145df27a1d448cdb022bf84a3192",
+      "version": "57d2dda3fc20a14f0b7fca25130403e9598ca412",
       "required": false,
       "distribution": "binary",
       "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
       "deployment": {
+        "go_binaries": [
+          {
+            "module": "github.com/Nyukimin/RenCrow_Image",
+            "main_package": "github.com/Nyukimin/RenCrow_Image/cmd/rencrow-image",
+            "installed_path": "%h/.local/bin/rencrow-image",
+            "version": "641ef5ab4960145df27a1d448cdb022bf84a3192"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_Image",
+            "main_package": "github.com/Nyukimin/RenCrow_Image/cmd/rencrow-image-verify",
+            "installed_path": "%h/.local/bin/rencrow-image-verify",
+            "version": "57d2dda3fc20a14f0b7fca25130403e9598ca412"
+          }
+        ],
         "files": [
           {
             "source_path": "config/checks/runtime.json",
             "installed_path": "%h/.local/share/rencrow/checks/image.json",
-            "sha256": "9c68d4a17a67163c2ede0e3104cc7c10f9ed1407a20949c3c98b0183548c63c1",
+            "sha256": "2e041073f44914713ca2454e1bd405535905d3f51a1c273d19952a19c720a5d2",
             "mode": "0644"
           }
         ],
