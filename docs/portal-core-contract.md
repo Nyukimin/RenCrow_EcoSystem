@@ -158,7 +158,8 @@ STT利用可能とは判定しません。
 - Debug、Ops、Repair、admin、LLM管理、設定変更をPORTALから公開しない。
 - TTS audio proxyは設定済みhost以外を拒否する。
 - token、credential、runtime stateをURL、文書、repositoryへ保存しない。
-- PORTALをネットワーク公開する場合は、前段に認証済みproxyまたはtailnet境界を置く。
+- PORTALをネットワーク公開する場合はloopback bindとtailnet-only Tailscale Serveを使い、PORTALの`auth_mode=tailscale_serve`で固定identity headerを検証する。Funnel、PORTALの直接bind、`X-RenCrow-Client`／interaction profileを認証の代用にしない。
+- Tailscaleのタグ付きsourceではuser identity headerを得られない。owner browser E2Eはタグなしの認証済みuser deviceから実行し、server自身のタグ付きbrowserやheader注入で代用しない。
 
 ## Failure semantics
 
@@ -189,5 +190,6 @@ PORTALとCOREの組み合わせをcompatibleと記録する前に、最低限次
 11. Debug／admin endpointとcross-origin controlが拒否される。
 12. 設定外hostのTTS audio取得が拒否される。
 13. client終了後にaudio／input ownerが残留しないか、TTLで失効する。
+14. tailnet-only公開の未認証requestが401で拒否され、タグなしuser deviceの実browserがPORTAL send、CORE `job_id`、実AgentのDOM表示まで到達する。
 確認command、対象version、実行環境、結果、未確認点をverification recordへ残してから、
 `ecosystem.yaml`のCORE／PORTAL versionとcompatibility statusを更新します。

@@ -250,7 +250,7 @@ fixtureや過去Evidenceを生成して入口実装済みに見せてはなら�
 | TTS | `tts_synthesis_e2e`, `tts_canonical_actor_e2e` | `verification_fixture` + `credential_reference`: 固定文を正規Gateway／CORE Actor routeでWAV receiptまで検証 |
 | Vision | `vision_deploy_identity_chain`, `vision_runtime_identity_lifecycle_security` | `discoverable`: local owner service、artifact、config、listenerを自己収集 |
 | Vision | `vision_analyze_e2e`, `vision_canonical_actor_e2e` | `verification_fixture` + `credential_reference`: 固定imageをVision／CORE Actor routeへ送る |
-| PORTAL | `portal_browser_proxy_e2e`, `portal_canonical_actor_e2e` | `verification_fixture` + `credential_reference`: 固定allowlisted browser scenarioと正規認証scopeをownerが解決 |
+| PORTAL | `portal_browser_proxy_e2e`, `portal_canonical_actor_e2e` | `verification_fixture` + `credential_reference` + `external_prerequisite`: ownerがTailscale Serve公開originと固定browser scenarioを解決し、タグなしuser deviceからidentity、CORE `job_id`、DOM表示を収集。タグ付きverifier sourceは`external_untagged_browser_prerequisite_absent`とし、header注入で成功させない |
 | Tools | `tools_execution_boundary_security_lifecycle` | `discoverable`: active Tool server/process、policy、security boundaryをlive Evidenceへ発行 |
 | LLM | `llm_runtime_identity_lifecycle_security` | `discoverable` + `credential_reference`: Runtime config、listener、認証済みremote attestationをownerが解決 |
 
