@@ -467,7 +467,7 @@
     "trade": {
       "repository": "Nyukimin/RenCrow_TRADE",
       "workspace_path": "./RenCrow_TRADE",
-      "version": "8db3f7a0a994a3d4da3f78a1188d18411ca9ba33",
+      "version": "410356e016fbf71fceb44a96a08ce9ae196c3a39",
       "required": false,
       "distribution": "binary",
       "role": "Financial research, source-bound learning, offline Replay, portfolio-risk, TradeGate, Ledger, and future Broker adaptation without owning Agent identity or routing",
@@ -483,7 +483,7 @@
             "module": "github.com/Nyukimin/RenCrow_TRADE",
             "main_package": "github.com/Nyukimin/RenCrow_TRADE/cmd/rencrow-trade-verify",
             "installed_path": "%h/.local/bin/rencrow-trade-verify",
-            "version": "8db3f7a0a994a3d4da3f78a1188d18411ca9ba33"
+            "version": "410356e016fbf71fceb44a96a08ce9ae196c3a39"
           }
         ],
         "files": [
