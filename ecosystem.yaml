@@ -303,13 +303,13 @@
             "module": "github.com/Nyukimin/RenCrow_Vision",
             "main_package": "github.com/Nyukimin/RenCrow_Vision/cmd/rencrow-vision",
             "installed_path": "%h/.local/bin/rencrow-vision",
-            "version": "4f9aa1140869e28217dedf19d7608ce7d87e7e92"
+            "version": "b303fe69bb52d5b6dde91397656c6f44e27eefe9"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_Vision",
             "main_package": "github.com/Nyukimin/RenCrow_Vision/cmd/rencrow-vision-verify",
             "installed_path": "%h/.local/bin/rencrow-vision-verify",
-            "version": "b303fe69bb52d5b6dde91397656c6f44e27eefe9"
+            "version": "4f9aa1140869e28217dedf19d7608ce7d87e7e92"
           }
         ],
         "files": [
@@ -571,13 +571,13 @@
             "module": "github.com/Nyukimin/RenCrow_Workspace",
             "main_package": "github.com/Nyukimin/RenCrow_Workspace/cmd/rencrow-workspace",
             "installed_path": "%h/.local/bin/rencrow-workspace",
-            "version": "70e024df1b74b622ce0a408513e1d8579ad26348"
+            "version": "8431241df96e90e7b5d71eb4fe33c98dc1e736d5"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_Workspace",
             "main_package": "github.com/Nyukimin/RenCrow_Workspace/cmd/rencrow-workspace-verify",
             "installed_path": "%h/.local/bin/rencrow-workspace-verify",
-            "version": "8431241df96e90e7b5d71eb4fe33c98dc1e736d5"
+            "version": "70e024df1b74b622ce0a408513e1d8579ad26348"
           }
         ],
         "files": [
