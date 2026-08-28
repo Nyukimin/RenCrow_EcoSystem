@@ -325,7 +325,7 @@
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "./RenCrow_GAMES",
-      "version": "f366fda5871fb6c94ebf2c540ef089bd159faba6",
+      "version": "7080d8f31cc851b4380bf83b3471a4d2c6c453a5",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI",
