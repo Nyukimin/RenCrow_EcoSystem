@@ -397,7 +397,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "./RenCrow_Tools",
-      "version": "404e13bb99a92442ec108421990be8575c66ab60",
+      "version": "4d48ba1d1cebd3bf6c4f3e4bca67ef40a5caf5d3",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools",
@@ -425,7 +425,7 @@
             "module": "github.com/Nyukimin/RenCrow_Tools/tools/quality/full_system_verification",
             "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/quality/full_system_verification/cmd/rencrow-tools-verify",
             "installed_path": "%h/.local/bin/rencrow-tools-verify",
-            "version": "404e13bb99a92442ec108421990be8575c66ab60"
+            "version": "4d48ba1d1cebd3bf6c4f3e4bca67ef40a5caf5d3"
           }
         ],
         "files": [
@@ -438,7 +438,7 @@
           {
             "source_path": "config/checks/runtime.json",
             "installed_path": "%h/.local/share/rencrow/checks/tools.json",
-            "sha256": "41cf81a01f49cc415913ff891a51847809f0b3c3bec6315451d45f1e550280b6",
+            "sha256": "ea8e718f22b514f7a68fa794cdd796735e3f38b275d2561cfc06211107ab581c",
             "mode": "0644"
           }
         ],
