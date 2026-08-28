@@ -12,6 +12,13 @@ RenCrowは検査開始前に、要求されたpurposeとphaseに必要なcheck�
 endpoint、port、またはexecutor logicを複製しません。manifestの全componentとの対応は
 `scripts/validate_ecosystem.py`で検証します。
 
+必須componentがまだcanonical runtimeを持たない場合だけ、Coverage Policyの
+`temporarily_excluded_components`へ`reason=required_component_unimplemented`と
+`reinclude_when=canonical_runtime_implemented`を宣言できます。これはcomponentや将来の
+coverage requirementsを削除せず、現行の実行集合、binding、receipt母数からだけ外します。
+未知component、optional component、自由記述理由はfail closedです。実装後は同じ変更単位で
+除外宣言を削除し、owner checkを自動的に実行集合へ戻します。
+
 ## Ownership
 
 | Contract | Owner |
@@ -37,8 +44,10 @@ planner互換v1 Requestへ投影し、check自体は実行しません。各owne
 集めた後、`aggregate-set`だけが全体の`all_clear`を決定します。単一phaseの成功、
 `wrong_phase` deferred、自然言語要約を全体成功へ昇格しません。
 
-ASSISTANTは常駐server未実装、Workspaceはsnapshot repositoryなので、通常runtime Planの
-included checkが0件でも正常です。存在しないhealth routeを作りません。CMDはterminal facadeの
+ASSISTANTは必要なcomponentですがcanonical runtime未実装のため、現時点では上記の明示scopeにより
+全phaseの実行集合から一時除外します。存在しないhealth routeや成功receiptを作りません。実装後は
+除外宣言を削除し、保持しているcoverage requirementsとowner manifestの全checkを復帰させます。
+Workspaceはsnapshot repositoryなので、通常runtime Planのincluded checkが0件でも正常です。CMDはterminal facadeの
 実route、ToolsはTools所有の実在serviceだけをruntime対象にします。manifestを配置してもcheck
 実行主体はownerから移らず、横断plannerはcheck自体を実行しません。全moduleの任意checkを実行する
 万能runnerは設けず、ownerの既存CLI、test、deployment readinessが固定済みPlanを消費します。

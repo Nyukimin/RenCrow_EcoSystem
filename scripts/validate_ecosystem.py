@@ -80,7 +80,7 @@ LOCAL_TEST_REQUIRED_FILES = (
     "scripts/test-local.ps1",
     "scripts/test-local.plan.json",
 )
-COVERAGE_POLICY_SCHEMA_VERSION = 1
+COVERAGE_POLICY_SCHEMA_VERSION = 2
 GUARANTEE_CLASSES = (
     "source_identity",
     "artifact_identity",
@@ -106,6 +106,7 @@ COVERAGE_POLICY_FIELDS = {
     "guarantee_classes",
     "required_phases",
     "component_requirements",
+    "temporarily_excluded_components",
     "cross_system_requirements",
 }
 REQUIRED_FULL_SYSTEM_PHASES = (
@@ -310,6 +311,41 @@ def validate_coverage_policy(
         raise ManifestError(
             "coverage policy component requirements must vary by component type"
         )
+
+    exclusions = policy["temporarily_excluded_components"]
+    if not isinstance(exclusions, dict):
+        raise ManifestError(
+            "coverage policy.temporarily_excluded_components must be an object"
+        )
+    extra_exclusions = set(exclusions) - manifest_component_ids
+    if extra_exclusions:
+        raise ManifestError(
+            "coverage policy.temporarily_excluded_components has extra component: "
+            + ", ".join(sorted(extra_exclusions))
+        )
+    for component_id, exclusion in sorted(exclusions.items()):
+        location = (
+            "coverage policy.temporarily_excluded_components." + component_id
+        )
+        if not isinstance(exclusion, dict) or set(exclusion) != {
+            "reason",
+            "reinclude_when",
+        }:
+            raise ManifestError(
+                f"{location} must contain exactly reason and reinclude_when"
+            )
+        if exclusion["reason"] != "required_component_unimplemented":
+            raise ManifestError(
+                f"{location}.reason must be required_component_unimplemented"
+            )
+        if exclusion["reinclude_when"] != "canonical_runtime_implemented":
+            raise ManifestError(
+                f"{location}.reinclude_when must be canonical_runtime_implemented"
+            )
+        if manifest_components[component_id].get("required") is not True:
+            raise ManifestError(
+                f"{location} is valid only for a required component"
+            )
 
     cross_system_requirements = policy["cross_system_requirements"]
     if not isinstance(cross_system_requirements, dict) or not cross_system_requirements:

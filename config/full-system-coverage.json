@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "guarantee_classes": [
     "source_identity",
     "artifact_identity",
@@ -167,6 +167,12 @@
       "lifecycle",
       "publication"
     ]
+  },
+  "temporarily_excluded_components": {
+    "assistant": {
+      "reason": "required_component_unimplemented",
+      "reinclude_when": "canonical_runtime_implemented"
+    }
   },
   "cross_system_requirements": {
     "browser_ui": [

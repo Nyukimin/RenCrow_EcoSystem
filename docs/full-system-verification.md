@@ -21,6 +21,12 @@ EcoSystemとToolsはmodule固有endpoint、payload、DB schema、判定logicを�
 
 ## Owner manifest v2
 
+必須だがcanonical runtime未実装のcomponentは、Coverage Policyの構造化された
+`temporarily_excluded_components`に限り、現行のrequest、Plan、binding、receipt母数から一時的に
+除外できます。component宣言と将来のcoverage requirementsは維持し、trackerへ理由と再参加条件を
+必ず投影します。ASSISTANTは`required_component_unimplemented`として扱い、
+`canonical_runtime_implemented`になった同じImplementation Unitで除外を削除します。
+
 各checkはplanner v1 fieldsに次を加える。
 
 ```json

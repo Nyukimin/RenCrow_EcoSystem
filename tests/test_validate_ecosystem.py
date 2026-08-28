@@ -55,6 +55,36 @@ class EcosystemManifestTest(unittest.TestCase):
         with self.assertRaisesRegex(VALIDATOR.ManifestError, "required_phases"):
             VALIDATOR.validate_coverage_policy(candidate, self.manifest)
 
+    def test_assistant_is_required_but_temporarily_excluded_as_unimplemented(
+        self,
+    ) -> None:
+        self.assertTrue(self.manifest["components"]["assistant"]["required"])
+        self.assertEqual(
+            self.coverage_policy["temporarily_excluded_components"],
+            {
+                "assistant": {
+                    "reason": "required_component_unimplemented",
+                    "reinclude_when": "canonical_runtime_implemented",
+                }
+            },
+        )
+
+    def test_coverage_policy_rejects_unknown_or_malformed_temporary_exclusion(
+        self,
+    ) -> None:
+        candidate = copy.deepcopy(self.coverage_policy)
+        candidate["temporarily_excluded_components"]["not_in_manifest"] = {
+            "reason": "required_component_unimplemented",
+            "reinclude_when": "canonical_runtime_implemented",
+        }
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "extra component"):
+            VALIDATOR.validate_coverage_policy(candidate, self.manifest)
+
+        candidate = copy.deepcopy(self.coverage_policy)
+        candidate["temporarily_excluded_components"]["assistant"]["reason"] = ""
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "reason"):
+            VALIDATOR.validate_coverage_policy(candidate, self.manifest)
+
     def test_full_system_coverage_policy_varies_requirements_by_component_type(
         self,
     ) -> None:
