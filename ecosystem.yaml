@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "f21ff61aeb7f33effec7240e7f83240fc9895930",
+      "version": "5d856613f3d10952e7a23d0cff9c4145de63da9d",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -19,13 +19,19 @@
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow",
             "installed_path": "%h/.local/bin/rencrow",
-            "version": "f21ff61aeb7f33effec7240e7f83240fc9895930"
+            "version": "5d856613f3d10952e7a23d0cff9c4145de63da9d"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow-core-verify",
             "installed_path": "%h/.local/bin/rencrow-core-verify",
-            "version": "f21ff61aeb7f33effec7240e7f83240fc9895930"
+            "version": "5d856613f3d10952e7a23d0cff9c4145de63da9d"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_CORE",
+            "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow-core-migration-package",
+            "installed_path": "%h/.local/bin/rencrow-core-migration-package",
+            "version": "5d856613f3d10952e7a23d0cff9c4145de63da9d"
           }
         ],
         "files": [
@@ -38,7 +44,7 @@
           {
             "source_path": "scripts/rencrow-storage-backup",
             "installed_path": "%h/.local/bin/rencrow-storage-backup",
-            "sha256": "2ae9b6841b5cd9574fdd17bd496ae8487e572522b9ef783773205d6dec3292c7",
+            "sha256": "8d10955891f2da50afd6570a3e3f5d7b52f21a1de4b0430f665f93bcb72234a3",
             "mode": "0755"
           },
           {
