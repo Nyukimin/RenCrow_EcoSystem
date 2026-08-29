@@ -159,6 +159,31 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_repository_manifest_is_valid(self) -> None:
         VALIDATOR.validate_manifest(self.manifest)
 
+    def test_backup_contract_declares_owner_correct_distributed_recovery(self) -> None:
+        backup_spec = (REPOSITORY_ROOT / "docs" / "backup-and-recovery.md").read_text(
+            encoding="utf-8"
+        )
+        for required in (
+            "RenCrow_CORE",
+            "RenCrow_TTS",
+            "RenCrow_Image",
+            "RenCrow_GAMES",
+            "RenCrow_TRADE",
+            "owner_operations_api",
+            "local_exec",
+            "/srv/rencrow/backup/recovery",
+            "uncompressed-tar",
+            "state:none",
+            "credential_reference",
+        ):
+            self.assertIn(required, backup_spec)
+        self.assertNotIn("SSHをproduction owner route", backup_spec)
+
+    def test_workspace_description_does_not_claim_encrypted_migration_artifacts(self) -> None:
+        readme = (REPOSITORY_ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertNotIn("暗号化Migration Artifact", readme)
+        self.assertIn("owner-onlyの非圧縮Migration Artifact", readme)
+
     def test_production_user_systemd_readiness_contracts_are_declared(self) -> None:
         expected = {
             "core": {

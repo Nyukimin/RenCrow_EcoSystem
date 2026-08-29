@@ -18,6 +18,7 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 11. [Compatibility](compatibility.md) — version 固定と統合 release 手順
 12. [Check Plan pruning](check-plan-pruning.md) — 検査前の不要check除外とEvidence契約
 13. [Full-system verification](full-system-verification.md) — 全owner check、5 phase Plan、owner Evidence自己収集、receipt集約契約
+14. [Backup and recovery](backup-and-recovery.md) — 通常backup、Migration Artifact、分散owner transport、復旧受入条件
 
 ## Documentation boundary
 

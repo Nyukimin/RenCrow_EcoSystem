@@ -123,11 +123,13 @@ staging、backup、fallbackに使用しません。各moduleは同名subtreeだ�
 | `games/` | RenCrow_GAMES | Replay、world／session export |
 | `tools/` | RenCrow_Tools | 未import artifact、staging、再取得可能cache |
 
-RenCrow_TTS、STT、Vision、LLM Gatewayは共通DBを所有せず、保持が必要な成果物は依頼元domainまたは
-専用所有moduleへ渡します。RenCrow_Workspaceはportable snapshotと暗号化Migration Artifactを扱いますが、
+RenCrow_STT、Vision、LLM Gatewayは共通DBを所有せず、保持が必要な成果物は依頼元domainまたは
+専用所有moduleへ渡します。RenCrow_TTSも共通DBは持ちませんが、ownerが採用した発音辞書は
+TTS固有のdurable stateとしてowner exportの対象です。RenCrow_Workspaceはportable snapshotと
+owner-onlyの非圧縮Migration Artifactを扱いますが、
 live storeや通常backupの代替ではありません。format、mount、fail-closed、backup整合性は
 [RenCrow_COREの正本](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/05_設定リファレンス.md#db物理配置とbackup)
-に従い、このREADMEでは再定義しません。
+および[Backup and recovery](docs/backup-and-recovery.md)に従い、このREADMEでは再定義しません。
 
 ## Persistent DB capability boundary
 
