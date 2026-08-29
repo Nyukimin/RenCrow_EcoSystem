@@ -313,7 +313,7 @@
             "module": "github.com/Nyukimin/RenCrow_TTS/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_TTS/gateway/cmd/rencrow-tts",
             "installed_path": "%h/.local/bin/rencrow-tts",
-            "version": "406a984af5f78280d01b8d27576c8f0d78da8447"
+            "version": "505f2621e7d60ba62a8b77157b3d93593c440c18"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_TTS/gateway",
