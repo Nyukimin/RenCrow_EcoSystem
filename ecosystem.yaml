@@ -429,7 +429,7 @@
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "./RenCrow_GAMES",
-      "version": "8387c8ededed1ebb7a13760705fbfb62cba3ec46",
+      "version": "5b6a22b0c52c132f1d02f190341b3a9b00848a59",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI",
@@ -439,13 +439,19 @@
             "module": "github.com/Nyukimin/RenCrow_GAMES",
             "main_package": "github.com/Nyukimin/RenCrow_GAMES/cmd/observer",
             "installed_path": "%h/.local/lib/rencrow-games/bin/observer",
-            "version": "8387c8ededed1ebb7a13760705fbfb62cba3ec46"
+            "version": "5b6a22b0c52c132f1d02f190341b3a9b00848a59"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_GAMES",
             "main_package": "github.com/Nyukimin/RenCrow_GAMES/cmd/rencrow-games-verify",
             "installed_path": "%h/.local/bin/rencrow-games-verify",
-            "version": "8387c8ededed1ebb7a13760705fbfb62cba3ec46"
+            "version": "5b6a22b0c52c132f1d02f190341b3a9b00848a59"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_GAMES",
+            "main_package": "github.com/Nyukimin/RenCrow_GAMES/cmd/rencrow-games-state",
+            "installed_path": "%h/.local/lib/rencrow-games/bin/rencrow-games-state",
+            "version": "5b6a22b0c52c132f1d02f190341b3a9b00848a59"
           }
         ],
         "files": [
