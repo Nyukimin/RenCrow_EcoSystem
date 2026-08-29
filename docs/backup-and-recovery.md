@@ -20,7 +20,7 @@ secret実値を含み得るが暗号化を必須にせず、外部HDDのowner-on
 | --- | --- | --- |
 | RenCrow_CORE | durable | Memory、Conversation、Knowledge、CORE所有DB・registry |
 | RenCrow_TTS | durable | ownerが採用した発音辞書。共通DBを持たないことと、owner固有fileがdurableであることを区別する |
-| RenCrow_Image | durable | 採用済み生成PNGとowner manifest |
+| RenCrow_Image | durable | Image ownerがretention manifestへ固定した生成PNG。COREの採用metadataはCORE state |
 | RenCrow_GAMES | durable | Replay、world/session export、Leaderboard。0件でも有効な空exportを発行する |
 | RenCrow_TRADE | durable | Source、Dataset、Learning、Portfolio、Ledger。実装未達でも分類から除外しない |
 | RenCrow_LLM | state:none | Gateway/RuntimeはConfigとartifact identityから再構成し、model weight/cacheを含めない |
@@ -94,4 +94,3 @@ canonical source -> owner -> authentication/policy -> consistent state export
 
 source test、health、listener、artifact existence、generic tar inspect、通常backup成功だけでは完了しない。ownerごとのTDD、
 正規E2E、Push、pinned build/deploy、必要なservice restart、配備後同一checkを閉じた後に全system checkを再composeする。
-

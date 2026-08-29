@@ -605,7 +605,7 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "./RenCrow_Image",
-      "version": "5f0ba5e917eba38c844c9184c8f7eb6d6e6a3a62",
+      "version": "14d509c823e358a69dac08a7aeece4b6df7a610e",
       "required": false,
       "distribution": "binary",
       "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
@@ -615,13 +615,13 @@
             "module": "github.com/Nyukimin/RenCrow_Image",
             "main_package": "github.com/Nyukimin/RenCrow_Image/cmd/rencrow-image",
             "installed_path": "%h/.local/bin/rencrow-image",
-            "version": "5f0ba5e917eba38c844c9184c8f7eb6d6e6a3a62"
+            "version": "14d509c823e358a69dac08a7aeece4b6df7a610e"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_Image",
             "main_package": "github.com/Nyukimin/RenCrow_Image/cmd/rencrow-image-verify",
             "installed_path": "%h/.local/bin/rencrow-image-verify",
-            "version": "5f0ba5e917eba38c844c9184c8f7eb6d6e6a3a62"
+            "version": "14d509c823e358a69dac08a7aeece4b6df7a610e"
           }
         ],
         "files": [
