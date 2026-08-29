@@ -671,7 +671,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",
-      "version": "bfe91a05d4058812eabaf36f384faafda2f0f2f3",
+      "version": "eab8803c8618e0f820346550eb8440708d15d225",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service",
@@ -681,13 +681,13 @@
             "module": "github.com/Nyukimin/RenCrow_Workspace",
             "main_package": "github.com/Nyukimin/RenCrow_Workspace/cmd/rencrow-workspace",
             "installed_path": "%h/.local/bin/rencrow-workspace",
-            "version": "bfe91a05d4058812eabaf36f384faafda2f0f2f3"
+            "version": "eab8803c8618e0f820346550eb8440708d15d225"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_Workspace",
             "main_package": "github.com/Nyukimin/RenCrow_Workspace/cmd/rencrow-workspace-verify",
             "installed_path": "%h/.local/bin/rencrow-workspace-verify",
-            "version": "bfe91a05d4058812eabaf36f384faafda2f0f2f3"
+            "version": "eab8803c8618e0f820346550eb8440708d15d225"
           }
         ],
         "files": [
