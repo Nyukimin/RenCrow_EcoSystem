@@ -60,6 +60,14 @@ read-only runtime attestationはartifact/service/config/listener identity確認�
 restore可能性の代用にはならない。operations routeはowner認証、purpose/scope、request ID、同時実行上限、size/time上限、
 one-shot package lifecycleを強制する。
 
+TTSの単一発音辞書profileは`POST /v1/migration/state/export`から
+`application/vnd.rencrow.tts-pronunciation-dictionary+json`を直接streamする。receipt metadataは
+`X-RenCrow-Contract-Version`、`X-RenCrow-Owner`、`X-RenCrow-Request-Id`、
+`X-RenCrow-Logical-Id`、`X-RenCrow-Schema-Revision`、`X-RenCrow-Consistency-Mode`、
+`X-RenCrow-SHA256`、`X-RenCrow-Size-Bytes`、`X-RenCrow-Record-Count`に固定する。
+`POST /v1/migration/state/validate`と`POST /v1/migration/state/import?mode=dry-run`は同じBearer認証、
+request ID、bounded dictionary schemaを使い、applyしない。TTS固有の辞書判定はTTS ownerにだけ置く。
+
 ## Secrets and Config
 
 portable ConfigはWorkspaceへ、host-bound Configはtarget overlayへ、secret値はGit外のowner-only Migration Artifactまたは
