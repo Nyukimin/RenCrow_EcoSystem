@@ -675,7 +675,7 @@
             "module": "github.com/Nyukimin/RenCrow_Workspace",
             "main_package": "github.com/Nyukimin/RenCrow_Workspace/cmd/rencrow-workspace-verify",
             "installed_path": "%h/.local/bin/rencrow-workspace-verify",
-            "version": "194c87667768c402b2cb2b0770223d9de1c099ff"
+            "version": "c0f5c5475ffeba2abd10d00ddff4e327d4a3f460"
           }
         ],
         "files": [
