@@ -259,7 +259,7 @@
             "module": "github.com/Nyukimin/RenCrow_STT/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_STT/gateway/cmd/rencrow-stt-verify",
             "installed_path": "%h/.local/bin/rencrow-stt-verify",
-            "version": "8bc00d0a09a1c5644082eef853c061d02b50548f"
+            "version": "350d268403aabbf7301298480fd0dd56345443c1"
           }
         ],
         "files": [
