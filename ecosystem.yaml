@@ -19,19 +19,19 @@
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow",
             "installed_path": "%h/.local/bin/rencrow",
-            "version": "5d856613f3d10952e7a23d0cff9c4145de63da9d"
+            "version": "228d13bb9620f7a31bec412938017407560d348c"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow-core-verify",
             "installed_path": "%h/.local/bin/rencrow-core-verify",
-            "version": "5d856613f3d10952e7a23d0cff9c4145de63da9d"
+            "version": "228d13bb9620f7a31bec412938017407560d348c"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow-core-migration-package",
             "installed_path": "%h/.local/bin/rencrow-core-migration-package",
-            "version": "5d856613f3d10952e7a23d0cff9c4145de63da9d"
+            "version": "228d13bb9620f7a31bec412938017407560d348c"
           }
         ],
         "files": [
@@ -439,19 +439,19 @@
             "module": "github.com/Nyukimin/RenCrow_GAMES",
             "main_package": "github.com/Nyukimin/RenCrow_GAMES/cmd/observer",
             "installed_path": "%h/.local/lib/rencrow-games/bin/observer",
-            "version": "5b6a22b0c52c132f1d02f190341b3a9b00848a59"
+            "version": "2a729085d9ddd1246bac1c35e375b18312e9892c"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_GAMES",
             "main_package": "github.com/Nyukimin/RenCrow_GAMES/cmd/rencrow-games-verify",
             "installed_path": "%h/.local/bin/rencrow-games-verify",
-            "version": "5b6a22b0c52c132f1d02f190341b3a9b00848a59"
+            "version": "2a729085d9ddd1246bac1c35e375b18312e9892c"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_GAMES",
             "main_package": "github.com/Nyukimin/RenCrow_GAMES/cmd/rencrow-games-state",
             "installed_path": "%h/.local/lib/rencrow-games/bin/rencrow-games-state",
-            "version": "5b6a22b0c52c132f1d02f190341b3a9b00848a59"
+            "version": "2a729085d9ddd1246bac1c35e375b18312e9892c"
           }
         ],
         "files": [
@@ -545,25 +545,31 @@
             "module": "github.com/Nyukimin/RenCrow_Tools/tools/music/lyrics_catalog",
             "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/music/lyrics_catalog",
             "installed_path": "%h/.local/bin/rencrow-lyrics-catalog",
-            "version": "404e13bb99a92442ec108421990be8575c66ab60"
+            "version": "f42bda6dc88356b552dc691219f5304e1f75f0b9"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_Tools/tools/eiga_catalog_gateway",
             "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/eiga_catalog_gateway/cmd/eiga-catalog-gateway",
             "installed_path": "%h/.local/bin/rencrow-eiga-catalog-gateway",
-            "version": "404e13bb99a92442ec108421990be8575c66ab60"
+            "version": "f42bda6dc88356b552dc691219f5304e1f75f0b9"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_Tools/tools/person_related_catalog_provider",
             "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/person_related_catalog_provider/cmd/person-related-catalog-provider",
             "installed_path": "%h/.local/bin/rencrow-person-related-catalog-provider",
-            "version": "404e13bb99a92442ec108421990be8575c66ab60"
+            "version": "f42bda6dc88356b552dc691219f5304e1f75f0b9"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_Tools/tools/quality/full_system_verification",
             "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/quality/full_system_verification/cmd/rencrow-tools-verify",
             "installed_path": "%h/.local/bin/rencrow-tools-verify",
-            "version": "1c711fd4b9ae77c150e878e5c9a0ed7342c787a6"
+            "version": "f42bda6dc88356b552dc691219f5304e1f75f0b9"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_Tools/tools/storage/durable_snapshot",
+            "main_package": "github.com/Nyukimin/RenCrow_Tools/tools/storage/durable_snapshot",
+            "installed_path": "%h/.local/bin/rencrow-durable-snapshot",
+            "version": "f42bda6dc88356b552dc691219f5304e1f75f0b9"
           }
         ],
         "files": [
@@ -621,13 +627,13 @@
             "module": "github.com/Nyukimin/RenCrow_Image",
             "main_package": "github.com/Nyukimin/RenCrow_Image/cmd/rencrow-image",
             "installed_path": "%h/.local/bin/rencrow-image",
-            "version": "14d509c823e358a69dac08a7aeece4b6df7a610e"
+            "version": "22abebcdf09b59dce6cf67760856cf123b7b3fb1"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_Image",
             "main_package": "github.com/Nyukimin/RenCrow_Image/cmd/rencrow-image-verify",
             "installed_path": "%h/.local/bin/rencrow-image-verify",
-            "version": "14d509c823e358a69dac08a7aeece4b6df7a610e"
+            "version": "22abebcdf09b59dce6cf67760856cf123b7b3fb1"
           }
         ],
         "files": [
