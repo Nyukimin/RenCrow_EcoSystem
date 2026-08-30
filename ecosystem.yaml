@@ -87,7 +87,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "./RenCrow_PORTAL",
-      "version": "dae5d2dbf0316137bcfea08aa58ac0353cf4ddcd",
+      "version": "cea940ac429b75010784532c35f0375089761389",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API",
@@ -97,13 +97,13 @@
             "module": "github.com/Nyukimin/RenCrow_PORTAL",
             "main_package": "github.com/Nyukimin/RenCrow_PORTAL/cmd/rencrow-portal",
             "installed_path": "%h/.local/bin/rencrow-portal",
-            "version": "dae5d2dbf0316137bcfea08aa58ac0353cf4ddcd"
+            "version": "cea940ac429b75010784532c35f0375089761389"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_PORTAL",
             "main_package": "github.com/Nyukimin/RenCrow_PORTAL/cmd/rencrow-portal-verify",
             "installed_path": "%h/.local/bin/rencrow-portal-verify",
-            "version": "dae5d2dbf0316137bcfea08aa58ac0353cf4ddcd"
+            "version": "cea940ac429b75010784532c35f0375089761389"
           }
         ],
         "files": [
