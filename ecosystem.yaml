@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "5d856613f3d10952e7a23d0cff9c4145de63da9d",
+      "version": "228d13bb9620f7a31bec412938017407560d348c",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -429,7 +429,7 @@
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "./RenCrow_GAMES",
-      "version": "5b6a22b0c52c132f1d02f190341b3a9b00848a59",
+      "version": "2a729085d9ddd1246bac1c35e375b18312e9892c",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI",
@@ -535,7 +535,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "./RenCrow_Tools",
-      "version": "1c711fd4b9ae77c150e878e5c9a0ed7342c787a6",
+      "version": "f42bda6dc88356b552dc691219f5304e1f75f0b9",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools",
@@ -611,7 +611,7 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "./RenCrow_Image",
-      "version": "14d509c823e358a69dac08a7aeece4b6df7a610e",
+      "version": "22abebcdf09b59dce6cf67760856cf123b7b3fb1",
       "required": false,
       "distribution": "binary",
       "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
