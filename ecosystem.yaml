@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "228d13bb9620f7a31bec412938017407560d348c",
+      "version": "f901511322ae2dcd4d58c9d9afccce05f78d6a03",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -19,7 +19,7 @@
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow",
             "installed_path": "%h/.local/bin/rencrow",
-            "version": "228d13bb9620f7a31bec412938017407560d348c"
+            "version": "7a9d22963a5562ed91b47afc1053b3d49536c126"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CORE",
@@ -189,7 +189,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "a93ea31e986ff5ab503e022f5e9fe39fec419ff6",
+      "version": "a43be7d49881f7d4fd027e309b4442d6c7351678",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -199,7 +199,7 @@
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_LLM/gateway/cmd/rencrow-llm",
             "installed_path": "%h/.local/bin/rencrow-llm",
-            "version": "a93ea31e986ff5ab503e022f5e9fe39fec419ff6"
+            "version": "a43be7d49881f7d4fd027e309b4442d6c7351678"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
@@ -309,7 +309,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "./RenCrow_TTS",
-      "version": "4316d54d3abd820448e536d1e394fbee136a9550",
+      "version": "2c18204d74e27d472a21d3f67c33625fff26d32a",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
@@ -325,7 +325,7 @@
             "module": "github.com/Nyukimin/RenCrow_TTS/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_TTS/gateway/cmd/rencrow-tts-verify",
             "installed_path": "%h/.local/bin/rencrow-tts-verify",
-            "version": "4316d54d3abd820448e536d1e394fbee136a9550"
+            "version": "2c18204d74e27d472a21d3f67c33625fff26d32a"
           }
         ],
         "files": [
