@@ -515,7 +515,16 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_model_repositories_are_llm_external_runtime_profiles(self) -> None:
         profiles = self.manifest["runtime_profiles"]
 
-        self.assertEqual(set(profiles), {"gpt120b", "qwen36-27b", "gemma4"})
+        self.assertEqual(
+            set(profiles),
+            {
+                "gpt120b",
+                "qwen36-27b",
+                "qwen38-27b-rx6800",
+                "glm47-flash-rx6800",
+                "gemma4",
+            },
+        )
         for profile in profiles.values():
             self.assertEqual(profile["owner_component"], "llm")
             self.assertEqual(profile["kind"], "external-compute")

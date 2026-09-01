@@ -75,7 +75,8 @@ AgentからExecution Roleへの割当はCOREが所有します。推論経路は
 GatewayがRoleからRuntime、RuntimeがBackend／Modelへのmappingを所有します。
 Execution RoleはCOREとRenCrow_LLM間の論理契約であり、物理Model名ではありません。
 
-`RenCrow_GPT120B`、`RenCrow_Qwen36_27B`、`RenCrow_Gemma4`は、独立Git管理される
+`RenCrow_GPT120B`、`RenCrow_Qwen36_27B`、`RenCrow_Qwen38_27B_RX6800`、
+`RenCrow_GLM47_Flash_RX6800`、`RenCrow_Gemma4`は、独立Git管理される
 host固有のLLM external runtime profileです。`ecosystem.yaml`の`runtime_profiles`で
 ownerを`llm`として宣言しますが、独立module、Agent、routing ownerにはしません。
 

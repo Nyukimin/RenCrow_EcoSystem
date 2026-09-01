@@ -189,7 +189,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "a43be7d49881f7d4fd027e309b4442d6c7351678",
+      "version": "079c79c705a4d1405b045e0ce4609ee466ff3261",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -199,13 +199,19 @@
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_LLM/gateway/cmd/rencrow-llm",
             "installed_path": "%h/.local/bin/rencrow-llm",
-            "version": "a43be7d49881f7d4fd027e309b4442d6c7351678"
+            "version": "079c79c705a4d1405b045e0ce4609ee466ff3261"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_LLM/gateway/cmd/rencrow-llm-verify",
             "installed_path": "%h/.local/bin/rencrow-llm-verify",
-            "version": "a93ea31e986ff5ab503e022f5e9fe39fec419ff6"
+            "version": "079c79c705a4d1405b045e0ce4609ee466ff3261"
+          },
+          {
+            "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
+            "main_package": "github.com/Nyukimin/RenCrow_LLM/gateway/cmd/rencrow-llm-node",
+            "installed_path": "%h/.local/bin/rencrow-llm-node",
+            "version": "079c79c705a4d1405b045e0ce4609ee466ff3261"
           }
         ],
         "files": [
@@ -727,6 +733,26 @@
       "kind": "external-compute",
       "status": "development",
       "role": "Host-specific Qwen 3.6 27B Backend launch and health profile used behind RenCrow LLM Runtime"
+    },
+    "qwen38-27b-rx6800": {
+      "owner_component": "llm",
+      "repository": "Nyukimin/RenCrow_Qwen38_27B_RX6800",
+      "workspace_path": "./RenCrow_Qwen38_27B_RX6800",
+      "version": "e049e33e8f5f1fcd94356e9aed9b2f0cfa900ed0",
+      "required": false,
+      "kind": "external-compute",
+      "status": "development",
+      "role": "Host-specific Qwen 3.8 27B Backend launch and health profile for RX 6800 GPUs used behind RenCrow LLM Runtime"
+    },
+    "glm47-flash-rx6800": {
+      "owner_component": "llm",
+      "repository": "Nyukimin/RenCrow_GLM47_Flash_RX6800",
+      "workspace_path": "./RenCrow_GLM47_Flash_RX6800",
+      "version": "c22a7a8ae6d459cdc2593e075b25eff0f04558d3",
+      "required": false,
+      "kind": "external-compute",
+      "status": "development",
+      "role": "Host-specific GLM-4.7-Flash Backend launch and health profile for RX 6800 GPUs used behind RenCrow LLM Runtime"
     },
     "gemma4": {
       "owner_component": "llm",
