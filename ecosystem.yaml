@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "093ef1cf374635d204c2a5573788932fab82c1d5",
+      "version": "6eda3cdcbbe261ce8e35728f6b9f4b3018d90b42",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -25,7 +25,7 @@
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow-core-verify",
             "installed_path": "%h/.local/bin/rencrow-core-verify",
-            "version": "093ef1cf374635d204c2a5573788932fab82c1d5"
+            "version": "6eda3cdcbbe261ce8e35728f6b9f4b3018d90b42"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CORE",
