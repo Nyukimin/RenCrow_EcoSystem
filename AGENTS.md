@@ -54,18 +54,10 @@ Model-specific repositories such as `RenCrow_GPT120B`, `RenCrow_Qwen36_27B`, and
 
 ## Model Roles
 
-Codexで実行modelが`gpt-6-astra`と明示されている場合は、次の「Codex ASTRA Profile」を適用する。それ以外のCodex、Cursor、Claudeには従来どおり以下の役割を適用する。model不明時にASTRAと推定しない。
-
-- GPT-5.6 sol (max reasoning effort) is the orchestrator. It plans, delegates, monitors progress, reviews results, and coordinates the work.
-- GPT Luna (max reasoning effort) is the executor. It performs implementation, modification, testing, and other hands-on tasks.
-
-### Codex ASTRA Profile
-
-- ASTRAは主担当として、目的整理、正本・所有境界の確認、設計、実装、試験、差分レビュー、統合、最終報告まで責任を持つ。実装・試験を直接行ってよく、Solへの引き渡しやLunaへの委譲を必須にしない。
-- 委譲は、独立して検証できる責務の閉じた作業単位があり、主担当の作業と並行して有用な場合に行う。委譲時は「Sol-Orchestrated Bounded Luna Execution」の全制約を、Sol＝主担当ASTRA、Luna＝委譲先executorとして適用する。model名だけを理由に範囲制限、証拠、直接レビュー、外部変更の独立packetを省略しない。
-- 委譲先は自分の実行modelと依頼packetの役割に従う。同じASTRA modelでもexecutorとして起動された場合は委譲範囲内に留まり、この節を根拠に主担当の権限や作業scopeを取得しない。親のmodel名や会話の継承だけで他ツール・他modelへASTRA profileを適用しない。
-- このprofileの変更範囲はコーディング作業の担当modelと委譲方法だけである。本ファイルの共通ルール、module-localの追加制約、参照先Skillの判断軸は引き続き適用する。module-localに同じSol/Luna役割が記載されている場合も、このprofileの適用条件と役割対応を優先する。
-- 正本・owner・認証・policy・runtime route・実Actor・試験・完了証拠・ユーザー許可の意味は変更しない。ASTRAの能力を理由に必要な検証を省略せず、RenCrow製品内のAgent identity、LLM routing、Qwen等の運用model配置へこのprofileを移植しない。
+- `gpt-6-astra` is the fixed primary orchestrator. It owns goal clarification, canonical source and owner-boundary identification, design, decomposition, supervision, direct diff review, integration, and final validation.
+- `gpt-5.6-luna` (max reasoning effort) is the fixed executor. It performs implementation, fixes, tests, verification, and other hands-on work delegated by ASTRA. ASTRA delegates multiple LUNA executors in bounded stages; independent units may run in parallel.
+- If the executing model is unknown, neither role may be inferred, impersonated, or silently substituted. The unresolved model identity must be reported before assigning or claiming either role.
+- This contract applies only to Codex orchestration. It must not be copied into RenCrow product runtime roles, Agent identities, LLM routing, or operational model placement. Existing source-of-truth, owner, authentication, policy, runtime-route, actual-Actor, test, completion-evidence, and user-authorization boundaries remain unchanged.
 
 ## Read Order
 
@@ -256,49 +248,54 @@ tests that pass on only one of them.
 - 受入条件と試験も区分ごとに分ける。`CLI`／`Boundary`は再現可能なcommand、機械可読出力、exit status、receiptで検証し、`LLM`は入力境界、出力schema、品質基準、失敗・拒否経路を検証する。LLMの自然言語報告を決定的工程の証跡にしない。
 - 最終報告では、当初の分類と実装後の実経路を照合し、決定的にCLI化できた工程、残ったLLM必須工程、未解決境界を明示する。
 
-## Sol-Orchestrated Bounded Luna Execution
+## ASTRA-Orchestrated Bounded LUNA Execution
 
-Codex ASTRA Profileの適用時だけ、以下のSol／Lunaを同profileの役割対応で読む。その他のセッションでは従来のSol／Lunaに適用する。
-
-- Sol owns the whole-system plan, canonical module and contract identification,
-  design decisions, dependency ordering, delegation, monitoring, direct diff
-  review, integration, and final validation. Delegation does not transfer
-  Sol's final responsibility.
-- Delegate a `bounded execution unit`, not merely a small number of lines. The
-  unit must have closed responsibility, inputs, outputs, allowed file scope,
-  and machine-checkable success criteria. Do not delegate an ambiguous problem,
-  an unresolved source-of-truth question, or a cross-module design decision.
-- Luna may receive only these task types:
+- `gpt-6-astra` owns the whole-system plan, canonical module and contract
+  identification, design decisions, dependency ordering, delegation,
+  supervision, direct diff review, integration, and final validation.
+  Delegation does not transfer ASTRA's final responsibility.
+- Delegate a bounded execution unit with one purpose and the smallest complete
+  responsibility, rather than an arbitrary number of lines. It must have clear
+  inputs, outputs, allowed file scope, and machine-checkable success criteria.
+  Keep each packet short while retaining every required field below; pass only
+  the evidence and references needed for that unit, and do not blindly inherit
+  the full conversation history. If a packet is too large, split it into
+  smaller complete units before dispatching it. Do not delegate an ambiguous
+  problem, an unresolved source-of-truth question, or a cross-module design
+  decision.
+- `gpt-5.6-luna` may receive only these bounded task types:
   - `read-only evidence collection`: specify the exact question, target paths
-    or commands, and an output limit; Luna returns concise facts and unknowns.
-  - `implementation/verification`: Sol must first settle the design, scope,
-    contract, and acceptance criteria before issuing the task.
+    or commands, and an output limit; LUNA returns concise facts and unknowns.
+  - `implementation/fix/test/verification`: ASTRA must first settle the
+    design, scope, contract, and acceptance criteria before issuing the task.
+- Independent units may be assigned to multiple LUNA executors in parallel and
+  must be independently verifiable. Shared files, state, contracts, generated
+  artifacts, or runtime state require dependency-ordered serial execution.
+  Even when all units share those resources, implementation and verification
+  remain separate serial LUNA assignments after ASTRA's direct diff review.
 - Every delegation packet must state: purpose and acceptance criteria; owning
   module and exact files; observed evidence and current behavior; exact allowed
   changes; forbidden changes; contracts and invariants; validation commands;
   and the expected return of changed files, diff summary, commands and results,
-  and unresolved blockers.
-- Luna reads only the specified `AGENTS.md` chain, target files, and their
+  and unresolved blockers. Shortening a packet never permits omitting these
+  fields.
+- After an implementation or fix LUNA returns its diff, ASTRA must directly
+  review the actual diff, scope, canonical boundary, tests and results, and
+  integration impact before assigning the result to a verification or inspection
+  LUNA. ASTRA directly rechecks important facts and owns final validation.
+- LUNA reads only the specified `AGENTS.md` chain, target files, and their
   direct dependencies. Workspace-wide exploration and scope expansion are
   forbidden. If information is insufficient or contradictory, a design choice
   is required, another module or file is needed, or validation is impossible,
-  Luna must not guess, use an alternate route, or expand scope; it stops and
-  returns evidence to Sol.
-- Luna's output is advisory. Completion requires Sol to review the actual diff,
-  scope, canonical boundary, tests and results, and integration impact. Sol
-  directly rechecks important facts when needed.
-- Parallel delegation is allowed only when files, state, and contracts do not
-  overlap and each task is independently verifiable. Shared contracts,
-  generated artifacts, runtime state, or the same file require dependency-
-  ordered serial execution.
-- Keep delegation token-efficient: Luna returns concise evidence, diffs, and
-  test results, not large source dumps or general discussion. Sol consolidates
-  only necessary evidence and does not repeatedly delegate workspace-wide
-  rediscovery. After failure, Sol redesigns the assumptions, decomposition, or
-  route; it does not repeat the same ambiguous task.
-- Even when included in the user's scope, Luna may not perform commit, push,
+  LUNA must not guess, use an alternate route, or expand scope; it stops and
+  returns evidence to ASTRA.
+- LUNA's output is advisory. ASTRA consolidates only necessary evidence and
+  does not repeatedly delegate workspace-wide rediscovery. After failure,
+  ASTRA redesigns the assumptions, decomposition, or route; it does not repeat
+  the same ambiguous task.
+- Even when included in the user's scope, LUNA may not perform commit, push,
   PR, restart, install, delete, destructive, or other external mutation without
-  an independent explicit packet issued after Sol has reviewed Luna's diff.
+  an independent explicit packet issued after ASTRA has reviewed LUNA's diff.
 
 ## Codex User Authorization / RenCrow No-Human-Gate
 
