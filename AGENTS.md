@@ -54,8 +54,18 @@ Model-specific repositories such as `RenCrow_GPT120B`, `RenCrow_Qwen36_27B`, and
 
 ## Model Roles
 
+Codexで実行modelが`gpt-6-astra`と明示されている場合は、次の「Codex ASTRA Profile」を適用する。それ以外のCodex、Cursor、Claudeには従来どおり以下の役割を適用する。model不明時にASTRAと推定しない。
+
 - GPT-5.6 sol (max reasoning effort) is the orchestrator. It plans, delegates, monitors progress, reviews results, and coordinates the work.
 - GPT Luna (max reasoning effort) is the executor. It performs implementation, modification, testing, and other hands-on tasks.
+
+### Codex ASTRA Profile
+
+- ASTRAは主担当として、目的整理、正本・所有境界の確認、設計、実装、試験、差分レビュー、統合、最終報告まで責任を持つ。実装・試験を直接行ってよく、Solへの引き渡しやLunaへの委譲を必須にしない。
+- 委譲は、独立して検証できる責務の閉じた作業単位があり、主担当の作業と並行して有用な場合に行う。委譲時は「Sol-Orchestrated Bounded Luna Execution」の全制約を、Sol＝主担当ASTRA、Luna＝委譲先executorとして適用する。model名だけを理由に範囲制限、証拠、直接レビュー、外部変更の独立packetを省略しない。
+- 委譲先は自分の実行modelと依頼packetの役割に従う。同じASTRA modelでもexecutorとして起動された場合は委譲範囲内に留まり、この節を根拠に主担当の権限や作業scopeを取得しない。親のmodel名や会話の継承だけで他ツール・他modelへASTRA profileを適用しない。
+- このprofileの変更範囲はコーディング作業の担当modelと委譲方法だけである。本ファイルの共通ルール、module-localの追加制約、参照先Skillの判断軸は引き続き適用する。module-localに同じSol/Luna役割が記載されている場合も、このprofileの適用条件と役割対応を優先する。
+- 正本・owner・認証・policy・runtime route・実Actor・試験・完了証拠・ユーザー許可の意味は変更しない。ASTRAの能力を理由に必要な検証を省略せず、RenCrow製品内のAgent identity、LLM routing、Qwen等の運用model配置へこのprofileを移植しない。
 
 ## Read Order
 
@@ -247,6 +257,8 @@ tests that pass on only one of them.
 - 最終報告では、当初の分類と実装後の実経路を照合し、決定的にCLI化できた工程、残ったLLM必須工程、未解決境界を明示する。
 
 ## Sol-Orchestrated Bounded Luna Execution
+
+Codex ASTRA Profileの適用時だけ、以下のSol／Lunaを同profileの役割対応で読む。その他のセッションでは従来のSol／Lunaに適用する。
 
 - Sol owns the whole-system plan, canonical module and contract identification,
   design decisions, dependency ordering, delegation, monitoring, direct diff
