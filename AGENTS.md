@@ -488,3 +488,18 @@ When handling file names across Windows, Linux, and macOS:
   characters or clear mojibake and the intended UTF-8 name can be determined.
 - Git octal-escaped path display is not filename corruption. Use local
   `git config core.quotepath false` for readable non-ASCII paths.
+
+## Astra Execution Economy
+
+The default Astra mode is a single-agent, short-context workflow. Do not spawn
+sub-agents unless the user explicitly requests delegation or the task has
+independent parallel work whose measured benefit exceeds the added context.
+Do not create receipts, checklists, handoff notes, or repeated status artifacts
+for routine reversible edits. Keep only the evidence needed for safety,
+authentication, policy, deployment, external effects, or a user-requested
+audit. Do not reread a whole prior session or resume an old thread for a new
+task; start a fresh session and load only the files needed for the current
+decision. Read an instruction file once per task, then apply it without
+repeating it in every tool call. Batch independent reads and checks, and report
+one concise result after the work is complete. Required safety, owner-boundary,
+policy, and end-to-end checks remain in force.
