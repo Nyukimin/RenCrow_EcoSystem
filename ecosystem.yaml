@@ -676,6 +676,14 @@
         ]
       }
     },
+    "bench": {
+      "repository": "Nyukimin/RenCrow_Bench",
+      "workspace_path": "./RenCrow_Bench",
+      "version": "dadb9bf2a7b9611ca33e992549089a2a1c956f1f",
+      "required": false,
+      "distribution": "tooling",
+      "role": "Development benchmark tasks, graders, runners, and provenance for evaluating model suitability for RenCrow roles; source-pinned with known grading limitations, not a production runtime or role-assignment owner"
+    },
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "./RenCrow_Image",

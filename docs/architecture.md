@@ -15,7 +15,7 @@ extension、tooling、設定 snapshot からなる複数 repository の product 
         |                   |                   |                   |
   required runtime   interaction layer   optional capability       extension/support
         |                   |                   |                   |
-  RenCrow_CORE       PORTAL/CMD             LLM/STT/TTS/Vision/Image  GAMES/Tools + Workspace(snapshot)
+  RenCrow_CORE       PORTAL/CMD             LLM/STT/TTS/Vision/Image  GAMES/Tools/Bench + Workspace(snapshot)
                       ASSISTANT (development)
 ```
 

@@ -147,6 +147,14 @@
       "lifecycle",
       "publication"
     ],
+    "bench": [
+      "source_identity",
+      "artifact_identity",
+      "receipt_trace",
+      "security_exposure",
+      "lifecycle",
+      "publication"
+    ],
     "image": [
       "source_identity",
       "artifact_identity",

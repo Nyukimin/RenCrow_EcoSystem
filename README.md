@@ -28,7 +28,7 @@ RenCrow_CORE ---- contracts ----> LLM / STT / TTS / Vision / Image
 RenCrow_CORE ---- private API ---> TRADE
 RenCrow_CORE -- launch ---------> RenCrow_GAMES
 RenCrow_GAMES -- result / ObserverFrame --> RenCrow_CORE
-Games / Tools / Workspace -------- ecosystem support
+Games / Tools / Bench / Workspace -------- ecosystem support
 ```
 
 - 各 module は独立した Git リポジトリです。
@@ -107,6 +107,12 @@ PuruPuru overlayはPORTAL、盤面はGAMES、Agent identityと判断はCOREが�
 
 RenCrow_TRADEは金融Source、学習、Replay、Portfolio risk、TradeGate、Ledgerを所有します。
 現時点ではCORE連携、Broker、Paper、LIVEは未実装で、LIVE取引は禁止です。
+
+[RenCrow_Bench](https://github.com/Nyukimin/RenCrow_Bench)は、モデルをRenCrowのどの役割に
+任せられるか評価するための任意の開発用toolingです。課題・採点器・実行ランナー・測定の版情報を
+所有し、実行時のAgent配置やroutingはCOREの正本に従います。現状はsource-pinnedであり、
+[採点妥当性の未修正事項](https://github.com/Nyukimin/RenCrow_Bench/blob/main/docs/role-grader-defects.md)が残ります。
+登録はモデル適性や本番互換性の検証済みを意味しません。
 
 ## Durable Data Store topology
 

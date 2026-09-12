@@ -14,6 +14,7 @@
 | `RenCrow_GAMES` | world、rules、title-local controller、決定論的executor、Replay、Observer | optional extension | COREから起動され、resultとObserverFrameをCOREへ返す |
 | `RenCrow_TRADE` | 金融Source、学習、Replay、銘柄選別、撤退契約、Portfolio risk、TradeGate、Ledger | optional Go binary | CORE private contract配下。Broker／Paper／LIVEは未実装 |
 | `RenCrow_Tools` | 開発、変換、検証、browser sidecar | tooling | CORE / Worker と開発運用を補助 |
+| [RenCrow_Bench](https://github.com/Nyukimin/RenCrow_Bench) | モデルの役割適性を測る課題・採点器・実行ランナー・測定の版情報 | optional development tooling | 開発時の評価を所有。Agent配置・routingの正本はCORE |
 | `RenCrow_Image` | 描画・画像生成interface | optional Go binary + external compute | `rencrow-image`がCOREから生成要求を受け、ForgeNeo／Z-Image等のbackendへ接続 |
 | `RenCrow_Workspace` | `~/.rencrow/workspace`のportableな非secret snapshot | snapshot | backup／復旧用。`~/.rencrow/workspace`自体が実行時の正本であり、runtime serviceではない |
 
@@ -22,6 +23,17 @@
 各 repository は自分の source、詳細仕様、build、test、CI、tag、Release を
 所有します。EcoSystem はそれらを複製せず、repository と immutable version を
 参照します。
+
+## RenCrow_Bench evaluation boundary
+
+`bench`は任意の評価用componentとして、独立repositoryの実在commitへ固定します。
+課題、採点基準、実行条件、結果の保管方針は
+[Bench README](https://github.com/Nyukimin/RenCrow_Bench/blob/main/README.md)を正本とします。
+EcoSystemへモデル出力・測定データ・採点実装を複製しません。
+採点妥当性には[未修正事項](https://github.com/Nyukimin/RenCrow_Bench/blob/main/docs/role-grader-defects.md)があり、
+ベンチの合格やcatalogへの登録だけで本番の役割配置・統合互換性を保証しません。
+coverage policyのBench要件は、source／artifactの識別、測定のreceipt／trace、
+隔離、終了・資源管理、成果物の公開を対象とし、充足済みという宣言ではありません。
 
 ## Persistent data ownership and Agent boundary
 
