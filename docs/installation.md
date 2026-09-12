@@ -79,3 +79,12 @@ RenCrow_ASSISTANTを選択した場合、installerは`rencrow-assistant`と非se
 
 artifact、checksum、rollback、Windows 対応が未確定の間は、形だけの
 `install.sh` / `install.ps1` を追加しません。
+
+## 3 OSの受入条件
+
+`ecosystem.yaml`の`runtime_policy`はCORE正本のGo／3 OS／health／CUDA用WSL境界を宣言し、
+`scripts/validate_ecosystem.py`がschema v4の現行componentと併せて検査します。
+binary／extensionはGo primaryを宣言します。Ubuntu、Windows、macOSのbuildと公開contractを
+別々に検証し、WSL内の成功をWindows nativeの合格に数えません。
+詳細と今回の採用判断は[再実装追跡表](stash-reimplementation.md)を参照します。
+runtime policyの適合だけでdeployment policy検査や実稼働E2Eを代用しません。

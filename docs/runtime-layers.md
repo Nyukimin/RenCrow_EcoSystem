@@ -117,3 +117,12 @@ companion: image-backend  bundled=false / required=true
 `RenCrow_Image`はCOREとForgeNeo／Z-Image等のbackendの間の必須画像生成interfaceです。
 公開HTTP contract、backend profile、Model／workflow／生成parameterの所有境界を持ちます。
 標準primaryはGo binaryで、Python Gatewayはdevelopment／移行用です。
+
+## 3 OSの受入条件
+
+`ecosystem.yaml`の`runtime_policy`はCORE正本のGo／3 OS／health／CUDA用WSL境界を宣言し、
+`scripts/validate_ecosystem.py`がschema v4の現行componentと併せて検査します。
+binary／extensionはGo primaryを宣言します。Ubuntu、Windows、macOSのbuildと公開contractを
+別々に検証し、WSL内の成功をWindows nativeの合格に数えません。
+詳細と今回の採用判断は[再実装追跡表](stash-reimplementation.md)を参照します。
+runtime policyの適合だけでdeployment policy検査や実稼働E2Eを代用しません。

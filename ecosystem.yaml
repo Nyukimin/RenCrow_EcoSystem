@@ -82,6 +82,14 @@
             "kind": "oneshot"
           }
         ]
+      },
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "rencrow",
+          "status": "development"
+        },
+        "companions": []
       }
     },
     "portal": {
@@ -124,6 +132,22 @@
               "path": "status",
               "equals": "ready"
             }
+          }
+        ]
+      },
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "rencrow-portal",
+          "status": "development"
+        },
+        "companions": [
+          {
+            "id": "core-api",
+            "kind": "system-service",
+            "required": true,
+            "bundled": false,
+            "role": "CORE Public API through the existing module contract"
           }
         ]
       }
@@ -182,6 +206,22 @@
             "installed_path": "%h/.local/share/rencrow/checks/cmd.json",
             "sha256": "3642ba7e5ae2cfa2cfbb5db595cdf93c427b19703a60ee799a37130ed6fbdfdd",
             "mode": "0644"
+          }
+        ]
+      },
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "rencrowctl",
+          "status": "development"
+        },
+        "companions": [
+          {
+            "id": "core-api",
+            "kind": "system-service",
+            "required": true,
+            "bundled": false,
+            "role": "CORE Public API through the existing module contract"
           }
         ]
       }
@@ -480,6 +520,22 @@
             }
           }
         ]
+      },
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "observer",
+          "status": "development"
+        },
+        "companions": [
+          {
+            "id": "core-api",
+            "kind": "system-service",
+            "required": true,
+            "bundled": false,
+            "role": "CORE owner API through the existing module contract; required for Agent gameplay"
+          }
+        ]
       }
     },
     "trade": {
@@ -764,5 +820,34 @@
       "status": "development",
       "role": "Host-specific Gemma 4 multimodal Backend profile used behind RenCrow LLM Runtime"
     }
+  },
+  "runtime_policy": {
+    "canonical": "https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_アーキテクチャ概要.md#標準go配布境界",
+    "primary_runtime": "go",
+    "host_os": [
+      "ubuntu",
+      "windows",
+      "macos"
+    ],
+    "external_system_contract": {
+      "module_boundary_required": true,
+      "equivalent_contract_required": true,
+      "direct_core_access_allowed": false,
+      "silent_fallback_allowed": false
+    },
+    "health_contract": {
+      "live_path": "/health/live",
+      "ready_path": "/health/ready",
+      "ready_unavailable_status": 503,
+      "runtime_value": "go"
+    },
+    "cuda_wsl": {
+      "kind": "external-compute",
+      "windows_only": true,
+      "standard_runtime": false,
+      "general_service_host": false,
+      "counts_as_native_windows_verification": false
+    },
+    "exception_policy": "core-and-deployment-policy"
   }
 }

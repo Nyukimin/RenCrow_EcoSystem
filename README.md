@@ -231,3 +231,9 @@ Windows workspaceでは`make PYTHON=python check-workspace`を使用します。
 ## License
 
 [MIT License](LICENSE)
+
+## OS共通の配布契約
+
+Ubuntu、Windows、macOSのnative Go公開契約と、CUDA用WSLを外部computeに限定する境界は
+[COREの標準Go配布規約](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_アーキテクチャ概要.md#標準go配布境界)に従います。
+このrepositoryの既存owner、ID、認証、runtime routeを維持し、OS差を理由に短絡経路を追加しません。

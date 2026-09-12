@@ -133,6 +133,25 @@ COVERAGE_POLICY_FORBIDDEN_KEY_PARTS = {
 }
 
 
+REQUIRED_RUNTIME_POLICY = {'canonical': 'https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_アーキテクチャ概要.md#標準go配布境界',
+ 'primary_runtime': 'go',
+ 'host_os': ['ubuntu', 'windows', 'macos'],
+ 'external_system_contract': {'module_boundary_required': True,
+                              'equivalent_contract_required': True,
+                              'direct_core_access_allowed': False,
+                              'silent_fallback_allowed': False},
+ 'health_contract': {'live_path': '/health/live',
+                     'ready_path': '/health/ready',
+                     'ready_unavailable_status': 503,
+                     'runtime_value': 'go'},
+ 'cuda_wsl': {'kind': 'external-compute',
+              'windows_only': True,
+              'standard_runtime': False,
+              'general_service_host': False,
+              'counts_as_native_windows_verification': False},
+ 'exception_policy': 'core-and-deployment-policy'}
+
+
 class ManifestError(ValueError):
     """Raised when the ecosystem manifest violates its contract."""
 
@@ -385,6 +404,8 @@ def _validate_workspace_path(location: str, raw_path: Any) -> None:
 def _validate_runtime(component_id: str, component: dict[str, Any]) -> None:
     runtime = component.get("runtime")
     if runtime is None:
+        if component.get("distribution") in {"binary", "extension"}:
+            raise ManifestError(f"components.{component_id}.runtime is required")
         return
     if not isinstance(runtime, dict):
         raise ManifestError(f"components.{component_id}.runtime must be an object")
@@ -407,6 +428,8 @@ def _validate_runtime(component_id: str, component: dict[str, Any]) -> None:
             f"components.{component_id}.runtime.primary.implementation "
             "is not supported"
         )
+    if component["distribution"] in {"binary", "extension"} and implementation != "go":
+        raise ManifestError(f"components.{component_id}.runtime.primary must be go")
     artifact = primary["artifact"]
     if not isinstance(artifact, str) or not ARTIFACT_NAME_PATTERN.fullmatch(artifact):
         raise ManifestError(
@@ -416,10 +439,10 @@ def _validate_runtime(component_id: str, component: dict[str, Any]) -> None:
         raise ManifestError(
             f"components.{component_id}.runtime.primary.status is not supported"
         )
-    if implementation == "go" and component["distribution"] != "binary":
+    if implementation == "go" and component["distribution"] not in {"binary", "extension"}:
         raise ManifestError(
             f"components.{component_id} with a Go primary runtime must use "
-            "binary distribution"
+            "binary or extension distribution"
         )
 
     companions = runtime.get("companions", [])
@@ -613,6 +636,15 @@ def validate_manifest(data: dict[str, Any]) -> None:
 
     if data.get("schema_version") != 4:
         raise ManifestError("schema_version must be 4")
+
+    policy = data.get("runtime_policy")
+    if json.dumps(policy, sort_keys=True) != json.dumps(
+        REQUIRED_RUNTIME_POLICY, sort_keys=True
+    ):
+        raise ManifestError(
+            "runtime_policy must preserve the CORE Go, three-OS, health "
+            "and external-compute contract"
+        )
 
     ecosystem = data.get("ecosystem")
     if not isinstance(ecosystem, dict):

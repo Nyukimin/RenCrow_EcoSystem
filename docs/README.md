@@ -37,3 +37,5 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 記述が競合する場合、module 内部の振る舞いは module repo の実装・テスト・
 現行仕様を優先し、組み合わせと統合 release の主張は `ecosystem.yaml` と
 この repo の検証記録を優先します。
+
+[Pull前変更の再実装追跡表](stash-reimplementation.md) — 現行ID・schemaを維持した要求と受入条件。

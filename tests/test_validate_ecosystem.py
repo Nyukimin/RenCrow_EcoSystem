@@ -844,5 +844,46 @@ class EcosystemManifestTest(unittest.TestCase):
             )
 
 
+
+class RuntimePortabilityPolicyTest(unittest.TestCase):
+    def setUp(self):
+        self.manifest = VALIDATOR.load_manifest(REPOSITORY_ROOT / "ecosystem.yaml")
+
+    def test_current_manifest_preserves_go_policy(self):
+        VALIDATOR.validate_manifest(self.manifest)
+        self.assertEqual(self.manifest["schema_version"], 4)
+        for component in self.manifest["components"].values():
+            if component["distribution"] in {"binary", "extension"}:
+                self.assertEqual(component["runtime"]["primary"]["implementation"], "go")
+
+    def test_policy_drift_is_rejected(self):
+        changes = [
+            lambda p: p["host_os"].remove("macos"),
+            lambda p: p.update(primary_runtime="python"),
+            lambda p: p["cuda_wsl"].update(standard_runtime=True),
+            lambda p: p["external_system_contract"].update(direct_core_access_allowed=True),
+            lambda p: p["external_system_contract"].update(module_boundary_required=1),
+            lambda p: p["health_contract"].update(ready_unavailable_status=200),
+            lambda p: p.update(exception_policy="human-gate"),
+        ]
+        for change in changes:
+            with self.subTest(change=change):
+                candidate = copy.deepcopy(self.manifest)
+                change(candidate["runtime_policy"])
+                with self.assertRaisesRegex(VALIDATOR.ManifestError, "runtime_policy"):
+                    VALIDATOR.validate_manifest(candidate)
+
+    def test_standard_primary_is_required_and_must_be_go(self):
+        for name in ("core", "games"):
+            candidate = copy.deepcopy(self.manifest)
+            del candidate["components"][name]["runtime"]
+            with self.assertRaisesRegex(VALIDATOR.ManifestError, "runtime is required"):
+                VALIDATOR.validate_manifest(candidate)
+            candidate = copy.deepcopy(self.manifest)
+            candidate["components"][name]["runtime"]["primary"]["implementation"] = "python"
+            with self.assertRaisesRegex(VALIDATOR.ManifestError, "must be go"):
+                VALIDATOR.validate_manifest(candidate)
+
+
 if __name__ == "__main__":
     unittest.main()
