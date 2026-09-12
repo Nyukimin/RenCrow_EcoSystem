@@ -39,3 +39,5 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 この repo の検証記録を優先します。
 
 [Pull前変更の再実装追跡表](stash-reimplementation.md) — 現行ID・schemaを維持した要求と受入条件。
+
+[Codex efficiency rules](codex-efficiency.md) — 開発時の省トークン規定の正本、配布snapshot、端末設定の移行。

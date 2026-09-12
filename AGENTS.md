@@ -9,6 +9,23 @@
 - Claude: `CLAUDE.md` は入口であり、本ファイルと食い違えば本ファイルが勝つ。
 - 補助 Skill（`~/.codex/skills/global-engineering-rules`、`modularization-rules` 等）は判断軸であり、本ファイルの境界・禁止事項を上書きしない。
 
+## Codex efficiency policy — 2026-09-12 v1
+
+この節はCodexだけに適用する。既定は単独での作業と短いコンテキストとし、明示された委譲依頼、または追加コンテキストに見合う効果を示せる独立作業がある場合に委譲する。通常の可逆的な編集では不要なreceipt・台帳を新設しない。必要な安全・認証・policy・配備・外部効果の証拠は残す。指示ファイルは一度読んで適用し、毎回読み直さない。配布と設定の移行手順は[Codex efficiency rules](docs/codex-efficiency.md)を参照する。
+
+Codexの作業効率に関する運用規定。依頼の全体目標・品質・正本・owner・認証・安全境界・既存差分の保護を維持する。RenCrow製品のruntimeや他のコーディングツールの規定へ移植しない。
+
+1. 最初に対象・正本・操作環境・受入条件・依存順を必要な範囲で整理する。元の受入条件に必要な修正は完遂し、目的と独立した改善を終了条件へ勝手に追加しない。明示された予算を守り、予算の新設や途中停止を効率改善と扱わない。
+2. 既存の追跡記録を正本にし、残件報告前に照合する。項目IDと受入条件を安定させ、方針決定・実装・検証・配備・運用受入を区別する。後段の未完了で既決方針を未完了へ戻さない。状態の変更箇所だけ更新し、二重台帳を作らない。再開には新しい反証・依頼変更・証拠を無効にする変更を明記する。
+3. Astraは設計・曖昧な判断・原因切り分け・重要差分レビューを担う。確定した取得・整形・集計・検証手順はCLI等でまとめて実行し、一行ずつのモデル往復を避ける。実際のモデルと役割を偽らない。
+4. 委譲が有益な独立作業は、Luna maxで完結できる小さく明確な単位へ委譲する。目的・成功条件、対象とowner、現状証拠、許可差分・禁止事項、契約、検証と返却内容を短く指定する。曖昧な設計や全履歴を丸ごと渡さない。独立した割当てはまとめて準備し、共有ファイル・状態への変更や結果依存の仕事は順番に進める。同じ仕事を重ねて割り当てない。子は結論・変更差分・検証証拠・未解決点を返す。
+5. 実装担当は、許可範囲内で納品前の短い型・構文・関連最小チェックを実行し、単純な誤りを修正してから返してよい。これは独立検証の代替ではない。既存の親による差分レビューと独立検証を維持し、特に認証・永続化・並行処理・移行・共有契約の保証を省略しない。検証のための外部変更にも既存の許可・操作境界を適用する。
+6. 追加割当ては「次の作業／修正／仕様変更／検証／進捗調整」を短く区別する。追加指示数を失敗数と数えない。失敗時は証拠から前提・範囲・手順を見直し、同じ条件の反復や無関係な探索を増やさない。
+7. 子やコマンドの実行中は独立した有用な仕事を進め、結果が必要になった時点で通知待機する。ツール制約と必要な進捗連絡の範囲で十分な待機時間を選ぶ。変化のない10秒確認・一覧取得・短いsleepを連鎖させない。完了・失敗・前提変更・必要な判断に合わせて再開する。
+8. 調査は既存証拠→関連検索→必要箇所の順に進める。大量ログは機械集計し、親へ差分・件数・失敗箇所と必要な前後関係を返す。通常の出力は目安2,000トークン以内、詳細は適切なファイルへ保存する。根拠不足や矛盾があれば原文・必要な範囲へ広げる。secretや無関係な会話全文を出力しない。
+9. 証拠に対象差分・環境・検証内容・無効化条件を対応させる。commitが同じでも設定・データ・外部環境の変化を確認する。有効な証拠を再利用し、無効になった範囲を再検証する。圧縮後・モデル交代時も既存記録から再開する。短い台帳の追記だけで入力が短くなるとは仮定せず、新規タスク作成はれんの依頼に従う。
+10. 進捗は閉じた条件・新しい阻害要因・次の実行を短く伝える。既決事項の承認を求め直さず、承認済み作業を報告だけで止めない。低い推論設定が最安とは仮定せず、xhighも比較候補にするが、節約の推測だけでモデルや推論強度を一律変更しない。既存報告と機械集計で親子合計の使用量・受入結果・修正往復を測り、計測だけのために毎回モデルを呼ばない。週間使用率は同時作業の影響を区別する補助指標にする。
+
 ## 完了整合性
 
 - 編集前に、目的・所有リポジトリ／モジュール・正本・稼働成果物・許可範囲・要求ごとの終端証拠を確定する。不明なら編集せず調査する。
@@ -62,7 +79,7 @@ Model-specific repositories such as `RenCrow_GPT120B`, `RenCrow_Qwen36_27B`, and
 ## Model Roles
 
 - `gpt-6-astra` is the fixed primary orchestrator. It owns goal clarification, canonical source and owner-boundary identification, design, decomposition, supervision, direct diff review, integration, and final validation.
-- `gpt-5.6-luna` (max reasoning effort) is the fixed executor. It performs implementation, fixes, tests, verification, and other hands-on work delegated by ASTRA. ASTRA delegates multiple LUNA executors in bounded stages; independent units may run in parallel.
+- `gpt-5.6-luna` (max reasoning effort) is the executor when delegation is useful. ASTRA normally works as a single agent and may implement and test directly. Delegate only bounded independent work under the Codex efficiency policy below; model roles do not require spawning multiple executors.
 - If the executing model is unknown, neither role may be inferred, impersonated, or silently substituted. The unresolved model identity must be reported before assigning or claiming either role.
 - This contract applies only to Codex orchestration. It must not be copied into RenCrow product runtime roles, Agent identities, LLM routing, or operational model placement. Existing source-of-truth, owner, authentication, policy, runtime-route, actual-Actor, test, completion-evidence, and user-authorization boundaries remain unchanged.
 
@@ -256,6 +273,8 @@ tests that pass on only one of them.
 - 最終報告では、当初の分類と実装後の実経路を照合し、決定的にCLI化できた工程、残ったLLM必須工程、未解決境界を明示する。
 
 ## ASTRA-Orchestrated Bounded LUNA Execution
+
+This section applies when delegation has been selected under the Codex efficiency policy. It does not require delegation for every task.
 
 - `gpt-6-astra` owns the whole-system plan, canonical module and contract
   identification, design decisions, dependency ordering, delegation,
@@ -488,18 +507,3 @@ When handling file names across Windows, Linux, and macOS:
   characters or clear mojibake and the intended UTF-8 name can be determined.
 - Git octal-escaped path display is not filename corruption. Use local
   `git config core.quotepath false` for readable non-ASCII paths.
-
-## Astra Execution Economy
-
-The default Astra mode is a single-agent, short-context workflow. Do not spawn
-sub-agents unless the user explicitly requests delegation or the task has
-independent parallel work whose measured benefit exceeds the added context.
-Do not create receipts, checklists, handoff notes, or repeated status artifacts
-for routine reversible edits. Keep only the evidence needed for safety,
-authentication, policy, deployment, external effects, or a user-requested
-audit. Do not reread a whole prior session or resume an old thread for a new
-task; start a fresh session and load only the files needed for the current
-decision. Read an instruction file once per task, then apply it without
-repeating it in every tool call. Batch independent reads and checks, and report
-one concise result after the work is complete. Required safety, owner-boundary,
-policy, and end-to-end checks remain in force.
