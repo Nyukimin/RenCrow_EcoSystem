@@ -41,3 +41,5 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 [Pull前変更の再実装追跡表](stash-reimplementation.md) — 現行ID・schemaを維持した要求と受入条件。
 
 [Codex efficiency rules](codex-efficiency.md) — 開発時の省トークン規定、8要求の受入条件、Tools集計、配布snapshot、端末設定の検査と移行。
+
+[作業別の追加ルール](agent-task-rules.md) — AGENTSから該当作業の節だけ参照。

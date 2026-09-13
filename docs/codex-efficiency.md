@@ -49,7 +49,7 @@ default_subagent_model = "gpt-5.6-luna"
 default_subagent_reasoning_effort = "max"
 ```
 
-共通`AGENTS.md`は32 KiBを超えるため、`project_doc_max_bytes`は少なくとも65536にする。既存値がそれより大きければ維持する。効率規定は前方へ配置し、読込上限で末尾の規定が欠落していないことも`debug prompt-input`で確認する。rootとmoduleの指示の合計が上限を超える場合は、その実測量に合わせる。
+直接適用版では共通`AGENTS.md`が32 KiBを超えていたため、読込上限を65536以上へ拡大した。2026-09-13の短縮後も設定値は自動で下げず、既存値を維持する。効率規定は前方へ配置し、実際の起動位置で`debug prompt-input`を使ってrootとmoduleの指示が欠落しないことを確認する。上限はfile単体ではなく、実際に読み込む指示の合計に合わせる。
 
 MacのCLI 0.143.0では、`agents.default_subagent_model`と`agents.default_subagent_reasoning_effort`を設定すると`expected struct AgentRoleToml`で起動に失敗した。非対応版にはこの2キーを入れず、委譲packetでmodel／effortを明示する。schema検査失敗時は対象変更だけを戻し、元の設定を維持する。Standardの反映と子model既定値の対応状況を別判定にする。
 
@@ -63,6 +63,18 @@ Macの子directory配置では`RenCrow/`を起動入口にする。この入口�
 
 この変更のPushは、配布元とsnapshotの公開までを対象とする。各端末へのPull、リンクの変更、直接適用版の除去、Codex再起動は別の適用工程であり、実施した端末と未適用の端末を区別して報告する。
 
+
+## 共通ルールの短縮
+
+2026-09-13に、省トークンの10項目を本文のまま保持し、他の共通ルールを統合した。役割・正本・完了条件の重複説明、同じ意味の禁止文、manifestと重なるmodule一覧を削除した。owner・認証・policy・実Actor・正規route・GUI・完了証拠の制約は維持する。
+
+委譲・品質比較・配備・判断GUI・ローカル検査・Windows pathの詳細は[作業別ルール](agent-task-rules.md)の該当節だけ読む。必須検査の意味論は既存[Check Plan仕様](check-plan-pruning.md)を参照する。別fileへ分けた詳細を毎回一括で読む運用にはしない。
+
+配布snapshotはAGENTS本文を同期し、参照文書は同じrevisionのEcoSystem checkoutから提供する。snapshot単体で参照文書が揃うとは扱わず、導入先catalogでリンク解決を確認する。個人設定のsymlinkとmodule固有ルールは維持し、別の全文コピーを作らない。短縮率は入力fileのサイズ比較であり、実際の使用量削減効果は実践で確認する。
+
+短縮後の本文は46,180→19,568 bytes（57.6%減）、分離した詳細7,200 bytesを含めても42.0%減。省トークン節はbyte一致、条件付きリンク・必須見出し・配布snapshot一致を確認した。独立レビューで作業root、単純化の前提、実行責任、対象dataの実利用、構造の完了確認を明確にした。Macの新規processではprompt出力が77,184→50,149 bytesとなり、本文の全行を順序どおり含み、効率節は1回、作業別詳細の一括読込なし、config変更なしを確認した。この比較は同じ起動位置・CLI・設定での入力検査であり、起動済みthreadの履歴短縮や利用枠の削減率を意味しない。
+
+カタログ109件と配布CLIのplan／apply／checkは成功。workspace／governance全体の検査は、既存の兄弟directory配置の不一致で引き続き失敗した。短縮・配布の検証結果をworkspace全体の成功へ換算しない。固定Planと実行結果はEcoSystemのGit外`Tmp/rules-compaction/`に保存した。
 
 ## 2026-09-13 Implementation Unit
 
