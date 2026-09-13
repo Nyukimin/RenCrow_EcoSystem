@@ -29,7 +29,7 @@ PowerShellでは同じcommandの`--codex-home`を`"$env:USERPROFILE/.codex"`に�
 
 `rules`はsource hash、対象ごとの変更とhash、manifestに記載されたrepositoryの存在状況をJSONで返す。未取得のmoduleは一覧に残し、勝手にcloneしない。source pinとの一致やruntime互換性をこの一覧から主張しない。成功した`check`は配布file／linkの一致であり、Codexが新しい指示を実際に読むことと削減効果は、後述の適用確認と実運用で別に確認する。
 
-snapshotの未commit変更、別の通常file・誤ったlink、優先される`AGENTS.override.md`、危険なpathは事前検査で拒否する。snapshotは正本から生成する指定fileだけを更新し、config、module本文、runtime promptは書き換えない。全対象の事前検査後に更新し、途中のI/O失敗では反映済み対象を報告する。複数file全体を一つのtransactionとは扱わない。
+上書きが必要なsnapshotの未commit変更、別の通常file・誤ったlink、優先される`AGENTS.override.md`、危険なpathは事前検査で拒否する。正本とbyte一致するsnapshotは、Git indexやmodeの未commit差分を変更せず`keep`とする。この一致判定はGit cleanの証明ではない。snapshotは正本から生成する指定fileだけを更新し、config、module本文、runtime promptは書き換えない。全対象の事前検査後に更新し、途中のI/O失敗では反映済み対象を報告する。複数file全体を一つのtransactionとは扱わない。
 
 Windows等でsymlink作成権限がなければ、コピーへのfallbackや権限昇格を行わず失敗を返す。端末側でsymlinkが利用できる状態を整えてから再適用する。既存の通常fileや誤ったlinkの整理は、内容・用途を確認して別途行う。snapshotを元へ戻す場合も、採用する正本revisionを確定してから同じcommandで同期する。
 
@@ -163,3 +163,8 @@ deferredであり、Windows端末での実際のlink作成成功を主張しな�
 [Workspace 928e77e](https://github.com/Nyukimin/RenCrow_Workspace/actions/runs/34748354811)と
 [EcoSystem c97bb9d](https://github.com/Nyukimin/RenCrow_EcoSystem/actions/runs/34748380441)のCIも成功した。
 この検証結果の追記は、検証済みCLI、ルール本文、source pin、端末設定を変更しない。
+
+独立レビューで見つかったCodex homeの祖先symlink経由の書込みは、`6efef28`でvolume rootからの
+初期・書込み直前検査へ修正した。byte一致時のGit差分保持も仕様と回帰試験で固定し、両指摘の
+クローズを独立確認した。修正後のMac回帰・build／vet・実バイナリ6操作の検証は成功。
+最終Tools source pinのOS別検証は[6efef28のCI](https://github.com/Nyukimin/RenCrow_Tools/actions/runs/34748702627)を参照する。
