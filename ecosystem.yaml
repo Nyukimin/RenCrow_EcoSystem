@@ -597,7 +597,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "./RenCrow_Tools",
-      "version": "d78d3ddafc66c386001d3dd3bfd49ab30597f6fe",
+      "version": "1b0975f7db2307200b4c06e4b8ffc6ed620146dc",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools",
@@ -747,7 +747,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",
-      "version": "76104c4a65688fdf160c00be1328be2ac4aeb3c1",
+      "version": "928e77e96c2ff3c0c7a4c88a92e58f38f0f3f6bc",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service",

@@ -6,22 +6,34 @@
 
 この節はCodexの開発作業にだけ適用する。RenCrow製品のAgent、runtime、model routingや、Cursor／Claudeの規定へ移植しない。ルールは運用指示であり、使用量の削減率や推論設定を強制する仕組みではない。
 
-## 既存の配布経路
+## シリーズへの配布
 
 1. `RenCrow_EcoSystem/AGENTS.md`が正本。標準配置ではEcoSystemを`RenCrow`というworkspace rootへcloneする。
 2. `RenCrow_Workspace/project-root/AGENTS.md`は正本から生成する配布snapshot。独立編集せず、正本をバイト単位でコピーして同期する。snapshotの相対参照は、配置先のcatalog rootで解決する。
 3. Codexの`~/.codex/AGENTS.md`は、Agent配置規定どおり正本へのシンボリックリンクで参照する。通常ファイルへの全文複製は禁止する。
 4. `make check-governance`の既存検査は、workspace rootとsnapshotの一致を確認する。snapshot単体はruntimeの起動設定ではなく、PushやPullだけで各端末のリンク・Codex設定は書き換わらない。
 
-正本を更新した端末では、現在の配置に合わせてsnapshotを同期する。PowerShell例:
+配布操作のownerはToolsの既存[ecosystem bootstrap](https://github.com/Nyukimin/RenCrow_Tools/tree/main/tools/workspace/ecosystem_bootstrap)。`rules plan`で事前確認し、`rules apply`で反映、`rules check`で一致を確認する。通常のrepository取得用`plan`／`apply`とは明示的に分け、clone時に端末の設定を変更しない。
 
-```powershell
-$catalogRoot = 'C:\path\to\RenCrow'
-Copy-Item -LiteralPath (Join-Path $catalogRoot 'AGENTS.md') `
-  -Destination (Join-Path $catalogRoot 'RenCrow_Workspace/project-root/AGENTS.md')
+標準配置のworkspace rootから実行する例（GoとGit、Codexの設定directoryを事前に用意する）:
+
+```bash
+go -C ./RenCrow_Tools/tools/workspace/ecosystem_bootstrap run ./cmd/rencrow-bootstrap rules plan --manifest ../../../../ecosystem.yaml --workspace ../../../.. --sync-snapshot --codex-home "$HOME/.codex"
+go -C ./RenCrow_Tools/tools/workspace/ecosystem_bootstrap run ./cmd/rencrow-bootstrap rules apply --manifest ../../../../ecosystem.yaml --workspace ../../../.. --sync-snapshot --codex-home "$HOME/.codex"
+go -C ./RenCrow_Tools/tools/workspace/ecosystem_bootstrap run ./cmd/rencrow-bootstrap rules check --manifest ../../../../ecosystem.yaml --workspace ../../../.. --sync-snapshot --codex-home "$HOME/.codex"
 ```
 
-EcoSystemが親rootではなく`RenCrow_EcoSystem`という子directoryにある場合、コピー元はそのcheckoutの`AGENTS.md`とする。親に残る古い通常ファイルを正本と誤認しない。両repositoryをそれぞれcommit・pushし、配置先ではリンクの実際の参照先と内容を照合する。
+PowerShellでは同じcommandの`--codex-home`を`"$env:USERPROFILE/.codex"`に置き換える。EcoSystemがこのMacのようにworkspace直下の`RenCrow_EcoSystem`にある配置では、`--manifest ../../../../RenCrow_EcoSystem/ecosystem.yaml`とする。正本は常に指定manifestの隣の`AGENTS.md`であり、親の入口文書を配布本文と誤認しない。
+
+配布元でsnapshotだけを更新するときは`--codex-home`を省略する。配布先端末でリンクだけを設定するときは`--sync-snapshot`を省略する。少なくとも一方を明示する。各repositoryの`AGENTS.md`へ共通本文をコピーせず、module固有の内容を保持する。旧model規定等が共通規定と競合する場合は、正本の優先順位に従う。
+
+`rules`はsource hash、対象ごとの変更とhash、manifestに記載されたrepositoryの存在状況をJSONで返す。未取得のmoduleは一覧に残し、勝手にcloneしない。source pinとの一致やruntime互換性をこの一覧から主張しない。成功した`check`は配布file／linkの一致であり、Codexが新しい指示を実際に読むことと削減効果は、後述の適用確認と実運用で別に確認する。
+
+snapshotの未commit変更、別の通常file・誤ったlink、優先される`AGENTS.override.md`、危険なpathは事前検査で拒否する。snapshotは正本から生成する指定fileだけを更新し、config、module本文、runtime promptは書き換えない。全対象の事前検査後に更新し、途中のI/O失敗では反映済み対象を報告する。複数file全体を一つのtransactionとは扱わない。
+
+Windows等でsymlink作成権限がなければ、コピーへのfallbackや権限昇格を行わず失敗を返す。端末側でsymlinkが利用できる状態を整えてから再適用する。既存の通常fileや誤ったlinkの整理は、内容・用途を確認して別途行う。snapshotを元へ戻す場合も、採用する正本revisionを確定してから同じcommandで同期する。
+
+更新した正本とsnapshotは各owner repositoryでcommit・pushし、各端末で取得後に再度`rules check`を実行する。Tools CLIの詳細な引数、終了code、回帰試験はTools READMEが所有する。これにより配布手順のための別installerや常駐processを増やさない。
 
 ## Codex設定と直接適用版の移行
 
@@ -127,5 +139,19 @@ CLI実行（exit 0）のmodel別使用量は別計算と一致した。実行結
 この結果をworkspace全体のgovernance成功へ昇格しない。配布commitのCIも確認済み。検証対象は、[Tools d78d3dd（Windows／Ubuntu contract suite、macOS build／vet）](https://github.com/Nyukimin/RenCrow_Tools/actions/runs/34746487939)、
 [Workspace 76104c4（Windows／macOS build／vet、Ubuntu test）](https://github.com/Nyukimin/RenCrow_Workspace/actions/runs/34746503648)、
 [EcoSystem 5a6ed79（三OSのcatalog test）](https://github.com/Nyukimin/RenCrow_EcoSystem/actions/runs/34746531419)。
-いずれもsuccessで、source pinはこのTools／Workspace commitを参照する。
+いずれもsuccessで、当該配布時点のsource pinはこのTools／Workspace commitを参照した。
 この結果追記は仕様の検証状態だけを更新し、検証済みCLI・test・規定・manifest・端末設定を変更しない。
+
+
+### シリーズ配布CLIの受入
+
+`rules`コマンドの追加により、配布snapshot同期と端末の参照link設定を同じTools CLIから
+実行できる。正本・module本文・Codex configは今回の変更対象に含めない。
+Macでは実バイナリによる初回plan／apply／check、再適用、既存fileとの競合拒否と、
+実workspaceの照合が成功した。sourceと17個のmodule指示file、Codex configの変更前後の
+hashは一致した。固定Check Planと検証結果はToolsのGit外`Tmp/rules-distribution/`に保存する。
+使用量の削減効果は、利用者の方針どおり実践で確認する。
+
+カタログ109件は成功。既存の`check-workspace`／`check-governance`はこのMacの配置不一致で
+引き続き失敗し、配布CLIの受入をworkspace全体のgovernance成功と同一視しない。
+他端末への適用と、起動済みCodexタスクの再読込は、この配布可能化の検証に含まない。

@@ -45,6 +45,11 @@ source-pinned clone対象ですが、常駐serviceとしては起動しません
 各 module の build と設定は、その repository の README / AGENTS / docs を
 参照してください。EcoSystem 側から未検証の command を複製しません。
 
+Codexの共通開発ルールは、同じbootstrapの`rules plan`／`rules apply`／`rules check`で
+配布snapshotと端末の参照linkを整えます。標準配置とEcoSystemが子directoryにある配置、
+三OSの実行例、競合時の扱いは[Codexルール配布](codex-efficiency.md#シリーズへの配布)を
+参照してください。repositoryのcloneだけではCodex設定は変更されません。
+
 Go binaryを標準配布単位とし、Python／Node.jsを標準installerへ持ち込まない境界と
 統合待ち項目は、[Go distribution](go-distribution.md)に記載します。映画カタログCrawler、
 Vision、ImageのGo化は完了済みです。各primary artifactは`development`としてmanifestへ記録し、
