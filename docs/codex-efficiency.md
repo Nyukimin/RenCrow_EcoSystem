@@ -155,3 +155,11 @@ hashは一致した。固定Check Planと検証結果はToolsのGit外`Tmp/rules
 カタログ109件は成功。既存の`check-workspace`／`check-governance`はこのMacの配置不一致で
 引き続き失敗し、配布CLIの受入をworkspace全体のgovernance成功と同一視しない。
 他端末への適用と、起動済みCodexタスクの再読込は、この配布可能化の検証に含まない。
+
+配布CLIの[Tools 1b0975fのCI](https://github.com/Nyukimin/RenCrow_Tools/actions/runs/34748329888)は成功。
+canonical receiptでも、Windowsのbootstrap build／vet、Ubuntuのbootstrap regression／build／vetが
+それぞれexit 0・passedであることを確認した。WindowsのGo振る舞い試験は既存policyどおりLinuxへ
+deferredであり、Windows端末での実際のlink作成成功を主張しない。
+[Workspace 928e77e](https://github.com/Nyukimin/RenCrow_Workspace/actions/runs/34748354811)と
+[EcoSystem c97bb9d](https://github.com/Nyukimin/RenCrow_EcoSystem/actions/runs/34748380441)のCIも成功した。
+この検証結果の追記は、検証済みCLI、ルール本文、source pin、端末設定を変更しない。
