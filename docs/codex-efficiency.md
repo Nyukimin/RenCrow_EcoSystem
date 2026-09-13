@@ -124,4 +124,8 @@ CLI実行（exit 0）のmodel別使用量は別計算と一致した。実行結
 これらは当該source差分とログprefixに限る証拠であり、将来の節約率は保証しない。
 `make check-workspace`／`make check-governance`はこのMacの兄弟directory配置を既存runnerが
 解決できず、`RenCrow_EcoSystem/RenCrow_CORE`探索で失敗した。snapshot単体の一致は確認済みだが、
-この結果をworkspace全体のgovernance成功へ昇格しない。変更内容のWindows／Linux CIも未実施。
+この結果をworkspace全体のgovernance成功へ昇格しない。配布commitのCIも確認済み。検証対象は、[Tools d78d3dd（Windows／Ubuntu contract suite、macOS build／vet）](https://github.com/Nyukimin/RenCrow_Tools/actions/runs/34746487939)、
+[Workspace 76104c4（Windows／macOS build／vet、Ubuntu test）](https://github.com/Nyukimin/RenCrow_Workspace/actions/runs/34746503648)、
+[EcoSystem 5a6ed79（三OSのcatalog test）](https://github.com/Nyukimin/RenCrow_EcoSystem/actions/runs/34746531419)。
+いずれもsuccessで、source pinはこのTools／Workspace commitを参照する。
+この結果追記は仕様の検証状態だけを更新し、検証済みCLI・test・規定・manifest・端末設定を変更しない。
