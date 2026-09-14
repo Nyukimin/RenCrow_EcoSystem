@@ -54,7 +54,7 @@ class AdapterTest(unittest.TestCase):
             launch_agents.mkdir(parents=True)
             plist = launch_agents / "com.rencrow.image.plist"
             with plist.open("wb") as handle:
-                plistlib.dump({"Label":"com.rencrow.image","ProgramArguments":["/Users/ren/bin/rencrow-image","--config","image.json"]}, handle)
+                plistlib.dump({"Label":"com.rencrow.image","ProgramArguments":["/Users/user/bin/rencrow-image","--config","image.json"]}, handle)
             calls = []
             def runner(command, **_kwargs):
                 calls.append(command)
@@ -63,7 +63,7 @@ class AdapterTest(unittest.TestCase):
                 return 0, "", ""
             adapter = A.LaunchdUserAdapter(runner, home=home, uid=501)
             self.assertEqual(adapter.services("rencrow"), ["com.rencrow.image"])
-            self.assertEqual(adapter.exec_path("com.rencrow.image"), "/Users/ren/bin/rencrow-image")
+            self.assertEqual(adapter.exec_path("com.rencrow.image"), "/Users/user/bin/rencrow-image")
             self.assertEqual(adapter.contract_unit("com.rencrow.image"), "rencrow-image.service")
             self.assertEqual(adapter.properties("com.rencrow.image")["ActiveState"], "active")
             adapter.stop("com.rencrow.image")
@@ -103,7 +103,7 @@ class AdapterTest(unittest.TestCase):
             agents.mkdir(parents=True)
             plist = agents / "com.rencrow.image.plist"
             with plist.open("wb") as handle:
-                plistlib.dump({"Label":"com.rencrow.image","ProgramArguments":["/Users/ren/bin/rencrow-image"]}, handle)
+                plistlib.dump({"Label":"com.rencrow.image","ProgramArguments":["/Users/user/bin/rencrow-image"]}, handle)
             loaded = {"value": True}
             def runner(command, **_kwargs):
                 if command[:2] == ["launchctl", "bootout"]:

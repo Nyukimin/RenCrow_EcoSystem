@@ -310,11 +310,11 @@ Coverage Policyがv3を必須化した後にv2が残っていればcomposeをfai
    `evidence-dir`とEvidence参照の境界はowner CLIでも検証する。
 
    ```bash
-   go -C /home/nyukimi/RenCrow/RenCrow_Tools/tools/quality/full_system_verification \
+   go -C <WORKSPACE>/RenCrow_Tools/tools/quality/full_system_verification \
      run ./cmd/rencrow-full-system-verification execute-set \
      --composition-dir /path/to/compositions \
      --owner-bin-dir /path/to/owner-verifiers \
-     --workspace-root /home/nyukimi/RenCrow \
+     --workspace-root <WORKSPACE> \
      --evidence-dir /path/to/evidence \
      --receipt-dir /path/to/receipts \
      --pretty

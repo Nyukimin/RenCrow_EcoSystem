@@ -215,7 +215,7 @@ Windowsで`python3` aliasがない場合:
 .\scripts\test-local.ps1 python -- scripts/validate_ecosystem.py ecosystem.yaml
 ```
 
-標準 workspace (`/home/nyukimi/RenCrow`) に全 sibling repo がある場合:
+標準 workspace (`<WORKSPACE>`) に全 sibling repo がある場合:
 
 ```bash
 make check-workspace
