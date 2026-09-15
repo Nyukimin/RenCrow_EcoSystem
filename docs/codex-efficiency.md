@@ -180,3 +180,9 @@ deferredであり、Windows端末での実際のlink作成成功を主張しな�
 初期・書込み直前検査へ修正した。byte一致時のGit差分保持も仕様と回帰試験で固定し、両指摘の
 クローズを独立確認した。修正後のMac回帰・build／vet・実バイナリ6操作の検証は成功。
 最終Tools source pinのOS別検証は[6efef28のCI](https://github.com/Nyukimin/RenCrow_Tools/actions/runs/34748702627)を参照する。
+
+## 2026-09-15 共通・module固有ルールの分別
+
+[指示配置仕様](rule-layout.md)に従い、共通AGENTSと各repositoryの入口／条件付き詳細を分別した。共通の省トークン10項目は保持し、各moduleに残る旧Sol統括規定を取り除く。CLAUDE入口は同じ正本への参照だけにする。module固有の禁止・契約・検証を削除せず、該当作業の着手前に読む。
+
+配布CLIは引き続き共通snapshotとglobal linkだけを所有する。moduleの入口と詳細は各owner repositoryで一緒に更新する。適用結果と削減量は実ファイル・新processの入力で確認し、起動済みタスクの履歴や週間枠への効果を推定しない。

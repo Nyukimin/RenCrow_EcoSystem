@@ -1,10 +1,12 @@
 # RenCrow Project Rules
 
-本書はCursor／Codex／Claudeのworkspace共通ルールの唯一の正本。module-localの`AGENTS.md`は所有範囲の追加制約とし、競合時は本書を優先する。補助Skillもこの境界を上書きしない。
+全repository共通の作業ルールの唯一の正本。module固有の仕様・手順は各ownerのAGENTS.mdと、その入口から条件付きで参照するルールが所有する。共通本文をmoduleへ複製せず、module側で共通のモデル役割・権限・品質基準を再定義しない。
 
-- Codexの`~/.codex/AGENTS.md`は本書へのsymlink、Claudeの`CLAUDE.md`と子repo用Cursorルールは本書への参照にする。本文を個人設定へ複製しない。catalog rootを開くCursorは本書を直接読む。
-- 本書→対象の`README.md`→`docs/README.md`→`ecosystem.yaml`→影響するmodule正本の順に必要箇所を読む。既読の指示は再読しない。
-- 各moduleはworkspace直下の独立した`RenCrow_*` repository。対象module rootで作業し、親全体を一つのsource treeとして扱わない。EcoSystemが子directoryにある環境では、本書の文書リンクはEcoSystem基準、module pathはworkspace基準で解決する。
+- Codexのglobal AGENTS.mdは本書へのsymlink。Claude／Cursorの入口も同じ正本を参照する。配布・配置変更時だけ[配布仕様](docs/codex-efficiency.md)を読む。
+- 作業対象repositoryのAGENTS.md → README.md／docs/README.md → 対象の現行仕様 → 関連実装・test・configの順に必要箇所を読む。既読内容や参照元へ戻って再読しない。詳細は入口に書かれた適用条件に一致する節だけ読む。
+- moduleは独立Git repository。操作cwdは対象repoに固定する。catalogがworkspace rootを兼ねる配置と、子directoryに置かれる配置を区別し、root全体を一つのsource treeとして扱わない。対象不明ならmanifestと実Git rootからownerを特定する。
+- 共通と固有の正本は分ける。横断変更でも対象ownerと直接依存の必要な規定だけ読む。参照先の欠落・矛盾を見つけた場合は、該当する変更の前に解消し、推測で制約を省略しない。
+
 
 ## Codex efficiency policy — 2026-09-12 v1
 
@@ -33,7 +35,6 @@ Codexの作業効率に関する運用規定。依頼の全体目標・品質・
 
 - 運用機能の終端は`source → owner → policy → state → runtime route → 実際の利用主体 → 利用者に見える結果 → receipt/trace`。仕様・保存・API・test・build・deploy・healthの単独成功を全体完了にしない。対象dataの取得・変換・投影だけで終わらず、正規routeでの実参照・判断・利用、運用成果と再起動後の維持を確認する。
 - E2Eは本番同等の認証・policy・owner module・runtime route・実Actorを通す。内部functionやtest doubleで代用しない。子の報告は、親が実差分・範囲・試験・境界を確認するまで助言扱い。要求の未確認があれば部分達成と不足境界を示す。
-- 過去のRenCrow操作を確認する場合は、ユーザーへ記憶を尋ねる前に`~/.codex`と`~/.rencrow`両rootのsessions・操作履歴・runtime logs・receipts・旧履歴を期間／module／IDで絞り、読み取り専用で現source・state・active configと照合する。参照path・行・時刻と確定／不明を記録する。履歴や文字列の出現を現行正本・実Actor・成功証拠にせず、欠落／照合不能を明示する。履歴確認を旧操作の再実行許可にしない。
 
 ## Conceptual Integrity Guardrail v0.1
 
@@ -65,13 +66,11 @@ Codexの作業効率に関する運用規定。依頼の全体目標・品質・
 - CLI／Boundaryは明示入力、境界付き機械可読出力、終了status、再現可能な証跡で検証する。LLMは入力境界・出力schema・品質・失敗／拒否を検証し、報告文を実行証拠にしない。最終報告で実経路と分類を照合する。品質優位性でLLMを採用する場合は[比較条件](docs/agent-task-rules.md#llm-quality)を読む。
 - 検査前に[Check Plan仕様](docs/check-plan-pruning.md)でpurpose・phase・check・consumer・failure actionを固定し、runnerは固定Planだけを消費する。高コスト・timeout・失敗を理由に除外せず、safety／security／認証／policy gateを暗黙に削除しない。曖昧・不正な定義はfail closed。runtimeのpruningでsourceを削除せず、恒久削除は運用証拠・仕様更新・TDD・reviewを伴う別変更とする。
 
-## COREと製品runtime
+## 製品の共通境界
 
-- 共有Viewer・会話・runtime・route・adapter・利用者向け挙動とcross-module意味論はCORE正本。CMDはCOREのCLI／client入口。該当変更はCOREを先に扱ってからCMDへ同期し、CMD専用なら実装前に理由を示す。正本索引は`RenCrow_CORE/docs/README.md`、Chat境界と標準Go配布境界は同`docs/04_アーキテクチャ概要.md`。
-- Viewer／COREは対応moduleを経由する。LLMは`CORE → LLM Gateway → LLM Runtime → Backend → Model`、TTS／STTは各module→backend、画像生成はImage→ForgeNeo／Z-Image、認識はVision→Wild→Vision→CORE。Visionが前処理・正規化を所有し、raw mediaをCOREからWild／LLMへ直送しない。Mio／Shiro／Midori／Kuroによる文章生成の一部としてのCodexExe ImageGen利用だけは既存例外であり、通常Image経路の省略へ広げない。
+- 横断的な製品契約は所有moduleの正本を確認し、実装機構をActorや正本ownerにしない。module固有のAPI・route・配線・port一覧は各moduleの入口から読む。
 - 固定portと正規routeは契約。競合・障害・E2E成功のためにport変更、backend直結、代替model／偽server／短縮経路を作らない。許可範囲で正規経路を復旧し、復旧不能なら境界と証拠を報告する。route例外は明示されたtopology変更だけとし、復旧目的の代替は障害・影響を報告してからその明示指示を受ける。process・配備・routeを扱う前に[運用手順](docs/agent-task-rules.md#runtime)を読む。
 - 標準runtimeは可能な限りnative Go binaryとし、Ubuntu／Windows／macOSでprotocol・Config・health/readiness・error/unavailableを等価にする。Python・Node・Docker・WSL・外部DB／queue／vector storeを標準起動条件に追加しない。不可避な外部systemはowner境界外へ隔離する。WSLは明示選択したCUDA／GPU external compute限定で、Windows native検証の代用にしない。標準構成の例外は明示指示と対象・理由・OS・影響・失敗挙動・再評価条件の記録が必要。
-- Agent-ownedの会話・作業・gameplayは実CORE Agentへ帰属させる。`RuleBasedBrain`／`DummyBrain`はunit・integration・simulation・observer用で、Agent identity・Persona・記憶・経験を称さない。Agent gameplay E2Eでは各playerの全判断を対応CORE Agentへ要求する。
 
 ## 利用者判断とNo-Human-Gate
 
@@ -79,16 +78,10 @@ Codexの作業効率に関する運用規定。依頼の全体目標・品質・
 - policyで決められない利用者固有の意味・価値判断には、同じImplementation Unitで判断GUIを提供する。CLI・JSON・手順書だけに委ねず、[判断GUIの受入条件](docs/agent-task-rules.md#decision-gui)を満たす。操作は待機workflowへの承認印ではなく新しい認証済requestとし、CORE状態・正規利用経路・receiptまで確認する。
 - reject理由から前提・分解・route・Tool・設計を再考した新revisionを作る。同案の言い換え、制約弱体化、無限再試行は禁止する。
 
-## EcoSystemとmodule所有範囲
+## 共通の検証・可搬性
 
-- EcoSystemは構成manifest、source pin、検証済組合せ、横断設計・導入・release文書、統合検証・受入、module正本へのリンクを所有する。module内部のsource・API・build・test・config・roadmap、Persona／Memory／Recall／policy／LLM routing、runtime state・secret・生成物を所有／複製しない。
-- moduleは独立Git repo・CI・tag・releaseを維持し、workspace直下に置く。catalogにsourceをコピーせず、Git submoduleを追加しない。子repoは`.gitignore`対象。再利用toolはTools、`ecosystem.yaml`専用検証だけcatalogの`scripts/`に置く。
-- manifestの状態は`development`／`source-pinned`／`unpinned`／`verified`。実装済source pinは実在full SHA、未実装optional runtimeだけ`planned`を使う。pinは互換性証拠ではない。互換宣言は統合検査成功と差分説明またはrepo内証拠が必要。現行と明示計画だけを記述し、廃止仕様・架空tag／commitを残さない。
-- `.env`・認証情報・runtime log／DB・binary・model・download済archiveをcommitしない。Workspaceは移行用snapshot owner。共通ルールの配布は[Codex効率運用仕様](docs/codex-efficiency.md)に従い、snapshotを独立編集しない。
-- module名とrootは`ecosystem.yaml`を参照する。Chat／ViewerはCORE、CLIはCMD。`RenCrow_GPT120B`／`RenCrow_Qwen36_27B`／`RenCrow_Gemma4`はLLM external-runtime profileで、CORE・Agent・routing ownerではない。
-
-## 検証環境と可搬性
-
-- catalog変更は`make check`。宣言済子repoが揃う環境では`make check-workspace`、rules・CI・local test契約・Workspace snapshotは`make check-governance`で確認する。Windowsでは`./scripts/test-local.ps1`または文書化された`make PYTHON=python`を使い、Linux coverageも確認する。
-- 検査を実行／変更する際は[ローカル検査手順](docs/agent-task-rules.md#local-tests)を適用する。同じ内容の有効な検証をPushや一時worktreeで繰り返さず、関連変更・失敗・明示依頼時だけ再検証する。timeout延長だけの再試行、security softwareの停止・除外・検査弱体化は禁止する。
-- textはUTF-8、pathはUnicodeとして扱い、三OSで同じ契約を守る。Pythonは`pathlib.Path`で結合し、shell／JSON／YAMLに埋め込むpathを適切にescapeする。改行・実行bit・symlink・case-sensitive filesystemを前提にしない。Windowsの非ASCII path／文字化けを扱う場合は[文字とpath](docs/agent-task-rules.md#paths)を読む。
+- 既存差分・secretを保護する。認証情報、runtime log／DB、binary、model、download済archiveをcommitしない。新機能・仕様変更・修正は受入条件と再現testまたは代替検証手順を先に定義する。承認済scopeを報告だけで止めず、調査・相談だけの依頼から未承認の実装へ進まない。
+- 検査を実行／変更するときだけ[ローカル検査](docs/agent-task-rules.md#local-tests)を読む。同内容の有効な検証をPushや一時worktreeで繰り返さず、関連変更・失敗・明示依頼時だけ再検証する。security softwareの停止・除外・検査弱体化は禁止する。
+- UTF-8／Unicode pathと三OSの同じ契約を維持する。path APIで結合し、shell／JSON／YAMLへの埋込みをescapeする。改行・実行bit・symlink・case-sensitive filesystemに依存しない。実I/Oの一時pathとWindows文字化けを扱う際は[可搬性の詳細](docs/agent-task-rules.md#paths)を読む。
+- 実装／構造変更は[共通実装手順](docs/agent-task-rules.md#implementation)、回帰・仕様不明の調査は[調査と証拠](docs/agent-task-rules.md#investigation)、依存更新・導入・削除・CI／配備・大規模横断修正・secret取扱い変更は[変更境界](docs/agent-task-rules.md#change-boundary)の該当節を着手前に読む。
+- catalog自身のmanifest・pin・配布・releaseを扱う場合だけ[catalog固有ルール](rules/catalog.md)を読む。他moduleの作業でcatalog手順を一括読込しない。
