@@ -197,7 +197,7 @@ class EcosystemManifestTest(unittest.TestCase):
                 "rencrow-image.service": ("http_json", "http://127.0.0.1:8780/health", 180, "status", "ready"),
             },
             "llm": {
-                "rencrow-llm.service": ("http_json", "http://127.0.0.1:8090/health", 180, "status", "ok"),
+                "rencrow-llm.service": ("http_json", "http://127.0.0.1:8090/health", 180, "status", "live"),
             },
             "tools": {
                 "rencrow-lyrics-collector.service": ("oneshot", None, None, None, None),
