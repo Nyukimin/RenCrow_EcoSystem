@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "bae91856772684070db92bc464c560023839d65e",
+      "version": "f159ed9249dac04c0fa893de0f77dc2a1d0b506c",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -44,7 +44,7 @@
           {
             "source_path": "scripts/rencrow-storage-backup",
             "installed_path": "%h/.local/bin/rencrow-storage-backup",
-            "sha256": "8d10955891f2da50afd6570a3e3f5d7b52f21a1de4b0430f665f93bcb72234a3",
+            "sha256": "1965c840b3bd677c4ee549de4eae23f74b261cc15acbebbe5975f3ffc2b0efdc",
             "mode": "0755"
           },
           {
@@ -62,7 +62,7 @@
           {
             "source_path": "config/checks/core.json",
             "installed_path": "%h/.local/share/rencrow/checks/core.json",
-            "sha256": "6f6a6ff21ac0fdb50edb79b4aa357ee2a9aca1947c5edff414339fa833c76405",
+            "sha256": "bb97d7ec1ce6de8f6f6e62b6414853ee115dfdc27d68c76c5a11d432d34f80ed",
             "mode": "0644"
           }
         ],
@@ -95,7 +95,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "./RenCrow_PORTAL",
-      "version": "42fbe6af1f9ffefbb5f442d64f8b9f3ebb40f580",
+      "version": "f43b56c4481f000dcc456ff5d8646b9ce807b62b",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API",
@@ -155,7 +155,7 @@
     "assistant": {
       "repository": "Nyukimin/RenCrow_ASSISTANT",
       "workspace_path": "./RenCrow_ASSISTANT",
-      "version": "d728f0f02a53b0763c76eadc48bdcdc5e7ae24a5",
+      "version": "fd1d08582b8dd41c3f9c7915b1e8c914e125bb7d",
       "required": true,
       "distribution": "binary",
       "role": "Stateful proactive interaction profile for personal and family routines, push delivery, devices, and optional CORE task escalation",
@@ -181,7 +181,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "./RenCrow_CMD",
-      "version": "9ade316bceeab7ac3e526851fa2ee0fa22b45832",
+      "version": "cc3d9fe3d3ed8354c6a968510539c4180156a42b",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL",
@@ -229,7 +229,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "ad6287fe4df8c11af7b63b66cc7acb0c0ba09e2c",
+      "version": "df14b65e8fce9717a667d6e7b9748d3f9b772f41",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -295,7 +295,7 @@
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",
       "workspace_path": "./RenCrow_STT",
-      "version": "350d268403aabbf7301298480fd0dd56345443c1",
+      "version": "26069cb197161a680a2da16eab2dbaf5ea46422f",
       "required": false,
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
@@ -355,7 +355,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "./RenCrow_TTS",
-      "version": "2c18204d74e27d472a21d3f67c33625fff26d32a",
+      "version": "70c1220e110f4876ff5baac762c6afb9a9ab721d",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
@@ -415,7 +415,7 @@
     "vision": {
       "repository": "Nyukimin/RenCrow_Vision",
       "workspace_path": "./RenCrow_Vision",
-      "version": "a4e99da5effea498178d8324ec72481063408b0e",
+      "version": "11ffcab4d965106440ecfe0e0c07a61ed074385e",
       "required": false,
       "distribution": "binary",
       "role": "Go image and video recognition Gateway from CORE to the Wild backend, including media validation, preprocessing, and result normalization",
@@ -475,7 +475,7 @@
     "games": {
       "repository": "Nyukimin/RenCrow_GAMES",
       "workspace_path": "./RenCrow_GAMES",
-      "version": "2a729085d9ddd1246bac1c35e375b18312e9892c",
+      "version": "9bced0b9e5939874afc8526a5510b1a4bb6c6a67",
       "required": false,
       "distribution": "extension",
       "role": "CORE-initiated game execution with title-local control, deterministic execution, world/rule ownership, replay, result delivery, and observer UI",
@@ -541,7 +541,7 @@
     "trade": {
       "repository": "Nyukimin/RenCrow_TRADE",
       "workspace_path": "./RenCrow_TRADE",
-      "version": "ec4ca49adee348a273021195a009af6141e9e296",
+      "version": "ed1ca58d183423545ffdf78a2641e41ee0e0b519",
       "required": false,
       "distribution": "binary",
       "role": "Financial research, source-bound learning, offline Replay, portfolio-risk, TradeGate, Ledger, and future Broker adaptation without owning Agent identity or routing",
@@ -597,7 +597,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "./RenCrow_Tools",
-      "version": "6efef28e8c2cd1d6aa0d8301e4dc656c9a296fd9",
+      "version": "a7cf4ec39d4b5e0d50f30a15a1fa058075b22187",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools",
@@ -687,7 +687,7 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "./RenCrow_Image",
-      "version": "22abebcdf09b59dce6cf67760856cf123b7b3fb1",
+      "version": "6d29eb14e117f41d0692e6ec71e136b60c4c3256",
       "required": false,
       "distribution": "binary",
       "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
@@ -747,7 +747,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",
-      "version": "1a11058af173a2d8d03ce7ee460ea03b041a6dab",
+      "version": "3e2f7e64cccc42a18ce252f94d5cb6a5f2b25ce8",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service",
@@ -782,7 +782,7 @@
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_GPT120B",
       "workspace_path": "./RenCrow_GPT120B",
-      "version": "cdc31489045f8027b54d0b4231474e4b6d1d9512",
+      "version": "0543ef61862fe00e144270c0f02e3e90ab46eea3",
       "required": false,
       "kind": "external-compute",
       "status": "development",
@@ -792,7 +792,7 @@
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_Qwen36_27B",
       "workspace_path": "./RenCrow_Qwen36_27B",
-      "version": "a92f5b60dda38a264f78942a68482d776c8cc050",
+      "version": "e903d25458593c4363b0d1283616e39d287a13e3",
       "required": false,
       "kind": "external-compute",
       "status": "development",
@@ -802,7 +802,7 @@
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_Qwen38_27B_RX6800",
       "workspace_path": "./RenCrow_Qwen38_27B_RX6800",
-      "version": "e049e33e8f5f1fcd94356e9aed9b2f0cfa900ed0",
+      "version": "bbc09aba2ab94a9a6fc4637ac71ab287f166516d",
       "required": false,
       "kind": "external-compute",
       "status": "development",
@@ -812,7 +812,7 @@
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_GLM47_Flash_RX6800",
       "workspace_path": "./RenCrow_GLM47_Flash_RX6800",
-      "version": "c22a7a8ae6d459cdc2593e075b25eff0f04558d3",
+      "version": "e899255b8b013bb6747a8260c0e56715405e7616",
       "required": false,
       "kind": "external-compute",
       "status": "development",
@@ -822,7 +822,7 @@
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_Gemma4",
       "workspace_path": "./RenCrow_Gemma4",
-      "version": "47b231186be281d5f357f8e9c11f87e75e0df2ab",
+      "version": "807995c585a8f8062fae3a4abec137902afd6192",
       "required": false,
       "kind": "external-compute",
       "status": "development",
