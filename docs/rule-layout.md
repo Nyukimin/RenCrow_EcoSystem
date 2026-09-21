@@ -20,6 +20,13 @@
 
 既存の`rencrow-bootstrap rules`で共通snapshotを同期し、端末のglobal参照を確認する。各moduleの入口・詳細は当該repositoryの同じ変更単位で配布する。snapshot単体を全ルールの配布完了としない。
 
+Codex共通Skillの`global-engineering-rules`は`project-level-ai-rules`を正本とし、
+`rules --skills --sync-snapshot --skill-source`でWorkspaceの
+`project-root/codex-skills/global-engineering-rules/`へ生成する。端末への導入は同CLIの
+`--skills --codex-home`を使う。生成コピーは独立編集せず、正本とhash一致で検証する。
+Skill内のcatalog文書は対象workspaceのmanifest／AGENTS参照から解決し、端末固有pathを埋め込まない。
+これは開発環境の配布であり、CORE管理Agentのruntime Skillやpolicyの登録経路を変更しない。
+
 catalogがworkspace rootの配置と、workspace直下にEcoSystemを置く配置を区別する。moduleの`../AGENTS.md`が共通正本を指さない場合はglobal設定／manifestに隣接するEcoSystemの正本へ解決する。Codexではglobal参照がmodule単独起動でも有効なことを`debug prompt-input`で検証する。既存タスクの古い履歴の置換は、新processの検査と分けて扱う。
 
 catalog直下ではglobal参照とlocal AGENTSから同じ共通本文が重複し得るため、local入口に`AGENTS.override.md`を使う。共通の正本は引き続きAGENTS.mdであり、配布CLIのsourceやsnapshot契約を変更しない。overrideはcatalogのcheckoutに含め、global未設定なら共通正本を先に読む条件を残す。moduleの入口をoverrideで置き換えたり、globalの人格指示を無断で上書きしたりしない。

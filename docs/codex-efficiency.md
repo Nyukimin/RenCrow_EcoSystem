@@ -1,5 +1,166 @@
 # Codex効率運用仕様と配布
 
+## 使用量を監査するときの入口
+
+まず[Toolsの使用量CLI](../RenCrow_Tools/tools/observability/codex_efficiency/README.md)を
+`--summary --report <新しい証拠file>`で実行し、モデルには短いstdoutを返す。
+詳細は保存先から必要な行・fieldだけ取得する。本書の過去の配布経緯は、配布や回帰調査に
+必要な場合だけ読む。設定のmodel／effortを下げたり、context上限を狭めたりして節約しない。
+
+## 別端末への導入
+
+対応するsource pinのcatalog、RenCrow_Tools、RenCrow_Workspaceを取得する。
+共通Skillの正本repositoryは配布先には不要。Codex homeを用意し、workspace rootから実行する。
+以下はGoで既存CLIを動かす例で、native `rencrow-bootstrap`を導入済みなら同じ引数で実行できる。
+
+```bash
+go -C ./RenCrow_Tools/tools/workspace/ecosystem_bootstrap run ./cmd/rencrow-bootstrap rules plan --manifest ../../../../ecosystem.yaml --workspace ../../../.. --skills --codex-home "$HOME/.codex"
+go -C ./RenCrow_Tools/tools/workspace/ecosystem_bootstrap run ./cmd/rencrow-bootstrap rules apply --manifest ../../../../ecosystem.yaml --workspace ../../../.. --skills --codex-home "$HOME/.codex"
+go -C ./RenCrow_Tools/tools/workspace/ecosystem_bootstrap run ./cmd/rencrow-bootstrap rules check --manifest ../../../../ecosystem.yaml --workspace ../../../.. --skills --codex-home "$HOME/.codex"
+```
+
+PowerShellではhome指定を`"$env:USERPROFILE/.codex"`へ置き換える。Windowsでsymlink権限が
+ない場合は明示的に失敗し、通常fileへの自動copyや権限昇格をしない。catalogを子directoryへ
+置く構成ではmanifestを`../../../../RenCrow_EcoSystem/ecosystem.yaml`へ変更する。
+
+この操作はglobal AGENTSと`skills/global-engineering-rules`の参照を設定する。
+config、モデル、推論強度、認証、他のSkillは変更しない。既存の異なるfile／directory／linkは
+conflictとして保護する。反映後は新しいCodex processでSkillの所在と指示を確認する。
+過去の会話履歴を短縮する操作ではない。使用量CLIはPython 3.11以上を使用する。
+
+### 配布元の更新
+
+Skill本文の正本は`project-level-ai-rules/CODEX/user_home/.codex/skills/global-engineering-rules/`。
+その2file（`SKILL.md`、`references/general.md`）を修正・検証し、`rules plan/apply/check`へ
+`--skills --sync-snapshot --skill-source <正本Skillの絶対path>`を指定してWorkspaceの
+`project-root/codex-skills/global-engineering-rules/`へ生成する。既存AGENTS snapshotも同時に照合する。
+生成先を直接編集せず、正本と配布物のhash一致を確認する。
+
+既存Codex homeのSkill linkが正確にその`--skill-source`を指す場合は、同時に`--codex-home`を
+指定して配布snapshotへ移行できる。任意の別linkや通常directoryを上書きするforce機能はない。
+配布元・Tools・Workspaceの対象差分を各ownerでcommit／pushし、catalogのTools／Workspace pinを
+そのcommitへ更新してからcatalogを配布する。raw sessions、config、測定ログ、binaryは含めない。
+
+### 配布受入（2026-09-21）
+
+Ubuntu上のnative配布CLIで、snapshot生成、日本語と空白を含む別pathへの移設、正本repositoryを
+含まない導入、再適用、競合時の無変更、明示した正本linkからの移行を確認した。
+新しいCodex processを2回起動し、配布Skillの発見、共通効率規定が1回だけ含まれること、
+configのbyte一致を確認した。さらに、checkout名を変えた正本からの更新、trackedかつcleanな
+snapshotの更新、untracked／dirtyなsnapshotの上書き拒否も確認した。
+追加reviewでlink hashの不整合、更新前content hash、配布先の重なり、link先の再検証を修正し、
+独立reviewとnative CLIで再確認した。bootstrapのGo test／vet／buildは成功。
+このUbuntuの実Codex homeも配布snapshot参照へ移行し、plan／apply／check、新しいCodex
+processでのSkill発見、configと正本Skillのbyte不変を確認した。
+証拠はToolsのGit外`Tmp/codex-efficiency-20260921/distribution/`に保存する。
+
+catalogの109 testsとworkspace検査は成功。governance全体は既存の
+`RenCrow_Bench/AGENTS.md`欠落で失敗しており、配布の成功を全体合格とは扱わない。
+この受入は同じUbuntu内の隔離した導入先での検証であり、別の物理端末への適用や
+Windows／macOSでのCodex実起動は含まない。
+
+### 2026-09-21 監査・改善・効果測定
+
+CE-01／CE-08は新しい実sessionsとCLI出力を根拠に改善した。対象はUbuntuのCodex開発運用、
+Toolsの既存集計CLI、local `global-engineering-rules` Skill。本作業でmodel、effort、tier、
+context上限、認証、製品runtime、MCP／pluginの能力を変更していない。
+
+- **CLI／Tools**: sessions → 重複除外済み集計 → `--summary` stdoutと`--report`詳細file。
+  exit 0=complete、2=input error、3=partial。短縮しても欠損理由、モデル不明、母数、hashを保持する。
+- **LLM／Astra**: 改善箇所と義務の同等性を判断し、差分・独立検証・受入を所有する。
+  Skillの限定整理と独立検証は、履歴継承なしのLuna maxへ分けた。
+- **Boundary／各owner**: reportは明示pathの新規fileだけへ作成し、既存file／symlinkを上書きしない。
+  sessions／configはread-only。Skillの既存義務は正本か条件付きreferenceに保持する。
+
+基準期間はUTC `[2026-09-13,2026-09-21)`。Astraと確定できる3,098応答は入力442,284,225、
+うちcache入力434,280,704（98.19%）、未cache入力8,003,521、出力1,521,429 tokens。
+入力の中央値141,887.5、p90=200,042。cache入力を総入力へ再加算せず、reasoningも出力へ
+再加算しない。モデル不明の記録とlegacy cumulative resetがあるため全体statusはpartial。
+この値を完全なaccount使用量や料金と扱わない。Astra出力の限定sampleでは3,035 tool result、
+17,601,963 bytesを観測し、うち17,469,252 bytesが`exec`だった。出力サイズと反復入力を
+改善対象にしたが、wait回数だけで不要と判定したり、exact duplicateの削減効果を仮定しない。
+
+| 比較対象 | 改善前 | 改善後 | 実測差 |
+| --- | ---: | ---: | ---: |
+| 同じ監査値を返すstdout | 50,081 bytes | 2,357 bytes | 95.29%減 |
+| RenCrowで読むSkill入口 | 15,817 bytes | 3,586 bytes | 77.33%減 |
+
+最初のSkill整理は6,096 bytesだった。再レビューで残存する正本重複を除き、一般規定の
+必要な節への参照を明示して上表の状態にした。CLI測定後は、reasoning欠損でも既知の入力分布を
+保持する修正と、上位8モデルから漏れる`unknown`の明示表示も追加した。
+一般project向け本文はSkillの`references/general.md`に保持し、RenCrowで全文を毎回読まない。
+
+短縮前のaggregateと改善後のaggregateは一致。同一呼出しで保存した詳細51,724 bytesと
+summary 2,357 bytesは同じevidence hashと数値を持つ。設定のbyte一致と、新processの
+model-visible instruction content一致（message ID／作成時刻を除く）、効率規定1回を確認した。
+今回減ったのはSkillを使用するときの読込と監査結果の入力であり、起動時の指示全体を減らした
+という意味ではない。現行sessionの既存履歴を遡って縮める変更でもない。
+
+| 原要求／受入 | 結果・証拠 |
+| --- | --- |
+| ナレッジ収集 | 下記公式資料、既存仕様、実sessionsと設定の照合 |
+| システム監査 | 既存CLIのmodel別集計とoutput診断。unknownとlegacy resetを分離 |
+| 必要な改善 | summary／詳細保存、欠損時統計、unknown表示、Skillの条件付き読込を適用 |
+| 効果測定と再改善 | 同一数値・hashの出力比較、Skill再短縮、追加欠陥のRed→Green検証 |
+
+CLIの関連24 testsと独立検証、Skillの構造検査、catalogの109 testsは成功。
+当日実sessionsへの最終CLI smokeはexit 0でcomplete。
+Toolsの固定Execution Planは作成したが、正規runnerの起動は`pwsh`不在で失敗し、後続stepは
+blocked。LinuxでREADMEが認める関連Python検査の成功を、正規runner全体の成功へ換算しない。
+監査時点では他OSのCI、他端末への配布、長期の品質同等workloadに対する総token／週間枠削減率は未確認。
+上表のSkillサイズは測定時点の値。配布対応で端末固有pathを除去した入口は3,722 bytesであり、
+測定時の入力と同一ではない。配布検証は本書の導入節に記録する。
+ここでの95.29%／77.33%は**対象テキストのbyte削減率**であり、総tokenやquotaの削減率ではない。
+
+再現証拠はToolsのGit外`Tmp/codex-efficiency-20260921/`の`measurement.json`、
+`baseline-usage.json`、`after-summary.json`、`after-full.json`、`final-smoke-summary.json`、
+`check-plan.json`、`canonical-receipt.json`、独立reviewを参照する。raw session／configをcommitしない。
+このUbuntuの既定`python3`は3.10のため、既存の
+`~/.local/share/uv/python/cpython-3.11-linux-x86_64-gnu/bin/python3`でCLIを実行した。
+証拠は対象source／入力prefix／host／設定に限定し、それらの関連変更で再評価する。
+
+公式の[Prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching)は、
+cacheが生成能力を変えず、cached inputもTPMへ算入されることを説明する。
+これをCodex subscriptionのquota計算式へ転用しない。
+[構成リファレンス](https://learn.chatgpt.com/docs/config-file/config-reference)では
+tool出力保持上限、context上限、自動compaction閾値は別設定である。今回はいずれも下げず、
+必要な詳細を保存し、modelに返す情報を意味を保って絞った。
+[Astra公式仕様](https://developers.openai.com/api/docs/models/gpt-6-astra)も確認し、別modelへの
+置換やeffort低下を改善として計上しない。root configはmedium、観測されたAstra sessionsはxhighで、
+両者を同じ設定と仮定しない。config全体は開始時とbyte一致のままである。
+
+### 同日の追加検証：同条件の実トークン比較
+
+テキスト量だけでなく、実際のAstra使用量を比較するため、凍結した監査結果を読み、
+数値・欠損・unknownを抽出して、quota削減や運用適切性を断定できるか判断する1課題を実行した。
+改善前は詳細集計と旧Skill、改善後はsummaryと新Skillを与える。要求と回答schema、cwd、
+config、Astra／xhigh、Standardの要求、read-only sandboxをそろえ、ツール呼出しと委譲は0回。
+意味判断だけをmodelへ任せ、採点・集計・hash比較はCLIで行った。
+
+| Codexが記録した実使用量 | 改善前 | 改善後 | 差 |
+| --- | ---: | ---: | ---: |
+| input tokens | 44,729 | 23,258 | **48.00%減** |
+| output tokens（reasoningを含む） | 1,069 | 733 | 31.43%減 |
+| input + output | 45,798 | 23,991 | **47.62%減** |
+
+採用した2実行のbase instructionsとdeveloper指示（Skill一覧を含む）はhash一致、
+記録されたmodel／effortもAstra／xhighで一致し、configの変更はない。cached inputは両方0。
+数値4項目、status、欠損理由、unknownの保持、quota／運用成果の過大評価禁止、品質検証維持は
+両方で合格し、自由記述も同等の追加証拠を要求した。実際のeffective service tierは記録にないため、
+Standard課金やquota削減率の証明にはしない。reasoning tokenをoutputへ重複加算しない。
+
+最初の改善前sampleは起動時Skill一覧が76件、改善後は31件で、prefixが一致しなかった。
+そこで当初の50.8%という差を**不採用**にし、configやSkillを無効化せず改善前sampleを再実行した。
+採用した比較の実行順は改善後→改善前再実行。今後もmodel／effortだけでなく、実際に記録された
+指示prefixとSkill／Tool構成の差を比較gateにし、差があるsampleを節約の証拠へ昇格しない。
+この観測だけで起動時一覧変化の原因を断定しない。
+
+同条件の1組・監査判断1課題での結果であり、一般の設計・実装能力、長期の成果当たり消費、
+週間quotaへ一般化しない。測定自体の3実行（不採用分を含む）はinput＋outputで117,790 tokens。
+これは比較実行の合計であり、測定を指揮した親会話の消費を含む総作業費用ではない。
+証拠は同じGit外directoryの`matched-benchmark/contract.json`、`check-plan.json`、
+`result-final.json`、各実行のevents／answer。`result.json`は不採用の初回結果として保持する。
+
 ## 正本と適用範囲
 
 運用ルールの唯一の正本は[AGENTS.mdのCodex efficiency policy](../AGENTS.md#codex-efficiency-policy--2026-09-12-v1)。2026-09-12の直接適用版を基に、2026-09-13に待機、情報取得、委譲、証拠再利用、測定を具体化した。Astraを主担当とし、有益な独立作業だけLuna maxへ委譲する。作業の完遂、親による差分レビュー、独立検証、owner・認証・安全境界を維持する。
