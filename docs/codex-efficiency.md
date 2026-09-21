@@ -52,6 +52,9 @@ snapshotの更新、untracked／dirtyなsnapshotの上書き拒否も確認し�
 独立reviewとnative CLIで再確認した。bootstrapのGo test／vet／buildは成功。
 このUbuntuの実Codex homeも配布snapshot参照へ移行し、plan／apply／check、新しいCodex
 processでのSkill発見、configと正本Skillのbyte不変を確認した。
+公開後にはGitHubからcatalog・Tools・Workspaceの3repositoryを新規cloneし、pin一致、
+取得したsourceからのCLI build、正本Skill repositoryなしのplan／apply／check、
+新しいCodex processでのSkill発見を再確認した。個人configの作成・複製は不要だった。
 証拠はToolsのGit外`Tmp/codex-efficiency-20260921/distribution/`に保存する。
 
 catalogの109 testsとworkspace検査は成功。governance全体は既存の
