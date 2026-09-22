@@ -687,7 +687,7 @@
     "switch_core": {
       "repository": "Nyukimin/RenCrow_Switch_Core",
       "workspace_path": "./RenCrow_Switch_Core",
-      "version": "9a99fb83118e9e703929459bd9f19d9e37c0cace",
+      "version": "bf9d00a6a49189377a088e75d20ba14f772a2e66",
       "required": false,
       "distribution": "tooling",
       "role": "Unofficial OpenAI Codex fork for RenCrow development clients and separate compaction candidate tooling; launcher and Gateway remain owned by RenCrow_LLM"
