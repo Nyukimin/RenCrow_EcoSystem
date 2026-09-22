@@ -174,6 +174,17 @@
       "durability",
       "lifecycle",
       "publication"
+    ],
+    "switch_core": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "canonical_e2e",
+      "receipt_trace",
+      "security_exposure",
+      "durability",
+      "lifecycle",
+      "publication"
     ]
   },
   "temporarily_excluded_components": {

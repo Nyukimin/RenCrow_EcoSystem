@@ -684,6 +684,14 @@
       "distribution": "tooling",
       "role": "Development benchmark tasks, graders, runners, and provenance for evaluating model suitability for RenCrow roles; source-pinned with known grading limitations, not a production runtime or role-assignment owner"
     },
+    "switch_core": {
+      "repository": "Nyukimin/RenCrow_Switch_Core",
+      "workspace_path": "./RenCrow_Switch_Core",
+      "version": "89e0f30ec340b272b7e9e9206d5539b085cbddc2",
+      "required": false,
+      "distribution": "tooling",
+      "role": "Unofficial OpenAI Codex fork for RenCrow development clients and separate compaction candidate tooling; launcher and Gateway remain owned by RenCrow_LLM"
+    },
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "./RenCrow_Image",

@@ -16,6 +16,7 @@
 | `RenCrow_Tools` | 開発、変換、検証、browser sidecar | tooling | CORE / Worker と開発運用を補助 |
 | [RenCrow_Bench](https://github.com/Nyukimin/RenCrow_Bench) | モデルの役割適性を測る課題・採点器・実行ランナー・測定の版情報 | optional development tooling | 開発時の評価を所有。Agent配置・routingの正本はCORE |
 | `RenCrow_Image` | 描画・画像生成interface | optional Go binary + external compute | `rencrow-image`がCOREから生成要求を受け、ForgeNeo／Z-Image等のbackendへ接続 |
+| [RenCrow_Switch_Core](https://github.com/Nyukimin/RenCrow_Switch_Core) | OpenAI Codexの非公式Fork、開発用clientと独立Compaction候補CLI | optional development tooling | Codex-switchの起動対象。launcher／Gateway／BackendはRenCrow_LLMが所有し、COREのActor・routing正本は変更しない |
 | `RenCrow_Workspace` | `~/.rencrow/workspace`のportableな非secret snapshot | snapshot | backup／復旧用。`~/.rencrow/workspace`自体が実行時の正本であり、runtime serviceではない |
 
 ## Ownership rule
@@ -172,3 +173,16 @@ Go binaryへ同梱しません。詳細な統合状態は[Go distribution](go-di
 
 CORE／LLMはworld stateを直接変更せず、GAMESは本番LLM provider、Persona、
 Recall、confirmed memory、起動意思を所有しません。
+
+## RenCrow_Switch_Core development boundary
+
+`switch_core`は独立Git repositoryとしてsource pinを管理する開発用componentです。
+製品runtimeの必須依存ではなく、`--include switch_core`で取得対象に含めます。
+Forkの[改変ルール](https://github.com/Nyukimin/RenCrow_Switch_Core/blob/main/FORK_RULES.md)、
+[build・Codex-switch接続](https://github.com/Nyukimin/RenCrow_Switch_Core/blob/main/FORK_BUILD.md)、
+[Compaction仕様](https://github.com/Nyukimin/RenCrow_Switch_Core/blob/main/COMPACTION_SPEC.md)、
+[独立CLI](https://github.com/Nyukimin/RenCrow_Switch_Core/blob/main/COMPACTION_CLI.md)を正本として参照します。
+EcoSystemはForkのsourceや実装規定を複製しません。
+
+登録はsourceの取得・再現と監査対象の宣言であり、公開binary release、配備済みbinaryとの一致、
+通常Compactionへの適用、三OSや統合互換性の受入を意味しません。

@@ -34,6 +34,10 @@ go -C ./RenCrow_Tools/tools/workspace/ecosystem_bootstrap \
 特定moduleだけを取得する場合は`--include core`のようにIDを指定し、複数回指定できます。
 モデル評価用の`RenCrow_Bench`は`--include bench`で選択できます。非公開repositoryのため、
 取得にはGitHubのアクセス権が必要です。評価環境の準備は[Bench README](https://github.com/Nyukimin/RenCrow_Bench/blob/main/README.md)に従います。
+開発用Codex Forkの`RenCrow_Switch_Core`は`--include switch_core`で取得できます。
+登録と配備は別工程です。buildとCodex-switchへの接続は
+[Forkの導入手順](https://github.com/Nyukimin/RenCrow_Switch_Core/blob/main/FORK_BUILD.md)、
+独立Compaction候補CLIは[CLI契約](https://github.com/Nyukimin/RenCrow_Switch_Core/blob/main/COMPACTION_CLI.md)に従います。
 `planned` entryは取得しません。既存repositoryは自動checkoutせず、originとHEADがmanifestに
 一致しない場合は変更せず停止します。bootstrapはmanifestを書き換えず、互換性を主張しません。
 
