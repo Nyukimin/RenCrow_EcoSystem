@@ -1,0 +1,1473 @@
+{
+  "provider": "lyricfind",
+  "artist_query": "SUPER BEAVER",
+  "slug": "super-beaver",
+  "totalresults": 183,
+  "unique_songs": 183,
+  "songs": [
+    {
+      "artist": "SUPER BEAVER",
+      "song": "クライマックス",
+      "slug": "super-beaver-climax",
+      "lfid": "002-21181821",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-climax"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "突破口",
+      "slug": "super-beaver-toppako",
+      "lfid": "002-2349589",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-toppako"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "燦然 - Sanzen",
+      "slug": "super-beaver-sanzen",
+      "lfid": "002-20077886",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-sanzen"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "人として",
+      "slug": "super-beaver-hitotoshite",
+      "lfid": "002-2530523",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hitotoshite"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "コイスルオトメ",
+      "slug": "super-beaver-koisuruotome",
+      "lfid": "002-13916998",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-koisuruotome"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "名前を呼ぶよ",
+      "slug": "super-beaver-namae-wo-yobuyo",
+      "lfid": "002-5136261",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-namae-wo-yobuyo"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "主人公",
+      "slug": "super-beaver-shujinko",
+      "lfid": "002-17760874",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-shujinko"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "らしさ",
+      "slug": "super-beaver-rashisa",
+      "lfid": "002-2523689",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-rashisa"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "まなざし",
+      "slug": "super-beaver-manazashi",
+      "lfid": "002-17507794",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-manazashi"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "涙の正体",
+      "slug": "super-beaver-namida-no-syotai",
+      "lfid": "002-16626319",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-namida-no-syotai"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "生きがい",
+      "slug": "super-beaver-ikigai",
+      "lfid": "002-19504213",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-ikigai"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "切望",
+      "slug": "super-beaver-setsubo",
+      "lfid": "002-13919075",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-setsubo"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "青い春",
+      "slug": "super-beaver-aoiharu-1",
+      "lfid": "002-2523893",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-aoiharu-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "儚くない",
+      "slug": "super-beaver-hakanakunai",
+      "lfid": "002-11896152",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hakanakunai"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "小さな革命",
+      "slug": "super-beaver-chiisana-kakumei",
+      "lfid": "002-13919126",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-chiisana-kakumei"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ひなた",
+      "slug": "super-beaver-hinata",
+      "lfid": "002-1395816",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hinata"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "決心",
+      "slug": "super-beaver-kesshin",
+      "lfid": "002-13231181",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-kesshin"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "健気",
+      "slug": "super-beaver-kenage",
+      "lfid": "002-21483381",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-kenage"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "幸せのために生きているだけさ",
+      "slug": "super-beaver-shiawasenotameni-ikiteirudakesa",
+      "lfid": "002-13912295",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-shiawasenotameni-ikiteirudakesa"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "愛しい人",
+      "slug": "super-beaver-itoshii-hito",
+      "lfid": "002-3390954",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-itoshii-hito"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "アイラヴユー",
+      "slug": "super-beaver-i-love-you",
+      "lfid": "002-2513061",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-i-love-you"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "夏と跡形",
+      "slug": "super-beaver-natsu-to-atokata",
+      "lfid": "002-21486689",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-natsu-to-atokata"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "美しい日",
+      "slug": "super-beaver-utsukushiihi",
+      "lfid": "002-2523830",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-utsukushiihi"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ひたむき",
+      "slug": "super-beaver-hitamuki-1",
+      "lfid": "002-19322938",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hitamuki-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ありがとう",
+      "slug": "super-beaver-arigatou",
+      "lfid": "002-2527473",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-arigatou"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "27",
+      "slug": "super-beaver-nijuunana",
+      "lfid": "002-1336981",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-nijuunana"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "予感",
+      "slug": "super-beaver-yokan",
+      "lfid": "002-1478269",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-yokan"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "希望",
+      "slug": "super-beaver-kibou",
+      "lfid": "002-21479908",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-kibou"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "赤を塗って",
+      "slug": "super-beaver-akawonutte",
+      "lfid": "002-2530511",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-akawonutte"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "グラデーション",
+      "slug": "super-beaver-gradation",
+      "lfid": "002-11302193",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-gradation"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "アプローズ",
+      "slug": "super-beaver-applause",
+      "lfid": "002-21482630",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-applause"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "Irony",
+      "slug": "super-beaver-irony",
+      "lfid": "002-1395817",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-irony"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "アイラヴユー",
+      "slug": "super-beaver-i-love-you-1",
+      "lfid": "002-19323023",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-i-love-you-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "片想い",
+      "slug": "super-beaver-kataomoi",
+      "lfid": "002-16947956",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-kataomoi"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "シアワセ",
+      "slug": "super-beaver-shiawase",
+      "lfid": "002-2523678",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-shiawase"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "秘密",
+      "slug": "super-beaver-himitsu-1",
+      "lfid": "002-19322978",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-himitsu-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "キレイだ",
+      "slug": "super-beaver-kireida",
+      "lfid": "002-14757343",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-kireida"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "嬉しい涙",
+      "slug": "super-beaver-ureshiinamida",
+      "lfid": "002-2531066",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-ureshiinamida"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "めくばせ",
+      "slug": "super-beaver-mekubase",
+      "lfid": "002-13919095",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-mekubase"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ひとつ",
+      "slug": "super-beaver-hitotsu",
+      "lfid": "002-2530512",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hitotsu"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "美しい日 [Live from ZOZO MARINE STADIUM 2025]",
+      "slug": "super-beaver-utsukushiihi-1",
+      "lfid": "002-19323371",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-utsukushiihi-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "名前を呼ぶよ [Live]",
+      "slug": "super-beaver-namae-wo-yobuyo-3",
+      "lfid": "002-19027342",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-namae-wo-yobuyo-3"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "値千金",
+      "slug": "super-beaver-atai-senkin",
+      "lfid": "002-13619324",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-atai-senkin"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "告白",
+      "slug": "super-beaver-kokuhaku",
+      "lfid": "002-21487784",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-kokuhaku"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "青い春",
+      "slug": "super-beaver-aoiharu",
+      "lfid": "002-2523828",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-aoiharu"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ハイライト",
+      "slug": "super-beaver-highlight",
+      "lfid": "002-1810139",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-highlight"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "あなた",
+      "slug": "super-beaver-anata",
+      "lfid": "002-2523687",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-anata"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "東京流星群",
+      "slug": "super-beaver-tokyo-ryuseigun-1",
+      "lfid": "002-19024898",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-tokyo-ryuseigun-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "今夜だけ",
+      "slug": "super-beaver-konya-dake",
+      "lfid": "002-2523289",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-konya-dake"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "Q&A [AA1]",
+      "slug": "super-beaver-q-a-1",
+      "lfid": "002-19322999",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-q-a-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "さよなら絶望",
+      "slug": "super-beaver-sayonara-zetsubo",
+      "lfid": "002-2523323",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-sayonara-zetsubo"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "歓びの明日に",
+      "slug": "super-beaver-yorokobinoasuni",
+      "lfid": "002-2523683",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-yorokobinoasuni"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ひとこと",
+      "slug": "super-beaver-hitokoto",
+      "lfid": "002-2531067",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hitokoto"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ロマン",
+      "slug": "super-beaver-roman",
+      "lfid": "002-7283046",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-roman"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "東京流星群",
+      "slug": "super-beaver-tokyo-ryuseigun",
+      "lfid": "002-2524286",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-tokyo-ryuseigun"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "虹",
+      "slug": "super-beaver-niji",
+      "lfid": "002-2523839",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-niji"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "最前線",
+      "slug": "super-beaver-saizensen",
+      "lfid": "002-7283048",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-saizensen"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "グラデーション [AA1]",
+      "slug": "super-beaver-gradation-3",
+      "lfid": "002-19322965",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-gradation-3"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "本音",
+      "slug": "super-beaver-honne",
+      "lfid": "002-2530518",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-honne"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "それっぽいふたり",
+      "slug": "super-beaver-soreppoi-futari",
+      "lfid": "002-7283042",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-soreppoi-futari"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "そして繋がる",
+      "slug": "super-beaver-sohitetunagaru",
+      "lfid": "002-2527361",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-sohitetunagaru"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "それでも世界が目を覚ますのなら",
+      "slug": "super-beaver-soredemo-sekaiga-mewo-samasunonara",
+      "lfid": "002-2524276",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-soredemo-sekaiga-mewo-samasunonara"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "秘密 [AA1]",
+      "slug": "super-beaver-himitsu-2",
+      "lfid": "002-19322981",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-himitsu-2"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "運命",
+      "slug": "super-beaver-unmei",
+      "lfid": "002-2530522",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-unmei"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ささやかな",
+      "slug": "super-beaver-sasayakana",
+      "lfid": "002-2524182",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-sasayakana"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "奪還",
+      "slug": "super-beaver-dakkan",
+      "lfid": "002-13919103",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-dakkan"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "勇気の一歩",
+      "slug": "super-beaver-yuukino-ippo",
+      "lfid": "002-2523874",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-yuukino-ippo"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "星になりゆく人",
+      "slug": "super-beaver-hoshini-nariyuku-hito",
+      "lfid": "002-2524539",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hoshini-nariyuku-hito"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ゼロ距離",
+      "slug": "super-beaver-zerokyori",
+      "lfid": "002-2527340",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-zerokyori"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "リビング",
+      "slug": "super-beaver-living",
+      "lfid": "002-13919082",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-living"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "Mob",
+      "slug": "super-beaver-mob",
+      "lfid": "002-2523306",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-mob"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "その日を待つように",
+      "slug": "super-beaver-sonohiwomatuyouni",
+      "lfid": "002-2527364",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-sonohiwomatuyouni"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "切望",
+      "slug": "super-beaver-setsubo-1",
+      "lfid": "002-19323003",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-setsubo-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "生活",
+      "slug": "super-beaver-seikatsu",
+      "lfid": "002-2527529",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-seikatsu"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "切望 [AA1]",
+      "slug": "super-beaver-setsubo-2",
+      "lfid": "002-19323004",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-setsubo-2"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "全部",
+      "slug": "super-beaver-zenbu",
+      "lfid": "002-2523834",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-zenbu"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "アイラヴユー [AA1]",
+      "slug": "super-beaver-i-love-you-2",
+      "lfid": "002-19323025",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-i-love-you-2"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "電波",
+      "slug": "super-beaver-denpa",
+      "lfid": "002-2524483",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-denpa"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "言えって",
+      "slug": "super-beaver-iette",
+      "lfid": "002-2527522",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-iette"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "突破口 [Live from ZOZO MARINE STADIUM 2025]",
+      "slug": "super-beaver-toppako-1",
+      "lfid": "002-18963731",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-toppako-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "道標",
+      "slug": "super-beaver-michishirube",
+      "lfid": "002-2523860",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-michishirube"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "361°",
+      "slug": "super-beaver-361-do",
+      "lfid": "002-2527451",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-361-do"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "人間",
+      "slug": "super-beaver-ningen",
+      "lfid": "002-7283034",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-ningen"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "素晴らしい世界",
+      "slug": "super-beaver-subarashiisekai",
+      "lfid": "002-2530524",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-subarashiisekai"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "まっしろ",
+      "slug": "super-beaver-massiro",
+      "lfid": "002-2530519",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-massiro"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "愛する",
+      "slug": "super-beaver-aisuru",
+      "lfid": "002-2527532",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-aisuru"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ほっといて",
+      "slug": "super-beaver-hottoite",
+      "lfid": "002-3766408",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hottoite"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "値千金 [AA1]",
+      "slug": "super-beaver-atai-senkin-1",
+      "lfid": "002-19322991",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-atai-senkin-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "道化者のゆううつ",
+      "slug": "super-beaver-douke-mono-no-yuuutsu",
+      "lfid": "002-11244025",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-douke-mono-no-yuuutsu"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "おかげさま",
+      "slug": "super-beaver-okagesama",
+      "lfid": "002-2527524",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-okagesama"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "種の話",
+      "slug": "super-beaver-taneno-hanashi",
+      "lfid": "002-2524495",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-taneno-hanashi"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "主人公 [Live from ZOZO MARINE STADIUM 2025]",
+      "slug": "super-beaver-shujinkou",
+      "lfid": "002-19012907",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-shujinkou"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "正攻法 [AA1]",
+      "slug": "super-beaver-seikouhou-3",
+      "lfid": "002-19322950",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-seikouhou-3"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "なかま",
+      "slug": "super-beaver-nakama",
+      "lfid": "002-2531115",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-nakama"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ルール",
+      "slug": "super-beaver-rule",
+      "lfid": "002-2527351",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-rule"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ラヴソング",
+      "slug": "super-beaver-ravusongu",
+      "lfid": "002-2531053",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-ravusongu"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "裸",
+      "slug": "super-beaver-hadaka",
+      "lfid": "002-13919111",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hadaka"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "美しい日 [AA1]",
+      "slug": "super-beaver-utsukushiihi-2",
+      "lfid": "002-19323372",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-utsukushiihi-2"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "始まる、未来",
+      "slug": "super-beaver-hajimaru-mirai",
+      "lfid": "002-2527367",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hajimaru-mirai"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "深呼吸",
+      "slug": "super-beaver-shinkokyuu",
+      "lfid": "002-1264902",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-shinkokyuu"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "予感 [AA1]",
+      "slug": "super-beaver-yokan-1",
+      "lfid": "002-19322996",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-yokan-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "閃光",
+      "slug": "super-beaver-senkou",
+      "lfid": "002-2531051",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-senkou"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "スペシャル",
+      "slug": "super-beaver-special",
+      "lfid": "002-7239643",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-special"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "愛の愛の",
+      "slug": "super-beaver-ainoaino",
+      "lfid": "002-2527456",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-ainoaino"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "318",
+      "slug": "super-beaver-318",
+      "lfid": "002-7283043",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-318"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ひたむき [AA1]",
+      "slug": "super-beaver-hitamuki-2",
+      "lfid": "002-19322940",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hitamuki-2"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "じぶんまかせ",
+      "slug": "super-beaver-jibunmakase",
+      "lfid": "002-2530513",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-jibunmakase"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ひたむき",
+      "slug": "super-beaver-hitamuki",
+      "lfid": "002-8565208",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hitamuki"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "Mob [AA1]",
+      "slug": "super-beaver-mob-1",
+      "lfid": "002-19322969",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-mob-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "幻想",
+      "slug": "super-beaver-gensou",
+      "lfid": "002-2527357",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-gensou"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "東京流星群",
+      "slug": "super-beaver-tokyo-ryuseigun-3",
+      "lfid": "002-20829079",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-tokyo-ryuseigun-3"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "誰か",
+      "slug": "super-beaver-dareka",
+      "lfid": "002-2527511",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-dareka"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ドクターペッパー",
+      "slug": "super-beaver-doctor-pepper",
+      "lfid": "002-2524492",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-doctor-pepper"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ヒカリ",
+      "slug": "super-beaver-hikari",
+      "lfid": "002-2524110",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hikari"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "Home",
+      "slug": "super-beaver-home",
+      "lfid": "002-2524195",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-home"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ファンファーレ",
+      "slug": "super-beaver-fanfa-re",
+      "lfid": "002-1395814",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-fanfa-re"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "鼓動",
+      "slug": "super-beaver-kodou",
+      "lfid": "002-2527472",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-kodou"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "センチメンタル",
+      "slug": "super-beaver-senchimentaru",
+      "lfid": "002-2527459",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-senchimentaru"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "贈りもの",
+      "slug": "super-beaver-okurimono",
+      "lfid": "002-1395818",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-okurimono"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "それでも世界が目を覚ますのなら",
+      "slug": "super-beaver-soredemo-sekaiga-mewo-samasunonara-1",
+      "lfid": "002-19323011",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-soredemo-sekaiga-mewo-samasunonara-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "それでも世界が目を覚ますのなら [AA1]",
+      "slug": "super-beaver-soredemo-sekaiga-mewo-samasunonara-2",
+      "lfid": "002-19323015",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-soredemo-sekaiga-mewo-samasunonara-2"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "シンプリー",
+      "slug": "super-beaver-shinpuri",
+      "lfid": "002-2531056",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-shinpuri"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "結果論",
+      "slug": "super-beaver-kekkaron",
+      "lfid": "002-2527518",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-kekkaron"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "さよならも、ありがとう",
+      "slug": "super-beaver-sayonaramo-arigatou",
+      "lfid": "002-2524497",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-sayonaramo-arigatou"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ILP",
+      "slug": "super-beaver-ilp",
+      "lfid": "002-2527528",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-ilp"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "東京流星群 [Live from ZOZO MARINE STADIUM 2025]",
+      "slug": "super-beaver-tokyo-ryuseigun-2",
+      "lfid": "002-19024903",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-tokyo-ryuseigun-2"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "VS.",
+      "slug": "super-beaver-vs",
+      "lfid": "002-7283039",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-vs"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "幸福軌道",
+      "slug": "super-beaver-koufuku-kidou",
+      "lfid": "002-2524477",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-koufuku-kidou"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "二人のこと",
+      "slug": "super-beaver-futarinokoto",
+      "lfid": "002-2524298",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-futarinokoto"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "約束。",
+      "slug": "super-beaver-yakusoku",
+      "lfid": "002-2527475",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-yakusoku"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "はちきれそう",
+      "slug": "super-beaver-hachikireso",
+      "lfid": "002-3766412",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hachikireso"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "天気予報",
+      "slug": "super-beaver-tenkiyohou",
+      "lfid": "002-2523866",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-tenkiyohou"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "アカネボシ",
+      "slug": "super-beaver-akaneboshi",
+      "lfid": "002-2524500",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-akaneboshi"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "Pan",
+      "slug": "super-beaver-pan",
+      "lfid": "002-2523862",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-pan"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ことば",
+      "slug": "super-beaver-kotoba",
+      "lfid": "002-2523701",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-kotoba"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "グッバイ",
+      "slug": "super-beaver-goodbye",
+      "lfid": "002-2523852",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-goodbye"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "サイレン",
+      "slug": "super-beaver-sairen",
+      "lfid": "002-2527470",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-sairen"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "まちがえた",
+      "slug": "super-beaver-machigaeta",
+      "lfid": "002-2531063",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-machigaeta"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "未だ見ぬ明日へ",
+      "slug": "super-beaver-mada-minu-asue",
+      "lfid": "002-2524484",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-mada-minu-asue"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "How Are You?",
+      "slug": "super-beaver-how-are-you",
+      "lfid": "002-2524157",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-how-are-you"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "×",
+      "slug": "super-beaver-batten",
+      "lfid": "002-2527460",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-batten"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "心景",
+      "slug": "super-beaver-shinkei",
+      "lfid": "002-2523883",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-shinkei"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "リフレイン",
+      "slug": "super-beaver-refrain",
+      "lfid": "002-2524176",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-refrain"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "まだ",
+      "slug": "super-beaver-mada",
+      "lfid": "002-2527466",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-mada"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "僕の言葉",
+      "slug": "super-beaver-bokuno-kotoba",
+      "lfid": "002-2523880",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-bokuno-kotoba"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "リセット",
+      "slug": "super-beaver-reset",
+      "lfid": "002-2523662",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-reset"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ふがいない夜こそ",
+      "slug": "super-beaver-fugainaiyorukoso",
+      "lfid": "002-2531049",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-fugainaiyorukoso"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "日常サイクル",
+      "slug": "super-beaver-nichijou-cycle",
+      "lfid": "002-2523842",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-nichijou-cycle"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "地球軸",
+      "slug": "super-beaver-chikyuujiku",
+      "lfid": "002-2524480",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-chikyuujiku"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "わたくしごと",
+      "slug": "super-beaver-watakushigoto",
+      "lfid": "002-2523694",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-watakushigoto"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "うるさい",
+      "slug": "super-beaver-urusai",
+      "lfid": "002-2523712",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-urusai"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "まわる、まわる",
+      "slug": "super-beaver-mawaru-mawaru",
+      "lfid": "002-2524192",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-mawaru-mawaru"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "東京",
+      "slug": "super-beaver-tokyo-1",
+      "lfid": "002-7126651",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-tokyo-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "Q&A",
+      "slug": "super-beaver-q-a",
+      "lfid": "002-2527526",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-q-a"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "二つの旅路",
+      "slug": "super-beaver-futatsuno-tabiji",
+      "lfid": "002-2523671",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-futatsuno-tabiji"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "シアワセ",
+      "slug": "super-beaver-shiawase-1",
+      "lfid": "002-2523747",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-shiawase-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ひとりで生きていたならば",
+      "slug": "super-beaver-hitoride-ikiteitanaraba",
+      "lfid": "002-1810144",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hitoride-ikiteitanaraba"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "わたし",
+      "slug": "super-beaver-watashi",
+      "lfid": "002-2527519",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-watashi"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "Your Song",
+      "slug": "super-beaver-your-song",
+      "lfid": "002-2527354",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-your-song"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "秘密",
+      "slug": "super-beaver-himitsu",
+      "lfid": "002-2530509",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-himitsu"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "自慢になりたい",
+      "slug": "super-beaver-jiman-ni-naritai",
+      "lfid": "002-2300209",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-jiman-ni-naritai"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "時代",
+      "slug": "super-beaver-jidai",
+      "lfid": "002-2523316",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-jidai"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "空の彼方",
+      "slug": "super-beaver-sorano-kanata",
+      "lfid": "002-2524164",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-sorano-kanata"
+    },
+    {
+      "artist": "SUPER BEAVER and 長屋晴子",
+      "song": "東京 [From THE FIRST TAKE]",
+      "slug": "super-beaver-tokyo",
+      "lfid": "002-6852166",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-tokyo"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "パラドックス",
+      "slug": "super-beaver-paradox",
+      "lfid": "002-2523312",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-paradox"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "未来の話をしよう",
+      "slug": "super-beaver-mirai-no-hanashi-wo-shiyou",
+      "lfid": "002-7283044",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-mirai-no-hanashi-wo-shiyou"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "人として [From THE FIRST TAKE]",
+      "slug": "super-beaver-hitotoshite-1",
+      "lfid": "002-17855240",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hitotoshite-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "人として [AA1]",
+      "slug": "super-beaver-hitotoshite-2",
+      "lfid": "002-18598086",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-hitotoshite-2"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "証明",
+      "slug": "super-beaver-syoumei",
+      "lfid": "002-2527515",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-syoumei"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "まわる、まわる",
+      "slug": "super-beaver-mawaru-mawaru-1",
+      "lfid": "002-2524265",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-mawaru-mawaru-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "今",
+      "slug": "super-beaver-ima",
+      "lfid": "002-2524291",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-ima"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "正攻法",
+      "slug": "super-beaver-seikouhou",
+      "lfid": "002-1395815",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-seikouhou"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "グラデーション",
+      "slug": "super-beaver-gradation-2",
+      "lfid": "002-19322964",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-gradation-2"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "うるさい",
+      "slug": "super-beaver-urusai-1",
+      "lfid": "002-2523825",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-urusai-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "証の歌",
+      "slug": "super-beaver-akashino-uta",
+      "lfid": "002-2524169",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-akashino-uta"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ふらり",
+      "slug": "super-beaver-furari",
+      "lfid": "002-7283036",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-furari"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "歓びの明日に [Acoustic Version]",
+      "slug": "super-beaver-yorokobino-asuni",
+      "lfid": "002-2524305",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-yorokobino-asuni"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "ことば",
+      "slug": "super-beaver-kotoba-1",
+      "lfid": "002-2523814",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-kotoba-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "それくらいのこと",
+      "slug": "super-beaver-sorekurainokoto",
+      "lfid": "002-1395819",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-sorekurainokoto"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "名前を呼ぶよ [Acoustic Version]",
+      "slug": "super-beaver-namae-wo-yobuyo-1",
+      "lfid": "002-11477559",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-namae-wo-yobuyo-1"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "名前を呼ぶよ",
+      "slug": "super-beaver-namae-wo-yobuyo-2",
+      "lfid": "002-19027340",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-namae-wo-yobuyo-2"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "正攻法",
+      "slug": "super-beaver-seikouhou-2",
+      "lfid": "002-19322948",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-seikouhou-2"
+    },
+    {
+      "artist": "SUPER BEAVER",
+      "song": "グラデーション",
+      "slug": "super-beaver-gradation-1",
+      "lfid": "002-19322958",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/super-beaver-gradation-1"
+    }
+  ]
+}

@@ -1,0 +1,3081 @@
+{
+  "provider": "lyricfind",
+  "artist_query": "槇原敬之",
+  "slug": "noriyuki-makihara",
+  "totalresults": 384,
+  "unique_songs": 384,
+  "songs": [
+    {
+      "artist": "槇原敬之",
+      "song": "もう恋なんてしない",
+      "slug": "noriyuki-makihara-mou-koinante-shinai",
+      "lfid": "002-1284350",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mou-koinante-shinai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "僕が一番欲しかったもの",
+      "slug": "noriyuki-makihara-boku-ga-ichiban-hoshikatta-mono",
+      "lfid": "002-1277750",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-boku-ga-ichiban-hoshikatta-mono"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "どんなときも。",
+      "slug": "noriyuki-makihara-donnatokimo",
+      "lfid": "002-1256487",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-donnatokimo"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "チキンライス",
+      "slug": "noriyuki-makihara-chicken-rice",
+      "lfid": "002-1240195",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-chicken-rice"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "遠く遠く",
+      "slug": "noriyuki-makihara-toku-toku-4",
+      "lfid": "002-17589999",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-toku-toku-4"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "冬がはじまるよ",
+      "slug": "noriyuki-makihara-fuyu-ga-hajimaruyo",
+      "lfid": "002-1236987",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fuyu-ga-hajimaruyo"
+    },
+    {
+      "artist": "浜田雅功 and 槇原敬之",
+      "song": "チキンライス",
+      "slug": "masatoshi-hamada-chicken-rice",
+      "lfid": "002-1490542",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/masatoshi-hamada-chicken-rice"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Hungry Spider",
+      "slug": "noriyuki-makihara-hungry-spider",
+      "lfid": "002-1233489",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-hungry-spider"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "SPY",
+      "slug": "noriyuki-makihara-spy",
+      "lfid": "002-1239873",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-spy"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Green Days",
+      "slug": "noriyuki-makihara-green-days",
+      "lfid": "002-1251462",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-green-days"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "どうしようもない僕に天使が降りてきた",
+      "slug": "noriyuki-makihara-doushiyoumonaibokuni-tenshigaoritekita",
+      "lfid": "002-1256511",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-doushiyoumonaibokuni-tenshigaoritekita"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "No.1",
+      "slug": "noriyuki-makihara-no-1",
+      "lfid": "002-1240476",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-no-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "夢でよかった",
+      "slug": "noriyuki-makihara-yume-de-yokatta",
+      "lfid": "002-20529872",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-yume-de-yokatta"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "うん",
+      "slug": "noriyuki-makihara-un",
+      "lfid": "002-1201683",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-un"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "君は僕の宝物",
+      "slug": "noriyuki-makihara-kimi-ha-boku-no-takaramono",
+      "lfid": "002-1208655",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimi-ha-boku-no-takaramono"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Love Letter",
+      "slug": "noriyuki-makihara-love-letter",
+      "lfid": "002-1244218",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-love-letter"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "2つの願い",
+      "slug": "noriyuki-makihara-futatsuno-negai",
+      "lfid": "002-1268324",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-futatsuno-negai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "若者のすべて [Makihara Band Session]",
+      "slug": "noriyuki-makihara-wakamono-no-subete",
+      "lfid": "002-1607899",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-wakamono-no-subete"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "モンタージュ",
+      "slug": "noriyuki-makihara-montage",
+      "lfid": "002-1283834",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-montage"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ズル休み",
+      "slug": "noriyuki-makihara-zuruyasumi",
+      "lfid": "002-1254200",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-zuruyasumi"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "彼女の恋人",
+      "slug": "noriyuki-makihara-kanojo-no-koibito",
+      "lfid": "002-1267527",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kanojo-no-koibito"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "雪に願いを",
+      "slug": "noriyuki-makihara-yuki-ni-negai-wo",
+      "lfid": "002-1268322",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-yuki-ni-negai-wo"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "LOVE LETTER Renewed",
+      "slug": "noriyuki-makihara-love-letter-renewed",
+      "lfid": "002-1245629",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-love-letter-renewed"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Fall",
+      "slug": "noriyuki-makihara-fall",
+      "lfid": "002-16693663",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fall"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "花水木",
+      "slug": "noriyuki-makihara-hanamizuki",
+      "lfid": "002-1233590",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-hanamizuki"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Answer",
+      "slug": "noriyuki-makihara-answer",
+      "lfid": "002-1268314",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-answer"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "もう恋なんてしない",
+      "slug": "noriyuki-makihara-mou-koinante-shinai-1",
+      "lfid": "002-1494906",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mou-koinante-shinai-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "くもりガラスの夏",
+      "slug": "noriyuki-makihara-kumorigarasunonatsu",
+      "lfid": "002-1210748",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kumorigarasunonatsu"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "僕の彼女はウェイトレス",
+      "slug": "noriyuki-makihara-bokuno-kanojoha-waitress",
+      "lfid": "002-1268329",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-bokuno-kanojoha-waitress"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Rain",
+      "slug": "noriyuki-makihara-rain",
+      "lfid": "002-1247086",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-rain"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "君の名前を呼んだ後に",
+      "slug": "noriyuki-makihara-kimi-no-namae-wo-yon-da-nochi-ni",
+      "lfid": "002-1208661",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimi-no-namae-wo-yon-da-nochi-ni"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "三人",
+      "slug": "noriyuki-makihara-san-nin",
+      "lfid": "002-1216704",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-san-nin"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Traveling",
+      "slug": "noriyuki-makihara-traveling",
+      "lfid": "002-1607307",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-traveling"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "北風～君にとどきますように～",
+      "slug": "noriyuki-makihara-kitakaze-kiminitodokimasuyouni",
+      "lfid": "002-1239102",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kitakaze-kiminitodokimasuyouni"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "わさび",
+      "slug": "noriyuki-makihara-wasabi",
+      "lfid": "002-6585782",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-wasabi"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "遠く遠く",
+      "slug": "noriyuki-makihara-toku-toku",
+      "lfid": "002-1228839",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-toku-toku"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Milk",
+      "slug": "noriyuki-makihara-milk",
+      "lfid": "002-1268323",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-milk"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "NG",
+      "slug": "noriyuki-makihara-ng",
+      "lfid": "002-1268315",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ng"
+    },
+    {
+      "artist": "ビッケブランカ, 槇原敬之 and 絢香",
+      "song": "Yomigaeri",
+      "slug": "vickeblanka-vk-blanka-yomigaeri",
+      "lfid": "002-15645391",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/vickeblanka-vk-blanka-yomigaeri"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "林檎の花",
+      "slug": "noriyuki-makihara-ringo-no-hana",
+      "lfid": "002-1299551",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ringo-no-hana"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "君に会いに行く",
+      "slug": "noriyuki-makihara-kimi-ni-ai-ni-yuku",
+      "lfid": "002-1611296",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimi-ni-ai-ni-yuku"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Happy Dance",
+      "slug": "noriyuki-makihara-happy-dance",
+      "lfid": "002-1234605",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-happy-dance"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "うるさくて愛おしいこの世界に",
+      "slug": "noriyuki-makihara-urusakute-itooshii-kono-sekai-ni",
+      "lfid": "002-14366638",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-urusakute-itooshii-kono-sekai-ni"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ハトマメ ～Say Hello To The World.～",
+      "slug": "noriyuki-makihara-hato-mame-say-hello-to-the-world",
+      "lfid": "002-1233593",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-hato-mame-say-hello-to-the-world"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "僕が一番欲しかったもの",
+      "slug": "noriyuki-makihara-boku-ga-ichiban-hoshikatta-mono-2",
+      "lfid": "002-17553550",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-boku-ga-ichiban-hoshikatta-mono-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Remember My Name",
+      "slug": "noriyuki-makihara-remember-my-name",
+      "lfid": "002-1299552",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-remember-my-name"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "No.1",
+      "slug": "noriyuki-makihara-no-1-1",
+      "lfid": "002-1611319",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-no-1-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "雷が鳴る前に",
+      "slug": "noriyuki-makihara-kaminari-ga-narumae-ni",
+      "lfid": "002-1206395",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kaminari-ga-narumae-ni"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "どんなときも。",
+      "slug": "noriyuki-makihara-donnatokimo-2",
+      "lfid": "002-1478138",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-donnatokimo-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "チキンライス [2020 ver.]",
+      "slug": "noriyuki-makihara-chicken-rice-2",
+      "lfid": "002-7450923",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-chicken-rice-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "太陽",
+      "slug": "noriyuki-makihara-taiyou",
+      "lfid": "002-1225558",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-taiyou"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "てっぺんまでもうすぐ",
+      "slug": "noriyuki-makihara-teppen-made-mousugu",
+      "lfid": "002-1227935",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-teppen-made-mousugu"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "WE LOVE YOU.",
+      "slug": "noriyuki-makihara-we-love-you-1",
+      "lfid": "002-1202623",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-we-love-you-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "まだ見ぬ君へ",
+      "slug": "noriyuki-makihara-mada-mi-nu-kimi-he",
+      "lfid": "002-1279803",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mada-mi-nu-kimi-he"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "理由",
+      "slug": "noriyuki-makihara-riyuu",
+      "lfid": "002-1340857",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-riyuu"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "I Need You. [Album Version]",
+      "slug": "noriyuki-makihara-i-need-you-album-version",
+      "lfid": "002-1193833",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-i-need-you-album-version"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Happy Dance [Album Version]",
+      "slug": "noriyuki-makihara-happy-dance-album-version",
+      "lfid": "002-1233490",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-happy-dance-album-version"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "世界に一つだけの花",
+      "slug": "noriyuki-makihara-sekai-ni-hitotsu-dakeno-hana-1",
+      "lfid": "002-16388131",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-sekai-ni-hitotsu-dakeno-hana-1"
+    },
+    {
+      "artist": "Every Little Thing and 槇原敬之",
+      "song": "冬がはじまるよ",
+      "slug": "every-little-thing-fuyugahajimaruyo",
+      "lfid": "002-1241258",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/every-little-thing-fuyugahajimaruyo"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Witch Hazel",
+      "slug": "noriyuki-makihara-witch-hazel-1",
+      "lfid": "002-1611365",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-witch-hazel-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "運命の人",
+      "slug": "noriyuki-makihara-unmei-no-hito",
+      "lfid": "002-1341127",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-unmei-no-hito"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "DARLING",
+      "slug": "noriyuki-makihara-darling",
+      "lfid": "002-1254579",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-darling"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "悲しみは悲しみのままで",
+      "slug": "noriyuki-makihara-kanashimiwa-kanashimino-mamade",
+      "lfid": "002-6585778",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kanashimiwa-kanashimino-mamade"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "北風～君にとどきますように～",
+      "slug": "noriyuki-makihara-kitakaze-kiminitodokimasuyouni-1",
+      "lfid": "002-12129925",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kitakaze-kiminitodokimasuyouni-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "印度式",
+      "slug": "noriyuki-makihara-indo-shiki",
+      "lfid": "002-1198427",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-indo-shiki"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Such A Lovely Place",
+      "slug": "noriyuki-makihara-such-a-lovely-place",
+      "lfid": "002-1214333",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-such-a-lovely-place"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "夏は憶えている",
+      "slug": "noriyuki-makihara-natsu-ha-oboe-te-iru",
+      "lfid": "002-1230368",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-natsu-ha-oboe-te-iru"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Witch Hazel",
+      "slug": "noriyuki-makihara-witch-hazel",
+      "lfid": "002-1201681",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-witch-hazel"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "You Are the Inspiration",
+      "slug": "noriyuki-makihara-you-are-the-inspiration",
+      "lfid": "002-16693671",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-you-are-the-inspiration"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "宜候",
+      "slug": "noriyuki-makihara-yousoro",
+      "lfid": "002-6585832",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-yousoro"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "髪を切る日",
+      "slug": "noriyuki-makihara-kami-wo-kiru-hi",
+      "lfid": "002-1611339",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kami-wo-kiru-hi"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Life Goes On -like nonstop music-",
+      "slug": "noriyuki-makihara-life-goes-on-like-nonstop-music",
+      "lfid": "002-16693662",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-life-goes-on-like-nonstop-music"
+    },
+    {
+      "artist": "槇原敬之 and 大貫妙子",
+      "song": "都会",
+      "slug": "noriyuki-makihara-tokai",
+      "lfid": "002-19775121",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-tokai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "さみしいきもち",
+      "slug": "noriyuki-makihara-samishi-kimochi",
+      "lfid": "002-1309503",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-samishi-kimochi"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "一番初めての恋人",
+      "slug": "noriyuki-makihara-ichiban-hajimete-no-koibito",
+      "lfid": "002-7450915",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ichiban-hajimete-no-koibito"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "まばたきの間の永遠",
+      "slug": "noriyuki-makihara-mabataki-no-aida-no-eien",
+      "lfid": "002-1279802",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mabataki-no-aida-no-eien"
+    },
+    {
+      "artist": "秦基博 and 槇原敬之",
+      "song": "僕の今いる夜は",
+      "slug": "motohiro-hata-bokuno-imairu-yoruwa",
+      "lfid": "002-1287318",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/motohiro-hata-bokuno-imairu-yoruwa"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "彗星",
+      "slug": "noriyuki-makihara-suisei",
+      "lfid": "002-1221200",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-suisei"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "3月の雪",
+      "slug": "noriyuki-makihara-3-tsuki-no-yuki",
+      "lfid": "002-1309502",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-3-tsuki-no-yuki"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "The Average Man Keeps Walking.",
+      "slug": "noriyuki-makihara-the-average-man-keeps-walking-1",
+      "lfid": "002-1254036",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-the-average-man-keeps-walking-1"
+    },
+    {
+      "artist": "槇原敬之 and ハナレグミ",
+      "song": "はじまりの季節",
+      "slug": "noriyuki-makihara-hajimari-no-kisetsu",
+      "lfid": "002-17296646",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-hajimari-no-kisetsu"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "明けない夜が来ることはない",
+      "slug": "noriyuki-makihara-ake-nai-yoru-ga-kuru-koto-ha-nai",
+      "lfid": "002-1193331",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ake-nai-yoru-ga-kuru-koto-ha-nai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "東京Days",
+      "slug": "noriyuki-makihara-toukyou-days",
+      "lfid": "002-1228840",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-toukyou-days"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "涙のクリスマス",
+      "slug": "noriyuki-makihara-namida-no-christmas",
+      "lfid": "002-1230367",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-namida-no-christmas"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "君への愛の唄",
+      "slug": "noriyuki-makihara-kimihe-no-ai-no-uta",
+      "lfid": "002-16693664",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimihe-no-ai-no-uta"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "約束の場所",
+      "slug": "noriyuki-makihara-yakusoku-no-basho",
+      "lfid": "002-7450880",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-yakusoku-no-basho"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "赤いマフラー",
+      "slug": "noriyuki-makihara-akai-mafura",
+      "lfid": "002-1197413",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-akai-mafura"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "もしも",
+      "slug": "noriyuki-makihara-moshimo",
+      "lfid": "002-1339818",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-moshimo"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "恋はめんどくさい?",
+      "slug": "noriyuki-makihara-koi-ha-mendokusai",
+      "lfid": "002-1212246",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-koi-ha-mendokusai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "After Glow",
+      "slug": "noriyuki-makihara-after-glow",
+      "lfid": "002-14888869",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-after-glow"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "どんなときも。 [Caramel ver.]",
+      "slug": "noriyuki-makihara-donnatokimo-1",
+      "lfid": "002-1291678",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-donnatokimo-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "LUNCH TIME WARS",
+      "slug": "noriyuki-makihara-lunch-time-wars",
+      "lfid": "002-1299550",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-lunch-time-wars"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "月の舟",
+      "slug": "noriyuki-makihara-tsuki-no-fune",
+      "lfid": "002-1227290",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-tsuki-no-fune"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "四つ葉のクローバー",
+      "slug": "noriyuki-makihara-mattaku-donimo-maitchauze-1",
+      "lfid": "002-1308509",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mattaku-donimo-maitchauze-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Cicada",
+      "slug": "noriyuki-makihara-cicada",
+      "lfid": "002-1218872",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-cicada"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Wow",
+      "slug": "noriyuki-makihara-wow",
+      "lfid": "002-1249290",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-wow"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "一歩一会",
+      "slug": "noriyuki-makihara-ippo-ichie-1",
+      "lfid": "002-1339952",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ippo-ichie-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "イカ大王体操第2",
+      "slug": "noriyuki-makihara-ika-daiou-taisou-dai2",
+      "lfid": "002-7450892",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ika-daiou-taisou-dai2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "信じようが信じまいが",
+      "slug": "noriyuki-makihara-shinjiyouga-shinjimaiga-1",
+      "lfid": "002-1340021",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-shinjiyouga-shinjimaiga-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "花火の夜",
+      "slug": "noriyuki-makihara-hanabi-no-yoru",
+      "lfid": "002-1234607",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-hanabi-no-yoru"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "カイト",
+      "slug": "noriyuki-makihara-kaito",
+      "lfid": "002-1207832",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kaito"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "超えろ。",
+      "slug": "noriyuki-makihara-koero",
+      "lfid": "002-1341096",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-koero"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "君の自転車",
+      "slug": "noriyuki-makihara-kimi-no-jitensha",
+      "lfid": "002-1208654",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimi-no-jitensha"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "武士は食わねど高楊枝",
+      "slug": "noriyuki-makihara-bushi-ha-kuwa-ne-do-takayouji",
+      "lfid": "002-1259243",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-bushi-ha-kuwa-ne-do-takayouji"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "フルサト",
+      "slug": "noriyuki-makihara-furusato",
+      "lfid": "002-1263853",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-furusato"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Two Moons",
+      "slug": "noriyuki-makihara-two-moons",
+      "lfid": "002-1227291",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-two-moons"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Necessary",
+      "slug": "noriyuki-makihara-necessary",
+      "lfid": "002-14888883",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-necessary"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Love & Peace Inside?",
+      "slug": "noriyuki-makihara-love-peace-inside",
+      "lfid": "002-7450926",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-love-peace-inside"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "5 minutes(Renewed)",
+      "slug": "noriyuki-makihara-5-minutes-renewed",
+      "lfid": "002-1336991",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-5-minutes-renewed"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "二つのハート",
+      "slug": "noriyuki-makihara-futatsu-no-hato",
+      "lfid": "002-1299548",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-futatsu-no-hato"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "悲しみの帳",
+      "slug": "noriyuki-makihara-kanashimi-no-tobari",
+      "lfid": "002-7450895",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kanashimi-no-tobari"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "不安の中に手を突っ込んで",
+      "slug": "noriyuki-makihara-fuan-no-naka-ni-te-wo-tsukkon-de",
+      "lfid": "002-1263850",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fuan-no-naka-ni-te-wo-tsukkon-de"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "君は僕の宝物",
+      "slug": "noriyuki-makihara-kimi-ha-boku-no-takaramono-2",
+      "lfid": "002-1611242",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimi-ha-boku-no-takaramono-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ミタテ",
+      "slug": "noriyuki-makihara-mitate-1",
+      "lfid": "002-16783171",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mitate-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Tag Team",
+      "slug": "noriyuki-makihara-tag-team",
+      "lfid": "002-1223607",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-tag-team"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ハロー！トウキョウ",
+      "slug": "noriyuki-makihara-hello-tokyo",
+      "lfid": "002-6585763",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-hello-tokyo"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ただただ",
+      "slug": "noriyuki-makihara-tadatada",
+      "lfid": "002-1506807",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-tadatada"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Cleaning Man",
+      "slug": "noriyuki-makihara-cleaning-man",
+      "lfid": "002-1210633",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-cleaning-man"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "いつでも帰っておいで",
+      "slug": "noriyuki-makihara-itsu-demo-kaette-oi-de",
+      "lfid": "002-1198453",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-itsu-demo-kaette-oi-de"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "微妙なお年頃",
+      "slug": "noriyuki-makihara-bimyouna-otoshigoro",
+      "lfid": "002-1506819",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-bimyouna-otoshigoro"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "君が教えてくれるもの",
+      "slug": "noriyuki-makihara-kimi-ga-oshie-te-kureru-mono",
+      "lfid": "002-1208516",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimi-ga-oshie-te-kureru-mono"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "12月の魔法",
+      "slug": "noriyuki-makihara-12-tsuki-no-mahou",
+      "lfid": "002-1309504",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-12-tsuki-no-mahou"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "記憶",
+      "slug": "noriyuki-makihara-kioku",
+      "lfid": "002-1473676",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kioku"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "僕の今いる夜は",
+      "slug": "noriyuki-makihara-boku-no-ima-iru-yoru-ha",
+      "lfid": "002-1216325",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-boku-no-ima-iru-yoru-ha"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "In love again?",
+      "slug": "noriyuki-makihara-in-love-again",
+      "lfid": "002-1263836",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-in-love-again"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Pain",
+      "slug": "noriyuki-makihara-pain",
+      "lfid": "002-1261545",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-pain"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Love was sleeping.",
+      "slug": "noriyuki-makihara-love-was-sleeping",
+      "lfid": "002-1245310",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-love-was-sleeping"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "The Average Man Keeps Walking",
+      "slug": "noriyuki-makihara-the-average-man-keeps-walking",
+      "lfid": "002-1252604",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-the-average-man-keeps-walking"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "好きなものに変えるだけ",
+      "slug": "noriyuki-makihara-sukinamononi-kaerudake",
+      "lfid": "002-6585828",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-sukinamononi-kaerudake"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Are You OK?",
+      "slug": "noriyuki-makihara-are-you-ok-1",
+      "lfid": "002-1193829",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-are-you-ok-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "The Fog",
+      "slug": "noriyuki-makihara-the-fog",
+      "lfid": "002-1252364",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-the-fog"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Octavers",
+      "slug": "noriyuki-makihara-octavers",
+      "lfid": "002-1204383",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-octavers"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "尼崎の夜空を見上げて",
+      "slug": "noriyuki-makihara-amagasaki-no-yozora-wo-miage-te",
+      "lfid": "002-1193330",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-amagasaki-no-yozora-wo-miage-te"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "春よ、来い",
+      "slug": "noriyuki-makihara-haru-yo-koi",
+      "lfid": "002-1233589",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-haru-yo-koi"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "遠く遠く",
+      "slug": "noriyuki-makihara-toku-toku-3",
+      "lfid": "002-17589925",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-toku-toku-3"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Sunao [Live]",
+      "slug": "noriyuki-makihara-sunao-1",
+      "lfid": "002-19206617",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-sunao-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "どーもありがとう",
+      "slug": "noriyuki-makihara-doumo-arigatou",
+      "lfid": "002-1506787",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-doumo-arigatou"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Self Portrait",
+      "slug": "noriyuki-makihara-self-portrait",
+      "lfid": "002-1611392",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-self-portrait"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "おさらばだ",
+      "slug": "noriyuki-makihara-osaraba-da",
+      "lfid": "002-1263841",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-osaraba-da"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Pool",
+      "slug": "noriyuki-makihara-pool",
+      "lfid": "002-1261031",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-pool"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ビオラは歌う",
+      "slug": "noriyuki-makihara-biora-ha-utau",
+      "lfid": "002-1263867",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-biora-ha-utau"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Anywhere",
+      "slug": "noriyuki-makihara-anywhere",
+      "lfid": "002-1203754",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-anywhere"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Red Nose Reindeer",
+      "slug": "noriyuki-makihara-red-nose-reindeer",
+      "lfid": "002-1309505",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-red-nose-reindeer"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "夜空にピース",
+      "slug": "noriyuki-makihara-yozora-ni-pisu",
+      "lfid": "002-1263860",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-yozora-ni-pisu"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Home Work",
+      "slug": "noriyuki-makihara-home-work",
+      "lfid": "002-1278542",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-home-work"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Taking The Central Course",
+      "slug": "noriyuki-makihara-taking-the-central-course",
+      "lfid": "002-1228440",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-taking-the-central-course"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "虹色の未来",
+      "slug": "noriyuki-makihara-nijiiro-no-mirai",
+      "lfid": "002-6585827",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-nijiiro-no-mirai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "うるさくて愛おしいこの世界に [Live]",
+      "slug": "noriyuki-makihara-urusakute-itooshii-kono-sekai-ni-1",
+      "lfid": "002-16693670",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-urusakute-itooshii-kono-sekai-ni-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "犬はアイスが大好きだ",
+      "slug": "noriyuki-makihara-inu-ha-ice-ga-daisuki-da-1",
+      "lfid": "002-1299544",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-inu-ha-ice-ga-daisuki-da-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Kimi No Namae Wo Yonda Ato Ni [Live]",
+      "slug": "noriyuki-makihara-kimi-no-namae-wo-yonda-ato-ni",
+      "lfid": "002-19206619",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimi-no-namae-wo-yonda-ato-ni"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "星の光",
+      "slug": "noriyuki-makihara-hoshi-no-hikari",
+      "lfid": "002-1278450",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-hoshi-no-hikari"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Boy, I'm Gonna Try So Hard",
+      "slug": "noriyuki-makihara-boy-im-gonna-try-so-hard",
+      "lfid": "002-1215767",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-boy-im-gonna-try-so-hard"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "手をつないで帰ろ",
+      "slug": "noriyuki-makihara-te-wo-tsunai-de-kaero",
+      "lfid": "002-1227869",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-te-wo-tsunai-de-kaero"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "どんなときも。 [Ballad Version]",
+      "slug": "noriyuki-makihara-donnatokimo-4",
+      "lfid": "002-17988206",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-donnatokimo-4"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "The End Of The World",
+      "slug": "noriyuki-makihara-the-end-of-the-world",
+      "lfid": "002-1253012",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-the-end-of-the-world"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "LOVE LETTER [Live]",
+      "slug": "noriyuki-makihara-love-letter-1",
+      "lfid": "002-19206623",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-love-letter-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "僕が一番欲しかったもの [Live]",
+      "slug": "noriyuki-makihara-boku-ga-ichiban-hoshikatta-mono-3",
+      "lfid": "002-20878625",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-boku-ga-ichiban-hoshikatta-mono-3"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Hungry Spider [Live]",
+      "slug": "noriyuki-makihara-hungry-spider-2",
+      "lfid": "002-19206625",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-hungry-spider-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "キボウノヒカリ",
+      "slug": "noriyuki-makihara-kibouno-hikari",
+      "lfid": "002-1506811",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kibouno-hikari"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Counting Blessing",
+      "slug": "noriyuki-makihara-counting-blessing",
+      "lfid": "002-6585825",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-counting-blessing"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "WE LOVE YOU.",
+      "slug": "noriyuki-makihara-we-love-you",
+      "lfid": "002-1202589",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-we-love-you"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "素直",
+      "slug": "noriyuki-makihara-sunao",
+      "lfid": "002-1221093",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-sunao"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "とりあえず何か食べよう",
+      "slug": "noriyuki-makihara-toriaezu-nani-ka-tabeyo-u",
+      "lfid": "002-1228783",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-toriaezu-nani-ka-tabeyo-u"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Happy Birthday Song",
+      "slug": "noriyuki-makihara-happy-birthday-song",
+      "lfid": "002-1233449",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-happy-birthday-song"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "1秒前の君にはもう2度と会えない [Album Version]",
+      "slug": "noriyuki-makihara-1-byou-mae-no-kimi-ni-ha-mou-2-do-to-ae-nai-album-version",
+      "lfid": "002-1198510",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-1-byou-mae-no-kimi-ni-ha-mou-2-do-to-ae-nai-album-version"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "濡れひよこ",
+      "slug": "noriyuki-makihara-nure-hiyoko",
+      "lfid": "002-1232190",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-nure-hiyoko"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ごはんができたよ",
+      "slug": "noriyuki-makihara-gohan-ga-dekitayo",
+      "lfid": "002-1607328",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-gohan-ga-dekitayo"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "幸せの鍵を胸に",
+      "slug": "noriyuki-makihara-shiawase-no-kagi-wo-mune-ni",
+      "lfid": "002-1263846",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-shiawase-no-kagi-wo-mune-ni"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "特別な夜",
+      "slug": "noriyuki-makihara-tokubetsu-na-yoru",
+      "lfid": "002-6585780",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-tokubetsu-na-yoru"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Hey...",
+      "slug": "noriyuki-makihara-hey",
+      "lfid": "002-1242027",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-hey"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "風は名前を名乗らずに",
+      "slug": "noriyuki-makihara-kaze-ha-namae-wo-nanorazu-ni",
+      "lfid": "002-1299545",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kaze-ha-namae-wo-nanorazu-ni"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "男はつらいっすねぇ",
+      "slug": "noriyuki-makihara-otoko-ha-tsurai-ssu-nee",
+      "lfid": "002-1204381",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-otoko-ha-tsurai-ssu-nee"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "雨ニモ負ケズ",
+      "slug": "noriyuki-makihara-amenimomakezu",
+      "lfid": "002-1196467",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-amenimomakezu"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "祈りの歌が聞こえてくる",
+      "slug": "noriyuki-makihara-inori-no-uta-ga-kikoe-te-kuru",
+      "lfid": "002-1201182",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-inori-no-uta-ga-kikoe-te-kuru"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Sakura Melody",
+      "slug": "noriyuki-makihara-sakura-melody",
+      "lfid": "002-7450909",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-sakura-melody"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "カガミヨカガミ",
+      "slug": "noriyuki-makihara-kagamiyo-kagami",
+      "lfid": "002-7450904",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kagamiyo-kagami"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ムゲンノカナタヘ～To infinity and beyond～",
+      "slug": "noriyuki-makihara-mugennokanatahe-to-infinity-and-beyond-1",
+      "lfid": "002-1283010",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mugennokanatahe-to-infinity-and-beyond-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Missing",
+      "slug": "noriyuki-makihara-missing",
+      "lfid": "002-1607387",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-missing"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "A HAPPY NEW YEAR",
+      "slug": "noriyuki-makihara-a-happy-new-year",
+      "lfid": "002-1337006",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-a-happy-new-year"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Design & Reason",
+      "slug": "noriyuki-makihara-design-reason",
+      "lfid": "002-1506835",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-design-reason"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Curtain Call",
+      "slug": "noriyuki-makihara-curtain-call",
+      "lfid": "002-1309482",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-curtain-call"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ココロノコンパス",
+      "slug": "noriyuki-makihara-kokoronokonpasu",
+      "lfid": "002-1212055",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kokoronokonpasu"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ムゲンノカナタヘ ～To infinity and beyond～",
+      "slug": "noriyuki-makihara-mugennokanatahe-to-infinity-and-beyond",
+      "lfid": "002-1263855",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mugennokanatahe-to-infinity-and-beyond"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "朝が来るよ",
+      "slug": "noriyuki-makihara-asaga-kuruyo",
+      "lfid": "002-1506777",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-asaga-kuruyo"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "In The Snowy Site",
+      "slug": "noriyuki-makihara-in-the-snowy-site",
+      "lfid": "002-1506801",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-in-the-snowy-site"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "これはただの例え話じゃない",
+      "slug": "noriyuki-makihara-kore-ha-tada-no-tatoe-hanashi-ja-nai",
+      "lfid": "002-1213352",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kore-ha-tada-no-tatoe-hanashi-ja-nai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "だらん",
+      "slug": "noriyuki-makihara-daran",
+      "lfid": "002-1506794",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-daran"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "困っちゃうんだよなあ。",
+      "slug": "noriyuki-makihara-komatchyaundayona",
+      "lfid": "002-1611410",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-komatchyaundayona"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Dance with me.",
+      "slug": "noriyuki-makihara-dance-with-me",
+      "lfid": "002-1255148",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-dance-with-me"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Circle of Rainbow",
+      "slug": "noriyuki-makihara-circle-of-rainbow",
+      "lfid": "002-1218102",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-circle-of-rainbow"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Fuyu Ga Hajimaru Yo [Live]",
+      "slug": "noriyuki-makihara-fuyu-ga-hajimaru-yo",
+      "lfid": "002-19206613",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fuyu-ga-hajimaru-yo"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "満月の夜",
+      "slug": "noriyuki-makihara-mangetsu-no-yoru",
+      "lfid": "002-14888886",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mangetsu-no-yoru"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Home",
+      "slug": "noriyuki-makihara-home",
+      "lfid": "002-6585830",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-home"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "なんかおりますの",
+      "slug": "noriyuki-makihara-nankaorimasuno",
+      "lfid": "002-6585785",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-nankaorimasuno"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Green Days",
+      "slug": "noriyuki-makihara-green-days-1",
+      "lfid": "002-1661386",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-green-days-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "僕のものになればいいのに",
+      "slug": "noriyuki-makihara-bokuno-mononi-nareba-iinoni",
+      "lfid": "002-1215665",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-bokuno-mononi-nareba-iinoni"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Magic Touch",
+      "slug": "noriyuki-makihara-magic-touch",
+      "lfid": "002-1607354",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-magic-touch"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ゼイタク [Album ver.]",
+      "slug": "noriyuki-makihara-zeitaku-2",
+      "lfid": "002-1309486",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-zeitaku-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "冬のコインランドリー",
+      "slug": "noriyuki-makihara-fuyu-no-koin-randori",
+      "lfid": "002-1241585",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fuyu-no-koin-randori"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "秋の気配",
+      "slug": "noriyuki-makihara-aki-no-kehai",
+      "lfid": "002-1193832",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-aki-no-kehai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "今日の終わりにありがとうを数えよう",
+      "slug": "noriyuki-makihara-kyou-no-owari-ni-arigatou-wo-kazoeyo-u",
+      "lfid": "002-1299546",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kyou-no-owari-ni-arigatou-wo-kazoeyo-u"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "キミノイイトコロ",
+      "slug": "noriyuki-makihara-kiminoiitokoro",
+      "lfid": "002-1208519",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kiminoiitokoro"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "猫がふんじゃった",
+      "slug": "noriyuki-makihara-neko-ga-funjatta",
+      "lfid": "002-1611415",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-neko-ga-funjatta"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "lose no time",
+      "slug": "noriyuki-makihara-lose-no-time",
+      "lfid": "002-1246851",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-lose-no-time"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Theme Song",
+      "slug": "noriyuki-makihara-theme-song",
+      "lfid": "002-1309489",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-theme-song"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "長生きしよう",
+      "slug": "noriyuki-makihara-nagaiki-shiyo-u",
+      "lfid": "002-1214789",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-nagaiki-shiyo-u"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Happy Ending",
+      "slug": "noriyuki-makihara-happy-ending",
+      "lfid": "002-1233592",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-happy-ending"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "つま先立ちで(笑)",
+      "slug": "noriyuki-makihara-tsumasakidachi-de-emi",
+      "lfid": "002-1227733",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-tsumasakidachi-de-emi"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "まったくどうにもまいっちゃうぜ",
+      "slug": "noriyuki-makihara-mattaku-donimo-maitchauze-2",
+      "lfid": "002-1309487",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mattaku-donimo-maitchauze-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "蒼い月の夜 ～Lady In Blue～",
+      "slug": "noriyuki-makihara-aoi-tsuki-no-yoru-lady-in-blue",
+      "lfid": "002-1193831",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-aoi-tsuki-no-yoru-lady-in-blue"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Life Goes On~like nonstop music~ [Live]",
+      "slug": "noriyuki-makihara-life-goes-on-like-nonstop-music-2",
+      "lfid": "002-19206594",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-life-goes-on-like-nonstop-music-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "桃",
+      "slug": "noriyuki-makihara-momo",
+      "lfid": "002-1283861",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-momo"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Your Song",
+      "slug": "noriyuki-makihara-your-song",
+      "lfid": "002-1607310",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-your-song"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Elderflower Cordial [Live]",
+      "slug": "noriyuki-makihara-elderflower-cordial",
+      "lfid": "002-19206611",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-elderflower-cordial"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "今年の冬",
+      "slug": "noriyuki-makihara-kotoshi-no-fuyu",
+      "lfid": "002-1212245",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kotoshi-no-fuyu"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "恋する心達のために",
+      "slug": "noriyuki-makihara-koisuru-kokoro-tachi-no-tame-ni",
+      "lfid": "002-1305855",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-koisuru-kokoro-tachi-no-tame-ni"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "幸せはタイヤを穿いてやってくる",
+      "slug": "noriyuki-makihara-shiawase-ha-taiya-wo-hai-te-yatte-kuru",
+      "lfid": "002-1220606",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-shiawase-ha-taiya-wo-hai-te-yatte-kuru"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Lotus In The Dirt",
+      "slug": "noriyuki-makihara-lotus-in-the-dirt",
+      "lfid": "002-1247828",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-lotus-in-the-dirt"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Flying Angels",
+      "slug": "noriyuki-makihara-flying-angels",
+      "lfid": "002-1309483",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-flying-angels"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Wild Rabbits",
+      "slug": "noriyuki-makihara-wild-rabbits",
+      "lfid": "002-1248694",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-wild-rabbits"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Jewel In Our Hearts (Japanese Ver.)",
+      "slug": "noriyuki-makihara-jewel-in-our-hearts-japanese-ver",
+      "lfid": "002-1299553",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-jewel-in-our-hearts-japanese-ver"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "You Are So Beautiful",
+      "slug": "noriyuki-makihara-you-are-so-beautiful",
+      "lfid": "002-1242119",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-you-are-so-beautiful"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "情熱 [Album Version]",
+      "slug": "noriyuki-makihara-jounetsu-album-version",
+      "lfid": "002-1252852",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-jounetsu-album-version"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Season's Greeting",
+      "slug": "noriyuki-makihara-seasons-greeting",
+      "lfid": "002-1309484",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-seasons-greeting"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "彗星",
+      "slug": "noriyuki-makihara-suisei-2",
+      "lfid": "002-16623895",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-suisei-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "White Lie",
+      "slug": "noriyuki-makihara-white-lie",
+      "lfid": "002-1299549",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-white-lie"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Kotoshi No Fuyu [Live]",
+      "slug": "noriyuki-makihara-kotoshi-no-fuyu-1",
+      "lfid": "002-19206614",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kotoshi-no-fuyu-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "不器用な青春時代",
+      "slug": "noriyuki-makihara-bukiyou-na-seishun-jidai",
+      "lfid": "002-1339970",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-bukiyou-na-seishun-jidai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "PENGUIN",
+      "slug": "noriyuki-makihara-penguin-1",
+      "lfid": "002-14199299",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-penguin-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "着メロ",
+      "slug": "noriyuki-makihara-chaku-melo",
+      "lfid": "002-7450889",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-chaku-melo"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "恋する心達のために (Album Ver.)",
+      "slug": "noriyuki-makihara-koisuru-kokoro-tachi-no-tame-ni-album-ver",
+      "lfid": "002-1309488",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-koisuru-kokoro-tachi-no-tame-ni-album-ver"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Good Morning!",
+      "slug": "noriyuki-makihara-good-morning",
+      "lfid": "002-1251279",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-good-morning"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Appreciation",
+      "slug": "noriyuki-makihara-appreciation",
+      "lfid": "002-1299543",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-appreciation"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Orange Colored Sky",
+      "slug": "noriyuki-makihara-orange-colored-sky-1",
+      "lfid": "002-1205827",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-orange-colored-sky-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "天国と地獄へのエレベーター",
+      "slug": "noriyuki-makihara-tengoku-to-jigoku-he-no-erebeta",
+      "lfid": "002-1227890",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-tengoku-to-jigoku-he-no-erebeta"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "悶絶",
+      "slug": "noriyuki-makihara-monzetsu",
+      "lfid": "002-6585774",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-monzetsu"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Koero. [Live]",
+      "slug": "noriyuki-makihara-koero-1",
+      "lfid": "002-19206607",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-koero-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "PENGUIN",
+      "slug": "noriyuki-makihara-penguin",
+      "lfid": "002-1261544",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-penguin"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "記憶 [Album Version]",
+      "slug": "noriyuki-makihara-kioku-1",
+      "lfid": "002-1506829",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kioku-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "世界に一つだけの花",
+      "slug": "noriyuki-makihara-sekai-ni-hitotsu-dakeno-hana",
+      "lfid": "002-1223408",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-sekai-ni-hitotsu-dakeno-hana"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "2つの願い",
+      "slug": "noriyuki-makihara-futatsuno-negai-1",
+      "lfid": "002-1612634",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-futatsuno-negai-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "PLEASURE",
+      "slug": "noriyuki-makihara-pleasure-1",
+      "lfid": "002-1261509",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-pleasure-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ゥンチャカ",
+      "slug": "noriyuki-makihara-unchaka",
+      "lfid": "002-1250191",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-unchaka"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Stripe!",
+      "slug": "noriyuki-makihara-stripe",
+      "lfid": "002-1221249",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-stripe"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Wasabi [Live]",
+      "slug": "noriyuki-makihara-wasabi-1",
+      "lfid": "002-19206600",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-wasabi-1"
+    },
+    {
+      "artist": "槇原敬之, 加藤いづみ and Masaki Imai",
+      "song": "Suki Ni Natte, Yokatta [Live]",
+      "slug": "noriyuki-makihara-suki-ni-natte-yokatta",
+      "lfid": "002-19206622",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-suki-ni-natte-yokatta"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Naked",
+      "slug": "noriyuki-makihara-naked",
+      "lfid": "002-1232298",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-naked"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Simplify",
+      "slug": "noriyuki-makihara-simplify",
+      "lfid": "002-1218824",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-simplify"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "迷わない羊",
+      "slug": "noriyuki-makihara-mayowa-nai-hitsuji",
+      "lfid": "002-1279702",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mayowa-nai-hitsuji"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "雪に願いを",
+      "slug": "noriyuki-makihara-yuki-ni-negai-wo-1",
+      "lfid": "002-1612591",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-yuki-ni-negai-wo-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "2 Crows On The Rooftop",
+      "slug": "noriyuki-makihara-2-crows-on-the-rooftop",
+      "lfid": "002-1506825",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-2-crows-on-the-rooftop"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Chocolats et Sweets",
+      "slug": "noriyuki-makihara-chocolats-et-sweets",
+      "lfid": "002-1220607",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-chocolats-et-sweets"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Kanojo No Koibito [Live]",
+      "slug": "noriyuki-makihara-kanojo-no-koibito-2",
+      "lfid": "002-19206624",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kanojo-no-koibito-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ファミレス",
+      "slug": "noriyuki-makihara-famiresu-1",
+      "lfid": "002-1236986",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-famiresu-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Revenge",
+      "slug": "noriyuki-makihara-revenge",
+      "lfid": "002-1245950",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-revenge"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Home Sweet Home",
+      "slug": "noriyuki-makihara-home-sweet-home",
+      "lfid": "002-1278475",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-home-sweet-home"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Boys & Girls! [Live]",
+      "slug": "noriyuki-makihara-boys-girls-1",
+      "lfid": "002-19206593",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-boys-girls-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Mitate [Live]",
+      "slug": "noriyuki-makihara-mitate-2",
+      "lfid": "002-19206615",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mitate-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "五つの文字",
+      "slug": "noriyuki-makihara-itsutsu-no-moji",
+      "lfid": "002-1201183",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-itsutsu-no-moji"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "君の名前を呼んだ後に",
+      "slug": "noriyuki-makihara-kimi-no-namae-wo-yon-da-nochi-ni-1",
+      "lfid": "002-1209774",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimi-no-namae-wo-yon-da-nochi-ni-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "彗星",
+      "slug": "noriyuki-makihara-suisei-1",
+      "lfid": "002-16433456",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-suisei-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Suisei [Live]",
+      "slug": "noriyuki-makihara-suisei-3",
+      "lfid": "002-19206620",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-suisei-3"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "言葉にできない",
+      "slug": "noriyuki-makihara-kotoba-ni-dekinai",
+      "lfid": "002-1607313",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kotoba-ni-dekinai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Birds Stop Twittering Tonight",
+      "slug": "noriyuki-makihara-birds-stop-twittering-tonight",
+      "lfid": "002-1309491",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-birds-stop-twittering-tonight"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "David",
+      "slug": "noriyuki-makihara-david",
+      "lfid": "002-1255537",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-david"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Orange Colored Sky",
+      "slug": "noriyuki-makihara-orange-colored-sky",
+      "lfid": "002-1205792",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-orange-colored-sky"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Ringo No Hana [Live]",
+      "slug": "noriyuki-makihara-ringo-no-hana-2",
+      "lfid": "002-19206618",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ringo-no-hana-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "僕が一番欲しかったもの [Concert Tour 2022 \"Yosoro]",
+      "slug": "noriyuki-makihara-boku-ga-ichiban-hoshikatta-mono-1",
+      "lfid": "002-17553547",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-boku-ga-ichiban-hoshikatta-mono-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Fall [Live]",
+      "slug": "noriyuki-makihara-fall-3",
+      "lfid": "002-19206605",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fall-3"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Remember My Name [Live]",
+      "slug": "noriyuki-makihara-remember-my-name-2",
+      "lfid": "002-19206608",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-remember-my-name-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Donna Toki Mo. Caramel Ver. [Live]",
+      "slug": "noriyuki-makihara-donna-toki-mo-caramel-ver",
+      "lfid": "002-19206612",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-donna-toki-mo-caramel-ver"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "月の石",
+      "slug": "noriyuki-makihara-tsuki-no-ishi",
+      "lfid": "002-1227245",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-tsuki-no-ishi"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "さみしいきもち",
+      "slug": "noriyuki-makihara-samishi-kimochi-1",
+      "lfid": "002-1611331",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-samishi-kimochi-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Firefly～僕は生きていく",
+      "slug": "noriyuki-makihara-firefly-bokuha-ikite-iku",
+      "lfid": "002-1241324",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-firefly-bokuha-ikite-iku"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Blind",
+      "slug": "noriyuki-makihara-blind",
+      "lfid": "002-1259196",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-blind"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Yotsuba No Clover [Live]",
+      "slug": "noriyuki-makihara-yotsuba-no-clover-1",
+      "lfid": "002-19206626",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-yotsuba-no-clover-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "In The Snowy Site [Live]",
+      "slug": "noriyuki-makihara-in-the-snowy-site-1",
+      "lfid": "002-19206630",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-in-the-snowy-site-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Nagaiki Shiyou [Live]",
+      "slug": "noriyuki-makihara-nagaiki-shiyou",
+      "lfid": "002-19206616",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-nagaiki-shiyou"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "四つ葉のクローバー",
+      "slug": "noriyuki-makihara-mattaku-donimo-maitchauze-4",
+      "lfid": "002-16783203",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mattaku-donimo-maitchauze-4"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Pleasure",
+      "slug": "noriyuki-makihara-pleasure",
+      "lfid": "002-1261024",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-pleasure"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Fuyu No Coin Laundry [Live]",
+      "slug": "noriyuki-makihara-fuyu-no-coin-laundry",
+      "lfid": "002-19206621",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fuyu-no-coin-laundry"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Moshimo [Live]",
+      "slug": "noriyuki-makihara-moshimo-1",
+      "lfid": "002-19206602",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-moshimo-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "もう恋なんてしない '08",
+      "slug": "noriyuki-makihara-mou-koinante-shinai-08",
+      "lfid": "002-1536752",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mou-koinante-shinai-08"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "まだ生きてるよ",
+      "slug": "noriyuki-makihara-mada-iki-teru-yo",
+      "lfid": "002-1267534",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mada-iki-teru-yo"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Star Ferry",
+      "slug": "noriyuki-makihara-star-ferry",
+      "lfid": "002-1221248",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-star-ferry"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "You Are the Inspiration [Live]",
+      "slug": "noriyuki-makihara-you-are-the-inspiration-1",
+      "lfid": "002-19206609",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-you-are-the-inspiration-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "\"MAKIHALAB\" Christmas Medley [Live]",
+      "slug": "noriyuki-makihara-makihalab-christmas-medley",
+      "lfid": "002-19206628",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-makihalab-christmas-medley"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "HOME [Live]",
+      "slug": "noriyuki-makihara-home-1",
+      "lfid": "002-19206627",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-home-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Unmei No Hito [Live]",
+      "slug": "noriyuki-makihara-unmei-no-hito-1",
+      "lfid": "002-19206599",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-unmei-no-hito-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "I Ask.",
+      "slug": "noriyuki-makihara-i-ask",
+      "lfid": "002-1193486",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-i-ask"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "くもりガラスの夏",
+      "slug": "noriyuki-makihara-kumorigarasunonatsu-1",
+      "lfid": "002-1611096",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kumorigarasunonatsu-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Souvenir ～思い出～",
+      "slug": "noriyuki-makihara-souvenir-omoide",
+      "lfid": "002-1338499",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-souvenir-omoide"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Remember My Name",
+      "slug": "noriyuki-makihara-remember-my-name-1",
+      "lfid": "002-16783121",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-remember-my-name-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Sukinamono Ni Kaeru Dake [Live]",
+      "slug": "noriyuki-makihara-sukinamono-ni-kaeru-dake",
+      "lfid": "002-19206604",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-sukinamono-ni-kaeru-dake"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "かみさまでもえらべない。",
+      "slug": "noriyuki-makihara-kamisama-demo-erabenai",
+      "lfid": "002-7450886",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kamisama-demo-erabenai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Ichiban Hajimete no Koibito [Live]",
+      "slug": "noriyuki-makihara-ichiban-hajimete-no-koibito-1",
+      "lfid": "002-19206597",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ichiban-hajimete-no-koibito-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Domo Arigato [Live]",
+      "slug": "noriyuki-makihara-domo-arigato",
+      "lfid": "002-19206595",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-domo-arigato"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Ordinary Days",
+      "slug": "noriyuki-makihara-ordinary-days",
+      "lfid": "002-1204264",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ordinary-days"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "A HAPPY NEW YEAR [Live]",
+      "slug": "noriyuki-makihara-a-happy-new-year-1",
+      "lfid": "002-19206629",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-a-happy-new-year-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Lonesome Cowboy",
+      "slug": "noriyuki-makihara-lonesome-cowboy",
+      "lfid": "002-1247887",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-lonesome-cowboy"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "時代",
+      "slug": "noriyuki-makihara-jidai",
+      "lfid": "002-1607385",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-jidai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "太陽",
+      "slug": "noriyuki-makihara-taiyou-1",
+      "lfid": "002-1240122",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-taiyou-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "LUNCH TIME WARS [Live]",
+      "slug": "noriyuki-makihara-lunch-time-wars-1",
+      "lfid": "002-19206606",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-lunch-time-wars-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Design & Reason [Live]",
+      "slug": "noriyuki-makihara-design-reason-1",
+      "lfid": "002-19206603",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-design-reason-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ミス・ブランニュー・デイ ～Miss Brand-New Day～",
+      "slug": "noriyuki-makihara-misuburannyudei-miss-brand-new-day",
+      "lfid": "002-1281602",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-misuburannyudei-miss-brand-new-day"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Zeitaku [Live]",
+      "slug": "noriyuki-makihara-zeitaku-4",
+      "lfid": "002-19206598",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-zeitaku-4"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "冬がはじまるよ",
+      "slug": "noriyuki-makihara-fuyu-ga-hajimaruyo-1",
+      "lfid": "002-1611228",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fuyu-ga-hajimaruyo-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "The Future Attraction",
+      "slug": "noriyuki-makihara-the-future-attraction",
+      "lfid": "002-1252341",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-the-future-attraction"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Inu Ha Ice Ga Daisuki Da [Live]",
+      "slug": "noriyuki-makihara-inu-ha-ice-ga-daisuki-da-2",
+      "lfid": "002-19206596",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-inu-ha-ice-ga-daisuki-da-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "うたたね",
+      "slug": "noriyuki-makihara-utata-ne",
+      "lfid": "002-1201564",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-utata-ne"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "オオカミ少年",
+      "slug": "noriyuki-makihara-ookami-shounen",
+      "lfid": "002-1204382",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ookami-shounen"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "軒下のモンスター",
+      "slug": "noriyuki-makihara-nokishita-no-monster-1",
+      "lfid": "002-1299547",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-nokishita-no-monster-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ヨイトマケの唄",
+      "slug": "noriyuki-makihara-yoitomake-no-uta",
+      "lfid": "002-1607347",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-yoitomake-no-uta"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "この傘をたためば",
+      "slug": "noriyuki-makihara-kono-kasa-wo-tatame-ba",
+      "lfid": "002-1212141",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kono-kasa-wo-tatame-ba"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Name Of Love",
+      "slug": "noriyuki-makihara-name-of-love",
+      "lfid": "002-1214857",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-name-of-love"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ゼイタク",
+      "slug": "noriyuki-makihara-zeitaku",
+      "lfid": "002-1308508",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-zeitaku"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "優しい歌が歌えない",
+      "slug": "noriyuki-makihara-yasashii-uta-ga-utae-nai",
+      "lfid": "002-1284589",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-yasashii-uta-ga-utae-nai"
+    },
+    {
+      "artist": "浜田雅功 and 槇原敬之",
+      "song": "チキンライス",
+      "slug": "masatoshi-hamada-chicken-rice-1",
+      "lfid": "002-18438876",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/masatoshi-hamada-chicken-rice-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Flying Angels [Live]",
+      "slug": "noriyuki-makihara-flying-angels-1",
+      "lfid": "002-19206601",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-flying-angels-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Going Home",
+      "slug": "noriyuki-makihara-going-home",
+      "lfid": "002-1251926",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-going-home"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "優しい歌が歌えない",
+      "slug": "noriyuki-makihara-yasashii-uta-ga-utae-nai-1",
+      "lfid": "002-1284590",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-yasashii-uta-ga-utae-nai-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "とりあえず何か食べよう",
+      "slug": "noriyuki-makihara-toriaezu-nani-ka-tabeyo-u-1",
+      "lfid": "002-1228842",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-toriaezu-nani-ka-tabeyo-u-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "足音",
+      "slug": "noriyuki-makihara-ashioto-3",
+      "lfid": "002-1197923",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ashioto-3"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "君に、胸キュン。",
+      "slug": "noriyuki-makihara-kimini-mune-kyun",
+      "lfid": "002-1208653",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimini-mune-kyun"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "空と君のあいだに",
+      "slug": "noriyuki-makihara-sora-to-kimi-no-aidani",
+      "lfid": "002-1224654",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-sora-to-kimi-no-aidani"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Monkey Magic",
+      "slug": "noriyuki-makihara-monkey-magic",
+      "lfid": "002-1283901",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-monkey-magic"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "君の後ろ姿",
+      "slug": "noriyuki-makihara-kimi-no-ushirosugata",
+      "lfid": "002-1210330",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimi-no-ushirosugata"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "足音",
+      "slug": "noriyuki-makihara-ashioto",
+      "lfid": "002-1193241",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ashioto"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "海と少年",
+      "slug": "noriyuki-makihara-umi-to-shounen",
+      "lfid": "002-1201682",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-umi-to-shounen"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Fan Club Song",
+      "slug": "noriyuki-makihara-fan-club-song",
+      "lfid": "002-1215005",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fan-club-song"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "SPY",
+      "slug": "noriyuki-makihara-spy-1",
+      "lfid": "002-1612686",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-spy-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Fan Club Song",
+      "slug": "noriyuki-makihara-fan-club-song-1",
+      "lfid": "002-1237047",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fan-club-song-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ムゲンノカナタヘ～To infinity and beyond～",
+      "slug": "noriyuki-makihara-mugennokanatahe-to-infinity-and-beyond-2",
+      "lfid": "002-1283014",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mugennokanatahe-to-infinity-and-beyond-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "桃",
+      "slug": "noriyuki-makihara-momo-2",
+      "lfid": "002-1284429",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-momo-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Merry-go-round '08",
+      "slug": "noriyuki-makihara-merry-go-round-08",
+      "lfid": "002-1283670",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-merry-go-round-08"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Stripe!",
+      "slug": "noriyuki-makihara-stripe-1",
+      "lfid": "002-1222481",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-stripe-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "青春",
+      "slug": "noriyuki-makihara-seishun",
+      "lfid": "002-1223379",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-seishun"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "THE CODE ～暗号～",
+      "slug": "noriyuki-makihara-the-code-angou",
+      "lfid": "002-7450900",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-the-code-angou"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Introduction ～東京の蕾～",
+      "slug": "noriyuki-makihara-introduction-tokyo-no-tsubomi",
+      "lfid": "002-6585771",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-introduction-tokyo-no-tsubomi"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "夢の中へ",
+      "slug": "noriyuki-makihara-yumeno-nakae",
+      "lfid": "002-1632101",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-yumeno-nakae"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Hungry Spider",
+      "slug": "noriyuki-makihara-hungry-spider-1",
+      "lfid": "002-1661355",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-hungry-spider-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Cleaning Man",
+      "slug": "noriyuki-makihara-cleaning-man-1",
+      "lfid": "002-1210771",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-cleaning-man-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Are You Ok ?",
+      "slug": "noriyuki-makihara-are-you-ok",
+      "lfid": "002-1193466",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-are-you-ok"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "店じまい",
+      "slug": "noriyuki-makihara-misejimai",
+      "lfid": "002-1281488",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-misejimai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "優しい歌が歌えない",
+      "slug": "noriyuki-makihara-yasashii-uta-ga-utae-nai-2",
+      "lfid": "002-1284861",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-yasashii-uta-ga-utae-nai-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Boys & Girls!",
+      "slug": "noriyuki-makihara-boys-girls",
+      "lfid": "002-1309490",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-boys-girls"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "情熱 [Album Version]",
+      "slug": "noriyuki-makihara-jounetsu-album-version-1",
+      "lfid": "002-1253039",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-jounetsu-album-version-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "冬のコインランドリー",
+      "slug": "noriyuki-makihara-fuyu-no-koin-randori-1",
+      "lfid": "002-1263852",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fuyu-no-koin-randori-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "What a Wonderful World",
+      "slug": "noriyuki-makihara-what-a-wonderful-world",
+      "lfid": "002-1607342",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-what-a-wonderful-world"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Hello, My Friend",
+      "slug": "noriyuki-makihara-hello-my-friend",
+      "lfid": "002-1607383",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-hello-my-friend"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "聞き間違い",
+      "slug": "noriyuki-makihara-kikimachigai",
+      "lfid": "002-1607902",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kikimachigai"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "雷が鳴る前に",
+      "slug": "noriyuki-makihara-kaminari-ga-narumae-ni-1",
+      "lfid": "002-1611165",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kaminari-ga-narumae-ni-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "涙のクリスマス",
+      "slug": "noriyuki-makihara-namida-no-christmas-1",
+      "lfid": "002-1611180",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-namida-no-christmas-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "君は僕の宝物 [Reprise Version]",
+      "slug": "noriyuki-makihara-kimi-ha-boku-no-takaramono-1",
+      "lfid": "002-1611234",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimi-ha-boku-no-takaramono-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "髪を切る日",
+      "slug": "noriyuki-makihara-kami-wo-kiru-hi-1",
+      "lfid": "002-1611343",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kami-wo-kiru-hi-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "彼女の恋人",
+      "slug": "noriyuki-makihara-kanojo-no-koibito-1",
+      "lfid": "002-1611391",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kanojo-no-koibito-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Are You Ok?",
+      "slug": "noriyuki-makihara-are-you-ok-2",
+      "lfid": "002-1196466",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-are-you-ok-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "足音",
+      "slug": "noriyuki-makihara-ashioto-1",
+      "lfid": "002-1193969",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ashioto-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ファミレス",
+      "slug": "noriyuki-makihara-famiresu",
+      "lfid": "002-1236809",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-famiresu"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "WE LOVE YOU.",
+      "slug": "noriyuki-makihara-we-love-you-2",
+      "lfid": "002-1238571",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-we-love-you-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "君の後ろ姿",
+      "slug": "noriyuki-makihara-kimi-no-ushirosugata-1",
+      "lfid": "002-1239103",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-kimi-no-ushirosugata-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Hey…",
+      "slug": "noriyuki-makihara-hey-1",
+      "lfid": "002-1242059",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-hey-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "LOTUS IN THE DIRT Renewed",
+      "slug": "noriyuki-makihara-lotus-in-the-dirt-renewed",
+      "lfid": "002-1248477",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-lotus-in-the-dirt-renewed"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "You are what you eat.",
+      "slug": "noriyuki-makihara-you-are-what-you-eat",
+      "lfid": "002-1338853",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-you-are-what-you-eat"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "テレビでも見ようよ",
+      "slug": "noriyuki-makihara-terebi-demo-miyo-u-yo",
+      "lfid": "002-1339465",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-terebi-demo-miyo-u-yo"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "足音",
+      "slug": "noriyuki-makihara-ashioto-2",
+      "lfid": "002-1196464",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ashioto-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "印度式",
+      "slug": "noriyuki-makihara-indo-shiki-1",
+      "lfid": "002-1198680",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-indo-shiki-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "桃",
+      "slug": "noriyuki-makihara-momo-1",
+      "lfid": "002-1284219",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-momo-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "うたたね",
+      "slug": "noriyuki-makihara-utata-ne-1",
+      "lfid": "002-1201714",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-utata-ne-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "手をつないで帰ろ",
+      "slug": "noriyuki-makihara-te-wo-tsunai-de-kaero-1",
+      "lfid": "002-1227948",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-te-wo-tsunai-de-kaero-1"
+    },
+    {
+      "artist": "Every Little Thing and 槇原敬之",
+      "song": "冬がはじまるよ",
+      "slug": "every-little-thing-fuyugahajimaruyo-1",
+      "lfid": "002-16571116",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/every-little-thing-fuyugahajimaruyo-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "もう恋なんてしない",
+      "slug": "noriyuki-makihara-mou-koinante-shinai-2",
+      "lfid": "002-16288752",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mou-koinante-shinai-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "DARLING",
+      "slug": "noriyuki-makihara-darling-1",
+      "lfid": "002-14199290",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-darling-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "まったくどうにもまいっちゃうぜ [cELEBRATION 2015 Live]",
+      "slug": "noriyuki-makihara-mattaku-donimo-maitchauze-3",
+      "lfid": "002-16783190",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mattaku-donimo-maitchauze-3"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Life Goes On -like nonstop music-",
+      "slug": "noriyuki-makihara-life-goes-on-like-nonstop-music-1",
+      "lfid": "002-16783529",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-life-goes-on-like-nonstop-music-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "どんなときも。",
+      "slug": "noriyuki-makihara-donnatokimo-3",
+      "lfid": "002-16783545",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-donnatokimo-3"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "一歩一会",
+      "slug": "noriyuki-makihara-ippo-ichie-2",
+      "lfid": "002-16783524",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ippo-ichie-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Fall",
+      "slug": "noriyuki-makihara-fall-2",
+      "lfid": "002-16783528",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fall-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "四つ葉のクローバー",
+      "slug": "noriyuki-makihara-mattaku-donimo-maitchauze-5",
+      "lfid": "002-16783523",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-mattaku-donimo-maitchauze-5"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Fall",
+      "slug": "noriyuki-makihara-fall-1",
+      "lfid": "002-16783321",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-fall-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "ゼイタク",
+      "slug": "noriyuki-makihara-zeitaku-3",
+      "lfid": "002-16783532",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-zeitaku-3"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "林檎の花",
+      "slug": "noriyuki-makihara-ringo-no-hana-1",
+      "lfid": "002-16775497",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ringo-no-hana-1"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "遠く遠く",
+      "slug": "noriyuki-makihara-toku-toku-2",
+      "lfid": "002-16420704",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-toku-toku-2"
+    },
+    {
+      "artist": "槇原敬之",
+      "song": "Ippo Ichie [Live]",
+      "slug": "noriyuki-makihara-ippo-ichie-3",
+      "lfid": "002-19206610",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/noriyuki-makihara-ippo-ichie-3"
+    }
+  ]
+}

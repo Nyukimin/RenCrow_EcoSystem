@@ -1,0 +1,1265 @@
+{
+  "provider": "lyricfind",
+  "artist_query": "back number",
+  "slug": "back-number",
+  "totalresults": 157,
+  "unique_songs": 157,
+  "songs": [
+    {
+      "artist": "back number",
+      "song": "高嶺の花子さん",
+      "slug": "back-number-takaneno-hanakosan",
+      "lfid": "002-1116639",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-takaneno-hanakosan"
+    },
+    {
+      "artist": "back number",
+      "song": "幸せ",
+      "slug": "back-number-shiawase",
+      "lfid": "002-1290158",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-shiawase"
+    },
+    {
+      "artist": "back number",
+      "song": "ハッピーエンド",
+      "slug": "back-number-happy-end",
+      "lfid": "002-1339592",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-happy-end"
+    },
+    {
+      "artist": "back number",
+      "song": "君の恋人になったら",
+      "slug": "back-number-kimino-koibitoni-nattara",
+      "lfid": "002-1340177",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-kimino-koibitoni-nattara"
+    },
+    {
+      "artist": "back number",
+      "song": "恋",
+      "slug": "back-number-koi",
+      "lfid": "002-1291348",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-koi"
+    },
+    {
+      "artist": "back number",
+      "song": "ヒロイン",
+      "slug": "back-number-heroine",
+      "lfid": "002-1339654",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-heroine"
+    },
+    {
+      "artist": "back number",
+      "song": "水平線",
+      "slug": "back-number-suiheisen",
+      "lfid": "002-2263107",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-suiheisen"
+    },
+    {
+      "artist": "back number",
+      "song": "チェックのワンピース",
+      "slug": "back-number-check-no-one-piece",
+      "lfid": "002-1290163",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-check-no-one-piece"
+    },
+    {
+      "artist": "back number",
+      "song": "わたがし",
+      "slug": "back-number-watagashi",
+      "lfid": "002-1269562",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-watagashi"
+    },
+    {
+      "artist": "back number",
+      "song": "新しい恋人達に",
+      "slug": "back-number-to-new-lovers",
+      "lfid": "002-15231837",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-to-new-lovers"
+    },
+    {
+      "artist": "back number",
+      "song": "手紙",
+      "slug": "back-number-tegami",
+      "lfid": "002-1340555",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-tegami"
+    },
+    {
+      "artist": "back number",
+      "song": "ブルーアンバー",
+      "slug": "back-number-blue-amber",
+      "lfid": "002-17367781",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-blue-amber"
+    },
+    {
+      "artist": "back number",
+      "song": "クリスマスソング",
+      "slug": "back-number-christmas-song",
+      "lfid": "002-1137950",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-christmas-song"
+    },
+    {
+      "artist": "back number",
+      "song": "幕が上がる",
+      "slug": "back-number-the-unveiling",
+      "lfid": "002-18055700",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-the-unveiling"
+    },
+    {
+      "artist": "back number",
+      "song": "世田谷ラブストーリー",
+      "slug": "back-number-setagaya-love-story",
+      "lfid": "002-1339976",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-setagaya-love-story"
+    },
+    {
+      "artist": "back number",
+      "song": "頬を濡らす雨のように",
+      "slug": "back-number-hohoo-nurasu-ameno-youni",
+      "lfid": "002-1781182",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hohoo-nurasu-ameno-youni"
+    },
+    {
+      "artist": "back number",
+      "song": "Happy Birthday",
+      "slug": "back-number-happy-birthday",
+      "lfid": "002-1508643",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-happy-birthday"
+    },
+    {
+      "artist": "back number",
+      "song": "瞬き",
+      "slug": "back-number-mabataki",
+      "lfid": "002-1421826",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-mabataki"
+    },
+    {
+      "artist": "back number",
+      "song": "オールドファッション",
+      "slug": "back-number-old-fashion",
+      "lfid": "002-1473681",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-old-fashion"
+    },
+    {
+      "artist": "back number",
+      "song": "僕は君の事が好きだけど君は僕を別に好きじゃないみたい",
+      "slug": "back-number-bokuwa-kiminokotoga-sukidakedo-kimiwa-bokuo-betsuni-sukijyanaimitai",
+      "lfid": "002-1138834",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-bokuwa-kiminokotoga-sukidakedo-kimiwa-bokuo-betsuni-sukijyanaimitai"
+    },
+    {
+      "artist": "back number",
+      "song": "サマーワンダーランド",
+      "slug": "back-number-summer-wonderland",
+      "lfid": "002-1520577",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-summer-wonderland"
+    },
+    {
+      "artist": "back number",
+      "song": "君がドアを閉めた後",
+      "slug": "back-number-kimiga-door-o-shimeta-ato",
+      "lfid": "002-1340152",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-kimiga-door-o-shimeta-ato"
+    },
+    {
+      "artist": "back number",
+      "song": "黄色",
+      "slug": "back-number-yellow",
+      "lfid": "002-6190469",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-yellow"
+    },
+    {
+      "artist": "back number",
+      "song": "僕の名前を",
+      "slug": "back-number-bokuno-namaeo",
+      "lfid": "002-1116562",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-bokuno-namaeo"
+    },
+    {
+      "artist": "back number",
+      "song": "ある未来より愛を込めて",
+      "slug": "back-number-sincerely-from-a-future",
+      "lfid": "002-17760839",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-sincerely-from-a-future"
+    },
+    {
+      "artist": "back number",
+      "song": "赤い花火",
+      "slug": "back-number-red-fireworks",
+      "lfid": "002-10179897",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-red-fireworks"
+    },
+    {
+      "artist": "back number",
+      "song": "思い出せなくなるその日まで",
+      "slug": "back-number-omoidasenakunaru-sonohimade",
+      "lfid": "002-1289945",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-omoidasenakunaru-sonohimade"
+    },
+    {
+      "artist": "back number",
+      "song": "冬と春",
+      "slug": "back-number-winter-spring",
+      "lfid": "002-13792409",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-winter-spring"
+    },
+    {
+      "artist": "back number",
+      "song": "Stay With Me",
+      "slug": "back-number-stay-with-me",
+      "lfid": "002-1288767",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-stay-with-me"
+    },
+    {
+      "artist": "back number",
+      "song": "怪盗",
+      "slug": "back-number-phantom-thief",
+      "lfid": "002-4151537",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-phantom-thief"
+    },
+    {
+      "artist": "back number",
+      "song": "怪獣のサイズ",
+      "slug": "back-number-size-of-the-kaiju",
+      "lfid": "002-12396171",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-size-of-the-kaiju"
+    },
+    {
+      "artist": "back number",
+      "song": "半透明人間",
+      "slug": "back-number-hantoumei-ningen",
+      "lfid": "002-1288433",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hantoumei-ningen"
+    },
+    {
+      "artist": "back number",
+      "song": "秘密のキス",
+      "slug": "back-number-secret-kiss",
+      "lfid": "002-10179891",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-secret-kiss"
+    },
+    {
+      "artist": "back number",
+      "song": "アップルパイ",
+      "slug": "back-number-apple-pie",
+      "lfid": "002-1338912",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-apple-pie"
+    },
+    {
+      "artist": "back number",
+      "song": "光の街",
+      "slug": "back-number-hikarino-machi",
+      "lfid": "002-1340070",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hikarino-machi"
+    },
+    {
+      "artist": "back number",
+      "song": "Motto",
+      "slug": "back-number-motto",
+      "lfid": "002-1273555",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-motto"
+    },
+    {
+      "artist": "back number",
+      "song": "助演女優症",
+      "slug": "back-number-jyoen-jyoyuushou",
+      "lfid": "002-1270423",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-jyoen-jyoyuushou"
+    },
+    {
+      "artist": "back number",
+      "song": "魔女と僕",
+      "slug": "back-number-majyoto-boku",
+      "lfid": "002-1341234",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-majyoto-boku"
+    },
+    {
+      "artist": "back number",
+      "song": "春を歌にして",
+      "slug": "back-number-haru-wo-uta-ni-shite",
+      "lfid": "002-1299250",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-haru-wo-uta-ni-shite"
+    },
+    {
+      "artist": "back number",
+      "song": "ミラーボールとシンデレラ",
+      "slug": "back-number-mirror-ball-to-cinderella",
+      "lfid": "002-1781091",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-mirror-ball-to-cinderella"
+    },
+    {
+      "artist": "back number",
+      "song": "雨と僕の話",
+      "slug": "back-number-ameto-bokuno-hanashi",
+      "lfid": "002-1520679",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-ameto-bokuno-hanashi"
+    },
+    {
+      "artist": "back number",
+      "song": "そのドレスちょっと待った",
+      "slug": "back-number-sono-dress-chotto-matta",
+      "lfid": "002-1288768",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-sono-dress-chotto-matta"
+    },
+    {
+      "artist": "back number",
+      "song": "003",
+      "slug": "back-number-003",
+      "lfid": "002-1336949",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-003"
+    },
+    {
+      "artist": "back number",
+      "song": "ヒーロースーツ",
+      "slug": "back-number-hero-suit",
+      "lfid": "002-10179898",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hero-suit"
+    },
+    {
+      "artist": "back number",
+      "song": "電車の窓から",
+      "slug": "back-number-denshano-madokara",
+      "lfid": "002-1290161",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-denshano-madokara"
+    },
+    {
+      "artist": "back number",
+      "song": "花束",
+      "slug": "back-number-hanataba",
+      "lfid": "002-1138718",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hanataba"
+    },
+    {
+      "artist": "back number",
+      "song": "アイラブユー",
+      "slug": "back-number-i-love-you",
+      "lfid": "002-8727634",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-i-love-you"
+    },
+    {
+      "artist": "back number",
+      "song": "エメラルド",
+      "slug": "back-number-emerald",
+      "lfid": "002-2334481",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-emerald"
+    },
+    {
+      "artist": "back number",
+      "song": "反省線急行自宅行き",
+      "slug": "back-number-hansei-kyuukou-jitakuiki",
+      "lfid": "002-1308677",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hansei-kyuukou-jitakuiki"
+    },
+    {
+      "artist": "back number",
+      "song": "one room",
+      "slug": "back-number-one-room",
+      "lfid": "002-1306188",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-one-room"
+    },
+    {
+      "artist": "back number",
+      "song": "泡と羊",
+      "slug": "back-number-awato-hitsuji",
+      "lfid": "002-1781084",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-awato-hitsuji"
+    },
+    {
+      "artist": "back number",
+      "song": "サイレン",
+      "slug": "back-number-siren",
+      "lfid": "002-1781077",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-siren"
+    },
+    {
+      "artist": "back number",
+      "song": "聖者の行進",
+      "slug": "back-number-seijyano-koushin",
+      "lfid": "002-1781133",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-seijyano-koushin"
+    },
+    {
+      "artist": "back number",
+      "song": "東京の夕焼け",
+      "slug": "back-number-tokyo-no-yuuyake",
+      "lfid": "002-1781112",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-tokyo-no-yuuyake"
+    },
+    {
+      "artist": "back number",
+      "song": "Bird's Sorrow",
+      "slug": "back-number-birds-sorrow",
+      "lfid": "002-1270714",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-birds-sorrow"
+    },
+    {
+      "artist": "back number",
+      "song": "Silent Journey in Tokyo",
+      "slug": "back-number-silent-journey-in-tokyo",
+      "lfid": "002-10179896",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-silent-journey-in-tokyo"
+    },
+    {
+      "artist": "back number",
+      "song": "バンド",
+      "slug": "back-number-band",
+      "lfid": "002-15647660",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-band"
+    },
+    {
+      "artist": "back number",
+      "song": "パレード",
+      "slug": "back-number-parade",
+      "lfid": "002-17284077",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-parade"
+    },
+    {
+      "artist": "back number",
+      "song": "ゴールデンアワー",
+      "slug": "back-number-golden-hour",
+      "lfid": "002-10179893",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-golden-hour"
+    },
+    {
+      "artist": "back number",
+      "song": "海岸通り",
+      "slug": "back-number-kaigan-doori",
+      "lfid": "002-1288766",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-kaigan-doori"
+    },
+    {
+      "artist": "back number",
+      "song": "楽園の地図",
+      "slug": "back-number-map-of-paradise",
+      "lfid": "002-15775449",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-map-of-paradise"
+    },
+    {
+      "artist": "back number",
+      "song": "ミスターパーフェクト",
+      "slug": "back-number-mr-perfect",
+      "lfid": "002-1289946",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-mr-perfect"
+    },
+    {
+      "artist": "back number",
+      "song": "君はいらないだろうな",
+      "slug": "back-number-kimiwa-iranaidarouna",
+      "lfid": "002-17284056",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-kimiwa-iranaidarouna"
+    },
+    {
+      "artist": "back number",
+      "song": "あかるいよるに",
+      "slug": "back-number-akarui-yoruni",
+      "lfid": "002-1520610",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-akarui-yoruni"
+    },
+    {
+      "artist": "back number",
+      "song": "ロンリネス",
+      "slug": "back-number-loneliness",
+      "lfid": "002-1520640",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-loneliness"
+    },
+    {
+      "artist": "back number",
+      "song": "手の鳴る方へ",
+      "slug": "back-number-teno-naruhoue",
+      "lfid": "002-1309246",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-teno-naruhoue"
+    },
+    {
+      "artist": "back number",
+      "song": "Liar",
+      "slug": "back-number-liar",
+      "lfid": "002-1277647",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-liar"
+    },
+    {
+      "artist": "back number",
+      "song": "ネタンデルタール人",
+      "slug": "back-number-netanderthal-jin",
+      "lfid": "002-1781177",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-netanderthal-jin"
+    },
+    {
+      "artist": "back number",
+      "song": "こぼれ落ちて",
+      "slug": "back-number-koboreochite",
+      "lfid": "002-1290160",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-koboreochite"
+    },
+    {
+      "artist": "back number",
+      "song": "信者よ盲目であれ",
+      "slug": "back-number-shinjyayo-moumokudeare",
+      "lfid": "002-1305138",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-shinjyayo-moumokudeare"
+    },
+    {
+      "artist": "back number",
+      "song": "浮ついた気持ち",
+      "slug": "back-number-uwatsuita-kimochi",
+      "lfid": "002-1781564",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-uwatsuita-kimochi"
+    },
+    {
+      "artist": "back number",
+      "song": "最深部",
+      "slug": "back-number-saishinbu",
+      "lfid": "002-1520571",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-saishinbu"
+    },
+    {
+      "artist": "back number",
+      "song": "平日のブルース",
+      "slug": "back-number-heijitsuno-blues",
+      "lfid": "002-1306997",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-heijitsuno-blues"
+    },
+    {
+      "artist": "back number",
+      "song": "あやしいひかり",
+      "slug": "back-number-ayashii-hikari",
+      "lfid": "002-1290162",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-ayashii-hikari"
+    },
+    {
+      "artist": "back number",
+      "song": "ハイスクールガール",
+      "slug": "back-number-highschool-girl",
+      "lfid": "002-1299253",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-highschool-girl"
+    },
+    {
+      "artist": "back number",
+      "song": "あとのうた",
+      "slug": "back-number-ato-no-uta",
+      "lfid": "002-1299257",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-ato-no-uta"
+    },
+    {
+      "artist": "back number",
+      "song": "バースデー",
+      "slug": "back-number-birthday",
+      "lfid": "002-17343736",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-birthday"
+    },
+    {
+      "artist": "back number",
+      "song": "Artist",
+      "slug": "back-number-artist",
+      "lfid": "002-1520613",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-artist"
+    },
+    {
+      "artist": "back number",
+      "song": "黒い猫の歌",
+      "slug": "back-number-kuroi-nekono-uta",
+      "lfid": "002-1341252",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-kuroi-nekono-uta"
+    },
+    {
+      "artist": "back number",
+      "song": "おまえさん",
+      "slug": "back-number-omaesan",
+      "lfid": "002-1299260",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-omaesan"
+    },
+    {
+      "artist": "back number",
+      "song": "Tender",
+      "slug": "back-number-tender",
+      "lfid": "002-1299252",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-tender"
+    },
+    {
+      "artist": "back number",
+      "song": "Then",
+      "slug": "back-number-then",
+      "lfid": "002-1299256",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-then"
+    },
+    {
+      "artist": "back number",
+      "song": "Monaural Fantasy",
+      "slug": "back-number-monaural-fantasy",
+      "lfid": "002-1520701",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-monaural-fantasy"
+    },
+    {
+      "artist": "back number",
+      "song": "勝手にオリンピック",
+      "slug": "back-number-self-olympic",
+      "lfid": "002-6190889",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-self-olympic"
+    },
+    {
+      "artist": "back number",
+      "song": "添い寝チャンスは突然に",
+      "slug": "back-number-soine-chance-wa-totsuzen-ni",
+      "lfid": "002-10179895",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-soine-chance-wa-totsuzen-ni"
+    },
+    {
+      "artist": "back number",
+      "song": "エキシビジョンデスマッチ",
+      "slug": "back-number-exhibition-death-match",
+      "lfid": "002-1520689",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-exhibition-death-match"
+    },
+    {
+      "artist": "back number",
+      "song": "アイアムノットイナフ",
+      "slug": "back-number-i-am-not-enough",
+      "lfid": "002-1306189",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-i-am-not-enough"
+    },
+    {
+      "artist": "back number",
+      "song": "Fallman",
+      "slug": "back-number-fallman",
+      "lfid": "002-1299254",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-fallman"
+    },
+    {
+      "artist": "back number",
+      "song": "高嶺の花子さん",
+      "slug": "back-number-takaneno-hanakosan-1",
+      "lfid": "002-1646867",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-takaneno-hanakosan-1"
+    },
+    {
+      "artist": "秦基博, back number and 小林武史",
+      "song": "reunion",
+      "slug": "motohiro-hata-reunion",
+      "lfid": "002-16257310",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/motohiro-hata-reunion"
+    },
+    {
+      "artist": "back number",
+      "song": "Urban Life",
+      "slug": "back-number-urban-life",
+      "lfid": "002-18253560",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-urban-life"
+    },
+    {
+      "artist": "back number",
+      "song": "日曜日",
+      "slug": "back-number-nichiyoubi",
+      "lfid": "002-1291835",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-nichiyoubi"
+    },
+    {
+      "artist": "back number",
+      "song": "Hey!Brother!",
+      "slug": "back-number-hey-brother",
+      "lfid": "002-1277458",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hey-brother"
+    },
+    {
+      "artist": "back number",
+      "song": "大不正解",
+      "slug": "back-number-dai-fuseikai",
+      "lfid": "002-1459613",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-dai-fuseikai"
+    },
+    {
+      "artist": "back number",
+      "song": "どうしてもどうしても",
+      "slug": "back-number-want-want-want",
+      "lfid": "002-19504376",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-want-want-want"
+    },
+    {
+      "artist": "back number",
+      "song": "瞬き",
+      "slug": "back-number-mabataki-1",
+      "lfid": "002-1646896",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-mabataki-1"
+    },
+    {
+      "artist": "back number",
+      "song": "助演女優症2",
+      "slug": "back-number-jyoen-jyoyuushou-2",
+      "lfid": "002-1781102",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-jyoen-jyoyuushou-2"
+    },
+    {
+      "artist": "back number",
+      "song": "青い春",
+      "slug": "back-number-aoi-haru",
+      "lfid": "002-1138054",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-aoi-haru"
+    },
+    {
+      "artist": "back number",
+      "song": "Fish",
+      "slug": "back-number-fish",
+      "lfid": "002-1273158",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-fish"
+    },
+    {
+      "artist": "back number",
+      "song": "だいじなこと",
+      "slug": "back-number-daijinakoto",
+      "lfid": "002-1288432",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-daijinakoto"
+    },
+    {
+      "artist": "back number",
+      "song": "ロンリネス",
+      "slug": "back-number-loneliness-1",
+      "lfid": "002-1800405",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-loneliness-1"
+    },
+    {
+      "artist": "back number",
+      "song": "はなびら",
+      "slug": "back-number-hanabira",
+      "lfid": "002-1290157",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hanabira"
+    },
+    {
+      "artist": "back number",
+      "song": "繋いだ手から",
+      "slug": "back-number-tsunaida-tekara",
+      "lfid": "002-1340997",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-tsunaida-tekara"
+    },
+    {
+      "artist": "back number",
+      "song": "ささえる人の歌",
+      "slug": "back-number-sasaeru-hitono-uta",
+      "lfid": "002-1291349",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-sasaeru-hitono-uta"
+    },
+    {
+      "artist": "back number",
+      "song": "スーパースターになったら",
+      "slug": "back-number-super-star-ni-nattara-1",
+      "lfid": "002-1507719",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-super-star-ni-nattara-1"
+    },
+    {
+      "artist": "back number",
+      "song": "ベルベットの詩",
+      "slug": "back-number-velvet",
+      "lfid": "002-8346434",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-velvet"
+    },
+    {
+      "artist": "back number",
+      "song": "はじまりはじまり",
+      "slug": "back-number-hajimari-hajimari",
+      "lfid": "002-1302571",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hajimari-hajimari"
+    },
+    {
+      "artist": "back number",
+      "song": "西藤公園",
+      "slug": "back-number-nishifuji-kouen",
+      "lfid": "002-1299248",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-nishifuji-kouen"
+    },
+    {
+      "artist": "back number",
+      "song": "Sympathy",
+      "slug": "back-number-sympathy",
+      "lfid": "002-1299247",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-sympathy"
+    },
+    {
+      "artist": "back number",
+      "song": "March",
+      "slug": "back-number-march",
+      "lfid": "002-1299255",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-march"
+    },
+    {
+      "artist": "back number",
+      "song": "Jaguar",
+      "slug": "back-number-jaguar",
+      "lfid": "002-18219539",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-jaguar"
+    },
+    {
+      "artist": "back number",
+      "song": "Knock",
+      "slug": "back-number-knock",
+      "lfid": "002-1299249",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-knock"
+    },
+    {
+      "artist": "back number",
+      "song": "Yuujyuu Fudan Sengen",
+      "slug": "back-number-yuujyuu-fudan-sengen",
+      "lfid": "002-18258038",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-yuujyuu-fudan-sengen"
+    },
+    {
+      "artist": "back number",
+      "song": "ゆめなのであれば",
+      "slug": "back-number-yumenanode-areba",
+      "lfid": "002-17344863",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-yumenanode-areba"
+    },
+    {
+      "artist": "back number",
+      "song": "リッツパーティー",
+      "slug": "back-number-ritz-party",
+      "lfid": "002-1137819",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-ritz-party"
+    },
+    {
+      "artist": "back number",
+      "song": "エンディング",
+      "slug": "back-number-ending",
+      "lfid": "002-1270715",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-ending"
+    },
+    {
+      "artist": "back number",
+      "song": "Life",
+      "slug": "back-number-life",
+      "lfid": "002-1299251",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-life"
+    },
+    {
+      "artist": "back number",
+      "song": "いつか忘れてしまっても",
+      "slug": "back-number-itsuka-wasurete-shimattemo",
+      "lfid": "002-1299258",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-itsuka-wasurete-shimattemo"
+    },
+    {
+      "artist": "back number",
+      "song": "風の強い日",
+      "slug": "back-number-kaze-no-tsuyoi-hi",
+      "lfid": "002-1299261",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-kaze-no-tsuyoi-hi"
+    },
+    {
+      "artist": "back number",
+      "song": "重なり",
+      "slug": "back-number-kasanari",
+      "lfid": "002-1299246",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-kasanari"
+    },
+    {
+      "artist": "back number",
+      "song": "君の代わり",
+      "slug": "back-number-kimino-kawari",
+      "lfid": "002-1306996",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-kimino-kawari"
+    },
+    {
+      "artist": "back number",
+      "song": "僕が今できることを",
+      "slug": "back-number-bokuga-ima-dekirukotoo",
+      "lfid": "002-1309247",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-bokuga-ima-dekirukotoo"
+    },
+    {
+      "artist": "back number",
+      "song": "シーグラス",
+      "slug": "back-number-shigurasu",
+      "lfid": "002-1396175",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-shigurasu"
+    },
+    {
+      "artist": "back number",
+      "song": "こわいはなし",
+      "slug": "back-number-kowai-hanashi",
+      "lfid": "002-1781161",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-kowai-hanashi"
+    },
+    {
+      "artist": "back number",
+      "song": "Hitokuiningen",
+      "slug": "back-number-hitokuiningen",
+      "lfid": "002-18216398",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hitokuiningen"
+    },
+    {
+      "artist": "back number",
+      "song": "スーパースターになったら",
+      "slug": "back-number-super-star-ni-nattara-2",
+      "lfid": "002-16300689",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-super-star-ni-nattara-2"
+    },
+    {
+      "artist": "back number",
+      "song": "僕が今できることを",
+      "slug": "back-number-bokuga-ima-dekirukotoo-1",
+      "lfid": "002-1781316",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-bokuga-ima-dekirukotoo-1"
+    },
+    {
+      "artist": "back number",
+      "song": "君はいらないだろうな",
+      "slug": "back-number-kimiwa-iranaidarouna-1",
+      "lfid": "002-17284062",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-kimiwa-iranaidarouna-1"
+    },
+    {
+      "artist": "back number",
+      "song": "花束",
+      "slug": "back-number-hanataba-2",
+      "lfid": "002-20454056",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hanataba-2"
+    },
+    {
+      "artist": "back number",
+      "song": "Sister",
+      "slug": "back-number-sister",
+      "lfid": "002-1140311",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-sister"
+    },
+    {
+      "artist": "back number",
+      "song": "笑顔",
+      "slug": "back-number-egao",
+      "lfid": "002-1309248",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-egao"
+    },
+    {
+      "artist": "back number",
+      "song": "ミスターパーフェクト",
+      "slug": "back-number-mr-perfect-1",
+      "lfid": "002-1781343",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-mr-perfect-1"
+    },
+    {
+      "artist": "back number",
+      "song": "君がドアを閉めた後",
+      "slug": "back-number-kimiga-door-o-shimeta-ato-1",
+      "lfid": "002-1467987",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-kimiga-door-o-shimeta-ato-1"
+    },
+    {
+      "artist": "back number",
+      "song": "わたがし",
+      "slug": "back-number-watagashi-1",
+      "lfid": "002-1646859",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-watagashi-1"
+    },
+    {
+      "artist": "back number",
+      "song": "Fish",
+      "slug": "back-number-fish-1",
+      "lfid": "002-1646877",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-fish-1"
+    },
+    {
+      "artist": "back number",
+      "song": "日曜日",
+      "slug": "back-number-nichiyoubi-1",
+      "lfid": "002-16259303",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-nichiyoubi-1"
+    },
+    {
+      "artist": "back number",
+      "song": "恋",
+      "slug": "back-number-koi-1",
+      "lfid": "002-14954913",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-koi-1"
+    },
+    {
+      "artist": "back number",
+      "song": "ロンリネス",
+      "slug": "back-number-loneliness-2",
+      "lfid": "002-15788386",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-loneliness-2"
+    },
+    {
+      "artist": "back number",
+      "song": "花束",
+      "slug": "back-number-hanataba-1",
+      "lfid": "002-13919402",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hanataba-1"
+    },
+    {
+      "artist": "back number",
+      "song": "ハッピーエンド",
+      "slug": "back-number-happy-end-1",
+      "lfid": "002-13921143",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-happy-end-1"
+    },
+    {
+      "artist": "back number",
+      "song": "幸せ",
+      "slug": "back-number-shiawase-1",
+      "lfid": "002-14074514",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-shiawase-1"
+    },
+    {
+      "artist": "back number",
+      "song": "高嶺の花子さん",
+      "slug": "back-number-takaneno-hanakosan-2",
+      "lfid": "002-14720424",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-takaneno-hanakosan-2"
+    },
+    {
+      "artist": "back number",
+      "song": "バースデー",
+      "slug": "back-number-birthday-1",
+      "lfid": "002-17344394",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-birthday-1"
+    },
+    {
+      "artist": "back number",
+      "song": "ゆめなのであれば",
+      "slug": "back-number-yumenanode-areba-1",
+      "lfid": "002-17345047",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-yumenanode-areba-1"
+    },
+    {
+      "artist": "back number",
+      "song": "助演女優症",
+      "slug": "back-number-jyoen-jyoyuushou-3",
+      "lfid": "002-16627318",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-jyoen-jyoyuushou-3"
+    },
+    {
+      "artist": "back number",
+      "song": "one room",
+      "slug": "back-number-one-room-1",
+      "lfid": "002-17284042",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-one-room-1"
+    },
+    {
+      "artist": "back number",
+      "song": "僕の名前を",
+      "slug": "back-number-bokuno-namaeo-1",
+      "lfid": "002-17284083",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-bokuno-namaeo-1"
+    },
+    {
+      "artist": "back number",
+      "song": "世田谷ラブストーリー",
+      "slug": "back-number-setagaya-love-story-2",
+      "lfid": "002-16355100",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-setagaya-love-story-2"
+    },
+    {
+      "artist": "back number",
+      "song": "反省線急行自宅行き",
+      "slug": "back-number-hansei-kyuukou-jitakuiki-1",
+      "lfid": "002-17284035",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hansei-kyuukou-jitakuiki-1"
+    },
+    {
+      "artist": "back number",
+      "song": "僕の名前を",
+      "slug": "back-number-bokuno-namaeo-2",
+      "lfid": "002-17284085",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-bokuno-namaeo-2"
+    },
+    {
+      "artist": "back number",
+      "song": "はじまりはじまり",
+      "slug": "back-number-hajimari-hajimari-1",
+      "lfid": "002-17284105",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-hajimari-hajimari-1"
+    },
+    {
+      "artist": "back number",
+      "song": "魔女と僕",
+      "slug": "back-number-majyoto-boku-1",
+      "lfid": "002-16948607",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-majyoto-boku-1"
+    },
+    {
+      "artist": "back number",
+      "song": "パレード",
+      "slug": "back-number-parade-1",
+      "lfid": "002-17284090",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-parade-1"
+    },
+    {
+      "artist": "back number",
+      "song": "君の代わり",
+      "slug": "back-number-kimino-kawari-1",
+      "lfid": "002-17284119",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-kimino-kawari-1"
+    },
+    {
+      "artist": "back number",
+      "song": "わたがし",
+      "slug": "back-number-watagashi-2",
+      "lfid": "002-18057769",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-watagashi-2"
+    },
+    {
+      "artist": "back number",
+      "song": "ゆめなのであれば",
+      "slug": "back-number-yumenanode-areba-2",
+      "lfid": "002-18863912",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-yumenanode-areba-2"
+    },
+    {
+      "artist": "back number",
+      "song": "信者よ盲目であれ",
+      "slug": "back-number-shinjyayo-moumokudeare-1",
+      "lfid": "002-20853957",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/back-number-shinjyayo-moumokudeare-1"
+    }
+  ]
+}

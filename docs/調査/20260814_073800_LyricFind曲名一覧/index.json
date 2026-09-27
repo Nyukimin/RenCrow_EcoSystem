@@ -1,0 +1,33 @@
+{
+  "artists": [
+    {
+      "artist": "SUPER BEAVER",
+      "slug": "super-beaver",
+      "totalresults": 183,
+      "unique_songs": 183,
+      "file": "super-beaver.json"
+    },
+    {
+      "artist": "aiko",
+      "slug": "aiko",
+      "totalresults": 332,
+      "unique_songs": 332,
+      "file": "aiko.json"
+    },
+    {
+      "artist": "槇原敬之",
+      "slug": "noriyuki-makihara",
+      "totalresults": 384,
+      "unique_songs": 384,
+      "file": "noriyuki-makihara.json"
+    },
+    {
+      "artist": "back number",
+      "slug": "back-number",
+      "totalresults": 157,
+      "unique_songs": 157,
+      "file": "back-number.json"
+    }
+  ],
+  "song_total": 1056
+}

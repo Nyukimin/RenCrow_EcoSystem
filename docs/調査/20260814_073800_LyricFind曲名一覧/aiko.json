@@ -1,0 +1,2665 @@
+{
+  "provider": "lyricfind",
+  "artist_query": "aiko",
+  "slug": "aiko",
+  "totalresults": 332,
+  "unique_songs": 332,
+  "songs": [
+    {
+      "artist": "aiko",
+      "song": "KissHug",
+      "slug": "aiko-kisshug",
+      "lfid": "002-1239184",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kisshug"
+    },
+    {
+      "artist": "aiko",
+      "song": "花火",
+      "slug": "aiko-hanabi-2",
+      "lfid": "002-12308451",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hanabi-2"
+    },
+    {
+      "artist": "aiko",
+      "song": "ストロー",
+      "slug": "aiko-straw",
+      "lfid": "002-1443497",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-straw"
+    },
+    {
+      "artist": "aiko",
+      "song": "カブトムシ",
+      "slug": "aiko-kabutomushi",
+      "lfid": "002-1138804",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kabutomushi"
+    },
+    {
+      "artist": "aiko",
+      "song": "相思相愛",
+      "slug": "aiko-mutual-love",
+      "lfid": "002-14084673",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-mutual-love"
+    },
+    {
+      "artist": "aiko",
+      "song": "花火",
+      "slug": "aiko-hanabi",
+      "lfid": "002-1233528",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hanabi"
+    },
+    {
+      "artist": "aiko",
+      "song": "ボーイフレンド",
+      "slug": "aiko-boyfriend-1",
+      "lfid": "002-1215896",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-boyfriend-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "ハチミツ",
+      "slug": "aiko-hachimitsu",
+      "lfid": "002-1533596",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hachimitsu"
+    },
+    {
+      "artist": "aiko",
+      "song": "キラキラ",
+      "slug": "aiko-kirakira",
+      "lfid": "002-1208127",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kirakira"
+    },
+    {
+      "artist": "aiko",
+      "song": "恋のスーパーボール",
+      "slug": "aiko-koi-no-super-bowl",
+      "lfid": "002-1286795",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-koi-no-super-bowl"
+    },
+    {
+      "artist": "aiko",
+      "song": "えりあし",
+      "slug": "aiko-eriashi",
+      "lfid": "002-1202725",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-eriashi"
+    },
+    {
+      "artist": "aiko",
+      "song": "横顔",
+      "slug": "aiko-yokogao",
+      "lfid": "002-1243637",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yokogao"
+    },
+    {
+      "artist": "aiko",
+      "song": "あかときリロード",
+      "slug": "aiko-akatoki-reload",
+      "lfid": "002-10111544",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-akatoki-reload"
+    },
+    {
+      "artist": "aiko",
+      "song": "その目に映して",
+      "slug": "aiko-sono-me-ni-utsushite",
+      "lfid": "002-1224483",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-sono-me-ni-utsushite"
+    },
+    {
+      "artist": "aiko",
+      "song": "アンドロメダ",
+      "slug": "aiko-andromeda",
+      "lfid": "002-1193145",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-andromeda"
+    },
+    {
+      "artist": "aiko",
+      "song": "Milk",
+      "slug": "aiko-milk",
+      "lfid": "002-1282482",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-milk"
+    },
+    {
+      "artist": "aiko",
+      "song": "二人",
+      "slug": "aiko-futari",
+      "lfid": "002-1241327",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-futari"
+    },
+    {
+      "artist": "aiko",
+      "song": "雲は白リンゴは赤",
+      "slug": "aiko-kumowa-shiro-ringowa-aka",
+      "lfid": "002-1210532",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kumowa-shiro-ringowa-aka"
+    },
+    {
+      "artist": "aiko",
+      "song": "冷たい嘘",
+      "slug": "aiko-tsumetai-uso",
+      "lfid": "002-1306582",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-tsumetai-uso"
+    },
+    {
+      "artist": "aiko",
+      "song": "瞳",
+      "slug": "aiko-hitomi",
+      "lfid": "002-1235350",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hitomi"
+    },
+    {
+      "artist": "aiko",
+      "song": "前ならえ。",
+      "slug": "aiko-mae-nara-e",
+      "lfid": "002-1279583",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-mae-nara-e"
+    },
+    {
+      "artist": "aiko",
+      "song": "初恋",
+      "slug": "aiko-hatsukoi",
+      "lfid": "002-1269303",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hatsukoi"
+    },
+    {
+      "artist": "aiko",
+      "song": "どろぼう",
+      "slug": "aiko-do-ro-bou",
+      "lfid": "002-1256311",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-do-ro-bou"
+    },
+    {
+      "artist": "aiko",
+      "song": "三国駅",
+      "slug": "aiko-mikunieki",
+      "lfid": "002-1269323",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-mikunieki"
+    },
+    {
+      "artist": "aiko",
+      "song": "恋をしたのは",
+      "slug": "aiko-koiwo-shitanowa",
+      "lfid": "002-1547076",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-koiwo-shitanowa"
+    },
+    {
+      "artist": "aiko",
+      "song": "二時頃",
+      "slug": "aiko-niji-goro",
+      "lfid": "002-1231715",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-niji-goro"
+    },
+    {
+      "artist": "aiko",
+      "song": "アイツを振り向かせる方法",
+      "slug": "aiko-aitsu-wo-furimuka-seru-houhou",
+      "lfid": "002-1193645",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aitsu-wo-furimuka-seru-houhou"
+    },
+    {
+      "artist": "aiko",
+      "song": "彼の落書き",
+      "slug": "aiko-kare-no-rakugaki",
+      "lfid": "002-1205928",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kare-no-rakugaki"
+    },
+    {
+      "artist": "aiko",
+      "song": "あたしの向こう",
+      "slug": "aiko-atashino-mukou",
+      "lfid": "002-1547125",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-atashino-mukou"
+    },
+    {
+      "artist": "aiko",
+      "song": "食べた愛",
+      "slug": "aiko-tabeta-ai",
+      "lfid": "002-6161650",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-tabeta-ai"
+    },
+    {
+      "artist": "aiko",
+      "song": "向かいあわせ",
+      "slug": "aiko-mukaiawase",
+      "lfid": "002-1283028",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-mukaiawase"
+    },
+    {
+      "artist": "aiko",
+      "song": "星の降る日に",
+      "slug": "aiko-hoshi-no-furu-hi-ni",
+      "lfid": "002-13305216",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hoshi-no-furu-hi-ni"
+    },
+    {
+      "artist": "aiko",
+      "song": "愛の病",
+      "slug": "aiko-ai-no-yamai",
+      "lfid": "002-1238182",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ai-no-yamai"
+    },
+    {
+      "artist": "aiko",
+      "song": "桜の時",
+      "slug": "aiko-sakura-no-toki",
+      "lfid": "002-1216640",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-sakura-no-toki"
+    },
+    {
+      "artist": "aiko",
+      "song": "Be Master of Life",
+      "slug": "aiko-be-master-of-life",
+      "lfid": "002-1258991",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-be-master-of-life"
+    },
+    {
+      "artist": "aiko",
+      "song": "ねがう夜",
+      "slug": "aiko-negau-yoru",
+      "lfid": "002-7653321",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-negau-yoru"
+    },
+    {
+      "artist": "aiko",
+      "song": "ひまわりになったら",
+      "slug": "aiko-himawari-ni-nattara",
+      "lfid": "002-1236321",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-himawari-ni-nattara"
+    },
+    {
+      "artist": "aiko",
+      "song": "愛で僕は",
+      "slug": "aiko-ai-de-boku-wa",
+      "lfid": "002-2767084",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ai-de-boku-wa"
+    },
+    {
+      "artist": "aiko",
+      "song": "ロージー",
+      "slug": "aiko-rosie",
+      "lfid": "002-1247771",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-rosie"
+    },
+    {
+      "artist": "aiko",
+      "song": "消しゴム",
+      "slug": "aiko-eraser",
+      "lfid": "002-19800548",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-eraser"
+    },
+    {
+      "artist": "aiko",
+      "song": "Cry High Fly",
+      "slug": "aiko-cry-high-fly",
+      "lfid": "002-19797311",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-cry-high-fly"
+    },
+    {
+      "artist": "aiko",
+      "song": "ハニーメモリー",
+      "slug": "aiko-honey-memory",
+      "lfid": "002-2329139",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-honey-memory"
+    },
+    {
+      "artist": "aiko",
+      "song": "透明ドロップ",
+      "slug": "aiko-tomei-drop",
+      "lfid": "002-3767201",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-tomei-drop"
+    },
+    {
+      "artist": "aiko",
+      "song": "シネマ",
+      "slug": "aiko-cinema",
+      "lfid": "002-16605264",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-cinema"
+    },
+    {
+      "artist": "aiko",
+      "song": "スター",
+      "slug": "aiko-star",
+      "lfid": "002-1220850",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-star"
+    },
+    {
+      "artist": "aiko",
+      "song": "蝶々結び",
+      "slug": "aiko-chouchou-musubi",
+      "lfid": "002-1226580",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-chouchou-musubi"
+    },
+    {
+      "artist": "aiko",
+      "song": "君の隣",
+      "slug": "aiko-kimino-tonari",
+      "lfid": "002-1533617",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kimino-tonari"
+    },
+    {
+      "artist": "aiko",
+      "song": "アスパラ",
+      "slug": "aiko-aspara",
+      "lfid": "002-1193027",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aspara"
+    },
+    {
+      "artist": "aiko",
+      "song": "愛した日",
+      "slug": "aiko-aishita-hi",
+      "lfid": "002-1513864",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aishita-hi"
+    },
+    {
+      "artist": "aiko",
+      "song": "白い道",
+      "slug": "aiko-shiroi-michi",
+      "lfid": "002-1306584",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-shiroi-michi"
+    },
+    {
+      "artist": "aiko",
+      "song": "ココア",
+      "slug": "aiko-kokoa",
+      "lfid": "002-1211940",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kokoa"
+    },
+    {
+      "artist": "aiko",
+      "song": "合図",
+      "slug": "aiko-aizu",
+      "lfid": "002-1277460",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aizu"
+    },
+    {
+      "artist": "aiko",
+      "song": "それだけ",
+      "slug": "aiko-sore-dake",
+      "lfid": "002-1224622",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-sore-dake"
+    },
+    {
+      "artist": "aiko",
+      "song": "夢見る隙間",
+      "slug": "aiko-yumemiru-sukima",
+      "lfid": "002-1547039",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yumemiru-sukima"
+    },
+    {
+      "artist": "aiko",
+      "song": "Smooch!",
+      "slug": "aiko-smooch",
+      "lfid": "002-1220976",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-smooch"
+    },
+    {
+      "artist": "aiko",
+      "song": "密かなさよならの仕方",
+      "slug": "aiko-hisokana-sayonarano-shikata",
+      "lfid": "002-1240877",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hisokana-sayonarano-shikata"
+    },
+    {
+      "artist": "aiko",
+      "song": "果てしない二人",
+      "slug": "aiko-hateshinai-futari",
+      "lfid": "002-8621439",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hateshinai-futari"
+    },
+    {
+      "artist": "aiko",
+      "song": "恋道",
+      "slug": "aiko-koi-dou",
+      "lfid": "002-1213757",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-koi-dou"
+    },
+    {
+      "artist": "aiko",
+      "song": "荒れた唇は恋を失くす",
+      "slug": "aiko-areta-kuchibiru-wa-koi-wo-nakusu",
+      "lfid": "002-11225948",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-areta-kuchibiru-wa-koi-wo-nakusu"
+    },
+    {
+      "artist": "aiko",
+      "song": "ハナガサイタ",
+      "slug": "aiko-hana-ga-saita",
+      "lfid": "002-1450179",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hana-ga-saita"
+    },
+    {
+      "artist": "aiko",
+      "song": "花風",
+      "slug": "aiko-hanakaze",
+      "lfid": "002-1233139",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hanakaze"
+    },
+    {
+      "artist": "aiko",
+      "song": "磁石",
+      "slug": "aiko-jishaku",
+      "lfid": "002-2543756",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-jishaku"
+    },
+    {
+      "artist": "aiko",
+      "song": "Power Of Love",
+      "slug": "aiko-power-of-love",
+      "lfid": "002-1216492",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-power-of-love"
+    },
+    {
+      "artist": "aiko",
+      "song": "愛は勝手",
+      "slug": "aiko-ai-wa-katte",
+      "lfid": "002-14197870",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ai-wa-katte"
+    },
+    {
+      "artist": "aiko",
+      "song": "4月の雨",
+      "slug": "aiko-shigatsu-no-ame",
+      "lfid": "002-1533668",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-shigatsu-no-ame"
+    },
+    {
+      "artist": "aiko",
+      "song": "星のない世界",
+      "slug": "aiko-hoshi-no-nai-sekai",
+      "lfid": "002-1215092",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hoshi-no-nai-sekai"
+    },
+    {
+      "artist": "aiko",
+      "song": "カプセル",
+      "slug": "aiko-capsule",
+      "lfid": "002-17284513",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-capsule"
+    },
+    {
+      "artist": "aiko",
+      "song": "大切だった人",
+      "slug": "aiko-my-bae",
+      "lfid": "002-19800077",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-my-bae"
+    },
+    {
+      "artist": "aiko",
+      "song": "ふれていたい",
+      "slug": "aiko-furete-itai",
+      "lfid": "002-1236432",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-furete-itai"
+    },
+    {
+      "artist": "aiko",
+      "song": "願い事日記",
+      "slug": "aiko-wish-diary",
+      "lfid": "002-15647776",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-wish-diary"
+    },
+    {
+      "artist": "aiko",
+      "song": "おやすみなさい",
+      "slug": "aiko-oyasuminasai",
+      "lfid": "002-1204123",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-oyasuminasai"
+    },
+    {
+      "artist": "aiko",
+      "song": "歌姫",
+      "slug": "aiko-utahime",
+      "lfid": "002-1201517",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-utahime"
+    },
+    {
+      "artist": "aiko",
+      "song": "桃色",
+      "slug": "aiko-momoiro",
+      "lfid": "002-1283805",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-momoiro"
+    },
+    {
+      "artist": "aiko",
+      "song": "戻れない明日",
+      "slug": "aiko-modorenai-ashita",
+      "lfid": "002-1284440",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-modorenai-ashita"
+    },
+    {
+      "artist": "aiko",
+      "song": "甘い絨毯",
+      "slug": "aiko-amai-juutan",
+      "lfid": "002-1238335",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-amai-juutan"
+    },
+    {
+      "artist": "aiko",
+      "song": "No.7",
+      "slug": "aiko-no-7",
+      "lfid": "002-2767092",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-no-7"
+    },
+    {
+      "artist": "aiko",
+      "song": "あの子の夢",
+      "slug": "aiko-ano-ko-no-yume",
+      "lfid": "002-1238306",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ano-ko-no-yume"
+    },
+    {
+      "artist": "aiko",
+      "song": "skirt",
+      "slug": "aiko-skirt",
+      "lfid": "002-15585625",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-skirt"
+    },
+    {
+      "artist": "aiko",
+      "song": "アンコール",
+      "slug": "aiko-encore",
+      "lfid": "002-15647780",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-encore"
+    },
+    {
+      "artist": "aiko",
+      "song": "夏服",
+      "slug": "aiko-natsufuku",
+      "lfid": "002-1601960",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-natsufuku"
+    },
+    {
+      "artist": "aiko",
+      "song": "飛行機",
+      "slug": "aiko-hikouki",
+      "lfid": "002-1240876",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hikouki"
+    },
+    {
+      "artist": "aiko",
+      "song": "ずっと",
+      "slug": "aiko-zutto",
+      "lfid": "002-1303399",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-zutto"
+    },
+    {
+      "artist": "aiko",
+      "song": "ドライブモード",
+      "slug": "aiko-drive-mode",
+      "lfid": "002-1774348",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-drive-mode"
+    },
+    {
+      "artist": "aiko",
+      "song": "鏡",
+      "slug": "aiko-kagami",
+      "lfid": "002-1239006",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kagami"
+    },
+    {
+      "artist": "aiko",
+      "song": "帽子と水着と水平線",
+      "slug": "aiko-boushi-to-mizugi-to-suiheisen",
+      "lfid": "002-1215566",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-boushi-to-mizugi-to-suiheisen"
+    },
+    {
+      "artist": "aiko",
+      "song": "明日の歌",
+      "slug": "aiko-ashita-no-uta",
+      "lfid": "002-1273970",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ashita-no-uta"
+    },
+    {
+      "artist": "aiko",
+      "song": "いつ逢えたら",
+      "slug": "aiko-itsu-aetara",
+      "lfid": "002-11342016",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-itsu-aetara"
+    },
+    {
+      "artist": "aiko",
+      "song": "あした",
+      "slug": "aiko-ashita",
+      "lfid": "002-1193026",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ashita"
+    },
+    {
+      "artist": "aiko",
+      "song": "赤いランプ",
+      "slug": "aiko-akai-lamp",
+      "lfid": "002-1193533",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-akai-lamp"
+    },
+    {
+      "artist": "aiko",
+      "song": "運命",
+      "slug": "aiko-unmei",
+      "lfid": "002-1306583",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-unmei"
+    },
+    {
+      "artist": "aiko",
+      "song": "だから",
+      "slug": "aiko-dakara",
+      "lfid": "002-14198857",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-dakara"
+    },
+    {
+      "artist": "aiko",
+      "song": "好きにさせて",
+      "slug": "aiko-love-me-do-love-you-do",
+      "lfid": "002-15647763",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-love-me-do-love-you-do"
+    },
+    {
+      "artist": "aiko",
+      "song": "相合傘",
+      "slug": "aiko-aiaigasa-2",
+      "lfid": "002-13914018",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aiaigasa-2"
+    },
+    {
+      "artist": "aiko",
+      "song": "明日もいつも通りに",
+      "slug": "aiko-ashita-mo-itsumo-doori-ni",
+      "lfid": "002-1193001",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ashita-mo-itsumo-doori-ni"
+    },
+    {
+      "artist": "aiko",
+      "song": "夏にマフラー",
+      "slug": "aiko-natsu-ni-muffler",
+      "lfid": "002-1230197",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-natsu-ni-muffler"
+    },
+    {
+      "artist": "aiko",
+      "song": "ナキ・ムシ",
+      "slug": "aiko-naki-mushi",
+      "lfid": "002-1240494",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-naki-mushi"
+    },
+    {
+      "artist": "aiko",
+      "song": "鮮やかな街",
+      "slug": "aiko-neon",
+      "lfid": "002-15647768",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-neon"
+    },
+    {
+      "artist": "aiko",
+      "song": "格好いいな",
+      "slug": "aiko-kakko-iina",
+      "lfid": "002-1774314",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kakko-iina"
+    },
+    {
+      "artist": "aiko",
+      "song": "マント",
+      "slug": "aiko-mantle",
+      "lfid": "002-1279718",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-mantle"
+    },
+    {
+      "artist": "aiko",
+      "song": "リップ",
+      "slug": "aiko-rippu",
+      "lfid": "002-1246258",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-rippu"
+    },
+    {
+      "artist": "aiko",
+      "song": "ホーム",
+      "slug": "aiko-home",
+      "lfid": "002-1286794",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-home"
+    },
+    {
+      "artist": "aiko",
+      "song": "悪口",
+      "slug": "aiko-waruguchi",
+      "lfid": "002-1248717",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-waruguchi"
+    },
+    {
+      "artist": "aiko",
+      "song": "深海冷蔵庫",
+      "slug": "aiko-fukaumi-reizouko",
+      "lfid": "002-1218521",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-fukaumi-reizouko"
+    },
+    {
+      "artist": "aiko",
+      "song": "冷凍便",
+      "slug": "aiko-reitoubin",
+      "lfid": "002-16166214",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-reitoubin"
+    },
+    {
+      "artist": "aiko",
+      "song": "何時何分",
+      "slug": "aiko-nanji-nampun",
+      "lfid": "002-16166205",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-nanji-nampun"
+    },
+    {
+      "artist": "aiko",
+      "song": "蒼い日",
+      "slug": "aiko-aoi-hi",
+      "lfid": "002-16166233",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aoi-hi"
+    },
+    {
+      "artist": "aiko",
+      "song": "約束",
+      "slug": "aiko-yakusoku",
+      "lfid": "002-1284945",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yakusoku"
+    },
+    {
+      "artist": "aiko",
+      "song": "燃えた涙 月とライター",
+      "slug": "aiko-burnt-tears-the-moon-and-the-lighter",
+      "lfid": "002-17393026",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-burnt-tears-the-moon-and-the-lighter"
+    },
+    {
+      "artist": "aiko",
+      "song": "ポニーテール",
+      "slug": "aiko-poniteru",
+      "lfid": "002-1261630",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-poniteru"
+    },
+    {
+      "artist": "aiko",
+      "song": "かけらの心",
+      "slug": "aiko-kakera-no-kokoro",
+      "lfid": "002-16166228",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kakera-no-kokoro"
+    },
+    {
+      "artist": "aiko",
+      "song": "天の川",
+      "slug": "aiko-amanogawa",
+      "lfid": "002-1192433",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-amanogawa"
+    },
+    {
+      "artist": "aiko",
+      "song": "夏恋のライフ",
+      "slug": "aiko-karen-no-life",
+      "lfid": "002-8458759",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-karen-no-life"
+    },
+    {
+      "artist": "aiko",
+      "song": "うん。",
+      "slug": "aiko-un",
+      "lfid": "002-14198705",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-un"
+    },
+    {
+      "artist": "aiko",
+      "song": "赤い手で",
+      "slug": "aiko-akai-te-de",
+      "lfid": "002-15647787",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-akai-te-de"
+    },
+    {
+      "artist": "aiko",
+      "song": "宇宙で息をして",
+      "slug": "aiko-uchuu-de-iki-wo-shite",
+      "lfid": "002-14198785",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-uchuu-de-iki-wo-shite"
+    },
+    {
+      "artist": "aiko",
+      "song": "I'm feeling blue",
+      "slug": "aiko-im-feeling-blue",
+      "lfid": "002-1193639",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-im-feeling-blue"
+    },
+    {
+      "artist": "aiko",
+      "song": "ジェット",
+      "slug": "aiko-jet",
+      "lfid": "002-1252802",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-jet"
+    },
+    {
+      "artist": "aiko",
+      "song": "blue",
+      "slug": "aiko-blue",
+      "lfid": "002-15647720",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-blue"
+    },
+    {
+      "artist": "aiko",
+      "song": "恋愛ジャンキー",
+      "slug": "aiko-renai-junkie",
+      "lfid": "002-1247059",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-renai-junkie"
+    },
+    {
+      "artist": "aiko",
+      "song": "赤い靴",
+      "slug": "aiko-akai-kutsu",
+      "lfid": "002-1193029",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-akai-kutsu"
+    },
+    {
+      "artist": "aiko",
+      "song": "ラジオ",
+      "slug": "aiko-radio",
+      "lfid": "002-13231174",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-radio"
+    },
+    {
+      "artist": "aiko",
+      "song": "雨踏むオーバーオール",
+      "slug": "aiko-ame-fumu-overall",
+      "lfid": "002-1203351",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ame-fumu-overall"
+    },
+    {
+      "artist": "aiko",
+      "song": "熱",
+      "slug": "aiko-netsu",
+      "lfid": "002-1232230",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-netsu"
+    },
+    {
+      "artist": "aiko",
+      "song": "水玉シャツ",
+      "slug": "aiko-mizutama-shatsu",
+      "lfid": "002-1281559",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-mizutama-shatsu"
+    },
+    {
+      "artist": "aiko",
+      "song": "二人の形",
+      "slug": "aiko-futari-no-katachi",
+      "lfid": "002-1241599",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-futari-no-katachi"
+    },
+    {
+      "artist": "aiko",
+      "song": "トンネル",
+      "slug": "aiko-tonneru",
+      "lfid": "002-1240410",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-tonneru"
+    },
+    {
+      "artist": "aiko",
+      "song": "こんぺいとう",
+      "slug": "aiko-konpeitou",
+      "lfid": "002-1211941",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-konpeitou"
+    },
+    {
+      "artist": "aiko",
+      "song": "カケラを残す",
+      "slug": "aiko-kakera-wo-nokosu",
+      "lfid": "002-1239024",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kakera-wo-nokosu"
+    },
+    {
+      "artist": "aiko",
+      "song": "お薬",
+      "slug": "aiko-okusuri",
+      "lfid": "002-1238775",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-okusuri"
+    },
+    {
+      "artist": "aiko",
+      "song": "猫",
+      "slug": "aiko-neko",
+      "lfid": "002-1232229",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-neko"
+    },
+    {
+      "artist": "aiko",
+      "song": "イジワルな天使よ 世界を笑え!",
+      "slug": "aiko-ijiwaruna-tenshi-yo-sekai-wo-warae",
+      "lfid": "002-1198367",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ijiwaruna-tenshi-yo-sekai-wo-warae"
+    },
+    {
+      "artist": "aiko",
+      "song": "ガラクタ",
+      "slug": "aiko-garakuta",
+      "lfid": "002-15647772",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-garakuta"
+    },
+    {
+      "artist": "aiko",
+      "song": "恋人同士",
+      "slug": "aiko-koibito-doshi",
+      "lfid": "002-1264015",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-koibito-doshi"
+    },
+    {
+      "artist": "aiko",
+      "song": "信号",
+      "slug": "aiko-shingou",
+      "lfid": "002-16166221",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-shingou"
+    },
+    {
+      "artist": "aiko",
+      "song": "blow",
+      "slug": "aiko-blow",
+      "lfid": "002-15647774",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-blow"
+    },
+    {
+      "artist": "aiko",
+      "song": "ぬけがら",
+      "slug": "aiko-nuke-gara",
+      "lfid": "002-1303400",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-nuke-gara"
+    },
+    {
+      "artist": "aiko",
+      "song": "よるのうみ",
+      "slug": "aiko-midnight-sea",
+      "lfid": "002-15647783",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-midnight-sea"
+    },
+    {
+      "artist": "aiko",
+      "song": "傷跡",
+      "slug": "aiko-kizuato",
+      "lfid": "002-1239097",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kizuato"
+    },
+    {
+      "artist": "aiko",
+      "song": "ゆあそん",
+      "slug": "aiko-yuason",
+      "lfid": "002-7717966",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yuason"
+    },
+    {
+      "artist": "aiko",
+      "song": "風招き",
+      "slug": "aiko-kaze-oki",
+      "lfid": "002-1205929",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kaze-oki"
+    },
+    {
+      "artist": "aiko",
+      "song": "終わらない日々",
+      "slug": "aiko-owaranai-hibi",
+      "lfid": "002-1238798",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-owaranai-hibi"
+    },
+    {
+      "artist": "aiko",
+      "song": "愛の世界",
+      "slug": "aiko-ai-no-sekai",
+      "lfid": "002-1305233",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ai-no-sekai"
+    },
+    {
+      "artist": "aiko",
+      "song": "青い光",
+      "slug": "aiko-aoi-hikari",
+      "lfid": "002-1193000",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aoi-hikari"
+    },
+    {
+      "artist": "aiko",
+      "song": "Yellow",
+      "slug": "aiko-yellow",
+      "lfid": "002-1238502",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yellow"
+    },
+    {
+      "artist": "aiko",
+      "song": "あなたは優しい",
+      "slug": "aiko-you-are-sweet",
+      "lfid": "002-14416445",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-you-are-sweet"
+    },
+    {
+      "artist": "aiko",
+      "song": "ライン",
+      "slug": "aiko-line",
+      "lfid": "002-1215222",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-line"
+    },
+    {
+      "artist": "aiko",
+      "song": "心に乙女",
+      "slug": "aiko-kokoro-ni-otome",
+      "lfid": "002-1212133",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kokoro-ni-otome"
+    },
+    {
+      "artist": "aiko",
+      "song": "オレンジな満月",
+      "slug": "aiko-orange-na-mangetsu",
+      "lfid": "002-1238811",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-orange-na-mangetsu"
+    },
+    {
+      "artist": "aiko",
+      "song": "片想い",
+      "slug": "aiko-kataomoi",
+      "lfid": "002-2767091",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kataomoi"
+    },
+    {
+      "artist": "aiko",
+      "song": "星物語",
+      "slug": "aiko-hoshi-monogatari",
+      "lfid": "002-1278397",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hoshi-monogatari"
+    },
+    {
+      "artist": "aiko",
+      "song": "陽と陰",
+      "slug": "aiko-hi-to-kage",
+      "lfid": "002-1235416",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hi-to-kage"
+    },
+    {
+      "artist": "aiko",
+      "song": "あなたは",
+      "slug": "aiko-anata-wa",
+      "lfid": "002-1774319",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-anata-wa"
+    },
+    {
+      "artist": "aiko",
+      "song": "木星",
+      "slug": "aiko-mokusei",
+      "lfid": "002-1283866",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-mokusei"
+    },
+    {
+      "artist": "aiko",
+      "song": "リズム",
+      "slug": "aiko-rizumu",
+      "lfid": "002-1246611",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-rizumu"
+    },
+    {
+      "artist": "aiko",
+      "song": "恋堕ちる時",
+      "slug": "aiko-koi-ochiru-toki",
+      "lfid": "002-1211943",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-koi-ochiru-toki"
+    },
+    {
+      "artist": "aiko",
+      "song": "学校",
+      "slug": "aiko-gakkou",
+      "lfid": "002-1250523",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-gakkou"
+    },
+    {
+      "artist": "aiko",
+      "song": "列車",
+      "slug": "aiko-ressha",
+      "lfid": "002-6199695",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ressha"
+    },
+    {
+      "artist": "aiko",
+      "song": "まさか夢",
+      "slug": "aiko-masakayume",
+      "lfid": "002-14416439",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-masakayume"
+    },
+    {
+      "artist": "aiko",
+      "song": "恋愛",
+      "slug": "aiko-renai",
+      "lfid": "002-1247501",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-renai"
+    },
+    {
+      "artist": "aiko",
+      "song": "キスが巡る",
+      "slug": "aiko-kisu-ga-meguru",
+      "lfid": "002-1239136",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kisu-ga-meguru"
+    },
+    {
+      "artist": "aiko",
+      "song": "白い服黒い服",
+      "slug": "aiko-shiroi-fuku-kuroi-fuku",
+      "lfid": "002-1218420",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-shiroi-fuku-kuroi-fuku"
+    },
+    {
+      "artist": "aiko",
+      "song": "エナジー",
+      "slug": "aiko-energy",
+      "lfid": "002-1202848",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-energy"
+    },
+    {
+      "artist": "aiko",
+      "song": "愛だけは",
+      "slug": "aiko-ai-dake-wa",
+      "lfid": "002-16166223",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ai-dake-wa"
+    },
+    {
+      "artist": "aiko",
+      "song": "September",
+      "slug": "aiko-september",
+      "lfid": "002-1224085",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-september"
+    },
+    {
+      "artist": "aiko",
+      "song": "愛のしぐさ",
+      "slug": "aiko-ai-no-shigusa",
+      "lfid": "002-1192999",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ai-no-shigusa"
+    },
+    {
+      "artist": "aiko",
+      "song": "しらふの夢",
+      "slug": "aiko-shirafu-no-yume",
+      "lfid": "002-2767088",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-shirafu-no-yume"
+    },
+    {
+      "artist": "aiko",
+      "song": "あなたの唄",
+      "slug": "aiko-anata-no-uta",
+      "lfid": "002-1305234",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-anata-no-uta"
+    },
+    {
+      "artist": "aiko",
+      "song": "雨の日",
+      "slug": "aiko-ame-no-hi",
+      "lfid": "002-1193636",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ame-no-hi"
+    },
+    {
+      "artist": "aiko",
+      "song": "ある日のひまわり",
+      "slug": "aiko-aruhi-no-himawari",
+      "lfid": "002-1192432",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aruhi-no-himawari"
+    },
+    {
+      "artist": "aiko",
+      "song": "シャワーとコンセント",
+      "slug": "aiko-shower-to-konsento",
+      "lfid": "002-2767078",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-shower-to-konsento"
+    },
+    {
+      "artist": "aiko",
+      "song": "ワンツースリー",
+      "slug": "aiko-one-two-three",
+      "lfid": "002-11244517",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-one-two-three"
+    },
+    {
+      "artist": "aiko",
+      "song": "クラスメイト",
+      "slug": "aiko-kurasumeito",
+      "lfid": "002-1306580",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kurasumeito"
+    },
+    {
+      "artist": "aiko",
+      "song": "気付かれないように",
+      "slug": "aiko-kizuka-re-nai-you-ni",
+      "lfid": "002-1208225",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kizuka-re-nai-you-ni"
+    },
+    {
+      "artist": "aiko",
+      "song": "Last",
+      "slug": "aiko-last",
+      "lfid": "002-2767099",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-last"
+    },
+    {
+      "artist": "aiko",
+      "song": "Telepathy",
+      "slug": "aiko-telepathy",
+      "lfid": "002-11244519",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-telepathy"
+    },
+    {
+      "artist": "aiko",
+      "song": "寒いね...",
+      "slug": "aiko-samui-ne",
+      "lfid": "002-1218169",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-samui-ne"
+    },
+    {
+      "artist": "aiko",
+      "song": "テレビゲーム",
+      "slug": "aiko-terebi-gemu",
+      "lfid": "002-1227775",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-terebi-gemu"
+    },
+    {
+      "artist": "aiko",
+      "song": "私生活",
+      "slug": "aiko-shiseikatsu",
+      "lfid": "002-1218653",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-shiseikatsu"
+    },
+    {
+      "artist": "aiko",
+      "song": "すべての夜",
+      "slug": "aiko-subete-no-yoru",
+      "lfid": "002-1220739",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-subete-no-yoru"
+    },
+    {
+      "artist": "aiko",
+      "song": "ふたつの頬花",
+      "slug": "aiko-futatsu-no-hoo-hana",
+      "lfid": "002-1236431",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-futatsu-no-hoo-hana"
+    },
+    {
+      "artist": "aiko",
+      "song": "ビードロの夜",
+      "slug": "aiko-vidro-no-yoru",
+      "lfid": "002-1258252",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-vidro-no-yoru"
+    },
+    {
+      "artist": "aiko",
+      "song": "一人暮らし",
+      "slug": "aiko-hitorigurashi",
+      "lfid": "002-2767095",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hitorigurashi"
+    },
+    {
+      "artist": "aiko",
+      "song": "心日和",
+      "slug": "aiko-kokorobiyori",
+      "lfid": "002-1212173",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kokorobiyori"
+    },
+    {
+      "artist": "aiko",
+      "song": "ひとりよがり",
+      "slug": "aiko-hitori-yogari",
+      "lfid": "002-1235349",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hitori-yogari"
+    },
+    {
+      "artist": "aiko",
+      "song": "あたしのせい",
+      "slug": "aiko-atashi-no-sei",
+      "lfid": "002-14198649",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-atashi-no-sei"
+    },
+    {
+      "artist": "aiko",
+      "song": "バスタブ",
+      "slug": "aiko-basu-tabu",
+      "lfid": "002-1215440",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-basu-tabu"
+    },
+    {
+      "artist": "aiko",
+      "song": "あの子へ",
+      "slug": "aiko-ano-ko-he",
+      "lfid": "002-1193028",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ano-ko-he"
+    },
+    {
+      "artist": "aiko",
+      "song": "のぼせ",
+      "slug": "aiko-nobose",
+      "lfid": "002-11244515",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-nobose"
+    },
+    {
+      "artist": "aiko",
+      "song": "名のないハート",
+      "slug": "aiko-na-no-nai-heart",
+      "lfid": "002-13397140",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-na-no-nai-heart"
+    },
+    {
+      "artist": "aiko",
+      "song": "クローゼット",
+      "slug": "aiko-closet",
+      "lfid": "002-1210692",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-closet"
+    },
+    {
+      "artist": "aiko",
+      "song": "まつげ",
+      "slug": "aiko-matsuge",
+      "lfid": "002-1303294",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-matsuge"
+    },
+    {
+      "artist": "aiko",
+      "song": "朝の鳥",
+      "slug": "aiko-asa-no-tori",
+      "lfid": "002-1195776",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-asa-no-tori"
+    },
+    {
+      "artist": "aiko",
+      "song": "大切な今",
+      "slug": "aiko-taisetsuna-ima",
+      "lfid": "002-13914064",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-taisetsuna-ima"
+    },
+    {
+      "artist": "aiko",
+      "song": "恋の涙",
+      "slug": "aiko-koi-no-namida",
+      "lfid": "002-1264017",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-koi-no-namida"
+    },
+    {
+      "artist": "aiko",
+      "song": "いつもいる",
+      "slug": "aiko-itsumo-iru",
+      "lfid": "002-2767101",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-itsumo-iru"
+    },
+    {
+      "artist": "aiko",
+      "song": "シアワセ",
+      "slug": "aiko-shiawase",
+      "lfid": "002-1219763",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-shiawase"
+    },
+    {
+      "artist": "aiko",
+      "song": "ハルとアキ",
+      "slug": "aiko-haru-to-aki",
+      "lfid": "002-1235038",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-haru-to-aki"
+    },
+    {
+      "artist": "aiko",
+      "song": "夜空綺麗",
+      "slug": "aiko-yozora-kirei",
+      "lfid": "002-14198538",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yozora-kirei"
+    },
+    {
+      "artist": "aiko",
+      "song": "ボブ",
+      "slug": "aiko-bob",
+      "lfid": "002-1215646",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-bob"
+    },
+    {
+      "artist": "aiko",
+      "song": "自転車",
+      "slug": "aiko-jitensha",
+      "lfid": "002-1306585",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-jitensha"
+    },
+    {
+      "artist": "aiko",
+      "song": "なんて一日",
+      "slug": "aiko-nante-hitoichi",
+      "lfid": "002-1231536",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-nante-hitoichi"
+    },
+    {
+      "artist": "aiko",
+      "song": "指先",
+      "slug": "aiko-yubisaki",
+      "lfid": "002-1243209",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yubisaki"
+    },
+    {
+      "artist": "aiko",
+      "song": "ずっと近くに",
+      "slug": "aiko-zutto-chikaku-ni",
+      "lfid": "002-1254112",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-zutto-chikaku-ni"
+    },
+    {
+      "artist": "aiko",
+      "song": "こいびとどうしに",
+      "slug": "aiko-koibito-doushini",
+      "lfid": "002-1722853",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-koibito-doushini"
+    },
+    {
+      "artist": "aiko",
+      "song": "蝶の羽飾り",
+      "slug": "aiko-chou-no-hane-kazari",
+      "lfid": "002-1226494",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-chou-no-hane-kazari"
+    },
+    {
+      "artist": "aiko",
+      "song": "ヒカリ",
+      "slug": "aiko-hikari",
+      "lfid": "002-1240913",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hikari"
+    },
+    {
+      "artist": "aiko",
+      "song": "脱出",
+      "slug": "aiko-dasshutsu",
+      "lfid": "002-1254472",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-dasshutsu"
+    },
+    {
+      "artist": "aiko",
+      "song": "させないで",
+      "slug": "aiko-sa-se-nai-de",
+      "lfid": "002-1216639",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-sa-se-nai-de"
+    },
+    {
+      "artist": "aiko",
+      "song": "プラマイ",
+      "slug": "aiko-puramai-1",
+      "lfid": "002-1547065",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-puramai-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "鳩になりたい",
+      "slug": "aiko-hato-ni-naritai",
+      "lfid": "002-1214904",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hato-ni-naritai"
+    },
+    {
+      "artist": "aiko",
+      "song": "mix juice",
+      "slug": "aiko-mix-juice",
+      "lfid": "002-1269242",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-mix-juice"
+    },
+    {
+      "artist": "aiko",
+      "song": "夢見る隙間",
+      "slug": "aiko-yumemiru-sukima-1",
+      "lfid": "002-1547199",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yumemiru-sukima-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "シーソーの海",
+      "slug": "aiko-shiso-no-umi",
+      "lfid": "002-1303293",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-shiso-no-umi"
+    },
+    {
+      "artist": "aiko",
+      "song": "好き嫌い",
+      "slug": "aiko-suki-kirai",
+      "lfid": "002-16166225",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-suki-kirai"
+    },
+    {
+      "artist": "aiko",
+      "song": "くちびる",
+      "slug": "aiko-kuchibiru",
+      "lfid": "002-1291959",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kuchibiru"
+    },
+    {
+      "artist": "aiko",
+      "song": "Do you think about me?",
+      "slug": "aiko-do-you-think-about-me",
+      "lfid": "002-1257267",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-do-you-think-about-me"
+    },
+    {
+      "artist": "aiko",
+      "song": "青空",
+      "slug": "aiko-aozora",
+      "lfid": "002-1722852",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aozora"
+    },
+    {
+      "artist": "aiko",
+      "song": "Aka",
+      "slug": "aiko-aka",
+      "lfid": "002-1306578",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aka"
+    },
+    {
+      "artist": "aiko",
+      "song": "小鳥公園",
+      "slug": "aiko-kotori-kouen",
+      "lfid": "002-1211742",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kotori-kouen"
+    },
+    {
+      "artist": "aiko",
+      "song": "かばん",
+      "slug": "aiko-kaban",
+      "lfid": "002-1269315",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kaban"
+    },
+    {
+      "artist": "aiko",
+      "song": "17の月",
+      "slug": "aiko-17-no-tsuki",
+      "lfid": "002-1252719",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-17-no-tsuki"
+    },
+    {
+      "artist": "aiko",
+      "song": "イジワルな天使よ 世界を笑え!",
+      "slug": "aiko-ijiwaruna-tenshi-yo-sekai-wo-warae-1",
+      "lfid": "002-13923315",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ijiwaruna-tenshi-yo-sekai-wo-warae-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "ぶどうじゅーす",
+      "slug": "aiko-budo-juice",
+      "lfid": "002-11244512",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-budo-juice"
+    },
+    {
+      "artist": "aiko",
+      "song": "恋ひ明かす",
+      "slug": "aiko-koi-hi-akasu",
+      "lfid": "002-1211816",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-koi-hi-akasu"
+    },
+    {
+      "artist": "aiko",
+      "song": "メロンソーダ",
+      "slug": "aiko-melon-soda",
+      "lfid": "002-2767075",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-melon-soda"
+    },
+    {
+      "artist": "aiko",
+      "song": "蝶々結び",
+      "slug": "aiko-chouchou-musubi-1",
+      "lfid": "002-1548178",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-chouchou-musubi-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "ばいばーーい",
+      "slug": "aiko-bye-bye",
+      "lfid": "002-2767071",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-bye-bye"
+    },
+    {
+      "artist": "aiko",
+      "song": "ナキ・ムシ",
+      "slug": "aiko-naki-mushi-1",
+      "lfid": "002-1547139",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-naki-mushi-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "号泣中",
+      "slug": "aiko-gokyuchu",
+      "lfid": "002-8658130",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-gokyuchu"
+    },
+    {
+      "artist": "aiko",
+      "song": "Time Machine",
+      "slug": "aiko-time-machine",
+      "lfid": "002-1704224",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-time-machine"
+    },
+    {
+      "artist": "aiko",
+      "song": "あたしたち",
+      "slug": "aiko-atashi-tachi",
+      "lfid": "002-6104020",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-atashi-tachi"
+    },
+    {
+      "artist": "東京スカパラダイスオーケストラ and aiko",
+      "song": "Good Morning~ブルー・デイジー",
+      "slug": "tokyo-ska-paradise-orchestra-good-morning-blue-daisy",
+      "lfid": "002-1727656",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/tokyo-ska-paradise-orchestra-good-morning-blue-daisy"
+    },
+    {
+      "artist": "aiko",
+      "song": "今度までには",
+      "slug": "aiko-kondo-madeniwa",
+      "lfid": "002-1212132",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kondo-madeniwa"
+    },
+    {
+      "artist": "aiko",
+      "song": "Fly with Me",
+      "slug": "aiko-fly-with-me",
+      "lfid": "002-1704223",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-fly-with-me"
+    },
+    {
+      "artist": "aiko",
+      "song": "Loveletter",
+      "slug": "aiko-loveletter",
+      "lfid": "002-1272078",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-loveletter"
+    },
+    {
+      "artist": "aiko",
+      "song": "キスする前に",
+      "slug": "aiko-kisu-suru-mae-ni",
+      "lfid": "002-1208223",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kisu-suru-mae-ni"
+    },
+    {
+      "artist": "aiko",
+      "song": "恋人",
+      "slug": "aiko-koibito",
+      "lfid": "002-1211942",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-koibito"
+    },
+    {
+      "artist": "aiko",
+      "song": "アップルパイ",
+      "slug": "aiko-apple-pie",
+      "lfid": "002-11244516",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-apple-pie"
+    },
+    {
+      "artist": "aiko",
+      "song": "れんげ畑",
+      "slug": "aiko-renge-hatake",
+      "lfid": "002-1269255",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-renge-hatake"
+    },
+    {
+      "artist": "aiko",
+      "song": "シャッター",
+      "slug": "aiko-shatta",
+      "lfid": "002-1218520",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-shatta"
+    },
+    {
+      "artist": "aiko",
+      "song": "愛の病",
+      "slug": "aiko-ai-no-yamai-1",
+      "lfid": "002-1724219",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ai-no-yamai-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "夏が帰る",
+      "slug": "aiko-natsu-ga-kaeru",
+      "lfid": "002-1240522",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-natsu-ga-kaeru"
+    },
+    {
+      "artist": "aiko",
+      "song": "さらば!",
+      "slug": "aiko-saraba",
+      "lfid": "002-11244513",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-saraba"
+    },
+    {
+      "artist": "aiko and Rxseboy",
+      "song": "go to h<3ll",
+      "slug": "aiko-go-to-h-3ll",
+      "lfid": "002-11746882",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-go-to-h-3ll"
+    },
+    {
+      "artist": "aiko",
+      "song": "not good for me",
+      "slug": "aiko-not-good-for-me",
+      "lfid": "002-12735431",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-not-good-for-me"
+    },
+    {
+      "artist": "aiko",
+      "song": "プラマイ",
+      "slug": "aiko-puramai",
+      "lfid": "002-1277459",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-puramai"
+    },
+    {
+      "artist": "aiko",
+      "song": "嘆きのキス",
+      "slug": "aiko-nagekino-kiss",
+      "lfid": "002-1231535",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-nagekino-kiss"
+    },
+    {
+      "artist": "aiko",
+      "song": "予告",
+      "slug": "aiko-yokoku-1",
+      "lfid": "002-1547146",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yokoku-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "親指の使い方",
+      "slug": "aiko-oyayubi-no-tsukaikata",
+      "lfid": "002-1204136",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-oyayubi-no-tsukaikata"
+    },
+    {
+      "artist": "aiko",
+      "song": "水とシャンパン",
+      "slug": "aiko-mizu-to-shanpan",
+      "lfid": "002-1282417",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-mizu-to-shanpan"
+    },
+    {
+      "artist": "aiko",
+      "song": "海の終わり",
+      "slug": "aiko-umi-no-owari",
+      "lfid": "002-1201612",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-umi-no-owari"
+    },
+    {
+      "artist": "aiko",
+      "song": "4月の雨",
+      "slug": "aiko-shigatsu-no-ame-1",
+      "lfid": "002-1534895",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-shigatsu-no-ame-1"
+    },
+    {
+      "artist": "aiko and clide",
+      "song": "another life",
+      "slug": "aiko-another-life",
+      "lfid": "002-12934347",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-another-life"
+    },
+    {
+      "artist": "aiko",
+      "song": "雨は止む",
+      "slug": "aiko-ame-ha-yamu",
+      "lfid": "002-1306579",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ame-ha-yamu"
+    },
+    {
+      "artist": "aiko",
+      "song": "more&more",
+      "slug": "aiko-more-more",
+      "lfid": "002-1283877",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-more-more"
+    },
+    {
+      "artist": "aiko",
+      "song": "ドレミ",
+      "slug": "aiko-do-remi",
+      "lfid": "002-1306581",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-do-remi"
+    },
+    {
+      "artist": "aiko",
+      "song": "予告",
+      "slug": "aiko-yokoku",
+      "lfid": "002-1547138",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yokoku"
+    },
+    {
+      "artist": "aiko",
+      "song": "あられ",
+      "slug": "aiko-ara-re",
+      "lfid": "002-1192679",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ara-re"
+    },
+    {
+      "artist": "aiko",
+      "song": "友達になりたい",
+      "slug": "aiko-tomodachi-ni-naritai",
+      "lfid": "002-7717960",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-tomodachi-ni-naritai"
+    },
+    {
+      "artist": "aiko",
+      "song": "最後の夏休み",
+      "slug": "aiko-saigo-no-natsuyasumi",
+      "lfid": "002-1213992",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-saigo-no-natsuyasumi"
+    },
+    {
+      "artist": "aiko",
+      "song": "beat",
+      "slug": "aiko-beat",
+      "lfid": "002-1259012",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-beat"
+    },
+    {
+      "artist": "aiko",
+      "song": "You & Me both",
+      "slug": "aiko-you-me-both",
+      "lfid": "002-1243013",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-you-me-both"
+    },
+    {
+      "artist": "aiko",
+      "song": "秘密",
+      "slug": "aiko-himitsu",
+      "lfid": "002-1236328",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-himitsu"
+    },
+    {
+      "artist": "aiko",
+      "song": "初恋",
+      "slug": "aiko-hatsukoi-1",
+      "lfid": "002-1547049",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hatsukoi-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "I LOVE YOU",
+      "slug": "aiko-i-love-you",
+      "lfid": "002-2429042",
+      "language": "id",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-i-love-you"
+    },
+    {
+      "artist": "aiko",
+      "song": "BAGAIMANA",
+      "slug": "aiko-bagaimana",
+      "lfid": "002-2429043",
+      "language": "id",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-bagaimana"
+    },
+    {
+      "artist": "aiko",
+      "song": "ウミウサギ",
+      "slug": "aiko-umiusagi",
+      "lfid": "002-1202561",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-umiusagi"
+    },
+    {
+      "artist": "aiko",
+      "song": "キョウモハレ",
+      "slug": "aiko-kyoumohare",
+      "lfid": "002-1210228",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kyoumohare"
+    },
+    {
+      "artist": "aiko",
+      "song": "カブトムシ",
+      "slug": "aiko-kabutomushi-1",
+      "lfid": "002-1470351",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kabutomushi-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "夢のダンス",
+      "slug": "aiko-yume-no-dance",
+      "lfid": "002-1269275",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yume-no-dance"
+    },
+    {
+      "artist": "Mirelle, Kai, Anthony, aiko, Steve Tabalujan, Hanna Thio, Kharisa Tamphanuwat and Savannagh",
+      "song": "Christmas Time",
+      "slug": "mirelle-christmas-time",
+      "lfid": "002-13291729",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/mirelle-christmas-time"
+    },
+    {
+      "artist": "aiko",
+      "song": "Ngekepi Janji",
+      "slug": "aiko-ngekepi-janji",
+      "lfid": "002-10324860",
+      "language": "id",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ngekepi-janji"
+    },
+    {
+      "artist": "aiko",
+      "song": "相合傘 [汗かきMix]",
+      "slug": "aiko-aiaigasa-1",
+      "lfid": "002-1193534",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aiaigasa-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "キスでおこして",
+      "slug": "aiko-kisu-de-okoshi-te",
+      "lfid": "002-1208351",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kisu-de-okoshi-te"
+    },
+    {
+      "artist": "aiko",
+      "song": "あなたと握手",
+      "slug": "aiko-anatato-akushu",
+      "lfid": "002-1193151",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-anatato-akushu"
+    },
+    {
+      "artist": "aiko",
+      "song": "星電話",
+      "slug": "aiko-hoshi-denwa",
+      "lfid": "002-1279255",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hoshi-denwa"
+    },
+    {
+      "artist": "aiko",
+      "song": "もっと",
+      "slug": "aiko-motto",
+      "lfid": "002-1547069",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-motto"
+    },
+    {
+      "artist": "aiko",
+      "song": "玄関のあとで",
+      "slug": "aiko-genkan-no-atode",
+      "lfid": "002-11244520",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-genkan-no-atode"
+    },
+    {
+      "artist": "aiko",
+      "song": "Детство",
+      "slug": "aiko-детство",
+      "lfid": "002-11013730",
+      "language": "ru",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-детство"
+    },
+    {
+      "artist": "aiko",
+      "song": "ジェット",
+      "slug": "aiko-jet-1",
+      "lfid": "002-13923295",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-jet-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "洗面所",
+      "slug": "aiko-senmenjo",
+      "lfid": "002-1223186",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-senmenjo"
+    },
+    {
+      "artist": "aiko",
+      "song": "線香花火",
+      "slug": "aiko-senkou-hanabi",
+      "lfid": "002-1224376",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-senkou-hanabi"
+    },
+    {
+      "artist": "aiko",
+      "song": "KU BILANG PACARMU",
+      "slug": "aiko-ku-bilang-pacarmu",
+      "lfid": "002-2429044",
+      "language": "id",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ku-bilang-pacarmu"
+    },
+    {
+      "artist": "aiko",
+      "song": "飛行機",
+      "slug": "aiko-hikouki-1",
+      "lfid": "002-1601921",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hikouki-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "The Cliff",
+      "slug": "aiko-the-cliff",
+      "lfid": "002-3771260",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-the-cliff"
+    },
+    {
+      "artist": "aiko and Gensi",
+      "song": "Kanonada",
+      "slug": "aiko-kanonada",
+      "lfid": "002-3082373",
+      "language": "ru",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kanonada"
+    },
+    {
+      "artist": "aiko",
+      "song": "Shawty",
+      "slug": "aiko-shawty",
+      "lfid": "002-5297442",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-shawty"
+    },
+    {
+      "artist": "aiko",
+      "song": "Ultraviolet",
+      "slug": "aiko-ultraviolet",
+      "lfid": "002-5110325",
+      "language": "el",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ultraviolet"
+    },
+    {
+      "artist": "aiko",
+      "song": "Codigo Mariposa",
+      "slug": "aiko-codigo-mariposa",
+      "lfid": "002-4086305",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-codigo-mariposa"
+    },
+    {
+      "artist": "aiko",
+      "song": "El Amor Es Asi",
+      "slug": "aiko-el-amor-es-asi",
+      "lfid": "002-4086306",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-el-amor-es-asi"
+    },
+    {
+      "artist": "aiko",
+      "song": "El Planeta",
+      "slug": "aiko-el-planeta",
+      "lfid": "002-4086307",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-el-planeta"
+    },
+    {
+      "artist": "aiko",
+      "song": "Lagrimas",
+      "slug": "aiko-lagrimas",
+      "lfid": "002-4086308",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-lagrimas"
+    },
+    {
+      "artist": "aiko",
+      "song": "Lo Que Dicta El Corazon",
+      "slug": "aiko-lo-que-dicta-el-corazon",
+      "lfid": "002-4086309",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-lo-que-dicta-el-corazon"
+    },
+    {
+      "artist": "aiko",
+      "song": "Pateando Puertas",
+      "slug": "aiko-pateando-puertas",
+      "lfid": "002-4086310",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-pateando-puertas"
+    },
+    {
+      "artist": "aiko",
+      "song": "Quien Tuvo La Culpa",
+      "slug": "aiko-quien-tuvo-la-culpa",
+      "lfid": "002-4086311",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-quien-tuvo-la-culpa"
+    },
+    {
+      "artist": "aiko",
+      "song": "Todo De Ti",
+      "slug": "aiko-todo-de-ti",
+      "lfid": "002-4086312",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-todo-de-ti"
+    },
+    {
+      "artist": "aiko",
+      "song": "Tu, Ella Y Yo",
+      "slug": "aiko-tu-ella-y-yo",
+      "lfid": "002-4086313",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-tu-ella-y-yo"
+    },
+    {
+      "artist": "aiko",
+      "song": "Volveras",
+      "slug": "aiko-volveras",
+      "lfid": "002-4086314",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-volveras"
+    },
+    {
+      "artist": "aiko",
+      "song": "Ya No Te Vuelvo A Amar",
+      "slug": "aiko-ya-no-te-vuelvo-a-amar",
+      "lfid": "002-4086315",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-ya-no-te-vuelvo-a-amar"
+    },
+    {
+      "artist": "aiko",
+      "song": "Boyfriend [Instrumental]",
+      "slug": "aiko-boyfriend",
+      "lfid": "002-1039859",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-boyfriend"
+    },
+    {
+      "artist": "aiko",
+      "song": "いつもあたしは",
+      "slug": "aiko-itsumo-atashi-ha",
+      "lfid": "002-1286796",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-itsumo-atashi-ha"
+    },
+    {
+      "artist": "aiko",
+      "song": "ゴーゴーマシン",
+      "slug": "aiko-gogo-mashin",
+      "lfid": "002-1251936",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-gogo-mashin"
+    },
+    {
+      "artist": "aiko",
+      "song": "歌姫",
+      "slug": "aiko-utahime-1",
+      "lfid": "002-1724319",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-utahime-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "夢のダンス",
+      "slug": "aiko-yume-no-dance-1",
+      "lfid": "002-1724343",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yume-no-dance-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "帽子と水着と水平線",
+      "slug": "aiko-boushi-to-mizugi-to-suiheisen-1",
+      "lfid": "002-1725096",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-boushi-to-mizugi-to-suiheisen-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "より道",
+      "slug": "aiko-yori-michi",
+      "lfid": "002-1243729",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-yori-michi"
+    },
+    {
+      "artist": "aiko",
+      "song": "瞬き",
+      "slug": "aiko-mabataki",
+      "lfid": "002-1303398",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-mabataki"
+    },
+    {
+      "artist": "aiko",
+      "song": "ゴーゴーマシン",
+      "slug": "aiko-gogo-mashin-1",
+      "lfid": "002-1251937",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-gogo-mashin-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "Un Cuarto Freestyle",
+      "slug": "aiko-un-cuarto-freestyle",
+      "lfid": "002-5412687",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-un-cuarto-freestyle"
+    },
+    {
+      "artist": "aiko",
+      "song": "ねがう夜",
+      "slug": "aiko-negau-yoru-1",
+      "lfid": "002-11225952",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-negau-yoru-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "食べた愛",
+      "slug": "aiko-tabeta-ai-1",
+      "lfid": "002-11225955",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-tabeta-ai-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "Akala Ko Tayo",
+      "slug": "aiko-akala-ko-tayo",
+      "lfid": "002-13483452",
+      "language": "tl",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-akala-ko-tayo"
+    },
+    {
+      "artist": "aiko",
+      "song": "Моя душа",
+      "slug": "aiko-моя-душа",
+      "lfid": "002-10441412",
+      "language": "ru",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-моя-душа"
+    },
+    {
+      "artist": "aiko",
+      "song": "花火",
+      "slug": "aiko-hanabi-1",
+      "lfid": "002-12308448",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-hanabi-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "HAZE",
+      "slug": "aiko-haze",
+      "lfid": "002-13399520",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-haze"
+    },
+    {
+      "artist": "aiko",
+      "song": "赤いランプ",
+      "slug": "aiko-akai-lamp-1",
+      "lfid": "002-13913948",
+      "language": "ja",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-akai-lamp-1"
+    },
+    {
+      "artist": "aiko",
+      "song": "えりあし",
+      "slug": "aiko-eriashi-2",
+      "lfid": "002-16703342",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-eriashi-2"
+    },
+    {
+      "artist": "aiko",
+      "song": "WAVY WAV",
+      "slug": "aiko-wavy-wav",
+      "lfid": "002-8525033",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-wavy-wav"
+    },
+    {
+      "artist": "aiko",
+      "song": "PÉTALOS_NTERLUDE",
+      "slug": "aiko-petalos_nterlude",
+      "lfid": "002-8525037",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-petalos_nterlude"
+    },
+    {
+      "artist": "aiko",
+      "song": "BONUS TRACK (feat. YM DUYOS)",
+      "slug": "aiko-bonus-track-feat-ym-duyos",
+      "lfid": "002-8525074",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-bonus-track-feat-ym-duyos"
+    },
+    {
+      "artist": "aiko",
+      "song": "Aiko - Apology",
+      "slug": "aiko-aiko-apology",
+      "lfid": "002-8914017",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aiko-apology"
+    },
+    {
+      "artist": "aiko",
+      "song": "4U",
+      "slug": "aiko-4u",
+      "lfid": "002-8544730",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-4u"
+    },
+    {
+      "artist": "aiko",
+      "song": "Calon Kuwu Kang Kusnedi",
+      "slug": "aiko-calon-kuwu-kang-kusnedi",
+      "lfid": "002-10327566",
+      "language": "jv",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-calon-kuwu-kang-kusnedi"
+    },
+    {
+      "artist": "aiko",
+      "song": "Apology",
+      "slug": "aiko-apology",
+      "lfid": "002-8914016",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-apology"
+    },
+    {
+      "artist": "aiko",
+      "song": "Selalu Setia",
+      "slug": "aiko-selalu-setia",
+      "lfid": "002-10487555",
+      "language": "id",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-selalu-setia"
+    },
+    {
+      "artist": "aiko",
+      "song": "LUV",
+      "slug": "aiko-luv",
+      "lfid": "002-8525047",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-luv"
+    },
+    {
+      "artist": "aiko",
+      "song": "SURFIN' THE WAVE",
+      "slug": "aiko-surfin-the-wave",
+      "lfid": "002-8525051",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-surfin-the-wave"
+    },
+    {
+      "artist": "aiko",
+      "song": "B.A.I.R.E.S.",
+      "slug": "aiko-b-a-i-r-e-s",
+      "lfid": "002-8525056",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-b-a-i-r-e-s"
+    },
+    {
+      "artist": "aiko",
+      "song": "FVCK 0TONINA",
+      "slug": "aiko-fvck-0tonina",
+      "lfid": "002-8525068",
+      "language": "es",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-fvck-0tonina"
+    },
+    {
+      "artist": "aiko",
+      "song": "Aiko - Hunt",
+      "slug": "aiko-aiko-hunt",
+      "lfid": "002-8914015",
+      "language": "en",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-aiko-hunt"
+    },
+    {
+      "artist": "aiko",
+      "song": "カブトムシ",
+      "slug": "aiko-kabutomushi-2",
+      "lfid": "002-16386354",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kabutomushi-2"
+    },
+    {
+      "artist": "aiko",
+      "song": "KissHug",
+      "slug": "aiko-kisshug-1",
+      "lfid": "002-21702105",
+      "language": "",
+      "lyricfind_url": "https://lyrics.lyricfind.com/lyrics/aiko-kisshug-1"
+    }
+  ]
+}
