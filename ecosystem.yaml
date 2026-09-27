@@ -239,7 +239,7 @@
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_LLM/gateway/cmd/rencrow-llm",
             "installed_path": "%h/.local/bin/rencrow-llm",
-            "version": "26b18a023830f4d3c0d0f7a5f862b546b1c99e12"
+            "version": "4e6957146c6711e19a52a67b9ed6ad147ae48b7f"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
