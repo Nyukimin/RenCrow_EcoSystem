@@ -1,5 +1,7 @@
 # Codex効率運用仕様と配布
 
+長期作業の指示整理・要約・セッション引き継ぎは、コンテキスト管理仕様（v0.2草稿はrepo未収録・`Tmp/` に退避済み）の趣旨に従う。CE-02／CE-06／CE-08の具体化であり、Codex本体の変更や無断の新セッション開始を許可しない。外部整理CLIは実装済み。実運用効果と新セッション引き継ぎは未完了。
+
 ## 使用量を監査するときの入口
 
 まず[Toolsの使用量CLI](../RenCrow_Tools/tools/observability/codex_efficiency/README.md)を
@@ -166,7 +168,7 @@ Standard課金やquota削減率の証明にはしない。reasoning tokenをoutp
 
 ## 正本と適用範囲
 
-運用ルールの唯一の正本は[AGENTS.mdのCodex efficiency policy](../AGENTS.md#codex-efficiency-policy--2026-09-12-v1)。2026-09-12の直接適用版を基に、2026-09-13に待機、情報取得、委譲、証拠再利用、測定を具体化した。Astraを主担当とし、有益な独立作業だけLuna maxへ委譲する。作業の完遂、親による差分レビュー、独立検証、owner・認証・安全境界を維持する。
+運用ルールの唯一の正本は[AGENTS.mdのCodex efficiency policy](../AGENTS.md#codex-efficiency-policy--2026-09-12-v1)。2026-09-12の直接適用版を基に、2026-09-13に待機、情報取得、委譲、証拠再利用、測定を具体化した。モデル役割は共通AGENTS.mdに従い、Astraを主担当とし、コーディングをLuna xhighへ委譲する。作業の完遂、親による差分レビュー、独立検証、owner・認証・安全境界を維持する。
 
 この節はCodexの開発作業にだけ適用する。RenCrow製品のAgent、runtime、model routingや、Cursor／Claudeの規定へ移植しない。ルールは運用指示であり、使用量の削減率や推論設定を強制する仕組みではない。
 
@@ -201,7 +203,7 @@ Windows等でsymlink作成権限がなければ、コピーへのfallbackや権�
 
 ## Codex設定と直接適用版の移行
 
-ルール本文とCodex設定の値は別に扱う。既存の主modelと推論強度は維持し、low／xhighへ一律変更しない。明示的な個別指定がある場合はそれを維持する。直接適用版で採用した値は以下。設定schemaは使用中のCLI／appで検証してから有効化する。既存の`config.toml`へ同じtableを重複追加しない。
+ルール本文とCodex設定の値は別に扱う。既存の主modelと推論強度は維持し、low／xhighへ一律変更しない。明示的な個別指定がある場合はそれを維持する。以下は直接適用版で採用した当時の値。現在のコーディング委譲では、共通AGENTS.mdに従い呼出し時に`xhigh`を明示する。設定schemaは使用中のCLI／appで検証してから有効化する。既存の`config.toml`へ同じtableを重複追加しない。
 
 ```toml
 # rootの既存キーを更新する。tableの内側に追加しない。
