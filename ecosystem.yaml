@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "6d3468e821692fc63315805188cf1c5852421e2f",
+      "version": "83f07bf11c2514bca4ddba774d6e7431eda58b4a",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -229,7 +229,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "1a47f48e917bc4094facb3578edb1dc11073cfbb",
+      "version": "b533ef4988ab04026a6255a688b8fa432b4e4287",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -679,7 +679,7 @@
     "bench": {
       "repository": "Nyukimin/RenCrow_Bench",
       "workspace_path": "./RenCrow_Bench",
-      "version": "fba9a83921ff12c404ee866f8ce5f3b941b05ed2",
+      "version": "5e043787d9e4c875a05a31db7f9079ff5c821dfc",
       "required": false,
       "distribution": "tooling",
       "role": "Development benchmark tasks, graders, runners, and provenance for evaluating model suitability for RenCrow roles; source-pinned with known grading limitations, not a production runtime or role-assignment owner"
@@ -687,7 +687,7 @@
     "switch_core": {
       "repository": "Nyukimin/RenCrow_Switch_Core",
       "workspace_path": "./RenCrow_Switch_Core",
-      "version": "bf9d00a6a49189377a088e75d20ba14f772a2e66",
+      "version": "d653cbd7deb4d12d28d04a55374d240b512c20a1",
       "required": false,
       "distribution": "tooling",
       "role": "Unofficial OpenAI Codex fork for RenCrow development clients and separate compaction candidate tooling; launcher and Gateway remain owned by RenCrow_LLM"
