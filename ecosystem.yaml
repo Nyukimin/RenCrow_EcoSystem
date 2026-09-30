@@ -229,7 +229,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "37f7af06cbc109adabbfc9cb75b83e8cbd7f81ad",
+      "version": "fd015420147155c5e2fa4b6c6c49890e67db491f",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -687,7 +687,7 @@
     "switch_core": {
       "repository": "Nyukimin/RenCrow_Switch_Core",
       "workspace_path": "./RenCrow_Switch_Core",
-      "version": "8fc9ea7ab872fc1536e58142fd80b5de54de5407",
+      "version": "16ea1009da01f04354cdec329fe4b89dd3df7f61",
       "required": false,
       "distribution": "tooling",
       "role": "Unofficial OpenAI Codex fork for RenCrow development clients and separate compaction candidate tooling; launcher and Gateway remain owned by RenCrow_LLM"
