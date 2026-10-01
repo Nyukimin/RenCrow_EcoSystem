@@ -229,7 +229,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "89df86c8f020579bca3abe6ec7145d6d95d55e18",
+      "version": "dc4d12c0adcfe714ec556683662d91e36d1b6a86",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -679,7 +679,7 @@
     "bench": {
       "repository": "Nyukimin/RenCrow_Bench",
       "workspace_path": "./RenCrow_Bench",
-      "version": "5e043787d9e4c875a05a31db7f9079ff5c821dfc",
+      "version": "2fadb9462199b87c3be4c9d1e3f0369b33577da9",
       "required": false,
       "distribution": "tooling",
       "role": "Development benchmark tasks, graders, runners, and provenance for evaluating model suitability for RenCrow roles; source-pinned with known grading limitations, not a production runtime or role-assignment owner"
@@ -830,7 +830,7 @@
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_Gemma4",
       "workspace_path": "./RenCrow_Gemma4",
-      "version": "807995c585a8f8062fae3a4abec137902afd6192",
+      "version": "e389c48416e712abf1d3c2a0e5f34391635e689d",
       "required": false,
       "kind": "external-compute",
       "status": "development",
