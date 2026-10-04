@@ -176,7 +176,7 @@ Standard課金やquota削減率の証明にはしない。reasoning tokenをoutp
 
 1. `RenCrow_EcoSystem/AGENTS.md`が正本。標準配置ではEcoSystemを`RenCrow`というworkspace rootへcloneする。
 2. `RenCrow_Workspace/project-root/AGENTS.md`は正本から生成する配布snapshot。独立編集せず、正本をバイト単位でコピーして同期する。snapshotの相対参照は、配置先のcatalog rootで解決する。
-3. Codexの`~/.codex/AGENTS.md`は、Agent配置規定どおり正本へのシンボリックリンクで参照する。通常ファイルへの全文複製は禁止する。
+3. Codexの`~/.codex/AGENTS.md`は、Agent配置規定どおり正本へのシンボリックリンクで参照する。通常ファイルへの全文複製は禁止する。`codex-switch`の`rencrow-safe`／`rencrow-verify`は専用CODEX_HOME（既定`~/.codex-rencrow-safe`／`~/.codex-rencrow-verify`）を使い、`~/.codex`のリンクを読まないため、同じ`rules apply --codex-home`を各homeへも適用する（2026-09-27適用）。
 4. `make check-governance`の既存検査は、workspace rootとsnapshotの一致を確認する。snapshot単体はruntimeの起動設定ではなく、PushやPullだけで各端末のリンク・Codex設定は書き換わらない。
 
 配布操作のownerはToolsの既存[ecosystem bootstrap](https://github.com/Nyukimin/RenCrow_Tools/tree/main/tools/workspace/ecosystem_bootstrap)。`rules plan`で事前確認し、`rules apply`で反映、`rules check`で一致を確認する。通常のrepository取得用`plan`／`apply`とは明示的に分け、clone時に端末の設定を変更しない。
