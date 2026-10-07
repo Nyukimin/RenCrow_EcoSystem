@@ -520,16 +520,21 @@ class EcosystemManifestTest(unittest.TestCase):
             {
                 "gpt120b",
                 "qwen36-27b",
-                "qwen38-27b-rx6800",
-                "glm47-flash-rx6800",
+                "rx6800-coder-trio",
                 "gemma4",
             },
         )
-        for profile in profiles.values():
+        for profile_id, profile in profiles.items():
             self.assertEqual(profile["owner_component"], "llm")
             self.assertEqual(profile["kind"], "external-compute")
             self.assertFalse(profile["required"])
-            self.assertRegex(profile["version"], VALIDATOR.COMMIT_VERSION_PATTERN)
+            if profile_id == "rx6800-coder-trio":
+                self.assertEqual(
+                    profile["version"],
+                    "d0ed771151e5b7e0faf59915d943aa11e8943f5f",
+                )
+            else:
+                self.assertRegex(profile["version"], VALIDATOR.COMMIT_VERSION_PATTERN)
 
     def test_runtime_profile_owner_must_exist(self) -> None:
         candidate = copy.deepcopy(self.manifest)

@@ -7,7 +7,7 @@ EcoSystem repositoryを`RenCrow`というworkspace rootとして取得し、Tool
 root直下の独立したchild repositoryとしてcloneします。module repoは親のGit管理対象や
 Git submoduleにしません。root checkoutはこのcatalog自身が管理し、別の薄い親repositoryを
 用意しません。
-`source-pinned` manifestのversionはcheckoutするcommit SHAであり、配布artifact名では
+`source-pinned` entryのversionはcheckoutするcommit SHAであり、配布artifact名では
 ありません。`--check-workspace`検証では各local HEADがこのSHAと一致することを確認します。
 
 ```bash
