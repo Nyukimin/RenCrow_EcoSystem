@@ -229,7 +229,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "67514b336acb86ae442cdc98b115469e63c4e958",
+      "version": "de86fdbb14d85c00532e9338ac97627a25e31f36",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -810,7 +810,7 @@
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_RX6800_CoderTrio",
       "workspace_path": "./RenCrow_RX6800_CoderTrio",
-      "version": "d0ed771151e5b7e0faf59915d943aa11e8943f5f",
+      "version": "7900cd5e43422c97ca34c9c3de1a77db77f29076",
       "required": false,
       "kind": "external-compute",
       "status": "development",
