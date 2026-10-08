@@ -752,6 +752,22 @@
         ]
       }
     },
+    "harness": {
+      "repository": "Nyukimin/RenCrow_Harness",
+      "workspace_path": "./RenCrow_Harness",
+      "version": "planned",
+      "required": false,
+      "distribution": "binary",
+      "role": "Shared standalone and CORE-consumable task runtime; owns execution state and compaction",
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "rencrow-harness",
+          "status": "planned"
+        },
+        "companions": []
+      }
+    },
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",

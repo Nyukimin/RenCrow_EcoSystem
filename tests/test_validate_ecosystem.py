@@ -264,7 +264,7 @@ class EcosystemManifestTest(unittest.TestCase):
     def test_source_pinned_manifest_uses_full_commit_shas(self) -> None:
         for component_id, component in self.manifest["components"].items():
             if component["version"] == "planned":
-                self.assertEqual(component_id, "assistant")
+                self.assertIn(component_id, {"assistant", "harness"})
                 continue
             self.assertRegex(
                 component["version"],
