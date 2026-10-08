@@ -5,11 +5,11 @@
 <a id="delegation"></a>
 ## 委譲する場合
 
-- Astraが設計・owner・契約・依存順・受入を確定してから、共通AGENTS.mdのモデル役割に従い、Lunaへ一つの完結した責務を渡す。呼出し時にmodelとreasoning_effortを明示し、コーディングでは`gpt-5.6-luna` / `xhigh`を指定する。曖昧な設計・正本探索・cross-module判断は渡さない。証拠収集は正確な問い・path／command・出力上限を指定したread-only作業にする。
+- Solは設計・曖昧な判断・原因切り分け・重要差分レビューについてAstraへ相談し、助言と根拠を受けてowner・契約・依存順・受入を確定する。共通AGENTS.mdのモデル役割に従い、Lunaへ一つの完結した責務を渡す。呼出し時にmodelとreasoning_effortを明示し、指定値は共通AGENTS.mdを参照する。曖昧な設計・正本探索・cross-module判断はLunaへ渡さない。証拠収集は正確な問い・path／command・出力上限を指定したread-only作業にする。
 - packetには目的／成功条件、ownerと対象file、現状証拠、許可差分、禁止事項、契約／不変条件、検証command、返却内容（変更file・差分要約・commandと結果・証拠・阻害要因）を含める。必要な参照だけ渡し、全会話を継承しない。大きければ完結する単位へ分ける。
 - 子の読込は指定AGENTSチェーン・対象・直接依存に限定する。不足・矛盾・設計判断・対象外変更・検証不能は証拠を返して停止し、探索・scope・代替routeを拡大しない。
-- 独立作業だけ並列化し、共有file・状態・契約・生成物は依存順に処理する。実装／修正後にAstraが実差分・範囲・正本境界・試験・統合影響をreviewし、その後に独立したLuna検証を割り当てる。共有資源がある場合もこの順序を守る。
-- 最終責任はAstraに残る。子によるcommit・push・PR・restart・install・delete・破壊的／外部変更は、scope内でも親review後の独立した明示packetが必要。
+- 独立作業だけ並列化し、共有file・状態・契約・生成物は依存順に処理する。実装／修正後にSolが実差分・範囲・正本境界・試験・統合影響をreviewし、重要差分ではAstraの助言を受ける。その後に実装とは別のLunaへ独立検証を割り当て、Solが結果を照合する。共有資源がある場合もこの順序を守る。
+- 最終責任はSolに残り、Astraの助言やLunaの完了報告だけで受入済みにしない。子によるcommit・push・PR・restart・install・delete・破壊的／外部変更は、scope内でもSolのreview後の独立した明示packetが必要。
 
 <a id="llm-quality"></a>
 ## 決定的手法との品質比較
