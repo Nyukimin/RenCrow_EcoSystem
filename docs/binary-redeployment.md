@@ -140,7 +140,7 @@ systemd unitと完全一致し、同じunitを複数componentで宣言できな�
 ### リモートgateway（`remote_gateway`）
 
 gatewayを別hostで動かし、このhostはそのloopback portを転送unit（例: `ssh -L`）で提供する
-構成は、`http_json`契約に任意キー`remote_gateway`を付けて宣言する。現在の宣言はSTT窓口。
+構成は、`http_json`契約に任意キー`remote_gateway`を付けて宣言する。現在の宣言はSTT窓口とTTS窓口。
 
 ```json
 {

@@ -56,6 +56,15 @@ manifestで表し、その配置でreadinessを確認できるようにした。
   deployment直下の`retired_units`（契約と二重管理になる）。移設先LaunchDaemonの宣言（検査主体が無い）。
 - 未確認: COREホストでの実測（配備担当の完了後に別途実施）。転送unit側の`ExitOnForwardFailure=yes`の有無。
 
+## TTS窓口への適用
+
+TTS窓口もSTTと同じ形（COREホストの`rencrow-tts.service`を停止し、転送unit
+`rencrow-tts-gateway-tunnel.service`が`127.0.0.1:7870`を提供する）へ切り替えた後に、同じ
+`remote_gateway`契約を適用した。差分は`components.tts`だけである（契約unitの付け替えと
+`replaces: rencrow-tts.service`、`go_binaries`から`rencrow-tts`の削除。`rencrow-tts-verify`と
+`files`は残す）。validatorとcheckerは変更しない。旧転送unit（別portの音声engine向け）は
+manifestに現れない。
+
 ## Failure Knowledge
 
 - Failure: 窓口を別hostへ移した結果、`--check-readiness`が常時exit 1になった（前回記録の続報）。

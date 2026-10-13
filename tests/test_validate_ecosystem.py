@@ -215,7 +215,7 @@ class EcosystemManifestTest(unittest.TestCase):
                 "rencrow-trade-learning.service": ("oneshot", None, None, None, None),
             },
             "tts": {
-                "rencrow-tts.service": ("http_json", "http://127.0.0.1:7870/health/ready", 180, "status", "ready"),
+                "rencrow-tts-gateway-tunnel.service": ("http_json", "http://127.0.0.1:7870/health/ready", 180, "status", "ready"),
             },
             "vision": {
                 "rencrow-vision.service": ("http_json", "http://127.0.0.1:8770/health", 180, "status", "ready"),
@@ -254,17 +254,21 @@ class EcosystemManifestTest(unittest.TestCase):
                     )
         self.assertEqual(
             declared,
-            {"rencrow-stt-tunnel.service": ("stt", "rencrow-stt.service")},
+            {
+                "rencrow-stt-tunnel.service": ("stt", "rencrow-stt.service"),
+                "rencrow-tts-gateway-tunnel.service": ("tts", "rencrow-tts.service"),
+            },
         )
         # The retired gateway is not a current deployment: its binary is not
         # pinned (so no drift can be reported for it) but the owner verifier,
         # which runs on this host against the loopback URL, still is.
-        stt_binaries = {
-            item["main_package"].rsplit("/", 1)[-1]
-            for item in components["stt"]["deployment"]["go_binaries"]
-        }
-        self.assertNotIn("rencrow-stt", stt_binaries)
-        self.assertIn("rencrow-stt-verify", stt_binaries)
+        for component_id, verifier in (("stt", "rencrow-stt-verify"), ("tts", "rencrow-tts-verify")):
+            binaries = {
+                item["main_package"].rsplit("/", 1)[-1]
+                for item in components[component_id]["deployment"]["go_binaries"]
+            }
+            self.assertNotIn(f"rencrow-{component_id}", binaries)
+            self.assertIn(verifier, binaries)
 
     def _remote_gateway_candidate(self) -> tuple[dict, dict]:
         candidate = copy.deepcopy(self.manifest)

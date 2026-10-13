@@ -360,12 +360,6 @@
         "go_binaries": [
           {
             "module": "github.com/Nyukimin/RenCrow_TTS/gateway",
-            "main_package": "github.com/Nyukimin/RenCrow_TTS/gateway/cmd/rencrow-tts",
-            "installed_path": "%h/.local/bin/rencrow-tts",
-            "version": "70c1220e110f4876ff5baac762c6afb9a9ab721d"
-          },
-          {
-            "module": "github.com/Nyukimin/RenCrow_TTS/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_TTS/gateway/cmd/rencrow-tts-verify",
             "installed_path": "%h/.local/bin/rencrow-tts-verify",
             "version": "70c1220e110f4876ff5baac762c6afb9a9ab721d"
@@ -381,13 +375,16 @@
         ],
         "user_systemd": [
           {
-            "unit": "rencrow-tts.service",
+            "unit": "rencrow-tts-gateway-tunnel.service",
             "kind": "http_json",
             "url": "http://127.0.0.1:7870/health/ready",
             "timeout_seconds": 180,
             "expect": {
               "path": "status",
               "equals": "ready"
+            },
+            "remote_gateway": {
+              "replaces": "rencrow-tts.service"
             }
           }
         ]

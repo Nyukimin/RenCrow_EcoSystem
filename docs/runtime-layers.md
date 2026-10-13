@@ -95,6 +95,9 @@ Go Gatewayは文章整形、character／style／voice routing、target adapter�
 所有します。reference音声、seed、engine parameter、Model load、合成演算はTTS target
 の責務です。現行の`RenCrow_Irodori_TTS`はこのtargetに該当し、
 `runtime_profiles`のowner `tts`として登録します。
+TTS Gatewayの配置先もSTTと同じく、COREホストのuser systemd、またはmacOS音声hostのsystem
+LaunchDaemonです。後者ではCOREホストの転送unitが同じloopback portを提供し、
+`remote_gateway`契約で検査します（[Binary redeployment](binary-redeployment.md)）。
 
 ## RenCrow_Vision
 
