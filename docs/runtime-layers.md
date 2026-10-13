@@ -73,6 +73,9 @@ Model load、decode、warmup、GPU最適化はSTT targetの責務です。CORE�
 RenCrow_STT Gatewayの公開HTTP APIだけを使用し、物理targetへ直接接続しません。
 現行の`RenCrow_Whisper`（whisper.cppとWhisper large-v3-turbo）はこのtargetに該当し、
 `runtime_profiles`のowner `stt`として登録します。
+STT Gatewayの配置先はCOREホストのuser systemd、またはmacOS音声hostのsystem LaunchDaemonです。
+後者はmanifestのdeployment契約とdrift検査の対象外で、扱いは
+[Binary redeployment](binary-redeployment.md)の既知の限界に従います。
 
 ## RenCrow_TTS
 

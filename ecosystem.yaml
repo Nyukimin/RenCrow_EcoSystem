@@ -295,7 +295,7 @@
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",
       "workspace_path": "./RenCrow_STT",
-      "version": "26069cb197161a680a2da16eab2dbaf5ea46422f",
+      "version": "c451b6d37bf595edb2ee4d82419c2155ae643aa4",
       "required": false,
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",

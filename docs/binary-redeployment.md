@@ -264,3 +264,25 @@ monitorである。外部backendの`llama-server`、Docker/Gitea、host所有bac
 - **外部systemは対象外。** Docker/Gitea、`llama-server`、host所有scriptは`UNMAPPED`として
   素通りする。repo所有scriptは上記content hash契約で検証する。
 - **hostの`go`に依存する。** buildだけでなくstampの読み取りにも`go version -m`を使う。
+- **窓口を別hostのnative service managerへ移した構成は、manifestのdeployment契約の外。**
+  `deployment.user_systemd`は「COREホストのuser systemd unit」の契約である。STT窓口
+  （`rencrow-stt`）をmacOS音声hostのsystem LaunchDaemonへ移した構成では、そのLaunchDaemonは
+  host adapter（`launchd`はuser領域のLaunchAgentだけを扱う）にも`components.<id>.deployment`にも
+  現れず、このtoolのdrift・readiness検査の対象にならない。移設先の確認は移設先hostの
+  owner手順で行い、このtoolの結果へ混ぜない。COREホストでは窓口のloopback portを転送unit
+  （loopback forwarder）が保持し、元のunit（`rencrow-stt.service`）はdisabledのまま据え置く。
+  この構成でのtoolの挙動は次のとおり。
+  - drift検査: unit fileとbinaryが残る限り`collect()`は停止中・disabledのunitも列挙し、
+    COREホストに残るbinaryをartifact pin（`go_binaries[].version`）と比較する。source pin
+    （`components.stt.version`）を移設先で動かすcommitへ進めても、artifact pinを進めなければ
+    `MISMATCH`は出ない。artifact pinはCOREホストに置いたbinaryのbuild元であり、移設先の
+    binaryを表さない。
+  - 再配置: `--apply`が再起動するのは稼働中のunitだけで、停止中のunitは停止のまま据え置く
+    （上の運用例の`--only vision,stt`でもsttは起動しない）。artifact pinを据え置く限りsttは
+    `MATCH`で再配置の対象にもならず、`MISMATCH`になって再build・再配置された場合も、
+    停止中のunitはstartされない。unitをenableまたはstartする処理は無く、このcatalogのscriptで
+    `systemctl enable`を呼ぶのはdrift通知timerのinstallerだけである。
+  - `--check-readiness`: `http_json`契約のunitは稼働状態に関わらず検査対象で、停止中なら
+    `inactive/dead`で失敗し、以降のunitの確認へ進まない。窓口をCOREホストから外している間は
+    exit 1になる既知の限界である。解消には停止中unitの扱いを変えるcheckerの変更が必要で、
+    現行のtoolは変更していない。
