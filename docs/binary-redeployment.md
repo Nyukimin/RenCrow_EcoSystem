@@ -137,6 +137,46 @@ systemd unitと完全一致し、同じunitを複数componentで宣言できな�
 - どちらもsystemdの`failed`または`auto-restart`を即時失敗とする。process生存だけでは成功にしない。
 - 稼働中unitの契約がmanifestに無い場合は、build、backup、stop、copyを行わずfail closedする。
 
+### リモートgateway（`remote_gateway`）
+
+gatewayを別hostで動かし、このhostはそのloopback portを転送unit（例: `ssh -L`）で提供する
+構成は、`http_json`契約に任意キー`remote_gateway`を付けて宣言する。現在の宣言はSTT窓口。
+
+```json
+{
+  "unit": "<転送unit>.service",
+  "kind": "http_json",
+  "url": "http://127.0.0.1:<port>/health/ready",
+  "timeout_seconds": 180,
+  "expect": {"path": "ready", "equals": true},
+  "remote_gateway": {"replaces": "<退役したlocal gateway unit>.service"}
+}
+```
+
+- 契約の`unit`は転送unitであり、URLはCOREが実際に使うloopback URLのままとする。検査は通常の
+  `http_json`と同じで、転送unitがactiveであること、かつURLが契約の条件を満たす（転送先の
+  gatewayがreadyである）ことの両方を要求する。
+- 転送unitはGo binaryではないため、build stampではなくmanifestでcomponentへ結び付く。`UNMAPPED`の行
+  （`artifact_kind: remote_gateway`）として列挙され、drift通知と`--apply`の再配置の対象にならない。
+  `remote_gateway`を持たない契約のunitは従来どおり、Go binaryを持つunitだけがcomponentへ結び付く。
+- `replaces`のunitは退役したlocal gatewayで、検査から外れる。`collect()`がそのunitの行を
+  作らないため、停止中でも必須にならず、残置されたbinaryはどのpinとも比較されない（artifact pinが
+  無くてもsource pinへのfallbackで`MISMATCH`にならない）。そのbinaryを表す`go_binaries`の宣言は
+  削除する。同じcomponentのowner verifierのようにこのhostで動き続けるbinaryと`files`は残す。
+- 退役したunitが稼働中（`active`／`activating`／`reloading`）なら`--check-readiness`はNGにする。
+  local gatewayがportを保持していると、転送が失敗していてもURLがreadyに見えるためである。
+  状態を取得できない場合もNGとする。転送unit側にも、portを取得できなければ失敗する設定
+  （`ssh`の`ExitOnForwardFailure=yes`）を推奨する。
+- 退役したunitのunit fileとbinaryはロールバック用の残置物で、catalogは追跡しない。戻す場合は
+  このmanifest変更をrevertし、転送unitを止めてから旧unitを起動し、`--apply --only <component>`で
+  pinへ再配置して`--check-readiness`で確認する。残置binaryが古いrevisionのままである点に注意する。
+- 宣言はvalidatorがfail closedにする。`remote_gateway`は`http_json`契約だけに付けられ、キーは
+  `replaces`のみ、値は`rencrow*.service`形式で自unitと異なること、全componentで一意であること、
+  どのcomponentの契約unitとも重複しないことを要求する（宣言順は問わない）。
+- 転送unitがhostに存在しない場合は、他componentのunitと同様に検査対象外になる（未検査であり
+  成功ではない）。このとき退役unitの稼働検査も行われない。何unit検査したかは最後の
+  `readiness OK: N unit(s)`で分かる。
+
 ### native host adapter
 
 同じ検出・backup・stop・atomic install・start・readiness・rollback・receipt契約を、
@@ -264,25 +304,18 @@ monitorである。外部backendの`llama-server`、Docker/Gitea、host所有bac
 - **外部systemは対象外。** Docker/Gitea、`llama-server`、host所有scriptは`UNMAPPED`として
   素通りする。repo所有scriptは上記content hash契約で検証する。
 - **hostの`go`に依存する。** buildだけでなくstampの読み取りにも`go version -m`を使う。
-- **窓口を別hostのnative service managerへ移した構成は、manifestのdeployment契約の外。**
-  `deployment.user_systemd`は「COREホストのuser systemd unit」の契約である。STT窓口
-  （`rencrow-stt`）をmacOS音声hostのsystem LaunchDaemonへ移した構成では、そのLaunchDaemonは
-  host adapter（`launchd`はuser領域のLaunchAgentだけを扱う）にも`components.<id>.deployment`にも
-  現れず、このtoolのdrift・readiness検査の対象にならない。移設先の確認は移設先hostの
-  owner手順で行い、このtoolの結果へ混ぜない。COREホストでは窓口のloopback portを転送unit
-  （loopback forwarder）が保持し、元のunit（`rencrow-stt.service`）はdisabledのまま据え置く。
-  この構成でのtoolの挙動は次のとおり。
-  - drift検査: unit fileとbinaryが残る限り`collect()`は停止中・disabledのunitも列挙し、
-    COREホストに残るbinaryをartifact pin（`go_binaries[].version`）と比較する。source pin
-    （`components.stt.version`）を移設先で動かすcommitへ進めても、artifact pinを進めなければ
-    `MISMATCH`は出ない。artifact pinはCOREホストに置いたbinaryのbuild元であり、移設先の
-    binaryを表さない。
-  - 再配置: `--apply`が再起動するのは稼働中のunitだけで、停止中のunitは停止のまま据え置く
-    （上の運用例の`--only vision,stt`でもsttは起動しない）。artifact pinを据え置く限りsttは
-    `MATCH`で再配置の対象にもならず、`MISMATCH`になって再build・再配置された場合も、
-    停止中のunitはstartされない。unitをenableまたはstartする処理は無く、このcatalogのscriptで
-    `systemctl enable`を呼ぶのはdrift通知timerのinstallerだけである。
-  - `--check-readiness`: `http_json`契約のunitは稼働状態に関わらず検査対象で、停止中なら
-    `inactive/dead`で失敗し、以降のunitの確認へ進まない。窓口をCOREホストから外している間は
-    exit 1になる既知の限界である。解消には停止中unitの扱いを変えるcheckerの変更が必要で、
-    現行のtoolは変更していない。
+- **窓口を別hostのnative service managerへ移した構成の、移設先側はcatalogの契約の外。**
+  このhost側は上記`remote_gateway`で表す。移設先（macOS音声hostのsystem LaunchDaemon）は、
+  `launchd` host adapterがuser領域のLaunchAgentだけを扱うため、host adapterにも
+  `components.<id>.deployment`にも現れず、drift・readiness検査の対象にならない。移設先の確認は
+  移設先hostのowner手順で行い、このtoolの結果へ混ぜない。宣言だけ先行させない方針のため、
+  LaunchDaemonを表す形式は追加していない。転送先がreadyかどうかは、転送経由の契約URLで間接的に
+  確認できるだけである。
+  - drift検査: 移設先で動くbinaryはこのhostのartifact pinと無関係で、`remote_gateway`で退役した
+    local gatewayのbinaryはpin比較の対象外である。source pin（`components.<id>.version`）は移設先で
+    動かすcommitへ進めてよい。
+  - 再配置: `--apply`が再起動するのは稼働中のunitだけで、転送unitは`UNMAPPED`のため対象にならない。
+    unitをenableまたはstartする処理は無く、このcatalogのscriptで`systemctl enable`を呼ぶのは
+    drift通知timerのinstallerだけである。
+  - drift通知timerは導入時にcheckerとmanifestのsnapshotを`~/.local/share/rencrow/binary-drift-monitor/`へ置く。
+    installerを再実行するまでは、旧snapshotの契約で動き続ける。

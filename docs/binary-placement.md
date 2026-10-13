@@ -78,6 +78,8 @@ sandbox、capacity設定であり、独立レイヤーではない。Agent IDと
   Runtime mapping、queue／capacity、status集約を所有させる。
 - 必要なcapability Gatewayだけを配置する。STT／TTS／Vision／Imageの物理target、Model、
   weights、GPU runtimeは同じhostにある場合でもGatewayの配布artifactへ同梱しない。
+- Gatewayを別hostで動かす場合、control hostにはloopback portを転送するunitだけを置き、
+  readinessは[Binary redeployment](binary-redeployment.md)の`remote_gateway`契約で確認する。
 - Codex subscription credentialを使う場合は、credentialを保持するtrusted host上で
   Codex runtimeを動かし、別compute hostへcredentialを複製しない。
 - 外部API credentialはmoduleのsecret store／environment referenceで管理し、

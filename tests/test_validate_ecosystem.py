@@ -208,7 +208,7 @@ class EcosystemManifestTest(unittest.TestCase):
                 "rencrow-portal.service": ("http_json", "http://127.0.0.1:18791/health/ready", 180, "status", "ready"),
             },
             "stt": {
-                "rencrow-stt.service": ("http_json", "http://127.0.0.1:8766/health/ready", 180, "ready", True),
+                "rencrow-stt-tunnel.service": ("http_json", "http://127.0.0.1:8766/health/ready", 180, "ready", True),
             },
             "trade": {
                 "rencrow-trade.service": ("http_json", "http://127.0.0.1:8767/ready", 120, "ready", True),
@@ -234,9 +234,92 @@ class EcosystemManifestTest(unittest.TestCase):
                     if kind == "oneshot":
                         self.assertEqual(set(item), {"unit", "kind"})
                     else:
+                        self.assertLessEqual(
+                            set(item) - {"remote_gateway"},
+                            {"unit", "kind", "url", "timeout_seconds", "expect"},
+                        )
                         self.assertEqual(item["url"], url)
                         self.assertEqual(item["timeout_seconds"], timeout)
                         self.assertEqual(item["expect"], {"path": path, "equals": equals})
+
+    def test_remote_gateway_contracts_retire_the_local_gateway(self) -> None:
+        components = self.manifest["components"]
+        declared: dict[str, tuple[str, str]] = {}
+        for component_id, component in components.items():
+            for contract in component.get("deployment", {}).get("user_systemd", []):
+                if "remote_gateway" in contract:
+                    declared[contract["unit"]] = (
+                        component_id,
+                        contract["remote_gateway"]["replaces"],
+                    )
+        self.assertEqual(
+            declared,
+            {"rencrow-stt-tunnel.service": ("stt", "rencrow-stt.service")},
+        )
+        # The retired gateway is not a current deployment: its binary is not
+        # pinned (so no drift can be reported for it) but the owner verifier,
+        # which runs on this host against the loopback URL, still is.
+        stt_binaries = {
+            item["main_package"].rsplit("/", 1)[-1]
+            for item in components["stt"]["deployment"]["go_binaries"]
+        }
+        self.assertNotIn("rencrow-stt", stt_binaries)
+        self.assertIn("rencrow-stt-verify", stt_binaries)
+
+    def _remote_gateway_candidate(self) -> tuple[dict, dict]:
+        candidate = copy.deepcopy(self.manifest)
+        contract = candidate["components"]["stt"]["deployment"]["user_systemd"][0]
+        self.assertIn("remote_gateway", contract)
+        return candidate, contract
+
+    def test_remote_gateway_contract_is_accepted(self) -> None:
+        candidate, _ = self._remote_gateway_candidate()
+        VALIDATOR.validate_manifest(candidate)
+
+    def test_remote_gateway_rejects_malformed_declarations(self) -> None:
+        malformed = {
+            "extra key": {"replaces": "rencrow-stt.service", "host": "x"},
+            "missing replaces": {},
+            "not an object": "rencrow-stt.service",
+            "non-string replaces": {"replaces": 1},
+            "not a rencrow unit": {"replaces": "stt.service"},
+            "replaces itself": {"replaces": "rencrow-stt-tunnel.service"},
+        }
+        for name, value in malformed.items():
+            with self.subTest(name):
+                candidate, contract = self._remote_gateway_candidate()
+                contract["remote_gateway"] = value
+                with self.assertRaisesRegex(VALIDATOR.ManifestError, "remote_gateway"):
+                    VALIDATOR.validate_manifest(candidate)
+
+    def test_remote_gateway_requires_http_json_contract(self) -> None:
+        candidate, contract = self._remote_gateway_candidate()
+        for key in ("url", "timeout_seconds", "expect"):
+            del contract[key]
+        contract["kind"] = "oneshot"
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "unsupported keys"):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_remote_gateway_rejects_duplicate_retired_unit(self) -> None:
+        candidate, _ = self._remote_gateway_candidate()
+        tts_contract = candidate["components"]["tts"]["deployment"]["user_systemd"][0]
+        tts_contract["remote_gateway"] = {"replaces": "rencrow-stt.service"}
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "duplicate retired"):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_remote_gateway_retired_unit_must_not_be_a_declared_contract(self) -> None:
+        # The retired unit is declared later than the retiring component, and
+        # earlier than it: both orders must be rejected.
+        for retiring, declaring in (("stt", "tts"), ("tts", "stt")):
+            with self.subTest(retiring=retiring):
+                candidate, _ = self._remote_gateway_candidate()
+                declared_unit = candidate["components"][declaring]["deployment"][
+                    "user_systemd"
+                ][0]["unit"]
+                contract = candidate["components"][retiring]["deployment"]["user_systemd"][0]
+                contract["remote_gateway"] = {"replaces": declared_unit}
+                with self.assertRaisesRegex(VALIDATOR.ManifestError, "retired"):
+                    VALIDATOR.validate_manifest(candidate)
 
     def test_go_binary_deployment_contract_is_accepted(self) -> None:
         candidate = copy.deepcopy(self.manifest)

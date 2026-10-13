@@ -303,12 +303,6 @@
         "go_binaries": [
           {
             "module": "github.com/Nyukimin/RenCrow_STT/gateway",
-            "main_package": "github.com/Nyukimin/RenCrow_STT/gateway/cmd/rencrow-stt",
-            "installed_path": "%h/.local/bin/rencrow-stt",
-            "version": "26069cb197161a680a2da16eab2dbaf5ea46422f"
-          },
-          {
-            "module": "github.com/Nyukimin/RenCrow_STT/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_STT/gateway/cmd/rencrow-stt-verify",
             "installed_path": "%h/.local/bin/rencrow-stt-verify",
             "version": "26069cb197161a680a2da16eab2dbaf5ea46422f"
@@ -324,13 +318,16 @@
         ],
         "user_systemd": [
           {
-            "unit": "rencrow-stt.service",
+            "unit": "rencrow-stt-tunnel.service",
             "kind": "http_json",
             "url": "http://127.0.0.1:8766/health/ready",
             "timeout_seconds": 180,
             "expect": {
               "path": "ready",
               "equals": true
+            },
+            "remote_gateway": {
+              "replaces": "rencrow-stt.service"
             }
           }
         ]

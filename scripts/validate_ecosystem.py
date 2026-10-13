@@ -525,11 +525,32 @@ def _validate_scalar(location: str, value: Any) -> None:
     raise _readiness_error(location, "expect.equals must be a JSON scalar")
 
 
+def _validate_remote_gateway(
+    location: str,
+    unit: str,
+    remote: Any,
+    retired_units: set[str],
+) -> None:
+    """Validate `remote_gateway`: the gateway is remote, this unit forwards it."""
+    if not isinstance(remote, dict) or set(remote) != {"replaces"}:
+        raise _readiness_error(location, "remote_gateway must contain exactly replaces")
+    replaces = remote["replaces"]
+    if not isinstance(replaces, str) or not USER_SYSTEMD_UNIT_PATTERN.fullmatch(replaces):
+        raise _readiness_error(location, "remote_gateway.replaces must match rencrow*.service")
+    if replaces == unit:
+        raise _readiness_error(location, "remote_gateway.replaces must differ from unit")
+    if replaces in retired_units:
+        raise ManifestError(f"duplicate retired user systemd unit: {replaces}")
+    retired_units.add(replaces)
+
+
 def _validate_user_systemd_deployment(
     component_id: str,
     component: dict[str, Any],
     global_units: set[str],
+    retired_units: set[str] | None = None,
 ) -> None:
+    retired_units = set() if retired_units is None else retired_units
     deployment = component.get("deployment")
     if deployment is None:
         return
@@ -613,8 +634,12 @@ def _validate_user_systemd_deployment(
             continue
         if kind != "http_json":
             raise _readiness_error(contract_location, "kind must be http_json or oneshot")
-        if set(contract) != {"unit", "kind", "url", "timeout_seconds", "expect"}:
+        if set(contract) - {"remote_gateway"} != {"unit", "kind", "url", "timeout_seconds", "expect"}:
             raise _readiness_error(contract_location, "contains unsupported keys")
+        if "remote_gateway" in contract:
+            _validate_remote_gateway(
+                contract_location, unit, contract["remote_gateway"], retired_units
+            )
 
         _validate_readiness_url(contract_location, contract["url"])
         timeout = contract["timeout_seconds"]
@@ -663,6 +688,7 @@ def validate_manifest(data: dict[str, Any]) -> None:
     repositories: set[str] = set()
     workspace_paths: set[str] = set()
     user_systemd_units: set[str] = set()
+    retired_user_systemd_units: set[str] = set()
     unpinned_components: list[str] = []
 
     for component_id, component in components.items():
@@ -725,7 +751,16 @@ def validate_manifest(data: dict[str, Any]) -> None:
             raise ManifestError(f"components.{component_id}.role must be non-empty")
         _validate_runtime(component_id, component)
         _validate_user_systemd_deployment(
-            component_id, component, user_systemd_units
+            component_id, component, user_systemd_units, retired_user_systemd_units
+        )
+
+    # A retired unit may be declared before or after the contract that retires
+    # it, so the overlap is checked once every component has been read.
+    still_declared = retired_user_systemd_units & user_systemd_units
+    if still_declared:
+        raise ManifestError(
+            "retired user systemd unit is also declared as a readiness contract: "
+            + ", ".join(sorted(still_declared))
         )
 
     core = components.get("core")

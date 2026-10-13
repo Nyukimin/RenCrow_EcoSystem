@@ -415,6 +415,266 @@ class ReadinessContractTest(unittest.TestCase):
         self.assertFalse(any(command[2:3] == ["stop"] for command in calls))
 
 
+class RemoteGatewayReadinessTest(unittest.TestCase):
+    """The gateway runs on a remote host; a local unit forwards its loopback port."""
+
+    TUNNEL = "rencrow-example-tunnel.service"
+    RETIRED = "rencrow-example.service"
+    OTHER_TUNNEL = "rencrow-other-tunnel.service"
+    GATEWAY_MODULE = "github.com/Nyukimin/RenCrow_Example/gateway"
+
+    class Adapter(CHECKER.HostAdapter):
+        name = "fake"
+
+        def __init__(self, services, exec_paths, states) -> None:
+            self._services = services
+            self._exec_paths = exec_paths
+            self.states = states
+            self.property_reads: list[str] = []
+
+        def services(self, prefix: str) -> list[str]:
+            return list(self._services)
+
+        def exec_path(self, service: str) -> str | None:
+            return self._exec_paths.get(service)
+
+        def properties(self, service: str) -> dict[str, str] | None:
+            self.property_reads.append(service)
+            state = self.states.get(service)
+            if state is None:
+                return None
+            active = state in {"active", "activating", "reloading"}
+            return {
+                "ActiveState": state,
+                "SubState": "running" if active else "dead",
+                "Result": "success",
+                "ExecMainStatus": "0",
+                "NRestarts": "0",
+            }
+
+        def contract_unit(self, service: str) -> str:
+            return service
+
+    @classmethod
+    def components(cls, replaces: str | None = None) -> dict[str, dict[str, object]]:
+        contract: dict[str, object] = {
+            "unit": cls.TUNNEL,
+            "kind": "http_json",
+            "url": "http://127.0.0.1:9999/health/ready",
+            "timeout_seconds": 3,
+            "expect": {"path": "ready", "equals": True},
+            "remote_gateway": {"replaces": replaces or cls.RETIRED},
+        }
+        return {
+            "example": {
+                "repository": "Nyukimin/RenCrow_Example",
+                "workspace_path": "./RenCrow_Example",
+                # Differs from the retired binary revision on purpose: a
+                # retired binary must never be compared with any pin.
+                "version": "c" * 40,
+                "deployment": {"user_systemd": [contract]},
+            }
+        }
+
+    def host(self, services, states, root: Path):
+        ssh = root / "ssh"
+        retired_binary = root / "rencrow-example"
+        ssh.write_bytes(b"ssh")
+        retired_binary.write_bytes(b"gateway")
+        manifest = root / "ecosystem.yaml"
+        manifest.write_text(
+            json.dumps({"components": self.components()}), encoding="utf-8"
+        )
+        adapter = self.Adapter(
+            services,
+            {
+                self.TUNNEL: str(ssh),
+                self.OTHER_TUNNEL: str(ssh),
+                self.RETIRED: str(retired_binary),
+            },
+            states,
+        )
+
+        def build_info(binary: str) -> dict[str, object] | None:
+            if binary == str(retired_binary):
+                return {
+                    "module": self.GATEWAY_MODULE,
+                    "main_package": self.GATEWAY_MODULE + "/cmd/rencrow-example",
+                    "revision": "a" * 40,
+                    "modified": False,
+                }
+            return None
+
+        return manifest, adapter, build_info
+
+    def test_collect_maps_forwarder_and_skips_retired_unit(self) -> None:
+        orders = (
+            [self.TUNNEL, self.OTHER_TUNNEL, self.RETIRED],
+            [self.OTHER_TUNNEL, self.RETIRED, self.TUNNEL],
+        )
+        for services in orders:
+            with self.subTest(services=services), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                manifest, adapter, build_info = self.host(
+                    services,
+                    {self.TUNNEL: "active", self.RETIRED: "inactive"},
+                    root,
+                )
+                with mock.patch.object(CHECKER, "build_info", side_effect=build_info):
+                    rows = CHECKER.collect(manifest, root, "rencrow", adapter)
+
+                forwarders = [r for r in rows if r.get("artifact_kind") == "remote_gateway"]
+                self.assertEqual(len(forwarders), 1)
+                self.assertEqual(forwarders[0]["component"], "example")
+                self.assertEqual(forwarders[0]["units"], [self.TUNNEL])
+                self.assertEqual(forwarders[0]["status"], CHECKER.UNMAPPED)
+                self.assertEqual(forwarders[0]["retired_units"], [self.RETIRED])
+                # The retired binary is not a tracked deployment: no row at all,
+                # so there is nothing to drift against any pin.
+                self.assertFalse(any(r["name"] == "rencrow-example" for r in rows))
+                self.assertFalse(any(r["status"] == CHECKER.MISMATCH for r in rows))
+                self.assertEqual(CHECKER.report_exit_code(rows), 0)
+                # An undeclared forwarder sharing the same ssh binary stays its
+                # own unmapped row and is not folded into the declared one.
+                others = [r for r in rows if r is not forwarders[0]]
+                self.assertEqual(len(others), 1)
+                self.assertIsNone(others[0]["component"])
+                self.assertEqual(others[0]["units"], [self.OTHER_TUNNEL])
+
+    def test_undeclared_non_go_unit_stays_unmapped(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest, adapter, build_info = self.host(
+                [self.OTHER_TUNNEL], {}, root
+            )
+            with mock.patch.object(CHECKER, "build_info", side_effect=build_info):
+                rows = CHECKER.collect(manifest, root, "rencrow", adapter)
+
+        self.assertEqual(len(rows), 1)
+        self.assertIsNone(rows[0]["component"])
+        self.assertEqual(rows[0]["status"], CHECKER.UNMAPPED)
+        self.assertNotEqual(rows[0].get("artifact_kind"), "remote_gateway")
+
+    def check(self, states, opener, *, services=None):
+        clock = ReadinessContractTest.Clock()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest, adapter, build_info = self.host(
+                services or [self.TUNNEL, self.RETIRED], states, root
+            )
+            with mock.patch.object(CHECKER, "build_info", side_effect=build_info):
+                rows = CHECKER.collect(manifest, root, "rencrow", adapter)
+        result = CHECKER.check_declared_readiness(
+            rows,
+            self.components(),
+            adapter=adapter,
+            http_opener=opener,
+            sleep_fn=clock.sleep,
+            clock=clock.monotonic,
+        )
+        return result, adapter
+
+    def test_stopped_retired_unit_is_not_required(self) -> None:
+        opener = mock.Mock(
+            return_value=ReadinessContractTest.http_response(200, {"ready": True})
+        )
+        result, adapter = self.check(
+            {self.TUNNEL: "active", self.RETIRED: "inactive"}, opener
+        )
+        self.assertTrue(result)
+        opener.assert_called_once()
+        self.assertEqual(opener.call_args.args[0], "http://127.0.0.1:9999/health/ready")
+        self.assertIn(self.TUNNEL, adapter.property_reads)
+
+    def test_inactive_forwarder_fails_without_calling_url(self) -> None:
+        opener = mock.Mock()
+        result, _ = self.check(
+            {self.TUNNEL: "inactive", self.RETIRED: "inactive"}, opener
+        )
+        self.assertFalse(result)
+        opener.assert_not_called()
+
+    def test_remote_gateway_not_ready_fails(self) -> None:
+        opener = mock.Mock(
+            return_value=ReadinessContractTest.http_response(200, {"ready": False})
+        )
+        result, _ = self.check(
+            {self.TUNNEL: "active", self.RETIRED: "inactive"}, opener
+        )
+        self.assertFalse(result)
+
+    def test_active_retired_unit_fails_even_when_url_is_ready(self) -> None:
+        # A local gateway holding the port makes the URL look ready without
+        # proving the remote gateway is reachable.
+        for state in ("active", "activating", "reloading"):
+            with self.subTest(state=state):
+                opener = mock.Mock(
+                    return_value=ReadinessContractTest.http_response(200, {"ready": True})
+                )
+                result, _ = self.check(
+                    {self.TUNNEL: "active", self.RETIRED: state}, opener
+                )
+                self.assertFalse(result)
+                opener.assert_not_called()
+
+    def test_unreadable_retired_unit_state_fails_closed(self) -> None:
+        opener = mock.Mock()
+        result, _ = self.check({self.TUNNEL: "active"}, opener)
+        self.assertFalse(result)
+        opener.assert_not_called()
+
+    def test_absent_retired_unit_is_fine(self) -> None:
+        opener = mock.Mock(
+            return_value=ReadinessContractTest.http_response(200, {"ready": True})
+        )
+        result, _ = self.check(
+            {self.TUNNEL: "active"}, opener, services=[self.TUNNEL]
+        )
+        self.assertTrue(result)
+
+    def test_checked_in_manifest_checks_forwarder_not_stopped_gateway(self) -> None:
+        """Reproduces the original failure on the checked-in manifest.
+
+        The stopped local gateway unit used to fail the whole readiness run with
+        inactive/dead before any later component was reached.
+        """
+        components = CHECKER.load_components(REPOSITORY_ROOT / "ecosystem.yaml")
+        contracts = components["stt"]["deployment"]["user_systemd"]
+        self.assertEqual(len(contracts), 1)
+        tunnel = contracts[0]["unit"]
+        retired = contracts[0]["remote_gateway"]["replaces"]
+        clock = ReadinessContractTest.Clock()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            ssh = root / "ssh"
+            ssh.write_bytes(b"ssh")
+            adapter = self.Adapter(
+                [retired, tunnel],
+                {tunnel: str(ssh), retired: str(root / "absent")},
+                {tunnel: "active", retired: "inactive"},
+            )
+            # collect() also inventories files under the home directory; keep
+            # the test independent of whatever the tester has installed there.
+            with mock.patch.object(CHECKER, "build_info", return_value=None), \
+                    mock.patch.object(Path, "home", return_value=root):
+                rows = CHECKER.collect(
+                    REPOSITORY_ROOT / "ecosystem.yaml", REPOSITORY_ROOT, "rencrow", adapter
+                )
+            opener = mock.Mock(
+                return_value=ReadinessContractTest.http_response(200, {"ready": True})
+            )
+            result = CHECKER.check_declared_readiness(
+                [r for r in rows if r.get("artifact_kind") != "managed_file"],
+                components,
+                adapter=adapter,
+                http_opener=opener,
+                sleep_fn=clock.sleep,
+                clock=clock.monotonic,
+            )
+        self.assertTrue(result)
+        self.assertEqual(opener.call_args.args[0], contracts[0]["url"])
+
+
 class AtomicCopyTest(unittest.TestCase):
     def test_copy_uses_sibling_temp_then_replaces_destination(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

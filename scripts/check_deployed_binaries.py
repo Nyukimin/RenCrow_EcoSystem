@@ -274,6 +274,29 @@ def commits_between(module_dir: Path, old: str, new: str) -> int | None:
         return None
 
 
+def remote_gateway_contracts(
+    components: dict[str, dict[str, Any]],
+) -> dict[str, tuple[str, str]]:
+    """Map each remote-gateway forwarder unit to (component id, retired unit).
+
+    A `remote_gateway` readiness contract says the gateway runs on another
+    host and this host only forwards its loopback port.  The forwarder is not
+    a Go binary of the component, so it is the manifest, not `go version -m`,
+    that ties the unit to the component.  `replaces` names the former local
+    gateway unit: it is retired, so it is neither drift-checked nor required
+    to be ready.  Only contracts that opt in are affected.
+    """
+    mapping: dict[str, tuple[str, str]] = {}
+    for component_id, component in components.items():
+        deployment = component.get("deployment")
+        contracts = deployment.get("user_systemd", []) if isinstance(deployment, dict) else []
+        for contract in contracts if isinstance(contracts, list) else []:
+            remote = contract.get("remote_gateway") if isinstance(contract, dict) else None
+            if isinstance(remote, dict):
+                mapping[contract["unit"]] = (component_id, remote["replaces"])
+    return mapping
+
+
 def collect(
     manifest: Path,
     workspace: Path,
@@ -285,7 +308,38 @@ def collect(
     rows: list[dict[str, Any]] = []
     seen: set[str] = set()
 
-    for unit in adapter.services(prefix):
+    forwarders = remote_gateway_contracts(components)
+    retired = {replaced for _, replaced in forwarders.values()}
+    services = adapter.services(prefix)
+    retired_present: dict[str, list[str]] = {}
+    for service in services:
+        contract_unit = adapter.contract_unit(service)
+        if contract_unit in retired:
+            retired_present.setdefault(contract_unit, []).append(service)
+
+    for unit in services:
+        contract_unit = adapter.contract_unit(unit)
+        if contract_unit in retired:
+            continue
+        if contract_unit in forwarders:
+            owner, replaced = forwarders[contract_unit]
+            rows.append({
+                "artifact_kind": "remote_gateway",
+                "units": [unit],
+                "binary": "",
+                "name": unit,
+                "component": owner,
+                "module": "",
+                "main_package": "",
+                "built": "",
+                "pin": "",
+                "modified": None,
+                "behind": None,
+                "status": UNMAPPED,
+                "note": "リモートgatewayの転送unit (readiness契約のみ検査。Go binary driftの対象外)",
+                "retired_units": retired_present.get(replaced, []),
+            })
+            continue
         binary = adapter.exec_path(unit)
         if not binary or not os.path.exists(binary):
             continue
@@ -741,12 +795,37 @@ def _unit_contracts(
     return contracts if len(contracts) == len(units) else None
 
 
+def _retired_units_idle(row: dict[str, Any], adapter: HostAdapter) -> bool:
+    """Require the retired local gateway of a remote-gateway row to be idle.
+
+    A local gateway still holding the loopback port makes the URL look ready
+    even when the forwarder cannot reach the remote gateway, so a ready URL
+    would prove nothing.  An unreadable state fails closed.
+    """
+    for retired in row.get("retired_units", []):
+        properties = adapter.properties(retired)
+        if properties is None:
+            print(f"[NG] {retired}: 退役済みunitのsystemd状態を取得できません", flush=True)
+            return False
+        if properties.get("ActiveState") in {"active", "activating", "reloading"}:
+            print(
+                f"[NG] {retired}: 退役済みのlocal gatewayが稼働中です。"
+                f"{row['name']} の転送先ではなくlocal gatewayがreadyを返している可能性があります",
+                flush=True,
+            )
+            return False
+    return True
+
+
 def check_declared_readiness(
     rows: list[dict[str, Any]],
     components: dict[str, dict[str, Any]],
     *,
     runner: Any | None = None,
     adapter: HostAdapter | None = None,
+    http_opener: Any | None = None,
+    sleep_fn: Any | None = None,
+    clock: Any | None = None,
 ) -> bool:
     """Check deployed mapped units without starting, stopping, or resetting them."""
     runner = runner or run
@@ -782,7 +861,17 @@ def check_declared_readiness(
         if not units:
             continue
         print(f"readiness: {row['name']} ({', '.join(units)})", flush=True)
-        if wait_for_readiness(units, contracts, runner=runner, adapter=adapter):
+        if row.get("artifact_kind") == "remote_gateway" and not _retired_units_idle(row, adapter):
+            return False
+        if wait_for_readiness(
+            units,
+            contracts,
+            runner=runner,
+            http_opener=http_opener,
+            sleep_fn=sleep_fn,
+            clock=clock,
+            adapter=adapter,
+        ):
             return False
         checked += len(units)
 
