@@ -352,7 +352,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "./RenCrow_TTS",
-      "version": "70c1220e110f4876ff5baac762c6afb9a9ab721d",
+      "version": "a4c7f07f1cb3a3d2f4aeaa76491ecf8b569b0afc",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
