@@ -512,11 +512,29 @@ class EcosystemManifestTest(unittest.TestCase):
         self.assertEqual(trade["runtime"]["primary"]["status"], "development")
         self.assertEqual(trade["runtime"]["companions"], [])
 
+    def test_runtime_profiles_are_external_compute_profiles_of_existing_owners(
+        self,
+    ) -> None:
+        profiles = self.manifest["runtime_profiles"]
+
+        VALIDATOR.validate_manifest(self.manifest)
+        for profile_id, profile in profiles.items():
+            with self.subTest(profile=profile_id):
+                self.assertIn(profile["owner_component"], self.manifest["components"])
+                self.assertEqual(profile["kind"], "external-compute")
+                self.assertFalse(profile["required"])
+                self.assertRegex(profile["version"], VALIDATOR.COMMIT_VERSION_PATTERN)
+
     def test_model_repositories_are_llm_external_runtime_profiles(self) -> None:
         profiles = self.manifest["runtime_profiles"]
 
+        llm_profiles = {
+            profile_id
+            for profile_id, profile in profiles.items()
+            if profile["owner_component"] == "llm"
+        }
         self.assertEqual(
-            set(profiles),
+            llm_profiles,
             {
                 "gpt120b",
                 "qwen36-27b",
@@ -524,11 +542,34 @@ class EcosystemManifestTest(unittest.TestCase):
                 "gemma4",
             },
         )
-        for profile_id, profile in profiles.items():
-            self.assertEqual(profile["owner_component"], "llm")
-            self.assertEqual(profile["kind"], "external-compute")
-            self.assertFalse(profile["required"])
-            self.assertRegex(profile["version"], VALIDATOR.COMMIT_VERSION_PATTERN)
+
+    def test_speech_engine_repositories_are_owner_external_runtime_profiles(
+        self,
+    ) -> None:
+        profiles = self.manifest["runtime_profiles"]
+
+        self.assertEqual(profiles["whisper"]["owner_component"], "stt")
+        self.assertEqual(profiles["whisper"]["repository"], "Nyukimin/RenCrow_Whisper")
+        self.assertEqual(profiles["whisper"]["workspace_path"], "./RenCrow_Whisper")
+        self.assertEqual(profiles["irodori"]["owner_component"], "tts")
+        self.assertEqual(
+            profiles["irodori"]["repository"], "Nyukimin/RenCrow_Irodori_TTS"
+        )
+        self.assertEqual(
+            profiles["irodori"]["workspace_path"], "./RenCrow_Irodori_TTS"
+        )
+        for profile_id in ("whisper", "irodori"):
+            with self.subTest(profile=profile_id):
+                self.assertEqual(profiles[profile_id]["status"], "development")
+                owner = self.manifest["components"][
+                    profiles[profile_id]["owner_component"]
+                ]
+                self.assertTrue(
+                    any(
+                        companion["kind"] == "external-compute"
+                        for companion in owner["runtime"]["companions"]
+                    )
+                )
 
     def test_runtime_profile_owner_must_exist(self) -> None:
         candidate = copy.deepcopy(self.manifest)
@@ -544,6 +585,80 @@ class EcosystemManifestTest(unittest.TestCase):
         ]["llm"]["repository"]
 
         with self.assertRaisesRegex(VALIDATOR.ManifestError, "duplicate repository"):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_runtime_profile_repository_cannot_duplicate_another_profile(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        profiles = candidate["runtime_profiles"]
+        profiles["gemma4"]["repository"] = profiles["gpt120b"]["repository"]
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "duplicate repository"):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_runtime_profile_workspace_path_cannot_be_shared(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        profiles = candidate["runtime_profiles"]
+        profiles["gemma4"]["workspace_path"] = profiles["gpt120b"]["workspace_path"]
+
+        with self.assertRaisesRegex(
+            VALIDATOR.ManifestError, "duplicate workspace_path"
+        ):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_runtime_profile_workspace_path_cannot_duplicate_component(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        candidate["runtime_profiles"]["whisper"]["workspace_path"] = candidate[
+            "components"
+        ]["stt"]["workspace_path"]
+
+        with self.assertRaisesRegex(
+            VALIDATOR.ManifestError, "duplicate workspace_path"
+        ):
+            VALIDATOR.validate_manifest(candidate)
+
+    def test_runtime_profile_requires_full_commit_sha_when_source_pinned(self) -> None:
+        self.assertEqual(
+            self.manifest["ecosystem"]["compatibility_status"], "source-pinned"
+        )
+        for version in ("c0862c1", "planned", "C0862C1F286B20D53567A87A0CC1D5CB", ""):
+            with self.subTest(version=version):
+                candidate = copy.deepcopy(self.manifest)
+                candidate["runtime_profiles"]["whisper"]["version"] = version
+
+                with self.assertRaisesRegex(VALIDATOR.ManifestError, "version"):
+                    VALIDATOR.validate_manifest(candidate)
+
+    def test_runtime_profile_rejects_invalid_scalar_fields(self) -> None:
+        cases = (
+            ("kind", "system-service", "kind"),
+            ("status", "planned", "status"),
+            ("required", "false", "required"),
+            ("role", "  ", "role"),
+        )
+        for field, value, pattern in cases:
+            with self.subTest(field=field):
+                candidate = copy.deepcopy(self.manifest)
+                candidate["runtime_profiles"]["irodori"][field] = value
+
+                with self.assertRaisesRegex(VALIDATOR.ManifestError, pattern):
+                    VALIDATOR.validate_manifest(candidate)
+
+    def test_runtime_profile_requires_every_field(self) -> None:
+        for field in VALIDATOR.REQUIRED_RUNTIME_PROFILE_FIELDS:
+            with self.subTest(field=field):
+                candidate = copy.deepcopy(self.manifest)
+                del candidate["runtime_profiles"]["irodori"][field]
+
+                with self.assertRaisesRegex(VALIDATOR.ManifestError, field):
+                    VALIDATOR.validate_manifest(candidate)
+
+    def test_runtime_profile_id_must_be_a_valid_identifier(self) -> None:
+        candidate = copy.deepcopy(self.manifest)
+        candidate["runtime_profiles"]["Bad Id"] = candidate["runtime_profiles"].pop(
+            "whisper"
+        )
+
+        with self.assertRaisesRegex(VALIDATOR.ManifestError, "runtime profile id"):
             VALIDATOR.validate_manifest(candidate)
 
     def test_runtime_primary_requires_known_implementation(self) -> None:

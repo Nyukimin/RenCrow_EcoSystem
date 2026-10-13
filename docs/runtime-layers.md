@@ -71,6 +71,8 @@ target adapter、文字起こし結果とerrorの正規化を所有します。V
 `/stt`はCOREが所有し、受け取った音声chunkをGatewayのHTTP公開APIへ中継します。
 Model load、decode、warmup、GPU最適化はSTT targetの責務です。COREは
 RenCrow_STT Gatewayの公開HTTP APIだけを使用し、物理targetへ直接接続しません。
+現行の`RenCrow_Whisper`（whisper.cppとWhisper large-v3-turbo）はこのtargetに該当し、
+`runtime_profiles`のowner `stt`として登録します。
 
 ## RenCrow_TTS
 
@@ -86,7 +88,8 @@ companion: tts-target     bundled=false / required=true
 
 Go Gatewayは文章整形、character／style／voice routing、target adapter、WAV中継を
 所有します。reference音声、seed、engine parameter、Model load、合成演算はTTS target
-の責務です。現行の`RenCrow_Irodori_TTS` deploymentはこのtargetに該当します。
+の責務です。現行の`RenCrow_Irodori_TTS`はこのtargetに該当し、
+`runtime_profiles`のowner `tts`として登録します。
 
 ## RenCrow_Vision
 

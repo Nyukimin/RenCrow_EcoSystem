@@ -101,6 +101,13 @@ ownerを`llm`として宣言しますが、独立module、Agent、routing owner�
 external compute targetへ付随し、Go binaryへ同梱しません。
 COREはRenCrow_STT／RenCrow_TTS Gatewayだけを参照し、Gatewayが各targetへ接続します。
 
+`RenCrow_Whisper`（whisper.cppによる音声認識target、ownerは`stt`）と
+`RenCrow_Irodori_TTS`（Irodori-TTSによる音声合成target、ownerは`tts`）は、
+独立Git管理されるhost固有のengine profileです。LLMのprofileと同じく
+`ecosystem.yaml`の`runtime_profiles`で宣言し、`runtime.companions`の
+external compute targetに対応しますが、独立module、Agent、routing ownerにはしません。
+公開contract、認証、正規routeはownerのGatewayが所有し、COREはengineへ直接接続しません。
+
 ## CORE, PORTAL, CMD and ASSISTANT
 
 `RenCrow_CORE`がserver behavior、状態、`/viewer/*` API、Debug Viewerの正本です。

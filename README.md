@@ -62,8 +62,10 @@ checksum、統合互換性の検証済みを意味しません。統合試験後
 
 `ecosystem.yaml` schema v4では、moduleの配布artifactを`runtime.primary`、
 利用環境側で別途動かす演算runtimeなどを`runtime.companions`として分離できます。
-独立Git管理されるhost固有のBackend profileは`runtime_profiles`へ登録し、owner moduleを
-必須にします。runtime profileはAgent、routing owner、独立Public APIではありません。
+独立Git管理されるhost固有のBackend／engine profileは`runtime_profiles`へ登録し、
+owner moduleを必須にします。LLMのBackend profileに加え、STTのRenCrow_Whisper、
+TTSのRenCrow_Irodori_TTSも同じ枠で登録します。runtime profileはAgent、routing owner、
+独立Public APIではありません。
 現在はRenCrow_LLM、RenCrow_STT、RenCrow_TTS、RenCrow_Vision、RenCrow_Imageへ適用し、
 Go binaryと各演算targetを
 別の配布層として宣言しています。COREのproduction経路は各Gatewayだけを参照し、

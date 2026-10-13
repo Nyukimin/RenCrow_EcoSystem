@@ -841,6 +841,26 @@
       "kind": "external-compute",
       "status": "development",
       "role": "Host-specific Gemma 4 multimodal Backend profile used behind RenCrow LLM Runtime"
+    },
+    "whisper": {
+      "owner_component": "stt",
+      "repository": "Nyukimin/RenCrow_Whisper",
+      "workspace_path": "./RenCrow_Whisper",
+      "version": "c0862c1f286b20d53567a87a0cc1d5cde2c2553d",
+      "required": false,
+      "kind": "external-compute",
+      "status": "development",
+      "role": "Host-specific whisper.cpp large-v3-turbo transcription target profile used behind RenCrow STT Gateway"
+    },
+    "irodori": {
+      "owner_component": "tts",
+      "repository": "Nyukimin/RenCrow_Irodori_TTS",
+      "workspace_path": "./RenCrow_Irodori_TTS",
+      "version": "33922e0aef775338948363f8eea28af0bebc710d",
+      "required": false,
+      "kind": "external-compute",
+      "status": "development",
+      "role": "Host-specific Irodori-TTS synthesis target profile used behind RenCrow TTS Gateway"
     }
   },
   "runtime_policy": {
