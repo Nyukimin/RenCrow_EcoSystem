@@ -95,7 +95,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "./RenCrow_PORTAL",
-      "version": "f43b56c4481f000dcc456ff5d8646b9ce807b62b",
+      "version": "cc7b418fe82f7ae465cd0cef7682cec9e801a28d",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API",
@@ -105,7 +105,7 @@
             "module": "github.com/Nyukimin/RenCrow_PORTAL",
             "main_package": "github.com/Nyukimin/RenCrow_PORTAL/cmd/rencrow-portal",
             "installed_path": "%h/.local/bin/rencrow-portal",
-            "version": "f43b56c4481f000dcc456ff5d8646b9ce807b62b"
+            "version": "cc7b418fe82f7ae465cd0cef7682cec9e801a28d"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_PORTAL",
@@ -295,7 +295,7 @@
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",
       "workspace_path": "./RenCrow_STT",
-      "version": "c451b6d37bf595edb2ee4d82419c2155ae643aa4",
+      "version": "ee91243dc6190ca945baebaf5dc14082de738dd5",
       "required": false,
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
