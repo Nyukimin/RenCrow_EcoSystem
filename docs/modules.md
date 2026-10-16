@@ -18,6 +18,7 @@
 | `RenCrow_Image` | 描画・画像生成interface | optional Go binary + external compute | `rencrow-image`がCOREから生成要求を受け、ForgeNeo／Z-Image等のbackendへ接続 |
 | [RenCrow_Switch_Core](https://github.com/Nyukimin/RenCrow_Switch_Core) | OpenAI Codexの非公式Fork、開発用clientと独立Compaction候補CLI | optional development tooling | Codex-switchの起動対象。launcher／Gateway／BackendはRenCrow_LLMが所有し、COREのActor・routing正本は変更しない |
 | `RenCrow_Harness` | 委譲された子Task、Run／Action／Attempt、Session、Tool原本、checkpoint、再開、Context再構成を所有する独立実行プログラム`rencrow-harness`。planned（採用済み設計・未実装。source pinとbinary配備は未設定）。境界の正本は[CORE 04「RenCrow_Harness委譲境界」](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E6%A6%82%E8%A6%81.md#rencrow_harness%E5%A7%94%E8%AD%B2%E5%A2%83%E7%95%8C) | optional Go binary（planned） | 人が直接使うCLIと、COREが`serve --stdio`で使う同じService。Agent、Persona、長期Memory、LLM backendは持たず、推論はRenCrow LLM Gatewayの正規Public APIだけを呼ぶ |
+| `RenCrow_WORLD` | living-state runtime（計画。R05の独立Go WORLD kernel）。2026-10-15に空のpublic repositoryとして作成済みで、source、commit、release、source pinはまだ無い。artifact名`rencrow-world`は計画上の名前で、R05で確定する。R04のMock World read bridge（CORE／PORTAL）は本moduleの実装ではない。WORLD、CORE、PORTALの契約は各owner repositoryが持つ | planned（未実装。source pin、binary配備は未設定） | 実行されない。実装後にCOREと接続する計画で、接続契約はR05以降で定める |
 | `RenCrow_Workspace` | `~/.rencrow/workspace`のportableな非secret snapshot | snapshot | backup／復旧用。`~/.rencrow/workspace`自体が実行時の正本であり、runtime serviceではない |
 
 ## Ownership rule

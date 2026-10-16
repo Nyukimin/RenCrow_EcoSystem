@@ -762,6 +762,22 @@
         "companions": []
       }
     },
+    "world": {
+      "repository": "Nyukimin/RenCrow_WORLD",
+      "workspace_path": "./RenCrow_WORLD",
+      "version": "planned",
+      "required": false,
+      "distribution": "binary",
+      "role": "Planned independent living-state runtime (WORLD kernel); the R04 Mock World read bridge lives in CORE and PORTAL and is not this component",
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "rencrow-world",
+          "status": "planned"
+        },
+        "companions": []
+      }
+    },
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",

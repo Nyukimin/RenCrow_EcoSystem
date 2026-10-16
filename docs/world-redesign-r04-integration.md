@@ -32,3 +32,5 @@ The Atlas remediation, unlike R04, was deployed to the existing CORE runtime. It
 R04 classification: **source implemented; local mock runtime accepted; production/Atlas lifecycle blocked**. Its two-view PoC acceptance is closed and its source is pushed, but it does not satisfy Atlas's full specification-to-deploy lifecycle. Do not use this record to release the Atlas WIP gate or assert production acceptance. The next dependency is R05's independent Go WORLD kernel setup, after reconciling the R04 lifecycle and catalog module declaration; R03 remains independently blocked on art assets.
 
 On 2026-10-15, `Nyukimin/RenCrow_WORLD` was created as an empty public GitHub repository and cloned at `RenCrow_WORLD/`. Its local unborn HEAD is `main`, matching GitHub's default branch. No source, commit, release, or EcoSystem source pin exists yet; this repository creation alone does not start or complete R05.
+
+The catalog declares `world` as a `planned` component (no source pin, no coverage evidence); this declaration does not mean R05 has started and does not change the R04 classification above.
