@@ -95,7 +95,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "./RenCrow_PORTAL",
-      "version": "cc7b418fe82f7ae465cd0cef7682cec9e801a28d",
+      "version": "ab79a5817c8480772baeef02bfe198925c673790",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API",
@@ -229,7 +229,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "d5b7e9408492ae1be087b9eb1a78d31c813b826a",
+      "version": "b07781f49236119c12bb078520bdb9827924621a",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
