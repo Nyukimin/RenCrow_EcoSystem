@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "83f07bf11c2514bca4ddba774d6e7431eda58b4a",
+      "version": "da881ed0587cc3c057ef1c54c439723a9958729a",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -19,19 +19,19 @@
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow",
             "installed_path": "%h/.local/bin/rencrow",
-            "version": "6d3468e821692fc63315805188cf1c5852421e2f"
+            "version": "da881ed0587cc3c057ef1c54c439723a9958729a"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow-core-verify",
             "installed_path": "%h/.local/bin/rencrow-core-verify",
-            "version": "6d3468e821692fc63315805188cf1c5852421e2f"
+            "version": "e2dd0b16829f653b2392dbe2c84547c1399bae19"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow-core-migration-package",
             "installed_path": "%h/.local/bin/rencrow-core-migration-package",
-            "version": "6d3468e821692fc63315805188cf1c5852421e2f"
+            "version": "e2dd0b16829f653b2392dbe2c84547c1399bae19"
           }
         ],
         "files": [
@@ -44,7 +44,7 @@
           {
             "source_path": "scripts/rencrow-storage-backup",
             "installed_path": "%h/.local/bin/rencrow-storage-backup",
-            "sha256": "1965c840b3bd677c4ee549de4eae23f74b261cc15acbebbe5975f3ffc2b0efdc",
+            "sha256": "1ff85653960f53f7d3fd321fe02dae36df093a4b5042738dbd453e575b10bb28",
             "mode": "0755"
           },
           {
@@ -105,7 +105,7 @@
             "module": "github.com/Nyukimin/RenCrow_PORTAL",
             "main_package": "github.com/Nyukimin/RenCrow_PORTAL/cmd/rencrow-portal",
             "installed_path": "%h/.local/bin/rencrow-portal",
-            "version": "cc7b418fe82f7ae465cd0cef7682cec9e801a28d"
+            "version": "1a4f2870731390435cfa47aa733d40215bf71b06"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_PORTAL",
@@ -181,7 +181,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "./RenCrow_CMD",
-      "version": "cc3d9fe3d3ed8354c6a968510539c4180156a42b",
+      "version": "378cbbe1c564856053f6f6be5bed2f4e2b477ee8",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL",
@@ -239,7 +239,7 @@
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_LLM/gateway/cmd/rencrow-llm",
             "installed_path": "%h/.local/bin/rencrow-llm",
-            "version": "3d8e3271edd522e0b1628a3b0bcb879e2e67301c"
+            "version": "92458ed9c1c0b0e6a098ace48430613b14a59827"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
@@ -251,7 +251,7 @@
             "module": "github.com/Nyukimin/RenCrow_LLM/gateway",
             "main_package": "github.com/Nyukimin/RenCrow_LLM/gateway/cmd/rencrow-llm-node",
             "installed_path": "%h/.local/bin/rencrow-llm-node",
-            "version": "26b18a023830f4d3c0d0f7a5f862b546b1c99e12"
+            "version": "1a47f48e917bc4094facb3578edb1dc11073cfbb"
           }
         ],
         "files": [
@@ -295,7 +295,7 @@
     "stt": {
       "repository": "Nyukimin/RenCrow_STT",
       "workspace_path": "./RenCrow_STT",
-      "version": "ee91243dc6190ca945baebaf5dc14082de738dd5",
+      "version": "82a91bea4113324e92402b17294a56b44582e235",
       "required": false,
       "distribution": "binary",
       "role": "Go STT gateway for public audio contracts, target adaptation, and transcript normalization",
@@ -591,7 +591,7 @@
     "tools": {
       "repository": "Nyukimin/RenCrow_Tools",
       "workspace_path": "./RenCrow_Tools",
-      "version": "c8793a892099f54b4260a86fddfef04d78de9c31",
+      "version": "1d73c9cbc3c28f79425073866bf1f3caa1d10b48",
       "required": false,
       "distribution": "tooling",
       "role": "Reusable development, conversion, validation, and browser tools",
@@ -673,7 +673,7 @@
     "bench": {
       "repository": "Nyukimin/RenCrow_Bench",
       "workspace_path": "./RenCrow_Bench",
-      "version": "2fadb9462199b87c3be4c9d1e3f0369b33577da9",
+      "version": "145d8b557422aba2f17a7ce4022e35803f5b7b19",
       "required": false,
       "distribution": "tooling",
       "role": "Development benchmark tasks, graders, runners, and provenance for evaluating model suitability for RenCrow roles; source-pinned with known grading limitations, not a production runtime or role-assignment owner"
@@ -681,7 +681,7 @@
     "switch_core": {
       "repository": "Nyukimin/RenCrow_Switch_Core",
       "workspace_path": "./RenCrow_Switch_Core",
-      "version": "16ea1009da01f04354cdec329fe4b89dd3df7f61",
+      "version": "9331c99b1f6b33a3b6287253c89feb382e9d745e",
       "required": false,
       "distribution": "tooling",
       "role": "Unofficial OpenAI Codex fork for RenCrow development clients and separate compaction candidate tooling; launcher and Gateway remain owned by RenCrow_LLM"
@@ -689,7 +689,7 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "./RenCrow_Image",
-      "version": "6d29eb14e117f41d0692e6ec71e136b60c4c3256",
+      "version": "3de3ad7abb3f13cda37cf863aa715f2e4e193564",
       "required": false,
       "distribution": "binary",
       "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
@@ -699,13 +699,13 @@
             "module": "github.com/Nyukimin/RenCrow_Image",
             "main_package": "github.com/Nyukimin/RenCrow_Image/cmd/rencrow-image",
             "installed_path": "%h/.local/bin/rencrow-image",
-            "version": "6d29eb14e117f41d0692e6ec71e136b60c4c3256"
+            "version": "96a9df143aeb13f5a754fb4f68fac5fb90dbdfad"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_Image",
             "main_package": "github.com/Nyukimin/RenCrow_Image/cmd/rencrow-image-verify",
             "installed_path": "%h/.local/bin/rencrow-image-verify",
-            "version": "6d29eb14e117f41d0692e6ec71e136b60c4c3256"
+            "version": "3de3ad7abb3f13cda37cf863aa715f2e4e193564"
           }
         ],
         "files": [
@@ -781,7 +781,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",
-      "version": "583966edbcfa1863a65453e6b773e55daa43abaf",
+      "version": "29a06094f658b7a6f4ae04ae1792ed60d7eea2f2",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service",
