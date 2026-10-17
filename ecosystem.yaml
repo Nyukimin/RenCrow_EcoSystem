@@ -50,7 +50,7 @@
           {
             "source_path": "scripts/rencrow-storage-restore-check",
             "installed_path": "%h/.local/bin/rencrow-storage-restore-check",
-            "sha256": "3a428d0a8fbad30adabce1b6c8c3d850f342a22985f2e3cb47dd671808a84e41",
+            "sha256": "a8f4061cee3090a873536d4e28a0ca402648decfdb6615d81ec35458cb50a5dd",
             "mode": "0755"
           },
           {
@@ -191,7 +191,7 @@
             "module": "github.com/Nyukimin/RenCrow_CMD",
             "main_package": "github.com/Nyukimin/RenCrow_CMD/cmd/rencrow",
             "installed_path": "%h/.local/bin/rencrowctl",
-            "version": "cc3d9fe3d3ed8354c6a968510539c4180156a42b"
+            "version": "378cbbe1c564856053f6f6be5bed2f4e2b477ee8"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CMD",
