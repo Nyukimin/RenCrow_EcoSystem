@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "da881ed0587cc3c057ef1c54c439723a9958729a",
+      "version": "c84e20ede031f5172e04708f9af262b5ace10ff4",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -38,7 +38,7 @@
           {
             "source_path": "scripts/rencrow_log_rotate.sh",
             "installed_path": "%h/.local/share/rencrow/scripts/rencrow_log_rotate.sh",
-            "sha256": "0c1994f61673c32e93d0b58686c27e3f498afc1f03c14e4e72f11f73ea5db2a9",
+            "sha256": "7814e123dcce19f1a2059bd3ec783e67ad504acafecf88d9d52a0e24c9c14b8c",
             "mode": "0755"
           },
           {
@@ -56,7 +56,7 @@
           {
             "source_path": "scripts/rencrow-storage-configure",
             "installed_path": "%h/.local/bin/rencrow-storage-configure",
-            "sha256": "2dec97434162d6a19b0d962ce0fe4e4ba7fe3e512d8effcb5062e2e354ffc74f",
+            "sha256": "ed155a609bb7bd8c19a8d36f34def7c51b70b9b0f69a91a24775628b0b7a4e31",
             "mode": "0755"
           },
           {
@@ -826,7 +826,7 @@
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_Qwen36_27B",
       "workspace_path": "./RenCrow_Qwen36_27B",
-      "version": "e903d25458593c4363b0d1283616e39d287a13e3",
+      "version": "49d6a84f7c764048aa6135212794d2b39d537442",
       "required": false,
       "kind": "external-compute",
       "status": "development",
@@ -836,7 +836,7 @@
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_RX6800_CoderTrio",
       "workspace_path": "./RenCrow_RX6800_CoderTrio",
-      "version": "7900cd5e43422c97ca34c9c3de1a77db77f29076",
+      "version": "3f54c9a749c5209ab949a2f33002990724a5632f",
       "required": false,
       "kind": "external-compute",
       "status": "development",
@@ -846,7 +846,7 @@
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_Gemma4",
       "workspace_path": "./RenCrow_Gemma4",
-      "version": "e389c48416e712abf1d3c2a0e5f34391635e689d",
+      "version": "7cd0c6aec98e60f6cdb19f338672cca37207a1b6",
       "required": false,
       "kind": "external-compute",
       "status": "development",
@@ -866,7 +866,7 @@
       "owner_component": "tts",
       "repository": "Nyukimin/RenCrow_Irodori_TTS",
       "workspace_path": "./RenCrow_Irodori_TTS",
-      "version": "33922e0aef775338948363f8eea28af0bebc710d",
+      "version": "04be85cbf31a41f34dd54cc452de94375728097a",
       "required": false,
       "kind": "external-compute",
       "status": "development",
