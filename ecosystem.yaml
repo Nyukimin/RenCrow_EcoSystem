@@ -673,7 +673,7 @@
     "bench": {
       "repository": "Nyukimin/RenCrow_Bench",
       "workspace_path": "./RenCrow_Bench",
-      "version": "145d8b557422aba2f17a7ce4022e35803f5b7b19",
+      "version": "9a2c718da892215db377ded0d30eabf499a07ba7",
       "required": false,
       "distribution": "tooling",
       "role": "Development benchmark tasks, graders, runners, and provenance for evaluating model suitability for RenCrow roles; source-pinned with known grading limitations, not a production runtime or role-assignment owner"
