@@ -17,6 +17,7 @@ extension、tooling、設定 snapshot からなる複数 repository の product 
         |                   |                   |                   |
   RenCrow_CORE       PORTAL/CMD             LLM/STT/TTS/Vision/Image  GAMES/Tools/Bench + Workspace(snapshot)
                       ASSISTANT (development)
+  Planned runtime: WORLD / StoryPlayer
 ```
 
 `RenCrow_EcoSystem` は control plane や runtime service ではありません。

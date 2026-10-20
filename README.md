@@ -28,6 +28,8 @@ RenCrow_CORE ---- contracts ----> LLM / STT / TTS / Vision / Image
 RenCrow_CORE ---- private API ---> TRADE
 RenCrow_CORE -- launch ---------> RenCrow_GAMES
 RenCrow_GAMES -- result / ObserverFrame --> RenCrow_CORE
+RenCrow_CORE -- authenticated read bridge --> RenCrow_WORLD (planned)
+RenCrow_WORLD -- versioned world facts --> RenCrow_StoryPlayer (planned)
 Games / Tools / Bench / Workspace -------- ecosystem support
 ```
 
@@ -94,6 +96,15 @@ PORTALはCOREのChat、IdleChat、Gamesを提供するWeb clientです。CMDはC
 利用するterminal client兼command facadeで、COREとPORTALのprocess entrypointも提供します。
 ASSISTANTはproactive triggerとDevice deliveryを担うcomponentであり、現在の手動通知CLIも将来の常駐serviceも
 COREの公開契約を利用します。
+
+[RenCrow_WORLD](https://github.com/Nyukimin/RenCrow_WORLD)と
+[RenCrow_StoryPlayer](https://github.com/Nyukimin/RenCrow_StoryPlayer)は、
+`ecosystem.yaml`に登録済みの独立moduleです。WORLDはR05のkernelと単発`inspect`まで
+source実装済みですが、v1.4 runtimeは未実装です。StoryPlayerは
+[v1.4実装仕様](https://github.com/Nyukimin/RenCrow_StoryPlayer/blob/main/docs/implementation-spec-v1.4.md)を
+所有し、runtimeは未実装です。両moduleの`version: planned`は配備可能なbinaryや
+統合互換性を示しません。owner境界と実装順は
+[WORLD／StoryPlayer統合境界](docs/world-storyplayer-integration.md)を参照してください。
 
 RenCrow_Visionは画像・動画認識の必須interface、RenCrow_Imageは描画・画像生成の
 必須interfaceです。COREはWild、ForgeNeo、ComfyUI、Z-Imageなどの物理backendへ

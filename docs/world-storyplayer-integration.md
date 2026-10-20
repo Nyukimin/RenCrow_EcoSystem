@@ -7,7 +7,7 @@
 - 入力は 206 の `RenCrow/Tmp/WORLD/WORLD_実装仕様一式_v1.4.0_20261020.zip`。SHA-256 は `f5e69cdca00e3551656dcd5839355802b9cebf03989d778861f176b90907559f`。入口は ZIP 内の `WORLD_v1.4.0/README.md` と `WORLD_Integrated_Spec_v1.4.0.md`。
 - 同梱の `inputs/` は原資料 291 ファイルであり、現在の owner 仕様へ一括昇格しない。ZIP の静的検証報告は 84/84 合格、原資料 291 ファイルのハッシュは本作業で目録と照合して一致した。実装受入 `W14-AC-001`〜`024` は全件 `not_run`。
 - 採用するのは共通 WORLD Kernel と独立した World/Timeline、WORLD・CORE・StoryPlayer・PORTAL の所有境界、段階的実装順、実機受入条件。作品の候補設定、実験仮定、参考画像、試験 fixture は作者承認や runtime 公開を意味しない。
-- WORLD 内部の実装契約は [WORLD の v1.4.0 実装仕様](../RenCrow_WORLD/docs/implementation-spec-v1.4.md)が所有する。既存の [R05 仕様](../RenCrow_WORLD/docs/R05.md) は現在実装された `inspect` の契約として維持する。[StoryPlayer 内部の実装契約](../RenCrow_StoryPlayer/docs/implementation-spec-v1.4.md)は独立した StoryPlayer repository が所有する。CORE と PORTAL の内部契約は各 owner 仕様を参照する。
+- WORLD 内部の実装契約は [WORLD の v1.4.0 実装仕様](https://github.com/Nyukimin/RenCrow_WORLD/blob/main/docs/implementation-spec-v1.4.md)が所有する。既存の [R05 仕様](https://github.com/Nyukimin/RenCrow_WORLD/blob/main/docs/R05.md) は現在実装された `inspect` の契約として維持する。[StoryPlayer 内部の実装契約](https://github.com/Nyukimin/RenCrow_StoryPlayer/blob/main/docs/implementation-spec-v1.4.md)は独立した StoryPlayer repository が所有する。CORE と PORTAL の内部契約は各 owner 仕様を参照する。
 
 ## Owner と依存方向
 
@@ -21,7 +21,7 @@
 
 `rencrow-home` と異世界作品の World は Kernel を共有できるが、WorldID、Timeline、Store、認可、正史、本人の経験記憶を共有しない。同じ人格の定義を作品で参照しても、別 Timeline の経験を自動で本人の Live 記憶へ移さない。公開した世界定義、稼働 Timeline への適用、作品正史採用、Presentation Package 公開はそれぞれ別の操作と証拠を持つ。
 
-StoryPlayer の独立 owner はユーザー指定の [`RenCrow_StoryPlayer`](../RenCrow_StoryPlayer/README.md) で、catalog manifest に planned module として登録する。`appendices/02_StoryPlayer_Integration.md` と `contracts/storyplayer_contract.md` の内部 Authoring・Package・Playback 仕様は同 repository の実装仕様へ採用し、WORLD または catalog に第二正本を作らない。旧 v0.1 の「表出専用」は Renderer/Playback 層の制約として継承し、StoryPlayer 全体の制作責務には広げない。runtime source、配備、正式 Package の完成は未確認である。
+StoryPlayer の独立 owner はユーザー指定の [`RenCrow_StoryPlayer`](https://github.com/Nyukimin/RenCrow_StoryPlayer) で、catalog manifest に planned module として登録する。`appendices/02_StoryPlayer_Integration.md` と `contracts/storyplayer_contract.md` の内部 Authoring・Package・Playback 仕様は同 repository の実装仕様へ採用し、WORLD または catalog に第二正本を作らない。旧 v0.1 の「表出専用」は Renderer/Playback 層の制約として継承し、StoryPlayer 全体の制作責務には広げない。runtime source、配備、正式 Package の完成は未確認である。
 
 ## 現行実装との境界
 
