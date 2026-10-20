@@ -26,7 +26,7 @@ R08のWORLD側source foundationに加え、接続契約の補強、復元後のc
 | D-03 | WORLD ACKは「受信・永続保存」の証拠。生活適用の証拠にしない | WORLD側実装済み / CORE Outbox解釈待ち | WORLD + CORE | P0 |
 | D-04 | source epoch切替は通常投影と別権限にする | WORLD側実装済み | WORLD + CORE | P0 |
 | D-05 | CORE WIPは保持し、別worktreeで実装する | 未着手（WIP未確認） | ユーザー | P0 |
-| D-06 | 復元後のCommand開放はWORLDが投影実在を検査する | WORLD側実装済み / HTTP未公開 | WORLD + CORE | P1 |
+| D-06 | 復元後のCommand開放はWORLDが投影実在を検査する | WORLD側実装済み / 暫定HTTP公開済み | WORLD + CORE | P1 |
 | D-07 | 期限切れWorkSetはunknown。成功・完了・割当なしを推定しない | 意味層実装済み | WORLD | P1 |
 | D-08 | 空WorkSetは「現在割当なし」。成功に変換しない | 意味層実装済み | WORLD + CORE | P1 |
 | D-09 | LifePolicy期限切れは明示fallbackだけ。なければblocked | 意味層実装済み | WORLD + CORE | P1 |
@@ -52,6 +52,7 @@ R08のWORLD側source foundationに加え、接続契約の補強、復元後のc
 |---|---|---|---|
 | 接続契約の補強 | `3b491e3` | Linux/Windows source、R07/R08 E2E | epoch必須化、publisher/credential、reconcile scope、head GET |
 | 復元checked gate | `3b491e3` | Linux/Windows source | `CompleteReconcileChecked`、期限切れ拒否、health 503 |
+| 復元reconcile route | `9ebf057` | HTTP unit + R08 E2E | 設定由来のrequired set、epoch/revision検証、開放後Command |
 | R09意味層・R10部分計画 | `8622551` | Linux source、R09 integration E2E | WorkSet/LifePolicy評価、fallback subset、presentation、stop plan |
 | health段階分離 | `0a9bce3` | R07/R08 E2E | live / store_ready / logical_ready / reconciled / spatial_ready |
 
@@ -398,6 +399,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | 2026-10-20 | D-01〜D-24 | ルミナ決定案として整理 | Lumina | 本文書 | proposed |
 | 2026-10-20 | D-01〜D-04, D-19, D-20, D-23 | WORLD側の接続契約を実装 | Ren | `3b491e3` | implemented |
 | 2026-10-20 | D-06 | checked reconcile gateを実装 | Ren | `3b491e3` | implemented |
+| 2026-10-20 | D-06 | checked reconcileを暫定HTTP routeで公開 | Ren | `9ebf057` | implemented |
 | 2026-10-20 | D-07〜D-12 | R09意味層とR10部分計画を実装 | Ren | `8622551` | implemented |
 | 2026-10-20 | D-18, D-24 | healthのreadiness段階を分離 | Ren | `0a9bce3` | implemented |
 |  |  |  |  |  | decided / implemented / verified |
