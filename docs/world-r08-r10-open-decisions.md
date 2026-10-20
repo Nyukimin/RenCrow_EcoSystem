@@ -38,13 +38,13 @@ R08のWORLD側source foundationに加え、接続契約の補強、復元後のc
 | D-15 | 非loopback前にTLS終端・発行者・token交換/失効を決める | 未決 | runtime owner | P3 |
 | D-16 | browserへはCORE/PORTALのViewer変換経由で渡す | 未着手 | CORE + PORTAL | P2 |
 | D-17 | Geometry PoCの成果物と合格条件を固定する | 未決（実測asset待ち） | HOUSE + WORLD | P2 |
-| D-18 | logical_ready / spatial_readyを分離する | healthのspatial_readyのみ / logical_ready未分離 | WORLD | P2 |
+| D-18 | logical_ready / spatial_readyを分離する | healthで分離実装済み / spatialは未実測 | WORLD | P2 |
 | D-19 | 現在headの認可付き照会と、epoch拒否情報の保持を用意する | WORLD側実装済み | WORLD | P0 |
 | D-20 | Publisher ID / Credential IDを監査記録する | WORLD側実装済み | WORLD | P0 |
 | D-21 | macOS実行試験まで三OS受入を主張しない | 未検証 | WORLD | P3 |
 | D-22 | CORE / WORLD / 統合担当で受入証拠を分ける | 未着手 | 統合担当 | P3 |
 | D-23 | Command本文に送信者の意図する`timeline_epoch`を必須化する | WORLD側実装済み | WORLD | P0 |
-| D-24 | healthをlive / store ready / reconciled / spatial readyに分ける | health実装済み / spatialは未実測 | WORLD | P2 |
+| D-24 | healthをlive / store ready / reconciled / spatial readyに分ける | live/store/logical/reconciled分離実装済み / spatialは未実測 | WORLD | P2 |
 
 ### 実装状況（2026-10-20）
 
@@ -53,6 +53,7 @@ R08のWORLD側source foundationに加え、接続契約の補強、復元後のc
 | 接続契約の補強 | `3b491e3` | Linux/Windows source、R07/R08 E2E | epoch必須化、publisher/credential、reconcile scope、head GET |
 | 復元checked gate | `3b491e3` | Linux/Windows source | `CompleteReconcileChecked`、期限切れ拒否、health 503 |
 | R09意味層・R10部分計画 | `8622551` | Linux source、R09 integration E2E | WorkSet/LifePolicy評価、fallback subset、presentation、stop plan |
+| health段階分離 | `0a9bce3` | R07/R08 E2E | live / store_ready / logical_ready / reconciled / spatial_ready |
 
 CORE側のpublisher/outbox、canonical route/port、実測geometry、macOS、受入matrixは未完了である。WORLD側の成功をCORE接続の完了やAC-004/005/011/012/013/014の成立に読み替えない。
 
@@ -384,7 +385,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | ACKのCORE Outbox解釈 | 未契約 | WORLD側の意味を実装。CORE側は未契約 |
 | 復元後のCommand開放 | `CompleteReconcile`は投影未検査 | `CompleteReconcileChecked`を実装 |
 | Commandの宛先epoch | 本文にない | 必須化 |
-| health | Store/Timeline中心 | reconciled / spatial_readyを分離。spatialは未実測 |
+| health | Store/Timeline中心 | live / store_ready / logical_ready / reconciled / spatial_readyを分離。spatialは未実測 |
 | fallback subset | 未強制 | 検証時と実行時に強制 |
 | 生活行動・中断 | 未実装 | 意味層とstop planを実装。移動・占有は未実装 |
 
@@ -398,6 +399,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | 2026-10-20 | D-01〜D-04, D-19, D-20, D-23 | WORLD側の接続契約を実装 | Ren | `3b491e3` | implemented |
 | 2026-10-20 | D-06 | checked reconcile gateを実装 | Ren | `3b491e3` | implemented |
 | 2026-10-20 | D-07〜D-12 | R09意味層とR10部分計画を実装 | Ren | `8622551` | implemented |
+| 2026-10-20 | D-18, D-24 | healthのreadiness段階を分離 | Ren | `0a9bce3` | implemented |
 |  |  |  |  |  | decided / implemented / verified |
 
 ## 12. 最初に承認が必要な項目
