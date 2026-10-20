@@ -114,6 +114,14 @@ PORTAL        CORE                 TTS
 - autoplay拒否、decode失敗、音声device失敗はerror ACKとしてCOREへ返す。
 - TTS OFF、owner移譲、client終了時は再生を止め、ownerをreleaseするかTTL失効させる。
 
+採用済み・未実装の[SpeechPlan v1.0](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/02_機能仕様.md#main-llm発話統合speechplan-v10)では、
+通常Chatの同一応答内で演技単位のutteranceを順に再生します。最初のutteranceの完成時に
+再生を始め、COREは次の1 utteranceだけ先読みします。PORTALは既存のaudio ownerと
+playback ACKを使用し、`turn_id`がcancelされた後に到着した音声を再生しません。
+ユーザー割り込みでは再生中の音声を止め、同じturnの未再生音声を破棄します。
+IdleChatの事前台本episode turnの先読み数は別契約であり、通常Chatのutterance数と
+同一視しません。現行実装の`tts.audio_chunk`契約をv1.0完了証拠とはしません。
+
 COREのremote TTS audio proxyは、設定済みTTS base URLと同一hostの音声だけを取得します。
 任意のprivate hostをPORTAL経由で取得できる構成にしません。
 
