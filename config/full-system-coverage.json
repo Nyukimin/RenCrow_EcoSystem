@@ -207,6 +207,19 @@
       "durability",
       "lifecycle",
       "publication"
+    ],
+    "storyplayer": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "actor_result",
+      "receipt_trace",
+      "security_exposure",
+      "durability",
+      "lifecycle",
+      "publication"
     ]
   },
   "temporarily_excluded_components": {

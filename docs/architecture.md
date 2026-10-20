@@ -42,6 +42,8 @@ CORE/Worker --invokes--> Tools
 各矢印は source inclusion を意味しません。repository 間連携は、公開 API、CLI、
 設定 schema、release artifact などの明示的 contract を使います。
 
+WORLDとStoryPlayerは独立したplanned moduleです。WORLDは世界定義・Timeline内の確定状態とEventを所有し、StoryPlayerは物語の構成・原稿・演出・検証済みPackageと再生位置を所有します。StoryPlayerのControllerが世界を変える場合は、そのWorldのprincipal/capabilityで認証されたWORLD Commandを使い、HOUSEのCORE専用権限は継承しません。Renderer/Playbackは世界の事実やCOREのMemoryを書き換えません。設計採用と実装状態は[WORLD v1.4統合境界](world-storyplayer-integration.md)を参照します。
+
 PORTALはCOREのclientであり、runtime状態の正本ではありません。COREが会話処理、
 recipient routing、audio／input active owner、TTS／STT bridgeを所有し、PORTALは
 読み取り専用`IdleChat`、操作可能な`Chat`、Agent-owned session用`Games`のallowlistで外部操作を制限します。接続フロー、失敗時の

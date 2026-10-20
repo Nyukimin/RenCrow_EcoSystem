@@ -48,4 +48,6 @@ Codexコンテキスト整理・要約・引き継ぎ仕様（v0.2草稿はrepo�
 
 [WORLD redesign R00–R05 integration record](world-redesign-r04-integration.md) — Mock縦断PoC、Atlas是正、R05 source検証と未確認境界の横断受入証拠。
 
+[WORLD v1.4.0 / StoryPlayer integration](world-storyplayer-integration.md) — 共通WORLD、StoryPlayer、HOUSEのowner境界と将来の実装順。設計採用・製品未実装。
+
 - [共通・module固有ルールの配置](rule-layout.md): 指示の正本、適用条件、配布と検証。

@@ -778,6 +778,22 @@
         "companions": []
       }
     },
+    "storyplayer": {
+      "repository": "Nyukimin/RenCrow_StoryPlayer",
+      "workspace_path": "./RenCrow_StoryPlayer",
+      "version": "planned",
+      "required": false,
+      "distribution": "binary",
+      "role": "Planned story authoring, narrative production, package validation, and playback owner; WORLD owns world facts and CORE owns Actor identity and memory",
+      "runtime": {
+        "primary": {
+          "implementation": "go",
+          "artifact": "rencrow-storyplayer",
+          "status": "planned"
+        },
+        "companions": []
+      }
+    },
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",

@@ -19,6 +19,7 @@
 | [RenCrow_Switch_Core](https://github.com/Nyukimin/RenCrow_Switch_Core) | OpenAI Codexの非公式Fork、開発用clientと独立Compaction候補CLI | optional development tooling | Codex-switchの起動対象。launcher／Gateway／BackendはRenCrow_LLMが所有し、COREのActor・routing正本は変更しない |
 | `RenCrow_Harness` | 委譲された子Task、Run／Action／Attempt、Session、Tool原本、checkpoint、再開、Context再構成を所有する独立実行プログラム`rencrow-harness`。planned（採用済み設計・未実装。source pinとbinary配備は未設定）。境界の正本は[CORE 04「RenCrow_Harness委譲境界」](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/04_%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E6%A6%82%E8%A6%81.md#rencrow_harness%E5%A7%94%E8%AD%B2%E5%A2%83%E7%95%8C) | optional Go binary（planned） | 人が直接使うCLIと、COREが`serve --stdio`で使う同じService。Agent、Persona、長期Memory、LLM backendは持たず、推論はRenCrow LLM Gatewayの正規Public APIだけを呼ぶ |
 | `RenCrow_WORLD` | living-state runtime（計画）。R05の独立Go WORLD kernel、入力検証、one-shot inspect CLIはsource実装済み。R04のMock World read bridge（CORE／PORTAL）は本moduleの実装ではない。WORLD、CORE、PORTALの契約は各owner repositoryが持つ | planned runtime（source commitは実在、release／source pin／binary配備は未設定） | WORLD serviceは未実装・未稼働。実装後にCOREと接続する計画 |
+| `RenCrow_StoryPlayer` | 物語のAuthoring、Narrative Manager、Producer/Validator、Presentation Package、Renderer/Playbackのowner。WORLDの事実、COREのActor/Memoryを複製しない | planned runtime（仕様のみ、source pin／binary配備は未設定） | [StoryPlayer実装仕様](../RenCrow_StoryPlayer/docs/implementation-spec-v1.4.md)を正本とし、将来WORLDの確定参照からPackageを制作・再生する |
 | `RenCrow_Workspace` | `~/.rencrow/workspace`のportableな非secret snapshot | snapshot | backup／復旧用。`~/.rencrow/workspace`自体が実行時の正本であり、runtime serviceではない |
 
 ## Ownership rule
@@ -51,6 +52,7 @@ read projectionとnamed route／Tool、およびvalidated write command／workfl
 | `RenCrow_CORE` | CORE catalogへ20 storeを投影する。ただし各storeのsemantic／physical ownerはCORE正本catalogが定義する | CORE semantic catalogからowner-scoped read projection／named routeとvalidated write workflowを提供 |
 | `RenCrow_TRADE` | CORE catalog上の一つの`investment` storeを、`source`、`learning`、`market`、`replay`、`portfolio`、`ledger`の六つのlogical domainとして所有 | `CORE -> RenCrow_TRADE private API gateway`。COREから物理DBを直読・直書きしない |
 | `RenCrow_GAMES` | world、session、Replay、Observer export | CORE Agentのlaunch／decision／result contract。PORTAL／CMDはDBへ直結しない |
+| `RenCrow_StoryPlayer` | StoryProject／NarrativeGraph、原稿と配役、検証済みPresentation Package、制作・正史採用記録、PlaybackSession | 将来のStoryPlayer owner境界。WORLDの確定事実は版付き参照、COREのActor／Memoryはowner API経由。現行の公開APIとruntimeは未実装 |
 | `RenCrow_Image` | 保持対象の生成画像とmanifest | Image owner serviceのbounded API。ForgeNeo／ComfyUI等へCOREが直結しない |
 | `RenCrow_ASSISTANT` | Routine、PUSH、delivery状態。現在はlocal-first Delivery記録と手動通知CLIまで | ASSISTANT service/API境界。ASSISTANT／Device clientはCORE Public APIを使い、DBへ直結せず、Agent／MemoryはCOREへ委譲 |
 | `RenCrow_Tools` | 未import artifact、staging、再取得可能cache | helper／provider境界のみ。semantic Memory、catalog、control planeを所有しない |
