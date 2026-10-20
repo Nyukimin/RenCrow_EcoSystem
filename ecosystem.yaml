@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "c84e20ede031f5172e04708f9af262b5ace10ff4",
+      "version": "287b977a6c9283d57f2c227d0c10a333a7ca3df4",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -19,7 +19,7 @@
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow",
             "installed_path": "%h/.local/bin/rencrow",
-            "version": "da881ed0587cc3c057ef1c54c439723a9958729a"
+            "version": "966e0ba3a10e7ec2722c60f8c3976f66f4bfd7b2"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CORE",
@@ -95,7 +95,7 @@
     "portal": {
       "repository": "Nyukimin/RenCrow_PORTAL",
       "workspace_path": "./RenCrow_PORTAL",
-      "version": "ab79a5817c8480772baeef02bfe198925c673790",
+      "version": "79d8b5f78c1d968a4b0c278c130ba024cc4035d2",
       "required": false,
       "distribution": "binary",
       "role": "Web interaction profile for Chat and IdleChat through the allowlisted CORE Public API",
@@ -105,7 +105,7 @@
             "module": "github.com/Nyukimin/RenCrow_PORTAL",
             "main_package": "github.com/Nyukimin/RenCrow_PORTAL/cmd/rencrow-portal",
             "installed_path": "%h/.local/bin/rencrow-portal",
-            "version": "1a4f2870731390435cfa47aa733d40215bf71b06"
+            "version": "79d8b5f78c1d968a4b0c278c130ba024cc4035d2"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_PORTAL",
@@ -181,7 +181,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "./RenCrow_CMD",
-      "version": "378cbbe1c564856053f6f6be5bed2f4e2b477ee8",
+      "version": "a5e92015d3683939a2cd98be2f9bea438383bcac",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL",
@@ -191,7 +191,7 @@
             "module": "github.com/Nyukimin/RenCrow_CMD",
             "main_package": "github.com/Nyukimin/RenCrow_CMD/cmd/rencrow",
             "installed_path": "%h/.local/bin/rencrowctl",
-            "version": "378cbbe1c564856053f6f6be5bed2f4e2b477ee8"
+            "version": "a5e92015d3683939a2cd98be2f9bea438383bcac"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CMD",
@@ -352,7 +352,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "./RenCrow_TTS",
-      "version": "a4c7f07f1cb3a3d2f4aeaa76491ecf8b569b0afc",
+      "version": "a1a02dc17a0e3783c21868260c7436772b67c876",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
