@@ -82,7 +82,7 @@ CORE -> RenCrow_Image -> ForgeNeo / Z-Image
 SpeechPlan v1.0はCORE、TTS Gateway、Irodori target profileにsource実装がありますが、runtimeの
 結合受入は未完了です。公式Irodori Serverへの接続、承認済み参照音声による評価、利用者の実再生E2Eは
 未受入です。Main LLMが本文とIrodori非依存の発話意図を一度に生成し、COREが意味契約、話者と相関ID、
-表示・再生・割り込みを所有します（[CORE仕様](https://github.com/Nyukimin/RenCrow_CORE/blob/241e150f23ec61ae90a8c327c0f5bdd5e579beb1/docs/02_%E6%A9%9F%E8%83%BD%E4%BB%95%E6%A7%98.md)）。
+表示・再生・割り込みを所有します（[CORE仕様](https://github.com/Nyukimin/RenCrow_CORE/blob/04e76545cc329894ce85765132ae39072dacb43f/docs/02_%E6%A9%9F%E8%83%BD%E4%BB%95%E6%A7%98.md)）。
 RenCrow_TTSはVoiceProfile、読み辞書、Irodori向けrequest compilerを所有し、
 RenCrow_Irodori_TTSはGateway背後で使うhost固有のmodel・参照音声・推論target profileを所有します
 （[TTS仕様](https://github.com/Nyukimin/RenCrow_TTS/blob/7da210c034f37e47e4435985fa8910d26ace87db/docs/configuration.md)、
