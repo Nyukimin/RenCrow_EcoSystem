@@ -79,7 +79,7 @@ CORE -> RenCrow_Image -> ForgeNeo / Z-Image
 source実装中・実機未受入の発話統合v1.0では、Main LLMが本文とIrodori非依存の発話意図を
 一度に生成し、COREが[SpeechPlanの意味契約・表示・再生・割り込み](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/02_機能仕様.md#main-llm発話統合speechplan-v10)を所有します。
 RenCrow_TTSが[VoiceProfile・読み辞書・Irodori Compiler](https://github.com/Nyukimin/RenCrow_TTS/blob/main/docs/configuration.md#speechplan-v10-voiceprofileとirodori-compilergateway実装済み実機受入未了)、
-RenCrow_Irodori_TTSが[model・参照音声・推論target](https://github.com/Nyukimin/RenCrow_Irodori_TTS/blob/main/docs/runtime.md#speechplan-v10-target-profile採用済み未実装)を所有します。
+RenCrow_Irodori_TTSが[model・参照音声・推論target](https://github.com/Nyukimin/RenCrow_Irodori_TTS/blob/1392409/docs/runtime.md#speechplan-v10-target-profile採用済み未実装)を所有します。
 JEVは通常経路に入りません。catalogはこの依存方向とowner参照だけを持ち、schemaや
 絵文字対応表を複製しません。現行の配備・統合成功は別途検証します。
 
