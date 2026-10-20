@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "287b977a6c9283d57f2c227d0c10a333a7ca3df4",
+      "version": "d6f765c305cf49abc08ad8807d85cd8ee28ef69a",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -19,7 +19,7 @@
             "module": "github.com/Nyukimin/RenCrow_CORE",
             "main_package": "github.com/Nyukimin/RenCrow_CORE/cmd/rencrow",
             "installed_path": "%h/.local/bin/rencrow",
-            "version": "966e0ba3a10e7ec2722c60f8c3976f66f4bfd7b2"
+            "version": "d6f765c305cf49abc08ad8807d85cd8ee28ef69a"
           },
           {
             "module": "github.com/Nyukimin/RenCrow_CORE",
@@ -352,7 +352,7 @@
     "tts": {
       "repository": "Nyukimin/RenCrow_TTS",
       "workspace_path": "./RenCrow_TTS",
-      "version": "a1a02dc17a0e3783c21868260c7436772b67c876",
+      "version": "7da210c034f37e47e4435985fa8910d26ace87db",
       "required": false,
       "distribution": "binary",
       "role": "Go TTS gateway for character, style, voice routing, and synthesis target adaptation",
@@ -882,7 +882,7 @@
       "owner_component": "tts",
       "repository": "Nyukimin/RenCrow_Irodori_TTS",
       "workspace_path": "./RenCrow_Irodori_TTS",
-      "version": "04be85cbf31a41f34dd54cc452de94375728097a",
+      "version": "a685c882a329d5416f75367237f0ba3c39dcced4",
       "required": false,
       "kind": "external-compute",
       "status": "development",

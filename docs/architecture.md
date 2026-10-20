@@ -79,12 +79,16 @@ CORE -> RenCrow_Vision -> Wild backend -> RenCrow_Vision -> CORE
 CORE -> RenCrow_Image -> ForgeNeo / Z-Image
 ```
 
-source実装中・実機未受入の発話統合v1.0では、Main LLMが本文とIrodori非依存の発話意図を
-一度に生成し、COREが[SpeechPlanの意味契約・表示・再生・割り込み](https://github.com/Nyukimin/RenCrow_CORE/blob/main/docs/02_機能仕様.md#main-llm発話統合speechplan-v10)を所有します。
-RenCrow_TTSが[VoiceProfile・読み辞書・Irodori Compiler](https://github.com/Nyukimin/RenCrow_TTS/blob/main/docs/configuration.md#speechplan-v10-voiceprofileとirodori-compilergateway実装済み実機受入未了)、
-RenCrow_Irodori_TTSが[model・参照音声・推論target](https://github.com/Nyukimin/RenCrow_Irodori_TTS/blob/1392409/docs/runtime.md#speechplan-v10-target-profile採用済み未実装)を所有します。
+SpeechPlan v1.0はCORE、TTS Gateway、Irodori target profileにsource実装がありますが、runtimeの
+結合受入は未完了です。公式Irodori Serverへの接続、承認済み参照音声による評価、利用者の実再生E2Eは
+未受入です。Main LLMが本文とIrodori非依存の発話意図を一度に生成し、COREが意味契約、話者と相関ID、
+表示・再生・割り込みを所有します（[CORE仕様](https://github.com/Nyukimin/RenCrow_CORE/blob/d6f765c305cf49abc08ad8807d85cd8ee28ef69a/docs/02_%E6%A9%9F%E8%83%BD%E4%BB%95%E6%A7%98.md)）。
+RenCrow_TTSはVoiceProfile、読み辞書、Irodori向けrequest compilerを所有し、
+RenCrow_Irodori_TTSはGateway背後で使うhost固有のmodel・参照音声・推論target profileを所有します
+（[TTS仕様](https://github.com/Nyukimin/RenCrow_TTS/blob/7da210c034f37e47e4435985fa8910d26ace87db/docs/configuration.md)、
+[Irodori仕様](https://github.com/Nyukimin/RenCrow_Irodori_TTS/blob/a685c882a329d5416f75367237f0ba3c39dcced4/docs/runtime.md)）。
 JEVは通常経路に入りません。catalogはこの依存方向とowner参照だけを持ち、schemaや
-絵文字対応表を複製しません。現行の配備・統合成功は別途検証します。
+絵文字対応表を複製しません。配備と統合成功は別途runtime E2Eで確認します。
 
 COREは物理LLM、STT／TTS target、Wild、画像生成backendへ直接fallbackしません。
 
