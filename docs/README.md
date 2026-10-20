@@ -50,4 +50,6 @@ Codexコンテキスト整理・要約・引き継ぎ仕様（v0.2草稿はrepo�
 
 [WORLD v1.4.0 / StoryPlayer integration](world-storyplayer-integration.md) — 共通WORLD、StoryPlayer、HOUSEのowner境界と将来の実装順。設計採用・製品未実装。
 
+[WORLD R08–R10 未決事項とルミナ決定案](world-r08-r10-open-decisions.md) — CORE projection契約、復元epoch、R09/R10生活行動、canonical route、geometry PoCの決定案と実装順序。
+
 - [共通・module固有ルールの配置](rule-layout.md): 指示の正本、適用条件、配布と検証。
