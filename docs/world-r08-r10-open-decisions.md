@@ -56,7 +56,7 @@ R08のWORLD側source foundationに加え、接続契約の補強、復元後のc
 | R09意味層・R10部分計画 | `8622551` | Linux/Windows source、R09 integration E2E | WorkSet/LifePolicy評価、fallback subset、presentation、stop plan |
 | health段階分離 | `0a9bce3` | R07/R08 E2E | live / store_ready / logical_ready / reconciled / spatial_ready |
 | CORE projection source foundation | `dc22d13b`〜`181d19fa`（RenCrow_CORE `feat/world-r08-publisher`） | `go test ./...`、`go test -race`、実WORLD binaryとのcross-repo E2E | WorkSet v2/LifePolicy、source epoch/revision、canonical JSON digest、HTTP publisher、SQLite durable outbox、ACK分類、revision conflict、stale拒否、reconcile supersede、in-flight lease回収、`epoch_unchanged` head照合、Task assignee完全一致 |
-| CORE projector / runtime loop | `570aa59a`〜`4ad2232a`（RenCrow_CORE `feat/world-r08-publisher`） | `go test ./...`（Git外の検証worktree）、実WORLD binaryとのprojector E2E、実Task storeを使うruntime起動テスト | durable source revision、内容digest比較によるrevision省略、validity更新、projector／outbox／drain loop、`world_projection` config（disabled既定）、graceful shutdown、architecture allowlist更新 |
+| CORE projector / runtime loop | `570aa59a`〜`c191a27f`（RenCrow_CORE `feat/world-r08-publisher`） | `go test ./...`（Git外の検証worktree）、実WORLD binaryとのprojector E2E、実Task storeを使うruntime起動テスト | durable source revision（counter欠落時はcommitted outboxから前進回復）、内容digest比較によるrevision省略、validity更新、projector／outbox／drain loop、`world_projection` config（disabled既定）、graceful shutdown、architecture allowlist更新 |
 
 CORE側のTask更新とOutbox enqueueの同一transaction、LifePolicyのpolicy source導出、canonical route/port、実測geometry、macOS、受入matrix、production配備・実network・再起動を含むCORE runtime全体のE2Eは未完了である。WORLD側とCORE source foundation＋runtime loopの成功をCORE接続の完了やAC-004/005/011/012/013/014の成立に読み替えない。
 
@@ -411,7 +411,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | 2026-10-20 | D-01, D-03 | 実WORLD binaryとのcross-repo E2Eでpublisher/outboxを検証 | Ren | CORE `e66c82b2` + WORLD `1ca2c21` | verified |
 | 2026-10-21 | D-01, D-03, D-04, D-13 | CORE durable source revision、full WorkSet projector、`epoch_unchanged` head照合、Task assignee分離を実装・Push | Ren | RenCrow_CORE `570aa59a` | implemented |
 | 2026-10-21 | D-01, D-03 | CORE runtimeへprojector/outbox/drain loopを配線し、実Task store起動テストを追加 | Ren | RenCrow_CORE `3d9aa875`, `23bad8bb` | implemented |
-| 2026-10-21 | D-01, D-03 | 実WORLD binaryとのprojector E2E、CORE full suite、architecture allowlistを検証 | Ren | CORE `4ad2232a` + WORLD `27b3363` | verified |
+| 2026-10-21 | D-01, D-03 | 実WORLD binaryとのprojector E2E、CORE full suite、architecture allowlistを検証 | Ren | CORE `c191a27f` + WORLD `27b3363` | verified |
 |  |  |  |  |  | decided / implemented / verified |
 
 ## 12. 残る決定・確認項目
