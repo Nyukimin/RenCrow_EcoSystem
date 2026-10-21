@@ -1,13 +1,13 @@
 # WORLD R08–R10 未決事項とルミナ決定案
 
 - 作成日: 2026-10-20
-- 状態: **ルミナ決定案に基づくWORLD側実装とCORE側source foundation＋runtime loop＋WORLD read client sourceを反映。CORE OutboxはTask store commitを正本とするstate reconciliation方式、LifePolicyはAgentProfile／Personaからのowner導出方式、COREのWORLD readはexact scope＋Actor allowlist＋cursor resync方式に決定・実装。CORE read bridgeのproduction route、canonical route・実測geometry・production E2Eは未決。**
+- 状態: **ルミナ決定案に基づくWORLD側実装とCORE側source foundation＋runtime loop＋WORLD read client sourceを反映。CORE OutboxはTask store commitを正本とするstate reconciliation方式、LifePolicyはAgentProfile／Personaからのowner導出方式、COREのWORLD readはexact scope＋Actor allowlist＋cursor resync方式、WORLDのassessmentはbound CORE Actor向けread-only route方式に決定・実装。CORE read bridgeのproduction route、canonical route・実測geometry・production E2Eは未決。**
 - 対象: `RenCrow_WORLD` R08 projection inbox、R09/R10 CORE bridge・生活行動、R11/R14前提のgeometry、WORLD runtime route
 - 関連: [WORLD R08](../RenCrow_WORLD/docs/R08.md)、[WORLD R07](../RenCrow_WORLD/docs/R07.md)、[WORLD R06](../RenCrow_WORLD/docs/R06.md)、[ID互換性](../RenCrow_WORLD/docs/ID.md)、[v1.4実装仕様](../RenCrow_WORLD/docs/implementation-spec-v1.4.md)
 
 ## 0. この文書の位置づけ
 
-R08のWORLD側source foundationに加え、接続契約の補強、復元後のchecked reconcile、R09の意味層、R10の部分的なpresentation/stop planningまで実装・Push・検証した。CORE側もWorkSet v2／LifePolicy payload、HTTP publisher、SQLite durable outbox、durable source revision、内容digest比較でrevision消費を抑えるfull WorkSet projector、`world_projection` configからのruntime loop、Task commit observerによる即時再同期、起動時full再同期を別worktreeで実装・Pushし、実WORLD binaryとのcross-repo E2Eと実Task storeを使うruntime起動テストを確認した。COREのOutboxはTask store transactionを正本とする派生deliveryとし、同一transactionでOutbox行を追記しない方式をD-25として決定した。LifePolicyはCOREのAgentProfile非認知activity envelopeとPersona CharacterProfileのcanonical hashから導出する方式をD-26として決定・実装した。COREのWORLD read clientは、exact World／Timeline／`timeline_epoch` scope、Bearer credential、Snapshotのstate hash、whole-transaction cursor、Actor allowlist、allowlist外Actor Eventのpayload非公開、cursor resync分類をD-27として決定・実装し、実WORLD binaryとのE2Eを確認した。ただし、CORE read bridgeのproduction route／DTO、WORLD側catalogのHTTP route、canonical route、実測geometry、R10の実際の移動・占有、production配備・実network・再起動を含むCORE runtime全体のE2Eは未決のため、受入matrixのAC-004/005/011/012/013/014は `not_run` のままである。
+R08のWORLD側source foundationに加え、接続契約の補強、復元後のchecked reconcile、R09の意味層、R10の部分的なpresentation/stop planningまで実装・Push・検証した。CORE側もWorkSet v2／LifePolicy payload、HTTP publisher、SQLite durable outbox、durable source revision、内容digest比較でrevision消費を抑えるfull WorkSet projector、`world_projection` configからのruntime loop、Task commit observerによる即時再同期、起動時full再同期を別worktreeで実装・Pushし、実WORLD binaryとのcross-repo E2Eと実Task storeを使うruntime起動テストを確認した。COREのOutboxはTask store transactionを正本とする派生deliveryとし、同一transactionでOutbox行を追記しない方式をD-25として決定した。LifePolicyはCOREのAgentProfile非認知activity envelopeとPersona CharacterProfileのcanonical hashから導出する方式をD-26として決定・実装した。COREのWORLD read clientは、exact World／Timeline／`timeline_epoch` scope、Bearer credential、Snapshotのstate hash、whole-transaction cursor、Actor allowlist、allowlist外Actor Eventのpayload非公開、cursor resync分類をD-27として決定・実装し、実WORLD binaryとのE2Eを確認した。WORLDは、operator-authorized `core_projection_actors`に含まれるActorについて、保存済みWorkSet／LifePolicy headの意味評価をread-only assessment routeで返す方式をD-28として決定・実装し、実WORLD binaryのE2Eを確認した。ただし、CORE read bridgeのproduction route／DTO、WORLD側catalogのR10 controller接続、canonical route、実測geometry、R10の実際の移動・占有、production配備・実network・再起動を含むCORE runtime全体のE2Eは未決のため、受入matrixのAC-004/005/011/012/013/014は `not_run` のままである。
 
 本文書は、ルミナの決定案を既存の未決事項へ対応付けたものである。正式決定ではないため、決定ログで決定・実装・検証を分けて記録する。
 
@@ -48,6 +48,7 @@ R08のWORLD側source foundationに加え、接続契約の補強、復元後のc
 | D-25 | CORE OutboxはTask store commitを正本とする派生deliveryとし、同一transaction追記をしない | CORE commit observer・起動時full再同期・restart回収テスト実装済み / production未検証 | CORE | P0 |
 | D-26 | LifePolicyはAgentProfileの非認知envelopeとPersona／AgentProfileのcanonical hashから導出し、CORE定義IDをWORLDが登録する | CORE導出・projector・runtime配線、WORLD catalog登録、cross-repo E2E実装済み / production未検証 | CORE + WORLD | P1 |
 | D-27 | COREはWORLD R07 Snapshot／Eventを認証済みread clientで読み、exact scope・Actor allowlist・cursor resyncをCORE境界で適用する | CORE read client source・実WORLD E2E実装済み / production route未決 | CORE | P1 |
+| D-28 | WORLDはbound CORE Actor向けに保存済みWorkSet／LifePolicy headのread-only assessmentを返し、DefaultCatalogで未登録IDを除外する | WORLD assessment route・実WORLD E2E実装済み / 暫定route・CORE未消費 | WORLD | P1 |
 
 ### 実装状況（2026-10-20）
 
@@ -62,6 +63,7 @@ R08のWORLD側source foundationに加え、接続契約の補強、復元後のc
 | CORE projector / runtime loop | `570aa59a`〜`e9b39848`（RenCrow_CORE `feat/world-r08-publisher`） | `go test ./...`（Git外の検証worktree）、実WORLD binaryとのprojector E2E、実Task storeを使うruntime起動テスト | durable source revision（counter欠落時はcommitted outboxから前進回復）、内容digest比較によるrevision省略、validity更新、projector／outbox／drain loop、`world_projection` config（disabled既定）、graceful shutdown、architecture allowlist更新、Task commit observerによる即時再同期、起動時full再同期、commitと配送の間の停止を再現するrestart回収テスト |
 | CORE LifePolicy owner導出 | RenCrow_CORE `6dc61da9` / RenCrow_WORLD `54ad10c` | CORE `go test ./...`（変更package＋Git worktreeで実行中）、実WORLD binaryとのLifePolicy E2E、WORLD `internal/life` | AgentProfileの`NonCognitiveEnvelope`、Persona／AgentProfileのcanonical SHA-256、種別別source revision、内容digest比較、`life_policy_enabled`（既定true）、character bundle欠落時の起動失敗、WORLD `DefaultCatalog`の8 ID登録、persona変更→LifePolicy revision 2 |
 | CORE WORLD read client | RenCrow_CORE `1412d8d1` / RenCrow_WORLD `b2010f4` | `go test`／`go test -race`、実WORLD binaryとのread E2E、read scope欠落の制御fault | exact scope、Bearer credential、state hash、whole-transaction cursor、Actor allowlist、top-level `actor_id` Eventのpayload非公開、cursor ahead／history欠落のresync、scope不一致403、token不正401、WORLD ID transport fixture、非ASCII World／Timeline path |
+| WORLD assessment route | RenCrow_WORLD `487ad00` | `go test ./...`、`go test -race ./internal/httpapi`、実WORLD binaryのR08 E2E（projection head→assessment、restart、auth） | `GET .../actors/{actor}/assessment`、`read` scope、bound Actor限定、DefaultCatalogによる未登録ID除外、missing/expired/fresh、presentation、`work_success=false`、state_seq不変、403/400/503/500 |
 
 CORE側のOutboxはTask store commitを正本とするstate reconciliation方式（D-25）で、同一transaction追記は行わない。LifePolicyはActorごとのAgentProfile非認知envelopeとPersona／AgentProfileのcanonical hashから導出し（D-26）、WorkSetとは独立したsource revisionで投影する。canonical route/port、実測geometry、macOS、受入matrix、production配備・実network・再起動を含むCORE runtime全体のE2Eは未完了である。WORLD側とCORE source foundation＋runtime loopの成功をCORE接続の完了やAC-004/005/011/012/013/014の成立に読み替えない。
 
@@ -170,6 +172,22 @@ COREのproduction read bridge route／DTOは未決定であり、`internal/adapt
 
 証拠: RenCrow_CORE `1412d8d1`のunit／race test、実WORLD binary `b2010f4`とのread E2E、read scopeを外した制御faultで`ErrForbidden`になること、非ASCII World／Timelineのtransport fixture。
 
+### D-28 WORLDのread-only assessment route
+
+WORLDは、operator-authorized `core_projection_actors`に含まれるActorについて、保存済みWorkSet／LifePolicy headの意味評価を次のrouteで返す。
+
+```text
+GET /v1/worlds/{world}/timelines/{timeline}/actors/{actor}/assessment
+```
+
+`read` scopeを要求し、`{actor}`はID transportでdecodeする。`core_projection_actors`にないActorは`403 actor_not_bound`、不正なtransportは`400 invalid_actor_id`、Timeline不在は`503 not_ready`、保存headが再parseできない場合は`500 projection_unreadable`でfail closedする。
+
+返却するのは`work_set_state`、`policy_state`、`work_presentation`、`permitted_activity_ids`、`new_activity_allowed`、`blocked_reason`、`work_success`、`assessed_at`である。`permitted_activity_ids`は`DefaultCatalog`に登録されたIDだけを昇順で返し、未登録IDは除外する。`work_success`は常に`false`で、空WorkSetを成功に変換しない。routeはActivityを選択・開始せず、移動・占有を計画せず、Event／State／Command Receiptを生成しない。
+
+これはWORLD内の暫定routeであり、COREのproduction read bridge routeでもcanonical cross-module contractでもない。COREはまだこのrouteを消費しない。Stop planningのHTTP/CLI route、Activity selection、R10 controller、移動・占有は未実装である。
+
+証拠: RenCrow_WORLD `487ad00`の`TestAssessment...`（auth、missing head、catalog filter、expired fallback、presentation、state不変、GET限定）、`go test ./...`、`go test -race ./internal/httpapi`、実WORLD binaryを使う`scripts/e2e-r08.sh`のassessment assertion。
+
 ## 3. 復元後の再同期
 
 対象: D-06、D-23
@@ -260,7 +278,7 @@ LifePolicyの許可内容を、Persona本文やLLMの推測から生成しない
 
 実装証拠はCORE `6dc61da9`、WORLD `54ad10c`。COREの`TestRealWorldProjectorProjectsDerivedLifePolicy`は実WORLD binaryへWorkSetとLifePolicyを送り、LifePolicy headのrevision/digest一致、再同期時のskip、Persona変更後のLifePolicy revision 2を確認する。CORE runtime testは実Task storeとcharacter bundleからLifePolicyを生成し、character bundle欠落時の起動失敗も確認する。WORLDの`TestDefaultCatalogRegistersCOREActivityVocabulary`と`TestAssessAcceptsRegisteredLifePolicyVocabulary`は8 IDの登録とassessmentを確認する。
 
-未完了は、WORLD catalogをHTTP route／R10 controllerへ接続すること、Persona／AgentProfile変更のruntime中reload、production configでのcharacter bundle配備、体調・稼働可否を独立ownerとして扱うかどうかである。`condition_profile_ref`は現時点でAgentProfile全体のhashであり、ConditionProfile ownerの実装を意味しない。
+未完了は、WORLD catalogをR10 controllerへ接続すること、Persona／AgentProfile変更のruntime中reload、production configでのcharacter bundle配備、体調・稼働可否を独立ownerとして扱うかどうかである。`condition_profile_ref`は現時点でAgentProfile全体のhashであり、ConditionProfile ownerの実装を意味しない。
 
 ### D-11 新規活動の停止と、実行中活動の安全な終了を分ける
 
@@ -432,6 +450,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | ACKのCORE Outbox解釈 | 未契約 | COREがaccepted/duplicate/epoch_unchanged/conflict/reconcileを分類し、SQLite Outboxへ保存。`world_projection` configでruntime loopを起動（disabled既定） |
 | CORE publisher / outbox | 未実装 | WorkSet v2/LifePolicy、AgentProfile／PersonaからのLifePolicy導出、HTTP publisher、SQLite durable outbox、durable source revision、full WorkSet／LifePolicy projector、runtime loopを実装。Task store commitを正本とし、commit observer＋起動時full再同期でOutboxを導出（同一transaction追記なし）。production E2Eは未実装 |
 | CORE WORLD read client | 未実装 | 認証済みR07 Snapshot／Event read clientを実装。exact scope、state hash、whole-transaction cursor、Actor allowlist、top-level `actor_id` Eventのscope判定、resync分類、実WORLD E2Eを確認。production CORE route／DTOは未決 |
+| WORLD assessment route | 未実装 | bound CORE Actor向けのread-only assessment routeを実装。`read` scope、missing／expired／fresh、DefaultCatalogによる未登録ID除外、presentation、`work_success=false`、state不変、実WORLD binary E2Eを確認。暫定routeでCORE未消費 |
 | 復元後のCommand開放 | `CompleteReconcile`は投影未検査 | `CompleteReconcileChecked`を実装 |
 | Commandの宛先epoch | 本文にない | 必須化 |
 | health | Store/Timeline中心 | live / store_ready / logical_ready / reconciled / spatial_readyを分離。spatialは未実測 |
@@ -460,6 +479,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | 2026-10-21 | D-25 | CORE OutboxをTask store commitから導出するstate reconciliation方式に決定し、commit observer・起動時full再同期・restart回収テストを実装・Push | Ren | RenCrow_CORE `e9b39848` | implemented / verified |
 | 2026-10-21 | D-26 | LifePolicyをAgentProfileの非認知envelopeとPersona／AgentProfileのcanonical hashから導出し、CORE定義8 IDをWORLDが登録。CORE projector／runtimeとWORLD catalogを実装・Push | Ren | RenCrow_CORE `6dc61da9` + RenCrow_WORLD `54ad10c` | implemented / verified |
 | 2026-10-21 | D-27 | COREのWORLD read clientをexact scope・Actor allowlist・cursor resync方式で実装・Push | Ren | RenCrow_CORE `1412d8d1` + RenCrow_WORLD `b2010f4` | implemented / verified |
+| 2026-10-21 | D-28 | WORLDのbound CORE Actor向けread-only assessment routeとDefaultCatalog消費を実装・Push | Ren | RenCrow_WORLD `487ad00` | implemented / verified |
 |  |  |  |  |  | decided / implemented / verified |
 
 ## 12. 残る決定・確認項目
@@ -472,5 +492,6 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 6. **D-07〜D-13:** 生活意味論（stale、空Set、fallback subset、安全終了、queued/running/Chat）
 7. **D-14:** URL/version/auth/healthの契約を先に固定し、portは配備設定に分けること
 8. **D-27:** CORE read bridgeのproduction route／DTO、private-room redaction、Observation配信、CORE側Stream route
+9. **D-28:** assessment routeのcross-repo契約採用、Activity selection／R10 controller、stop planning route、移動・占有
 
-D-05は解消した。D-25としてCORE Outboxのstate reconciliation方式を、D-26としてLifePolicyのowner入力とactivity ID登録を、D-27としてCOREのWORLD read clientを決定・実装した。D-02のproduction identity検証、D-06のCORE側接続、D-07〜D-13の実生活適用、D-14のcanonical route、D-27のCORE read bridge production route、WORLD catalogのHTTP/R10接続、production配備・再起動E2Eが残る間、R08の受入とR09/R10の本実装は「LifePolicy導出＋runtime loop＋source-level read client」の範囲を超えない。
+D-05は解消した。D-25としてCORE Outboxのstate reconciliation方式を、D-26としてLifePolicyのowner入力とactivity ID登録を、D-27としてCOREのWORLD read clientを、D-28としてWORLDのread-only assessment routeを決定・実装した。D-02のproduction identity検証、D-06のCORE側接続、D-07〜D-13の実生活適用、D-14のcanonical route、D-27のCORE read bridge production route、D-28のcross-repo契約採用とR10 controller、production配備・再起動E2Eが残る間、R08の受入とR09/R10の本実装は「LifePolicy導出＋runtime loop＋source-level read client＋WORLD assessment」の範囲を超えない。
