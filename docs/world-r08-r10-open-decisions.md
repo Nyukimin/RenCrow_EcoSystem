@@ -1,13 +1,13 @@
 # WORLD R08–R10 未決事項とルミナ決定案
 
 - 作成日: 2026-10-20
-- 状態: **ルミナ決定案に基づくWORLD側実装とCORE側source foundationを反映。CORE runtime配線・canonical route・実測geometryは未決。**
+- 状態: **ルミナ決定案に基づくWORLD側実装とCORE側source foundation＋runtime loopを反映。COREの同一transaction outbox・canonical route・実測geometry・production E2Eは未決。**
 - 対象: `RenCrow_WORLD` R08 projection inbox、R09/R10 CORE bridge・生活行動、R11/R14前提のgeometry、WORLD runtime route
 - 関連: [WORLD R08](../RenCrow_WORLD/docs/R08.md)、[WORLD R07](../RenCrow_WORLD/docs/R07.md)、[WORLD R06](../RenCrow_WORLD/docs/R06.md)、[ID互換性](../RenCrow_WORLD/docs/ID.md)、[v1.4実装仕様](../RenCrow_WORLD/docs/implementation-spec-v1.4.md)
 
 ## 0. この文書の位置づけ
 
-R08のWORLD側source foundationに加え、接続契約の補強、復元後のchecked reconcile、R09の意味層、R10の部分的なpresentation/stop planningまで実装・Push・検証した。CORE側もWorkSet v2／LifePolicy payload、HTTP publisher、SQLite durable outboxのsource foundationを別worktreeで実装・Pushし、実WORLD binaryとのcross-repo E2Eを確認した。ただし、COREのTask更新とOutbox enqueueの同一transaction、runtime起動配線、LifePolicyのpolicy source導出、canonical route、実測geometry、R10の実際の移動・占有は未決のため、受入matrixのAC-004/005/011/012/013/014は `not_run` のままである。
+R08のWORLD側source foundationに加え、接続契約の補強、復元後のchecked reconcile、R09の意味層、R10の部分的なpresentation/stop planningまで実装・Push・検証した。CORE側もWorkSet v2／LifePolicy payload、HTTP publisher、SQLite durable outbox、durable source revision、内容digest比較でrevision消費を抑えるfull WorkSet projector、`world_projection` configからのruntime loopを別worktreeで実装・Pushし、実WORLD binaryとのcross-repo E2Eと実Task storeを使うruntime起動テストを確認した。ただし、COREのTask更新とOutbox enqueueの同一transaction、LifePolicyのpolicy source導出、canonical route、実測geometry、R10の実際の移動・占有、production配備・実network・再起動を含むCORE runtime全体のE2Eは未決のため、受入matrixのAC-004/005/011/012/013/014は `not_run` のままである。
 
 本文書は、ルミナの決定案を既存の未決事項へ対応付けたものである。正式決定ではないため、決定ログで決定・実装・検証を分けて記録する。
 
@@ -21,11 +21,11 @@ R08のWORLD側source foundationに加え、接続契約の補強、復元後のc
 
 | ID | 決定案 | 状態 | 主担当 | 優先 |
 |---|---|---|---|---|
-| D-01 | CORE content / WORLD receive contract / 相互fixture に所有を分ける | WORLD側実装済み / CORE payload・publisher・outbox source実装済み、runtime未配線 | CORE + WORLD | P0 |
-| D-02 | ActorInstance・Publisher・Credential・source_epoch・timeline_epochを分離する | WORLD側実装済み / CORE credential保持・runtime identity配線待ち | CORE + WORLD | P0 |
-| D-03 | WORLD ACKは「受信・永続保存」の証拠。生活適用の証拠にしない | WORLD側実装済み / CORE ACK分類・Outbox source実装済み、runtime未配線 | WORLD + CORE | P0 |
+| D-01 | CORE content / WORLD receive contract / 相互fixture に所有を分ける | WORLD側実装済み / CORE payload・publisher・outbox・projector・runtime loop実装済み（disabled既定）、production未検証 | CORE + WORLD | P0 |
+| D-02 | ActorInstance・Publisher・Credential・source_epoch・timeline_epochを分離する | WORLD側実装済み / CORE credential保持・runtime identity config実装済み、production未検証 | CORE + WORLD | P0 |
+| D-03 | WORLD ACKは「受信・永続保存」の証拠。生活適用の証拠にしない | WORLD側実装済み / CORE ACK分類・Outbox・runtime loop実装済み、production未検証 | WORLD + CORE | P0 |
 | D-04 | source epoch切替は通常投影と別権限にする | WORLD側実装済み / CORE reconcile flag・epoch supersede source実装済み | WORLD + CORE | P0 |
-| D-05 | CORE WIPは保持し、別worktreeで実装する | 別worktreeでsource実装済み・元WIP未変更 | ユーザー | P0 |
+| D-05 | CORE WIPは保持し、別worktreeで実装する | 別worktreeでsource＋runtime loop実装済み・元WIP未変更 | ユーザー | P0 |
 | D-06 | 復元後のCommand開放はWORLDが投影実在を検査する | WORLD側実装済み / 暫定HTTP公開済み | WORLD + CORE | P1 |
 | D-07 | 期限切れWorkSetはunknown。成功・完了・割当なしを推定しない | 意味層実装済み | WORLD | P1 |
 | D-08 | 空WorkSetは「現在割当なし」。成功に変換しない | 意味層実装済み | WORLD + CORE | P1 |
@@ -33,7 +33,7 @@ R08のWORLD側source foundationに加え、接続契約の補強、復元後のc
 | D-10 | fallback ⊆ allowed、かつ登録済み非認知活動だけ許可 | 検証・実行時filter実装済み | CORE + WORLD | P1 |
 | D-11 | 新規活動の停止と、実行中活動の安全な終了を分ける | 計画層実装済み / 運動未実装 | WORLD | P2 |
 | D-12 | queued/running/presenceに応じて移動・姿勢を決める | presentation判定実装済み / 移動未実装 | WORLD + CORE | P2 |
-| D-13 | 通常ChatをWorkSetへ含めず、Chat本文から移動を生成しない | WORLD側は非生成 / CORE builderはTask/Run限定、runtime未配線 | CORE | P2 |
+| D-13 | 通常ChatをWorkSetへ含めず、Chat本文から移動を生成しない | WORLD側は非生成 / CORE builderはTask/Run限定、runtime loop実装済み | CORE | P2 |
 | D-14 | URL構造・契約版・認証・healthは先に決め、port番号は配備設定に分ける | health実装 / canonical port未決 | runtime owner | P1 |
 | D-15 | 非loopback前にTLS終端・発行者・token交換/失効を決める | 未決 | runtime owner | P3 |
 | D-16 | browserへはCORE/PORTALのViewer変換経由で渡す | 未着手 | CORE + PORTAL | P2 |
@@ -55,9 +55,10 @@ R08のWORLD側source foundationに加え、接続契約の補強、復元後のc
 | 復元reconcile route | `9ebf057` | Linux/Windows HTTP unit + R08 E2E | 設定由来のrequired set、epoch/revision検証、開放後Command |
 | R09意味層・R10部分計画 | `8622551` | Linux/Windows source、R09 integration E2E | WorkSet/LifePolicy評価、fallback subset、presentation、stop plan |
 | health段階分離 | `0a9bce3` | R07/R08 E2E | live / store_ready / logical_ready / reconciled / spatial_ready |
-| CORE projection source foundation | `e66c82b2`（RenCrow_CORE `feat/world-r08-publisher`） | `go test ./...`、`go test -race`、実WORLD binaryとのcross-repo E2E | WorkSet v2/LifePolicy、source epoch/revision、HTTP publisher、SQLite durable outbox、ACK分類、revision conflict、stale拒否、reconcile supersede、in-flight lease回収 |
+| CORE projection source foundation | `dc22d13b`〜`181d19fa`（RenCrow_CORE `feat/world-r08-publisher`） | `go test ./...`、`go test -race`、実WORLD binaryとのcross-repo E2E | WorkSet v2/LifePolicy、source epoch/revision、canonical JSON digest、HTTP publisher、SQLite durable outbox、ACK分類、revision conflict、stale拒否、reconcile supersede、in-flight lease回収、`epoch_unchanged` head照合、Task assignee完全一致 |
+| CORE projector / runtime loop | `570aa59a`〜`4ad2232a`（RenCrow_CORE `feat/world-r08-publisher`） | `go test ./...`（Git外の検証worktree）、実WORLD binaryとのprojector E2E、実Task storeを使うruntime起動テスト | durable source revision、内容digest比較によるrevision省略、validity更新、projector／outbox／drain loop、`world_projection` config（disabled既定）、graceful shutdown、architecture allowlist更新 |
 
-CORE側のTask更新とOutbox enqueueの同一transaction、runtime起動配線、LifePolicyのpolicy source導出、canonical route/port、実測geometry、macOS、受入matrixは未完了である。WORLD側とCORE source foundationの成功をCORE接続の完了やAC-004/005/011/012/013/014の成立に読み替えない。
+CORE側のTask更新とOutbox enqueueの同一transaction、LifePolicyのpolicy source導出、canonical route/port、実測geometry、macOS、受入matrix、production配備・実network・再起動を含むCORE runtime全体のE2Eは未完了である。WORLD側とCORE source foundation＋runtime loopの成功をCORE接続の完了やAC-004/005/011/012/013/014の成立に読み替えない。
 
 ## 2. COREとの接続契約
 
@@ -384,8 +385,8 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | Publisher ID / Credential ID | 未記録 | ACKに記録 |
 | 再同期scope | `projection`と同一 | `projection_reconcile`へ分離 |
 | head照会 | Store内部のみ | 認可付きGET |
-| ACKのCORE Outbox解釈 | 未契約 | COREがaccepted/duplicate/epoch_unchanged/conflict/reconcileを分類し、SQLite Outboxへ保存。runtime配線は未実装 |
-| CORE publisher / outbox | 未実装 | WorkSet v2/LifePolicy、HTTP publisher、SQLite durable outboxをsource実装。Task更新との同一transactionとruntime配線は未実装 |
+| ACKのCORE Outbox解釈 | 未契約 | COREがaccepted/duplicate/epoch_unchanged/conflict/reconcileを分類し、SQLite Outboxへ保存。`world_projection` configでruntime loopを起動（disabled既定） |
+| CORE publisher / outbox | 未実装 | WorkSet v2/LifePolicy、HTTP publisher、SQLite durable outbox、durable source revision、full WorkSet projector、runtime loopを実装。Task更新との同一transactionとproduction E2Eは未実装 |
 | 復元後のCommand開放 | `CompleteReconcile`は投影未検査 | `CompleteReconcileChecked`を実装 |
 | Commandの宛先epoch | 本文にない | 必須化 |
 | health | Store/Timeline中心 | live / store_ready / logical_ready / reconciled / spatial_readyを分離。spatialは未実測 |
@@ -408,11 +409,14 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | 2026-10-20 | D-05 | CORE WIPを保持し、`origin/main`から別worktreeを作成 | Ren | `Tmp/worktrees/core-r08-publisher` | implemented |
 | 2026-10-20 | D-01, D-03, D-04, D-13 | CORE projection source foundationを実装・Push | Ren | RenCrow_CORE `e66c82b2` | implemented |
 | 2026-10-20 | D-01, D-03 | 実WORLD binaryとのcross-repo E2Eでpublisher/outboxを検証 | Ren | CORE `e66c82b2` + WORLD `1ca2c21` | verified |
+| 2026-10-21 | D-01, D-03, D-04, D-13 | CORE durable source revision、full WorkSet projector、`epoch_unchanged` head照合、Task assignee分離を実装・Push | Ren | RenCrow_CORE `570aa59a` | implemented |
+| 2026-10-21 | D-01, D-03 | CORE runtimeへprojector/outbox/drain loopを配線し、実Task store起動テストを追加 | Ren | RenCrow_CORE `3d9aa875`, `23bad8bb` | implemented |
+| 2026-10-21 | D-01, D-03 | 実WORLD binaryとのprojector E2E、CORE full suite、architecture allowlistを検証 | Ren | CORE `4ad2232a` + WORLD `27b3363` | verified |
 |  |  |  |  |  | decided / implemented / verified |
 
 ## 12. 残る決定・確認項目
 
-1. **D-05（解消済み）:** `RenCrow_CORE` のWIPを保持したまま、別worktreeでR08 CORE側source foundationを実装・Pushした。runtime配線は別作業。
+1. **D-05（解消済み）:** `RenCrow_CORE` のWIPを保持したまま、別worktreeでR08 CORE側source foundationとruntime loopを実装・Pushした。production配線・受入証拠は別作業。
 2. **D-01 / D-02:** 契約所有の分担と、Publisher/Credential/ActorInstanceの分離
 3. **D-03 / D-04 / D-19 / D-20:** ACK意味論、再同期権限、head照会、監査記録
 4. **D-23:** Command本文の`timeline_epoch`必須化
@@ -420,4 +424,4 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 6. **D-07〜D-13:** 生活意味論（stale、空Set、fallback subset、安全終了、queued/running/Chat）
 7. **D-14:** URL/version/auth/healthの契約を先に固定し、portは配備設定に分けること
 
-D-05は解消した。CORE runtime配線、D-02のidentity配線、D-06のCORE側接続、D-07〜D-13の実生活適用、D-14のcanonical routeが残る間、R08の受入とR09/R10の本実装は「source foundation」の範囲を超えない。
+D-05は解消した。COREの同一transaction outbox、D-02のproduction identity検証、D-06のCORE側接続、D-07〜D-13の実生活適用、D-14のcanonical route、production配備・再起動E2Eが残る間、R08の受入とR09/R10の本実装は「source foundation＋runtime loop」の範囲を超えない。
