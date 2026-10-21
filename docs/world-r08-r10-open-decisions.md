@@ -49,6 +49,7 @@ R08のWORLD側source foundationに加え、接続契約の補強、復元後のc
 | D-26 | LifePolicyはAgentProfileの非認知envelopeとPersona／AgentProfileのcanonical hashから導出し、CORE定義IDをWORLDが登録する | CORE導出・projector・runtime配線、WORLD catalog登録、cross-repo E2E実装済み / production未検証 | CORE + WORLD | P1 |
 | D-27 | COREはWORLD R07 Snapshot／Eventを認証済みread clientで読み、exact scope・Actor allowlist・cursor resyncをCORE境界で適用する | CORE read client source・実WORLD E2E実装済み / production route未決 | CORE | P1 |
 | D-28 | WORLDはbound CORE Actor向けに保存済みWorkSet／LifePolicy headのread-only assessmentを返し、DefaultCatalogで未登録IDを除外する | WORLD assessment route・実WORLD E2E実装済み / 暫定route・CORE未消費 | WORLD | P1 |
+| D-29 | 独立ConditionProfile ownerは、独立した体調データのowner・lifecycle・更新経路ができるまで新設せず、`condition_profile_ref`はAgentProfile全体のcanonical hashを維持する | 決定 / 実装変更なし | CORE | P2 |
 
 ### 実装状況（2026-10-20）
 
@@ -188,6 +189,23 @@ GET /v1/worlds/{world}/timelines/{timeline}/actors/{actor}/assessment
 
 証拠: RenCrow_WORLD `487ad00`の`TestAssessment...`（auth、missing head、catalog filter、expired fallback、presentation、state不変、GET限定）、`go test ./...`、`go test -race ./internal/httpapi`、実WORLD binaryを使う`scripts/e2e-r08.sh`のassessment assertion。
 
+### D-29 ConditionProfile ownerを現時点で新設しない
+
+COREの`AgentProfile`は`NonCognitiveEnvelope`を持つが、体調・稼働可否について、独立したデータ項目、更新主体、保存場所、期限、削除、監査の契約はまだない。`condition_profile_ref`はAgentProfile全体のcanonical SHA-256であり、「どのAgentProfile内容を参照したか」を示すcontent-addressed referenceであって、健康状態そのものの表明ではない。
+
+**決定:** 独立したConditionProfile ownerを新設せず、`condition_profile_ref`をAgentProfile全体のcanonical hashとして維持する。独立ownerを先に作ると、同じAgentProfile内容を二つのownerが別々に更新・検証するsemantic duplicationになり、現在のLifePolicy導出より強い契約を根拠なく追加することになる。
+
+再評価条件は、次のいずれかが実際に必要になった時点とする。
+
+- 体調データをAgentProfile以外の主体が更新する。
+- Persona／AgentProfileと異なる更新頻度、期限、削除、監査が必要になる。
+- 体調をViewerやWORLDへ独立提示する契約が必要になる。
+- 体調に基づく許可判定が、`NonCognitiveEnvelope`だけでは表現できない。
+
+それまでは、`condition_profile_ref`の変更はAgentProfile内容の変更として扱い、独立したConditionProfile revisionやownerを推測で作らない。
+
+証拠: CORE `internal/domain/agentprofile.Profile`、`internal/application/worldprojection/life_policy_source.go`の`agent-profile-sha256:`導出、D-26の実装・E2E。実装変更なし。
+
 ## 3. 復元後の再同期
 
 対象: D-06、D-23
@@ -272,13 +290,13 @@ LifePolicyの許可内容を、Persona本文やLLMの推測から生成しない
 | 期限後fallback | `NonCognitive.ExpiredFallback`。allowedのsubsetでなければ拒否 |
 | activity ID | COREが8個の非認知ID（`change_clothes`, `exercise`, `idle`, `read`, `rest`, `sit`, `sleep`, `walk`）を定義し、WORLDが`internal/life.DefaultCatalog`へ登録する。未登録IDはWORLDで除外 |
 | `persona_revision` | Persona `CharacterProfile`のcanonical JSON SHA-256。本文・Memoryは送らない |
-| `condition_profile_ref` | AgentProfileのcanonical JSON SHA-256。現在のprofile内容への参照であり、体調そのもののownerを新設した意味ではない |
+| `condition_profile_ref` | AgentProfileのcanonical JSON SHA-256。現在のprofile内容への参照であり、体調そのもののownerを新設した意味ではない（D-29） |
 | 投影単位 | WorkSetとLifePolicyは別kind・別source revision。内容digestが同じでvalidityが十分ならrevisionを消費しない |
 | 起動条件 | `world_projection.life_policy_enabled`は既定true。有効時、設定Actorの`characters/<actor>/` bundleがなければ起動を失敗させる |
 
 実装証拠はCORE `6dc61da9`、WORLD `54ad10c`。COREの`TestRealWorldProjectorProjectsDerivedLifePolicy`は実WORLD binaryへWorkSetとLifePolicyを送り、LifePolicy headのrevision/digest一致、再同期時のskip、Persona変更後のLifePolicy revision 2を確認する。CORE runtime testは実Task storeとcharacter bundleからLifePolicyを生成し、character bundle欠落時の起動失敗も確認する。WORLDの`TestDefaultCatalogRegistersCOREActivityVocabulary`と`TestAssessAcceptsRegisteredLifePolicyVocabulary`は8 IDの登録とassessmentを確認する。
 
-未完了は、WORLD catalogをR10 controllerへ接続すること、Persona／AgentProfile変更のruntime中reload、production configでのcharacter bundle配備、体調・稼働可否を独立ownerとして扱うかどうかである。`condition_profile_ref`は現時点でAgentProfile全体のhashであり、ConditionProfile ownerの実装を意味しない。
+未完了は、WORLD catalogをR10 controllerへ接続すること、Persona／AgentProfile変更のruntime中reload、production configでのcharacter bundle配備である。体調・稼働可否はD-29で独立ownerの新設を見送り、再評価条件を記録した。`condition_profile_ref`は現時点でAgentProfile全体のhashであり、ConditionProfile ownerの実装を意味しない。
 
 ### D-11 新規活動の停止と、実行中活動の安全な終了を分ける
 
@@ -451,6 +469,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | CORE publisher / outbox | 未実装 | WorkSet v2/LifePolicy、AgentProfile／PersonaからのLifePolicy導出、HTTP publisher、SQLite durable outbox、durable source revision、full WorkSet／LifePolicy projector、runtime loopを実装。Task store commitを正本とし、commit observer＋起動時full再同期でOutboxを導出（同一transaction追記なし）。production E2Eは未実装 |
 | CORE WORLD read client | 未実装 | 認証済みR07 Snapshot／Event read clientを実装。exact scope、state hash、whole-transaction cursor、Actor allowlist、top-level `actor_id` Eventのscope判定、resync分類、実WORLD E2Eを確認。production CORE route／DTOは未決 |
 | WORLD assessment route | 未実装 | bound CORE Actor向けのread-only assessment routeを実装。`read` scope、missing／expired／fresh、DefaultCatalogによる未登録ID除外、presentation、`work_success=false`、state不変、実WORLD binary E2Eを確認。暫定routeでCORE未消費 |
+| ConditionProfile owner | 未決 | 独立ownerを新設せず、`condition_profile_ref`をAgentProfile全体のcanonical hashとして維持（D-29）。再評価条件を記録 |
 | 復元後のCommand開放 | `CompleteReconcile`は投影未検査 | `CompleteReconcileChecked`を実装 |
 | Commandの宛先epoch | 本文にない | 必須化 |
 | health | Store/Timeline中心 | live / store_ready / logical_ready / reconciled / spatial_readyを分離。spatialは未実測 |
@@ -480,6 +499,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | 2026-10-21 | D-26 | LifePolicyをAgentProfileの非認知envelopeとPersona／AgentProfileのcanonical hashから導出し、CORE定義8 IDをWORLDが登録。CORE projector／runtimeとWORLD catalogを実装・Push | Ren | RenCrow_CORE `6dc61da9` + RenCrow_WORLD `54ad10c` | implemented / verified |
 | 2026-10-21 | D-27 | COREのWORLD read clientをexact scope・Actor allowlist・cursor resync方式で実装・Push | Ren | RenCrow_CORE `1412d8d1` + RenCrow_WORLD `b2010f4` | implemented / verified |
 | 2026-10-21 | D-28 | WORLDのbound CORE Actor向けread-only assessment routeとDefaultCatalog消費を実装・Push | Ren | RenCrow_WORLD `487ad00` | implemented / verified |
+| 2026-10-21 | D-29 | 独立ConditionProfile ownerを新設せず、`condition_profile_ref`をAgentProfile全体のcanonical hashとして維持 | Ren | 本文書 / 実装変更なし | decided |
 |  |  |  |  |  | decided / implemented / verified |
 
 ## 12. 残る決定・確認項目
@@ -494,4 +514,4 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 8. **D-27:** CORE read bridgeのproduction route／DTO、private-room redaction、Observation配信、CORE側Stream route
 9. **D-28:** assessment routeのcross-repo契約採用、Activity selection／R10 controller、stop planning route、移動・占有
 
-D-05は解消した。D-25としてCORE Outboxのstate reconciliation方式を、D-26としてLifePolicyのowner入力とactivity ID登録を、D-27としてCOREのWORLD read clientを、D-28としてWORLDのread-only assessment routeを決定・実装した。D-02のproduction identity検証、D-06のCORE側接続、D-07〜D-13の実生活適用、D-14のcanonical route、D-27のCORE read bridge production route、D-28のcross-repo契約採用とR10 controller、production配備・再起動E2Eが残る間、R08の受入とR09/R10の本実装は「LifePolicy導出＋runtime loop＋source-level read client＋WORLD assessment」の範囲を超えない。
+D-05は解消した。D-25としてCORE Outboxのstate reconciliation方式を、D-26としてLifePolicyのowner入力とactivity ID登録を、D-27としてCOREのWORLD read clientを、D-28としてWORLDのread-only assessment routeを決定・実装し、D-29として独立ConditionProfile ownerの新設を見送り、再評価条件を記録した。D-02のproduction identity検証、D-06のCORE側接続、D-07〜D-13の実生活適用、D-14のcanonical route、D-27のCORE read bridge production route、D-28のcross-repo契約採用とR10 controller、D-29の再評価条件に該当する体調データownerが現れた場合の分離、production配備・再起動E2Eが残る間、R08の受入とR09/R10の本実装は「LifePolicy導出＋runtime loop＋source-level read client＋WORLD assessment」の範囲を超えない。
