@@ -477,7 +477,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | Commandの宛先epoch | 本文にない | 必須化 |
 | health | Store/Timeline中心 | live / store_ready / logical_ready / reconciled / spatial_readyを分離。spatialは未実測 |
 | fallback subset | 未強制 | 検証時と実行時に強制 |
-| 生活行動・中断 | 未実装 | 意味層とstop planを実装。移動・占有は未実装 |
+| 生活行動・中断 | 未実装 | 意味層とstop planに加え、実行中活動の継続/安全停止/その場保持、公開候補の選別、単一候補のadmissionを決める論理計画層を実装（`8959ca1`）。consumerとなるR10 controllerは未接続で、移動・占有は未実装 |
 
 ## 11. 決定ログ
 
@@ -505,6 +505,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | 2026-10-21 | D-29 | 独立ConditionProfile ownerを新設せず、`condition_profile_ref`をAgentProfile全体のcanonical hashとして維持 | Ren | 本文書 / 実装変更なし | decided |
 | 2026-10-21 | D-25〜D-27 | CORE `feat/world-r08-publisher` を `origin/main` へmerge・Push | Ren | RenCrow_CORE `084fe2af` | merged / verified |
 | 2026-10-21 | D-05 | CORE local mainの未コミットWIPを単位別検証し、`origin/main`との競合を両立解消して同一 `main` へ統合・Push | Ren | RenCrow_CORE `a20e2a24`（CI: `f563ac91`、`e8dbb9b9`） | merged / verified |
+| 2026-10-22 | D-07, D-09, D-11, D-12 | Assessmentから実行中活動の継続/安全停止/その場保持、公開候補の選別、単一候補のadmissionを決める決定的な生活計画層を、論理占有名のみで実装・Push。presence必須作業はその場と物理占有を保持し、期限切れWorkSetは選択肢を減らさない。移動・占有・実測geometryは扱わない | Ren | RenCrow_WORLD `8959ca1`（CI: `39700320599`） | implemented / verified |
 |  |  |  |  |  | decided / implemented / verified |
 
 ## 12. 残る決定・確認項目
@@ -514,10 +515,10 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 3. **D-03 / D-04 / D-19 / D-20:** ACK意味論、再同期権限、head照会、監査記録
 4. **D-23:** Command本文の`timeline_epoch`必須化
 5. **D-06:** 復元後のCommand開放を投影実在検査付きにするか
-6. **D-07〜D-13:** 生活意味論（stale、空Set、fallback subset、安全終了、queued/running/Chat）
+6. **D-07〜D-13:** 生活意味論と計画層（stale、空Set、期限切れ、fallback subset、安全終了、継続/その場保持、候補選別、admission）は実装済み。残るはそれを消費するR10 controllerとroute、D-13のqueued/running/Chatの実際の提示、実生活適用
 7. **D-14:** URL/version/auth/healthの契約を先に固定し、portは配備設定に分けること
 8. **D-27:** CORE read bridgeのproduction route／DTO、private-room redaction、Observation配信、CORE側Stream route
-9. **D-28:** assessment routeのcross-repo契約採用、Activity selection／R10 controller、stop planning route、移動・占有
+9. **D-28:** assessment routeのcross-repo契約採用、計画層（継続/停止/保持・候補選別・admission）を消費するR10 controllerとstop planning route、移動・占有
 10. **CORE local main（解消済み）:** 83件の未コミットWIPは単位別検証後に`a20e2a24`で`origin/main`へ統合・Pushし、reset・stash・cleanは行っていない。併せて新規test file 9件をWORLD canonical test planへ登録し（RenCrow_WORLD `49f95e9`）、3 OS CIは緑。WIP由来でない間接依存の失敗が残る場合は該当単位として切り分ける。
 
 D-05は解消した。D-25としてCORE Outboxのstate reconciliation方式を、D-26としてLifePolicyのowner入力とactivity ID登録を、D-27としてCOREのWORLD read clientを、D-28としてWORLDのread-only assessment routeを決定・実装し、D-29として独立ConditionProfile ownerの新設を見送り、再評価条件を記録した。COREの`feat/world-r08-publisher`は`origin/main` `084fe2af`へmerge済みである。D-02のproduction identity検証、D-06のCORE側接続、D-07〜D-13の実生活適用、D-14のcanonical route、D-27のCORE read bridge production route、D-28のcross-repo契約採用とR10 controller、D-29の再評価条件に該当する体調データownerが現れた場合の分離、production配備・再起動E2Eが残る間、R08の受入とR09/R10の本実装は「LifePolicy導出＋runtime loop＋source-level read client＋WORLD assessment」の範囲を超えない。
