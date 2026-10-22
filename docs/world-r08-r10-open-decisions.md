@@ -330,6 +330,8 @@ WORLDが仕事場への移動に失敗しても、COREの実仕事まで止め�
 
 現行受信コードの`running`のRun必須、`assigned_work`限定、presence指定必須は再実装せず、生活側の意味付けを追加する。
 
+生活側の提示はWORLDのassessment routeがtask IDで公開する（`0d40047`）。`queued_task_ids`はqueued作業、`waiting_task_ids`はwaiting／blocked作業、`running_task_ids`／`presence_task_ids`は実行中作業で、`kind`が`presence`のときだけ一つのControllerが在席移動を計画しうる。queued作業だけでは移動せず、waiting／blockedは新規作業を開始しない。通常Chatは投影契約が`assigned_work`のみを通すためWORLDへ届かず、routeは場所・予約・実測geometryを主張しない。それを消費して実際に移動・占有を決定するR10 controllerは未接続のまま。
+
 ## 5. Route・認証・health
 
 対象: D-14〜D-16、D-24
@@ -472,6 +474,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | CORE publisher / outbox | 未実装 | WorkSet v2/LifePolicy、AgentProfile／PersonaからのLifePolicy導出、HTTP publisher、SQLite durable outbox、durable source revision、full WorkSet／LifePolicy projector、runtime loopを実装。Task store commitを正本とし、commit observer＋起動時full再同期でOutboxを導出（同一transaction追記なし）。production E2Eは未実装 |
 | CORE WORLD read client | 未実装 | 認証済みR07 Snapshot／Event read clientを実装。exact scope、state hash、whole-transaction cursor、Actor allowlist、top-level `actor_id` Eventのscope判定、resync分類、実WORLD E2Eを確認。production CORE route／DTOは未決 |
 | WORLD assessment route | 未実装 | bound CORE Actor向けのread-only assessment routeを実装。`read` scope、missing／expired／fresh、DefaultCatalogによる未登録ID除外、presentation、`work_success=false`、state不変、実WORLD binary E2Eを確認。さらにWORLD活動定義表とpolicy／presence制約から今の候補を`executable_activity_ids`として公開（`5dcb6e1`）。候補の公開のみで選択・開始・移動はせず、暫定routeでCORE未消費 |
+| D-13の生活側提示 | 未実装 | assessment routeがqueued／waiting・blocked／running／presenceのtask IDを公開（`0d40047`、実WORLD binaryのE2E assertion含む）。queuedだけでは移動せず、waiting／blockedは新規作業を開始せず、通常Chatは投影契約で除外されWORLDへ届かない。実際の移動・占有・controllerは未実装 |
 | ConditionProfile owner | 未決 | 独立ownerを新設せず、`condition_profile_ref`をAgentProfile全体のcanonical hashとして維持（D-29）。再評価条件を記録 |
 | 復元後のCommand開放 | `CompleteReconcile`は投影未検査 | `CompleteReconcileChecked`を実装 |
 | Commandの宛先epoch | 本文にない | 必須化 |
@@ -508,6 +511,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | 2026-10-22 | D-07, D-09, D-11, D-12 | Assessmentから実行中活動の継続/安全停止/その場保持、公開候補の選別、単一候補のadmissionを決める決定的な生活計画層を、論理占有名のみで実装・Push。presence必須作業はその場と物理占有を保持し、期限切れWorkSetは選択肢を減らさない。移動・占有・実測geometryは扱わない | Ren | RenCrow_WORLD `8959ca1`（CI: `39700320599`） | implemented / verified |
 | 2026-10-22 | D-11 | CORE登録8 IDへの論理占有名・移動要否・中断規則をWORLD ownerの活動定義表として実装・Push。全活動にstop stateを定義し、占有解放と後処理は実測移動routeが無いため全件不可。実在場所・予約の主張はしない | Ren | RenCrow_WORLD `da6762b`（CI: `39709175871`） | implemented / verified |
 | 2026-10-22 | D-11, D-28 | assessment routeが活動定義表と現行policy／presence制約から「今計画できる候補」を`executable_activity_ids`として公開するよう拡張・Push。公開のみで選択・開始・移動・占有はせず、実在場所・予約・実測geometryの主張なし。production配備、正式port／TLS、実空間の受入（spatial_ready、AC-004／005／011〜014）は未決のまま | Ren | RenCrow_WORLD `5dcb6e1`（CI: `39710368165`） | implemented / verified |
+| 2026-10-22 | D-13, D-28 | assessment routeの`work_presentation`へqueued／waiting・blockedのtask IDを公開するよう拡張・Push。queued作業だけでは移動せず、waiting／blockedは新規作業を開始せず、通常Chatは`assigned_work`限定の投影契約でWORLDへ届かない。場所・予約・実測geometryの主張はなし。実空間の受入とR10 controllerは未決のまま | Ren | RenCrow_WORLD `0d40047`（CI: `39711374325`） | implemented / verified |
 |  |  |  |  |  | decided / implemented / verified |
 
 ## 12. 残る決定・確認項目
@@ -517,7 +521,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 3. **D-03 / D-04 / D-19 / D-20:** ACK意味論、再同期権限、head照会、監査記録
 4. **D-23:** Command本文の`timeline_epoch`必須化
 5. **D-06:** 復元後のCommand開放を投影実在検査付きにするか
-6. **D-07〜D-13:** 生活意味論と計画層（stale、空Set、期限切れ、fallback subset、安全終了、継続/その場保持、候補選別、admission）は実装済み。残るはそれを消費するR10 controllerとroute、D-13のqueued/running/Chatの実際の提示、実生活適用
+6. **D-07〜D-13:** 生活意味論と計画層（stale、空Set、期限切れ、fallback subset、安全終了、継続/その場保持、候補選別、admission）とD-13の提示（queued／waiting・blocked／running／presenceのtask ID公開、Chatは投影契約で除外）は実装済み。残るはそれを消費するR10 controllerとstop planning route、活動と実資源・予約のバインド、実生活適用
 7. **D-14:** URL/version/auth/healthの契約を先に固定し、portは配備設定に分けること
 8. **D-27:** CORE read bridgeのproduction route／DTO、private-room redaction、Observation配信、CORE側Stream route
 9. **D-28:** assessment routeのcross-repo契約採用、`executable_activity_ids`を消費するR10 controllerとstop planning route、活動と実資源・予約のバインド、移動・占有
