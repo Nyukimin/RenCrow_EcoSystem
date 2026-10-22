@@ -350,6 +350,10 @@ WORLD内部APIのURL構造、契約版、認証、healthの意味は先に決め
 
 productionの固定port番号は配備設定であり、契約の意味論とは分ける。正式portが未決でも、loopbackの明示configで実COREを含む隔離接続試験を設計できる。production routeを採用したこととは区別する。
 
+loopbackの明示configで実CORE projection loopと実WORLD binaryを使う隔離接続試験を実装・検証した（RenCrow_CORE `20b4d996`の`cmd/rencrow/runtime_world_projection_loopback_realworld_test.go`、build tag `realworld`）。listen設定から得たloopback addressだけで起動し、WorkSet／LifePolicy投影→assessment読み戻し→health段階→scope拒否（projection-only tokenのread route 403）→未bound Actor 403→127.0.0.1確認までを通す。port番号は試験側で固定せず、production read bridge routeも所有しない。port番号の正式決定とcanonical route採用は引き続き未決である。
+
+なお`20b4d996`のCORE `Canonical Test Plan`（run `39720915514`）は3 OSで失敗したが、失敗stepは`viewer-browser-e2e`（`npm run test:e2e:viewer:to-be`）だけで、同じstepが先行コミット`a10ab79f`（画像画面で服装参照モードを常時表示。`imageMode`をselectからradioへ変更）でも失敗している。ローカル再現では`image_video_idempotency.mjs`が`#imageOptionsStatus`の待機でtimeoutする（テストfixtureが`select#imageMode`前提で、`a10ab79f`以降の実装がradio前提のため`activeMode()`が`''`を返す）。D-14の追加はbuild tag `realworld`のtest fileのみで、canonical planの`go test`ではコンパイルされない。よってこの失敗はViewer所有の既存破綻としてD-14単位とは分離して記録する（Viewerとブラウザテストは並行作業中のため編集しない）。D-14の検証証拠はbuild `39720915712`／Public Docs Guard `39720915520`のsuccessと、ローカルでの当該テストPASS・`go vet -tags realworld` exit 0とする。
+
 ### D-15 非loopback配備の条件
 
 TLS終端、発行者、token交換・失効手順を決める。ただし、Publisher IDや再同期scopeは非loopback化まで後回しにしない。
@@ -513,6 +517,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | 2026-10-22 | D-11, D-28 | assessment routeが活動定義表と現行policy／presence制約から「今計画できる候補」を`executable_activity_ids`として公開するよう拡張・Push。公開のみで選択・開始・移動・占有はせず、実在場所・予約・実測geometryの主張なし。production配備、正式port／TLS、実空間の受入（spatial_ready、AC-004／005／011〜014）は未決のまま | Ren | RenCrow_WORLD `5dcb6e1`（CI: `39710368165`） | implemented / verified |
 | 2026-10-22 | D-13, D-28 | assessment routeの`work_presentation`へqueued／waiting・blockedのtask IDを公開するよう拡張・Push。queued作業だけでは移動せず、waiting／blockedは新規作業を開始せず、通常Chatは`assigned_work`限定の投影契約でWORLDへ届かない。場所・予約・実測geometryの主張はなし。実空間の受入とR10 controllerは未決のまま | Ren | RenCrow_WORLD `0d40047`（CI: `39711374325`） | implemented / verified |
 | 2026-10-22 | D-27, D-28 | COREのsource-level read client（`internal/adapter/worldread`）にassessment route消費を追加・Push：source-level read DTO（`Assessment`／`WorkPresentation`）と`Client.Assessment`を実装し、実WORLD binaryとのcross-repo E2Eで実projection route経由のWorkSet／LifePolicy head送信後にassessmentを読み戻して公開値と一致を確認。候補集合はplanning input専用で、WORLD所有のenum／state値はコピーせず、production read bridge route／DTOへの配線はしない。実在場所・予約・実測geometryの主張なし。併せて`e87f0799`でviewer.js版へ追記トークンが入り既存赤くなっていたViewer版pin testを、STT align35マーカーを保持したまま追記トークン許容へ修正（viewer-node 298/298）。production配備、正式port／TLS、実空間の受入（spatial_ready、AC-004／005／011〜014）は未決のまま | Ren | RenCrow_CORE `50942c72` / `d7de20db`（CI: canonical `39717717288`、build `39717717442`。CORE full `go test ./...` 293/293 packages FAIL 0） | implemented / verified |
+| 2026-10-22 | D-14 | 正式port未決のまま、loopbackの明示configで実CORE projection loopと実WORLD binaryを使う隔離接続試験を実装・Push。listen設定由来のloopback addressだけでWorkSet／LifePolicy投影→assessment読み戻し→health段階→projection-only tokenのread route 403→未bound Actor 403→127.0.0.1確認までを検証。port番号は固定せず、production read bridge routeもcanonical routeも採用しない | Ren | RenCrow_CORE `20b4d996`（CI: build `39720915712` success、Public Docs Guard `39720915520` success。ローカルで当該テストPASS、`go vet -tags realworld ./cmd/rencrow` exit 0） | implemented / verified |
 |  |  |  |  |  | decided / implemented / verified |
 
 ## 12. 残る決定・確認項目
@@ -523,7 +528,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 4. **D-23:** Command本文の`timeline_epoch`必須化
 5. **D-06:** 復元後のCommand開放を投影実在検査付きにするか
 6. **D-07〜D-13:** 生活意味論と計画層（stale、空Set、期限切れ、fallback subset、安全終了、継続/その場保持、候補選別、admission）とD-13の提示（queued／waiting・blocked／running／presenceのtask ID公開、Chatは投影契約で除外）は実装済み。残るはそれを消費するR10 controllerとstop planning route、活動と実資源・予約のバインド、実生活適用
-7. **D-14:** URL/version/auth/healthの契約を先に固定し、portは配備設定に分けること
+7. **D-14:** URL/version/auth/healthの契約を先に固定し、portは配備設定に分けること。loopbackの隔離接続試験は実装・検証済み（RenCrow_CORE `20b4d996`、build tag `realworld`）。port番号の正式決定、canonical route採用、production read bridgeへの配線、正式port／TLSは未決のまま
 8. **D-27:** CORE read bridgeのproduction route／DTO、private-room redaction、Observation配信、CORE側Stream route
 9. **D-28:** `executable_activity_ids`を消費するR10 controllerとstop planning route、活動と実資源・予約のバインド、移動・占有。assessment routeのcross-repo契約採用はCORE source-level read clientの消費として実装済み（RenCrow_CORE `50942c72`）で、production read bridge routeへの配線は未決
 10. **CORE local main（解消済み）:** 83件の未コミットWIPは単位別検証後に`a20e2a24`で`origin/main`へ統合・Pushし、reset・stash・cleanは行っていない。併せて新規test file 9件をWORLD canonical test planへ登録し（RenCrow_WORLD `49f95e9`）、3 OS CIは緑。WIP由来でない間接依存の失敗が残る場合は該当単位として切り分ける。
