@@ -31,8 +31,8 @@ R08のWORLD側source foundationに加え、接続契約の補強、復元後のc
 | D-08 | 空WorkSetは「現在割当なし」。成功に変換しない | 意味層実装済み | WORLD + CORE | P1 |
 | D-09 | LifePolicy期限切れは明示fallbackだけ。なければblocked | 意味層実装済み | WORLD + CORE | P1 |
 | D-10 | fallback ⊆ allowed、かつ登録済み非認知活動だけ許可 | 検証・実行時filter実装済み | CORE + WORLD | P1 |
-| D-11 | 新規活動の停止と、実行中活動の安全な終了を分ける | 計画層実装済み / 運動未実装 | WORLD | P2 |
-| D-12 | queued/running/presenceに応じて移動・姿勢を決める | presentation判定実装済み / 移動未実装 | WORLD + CORE | P2 |
+| D-11 | 新規活動の停止と、実行中活動の安全な終了を分ける | 計画層＋read-only公開（stop planning）実装済み / 停止の実行・運動未実装 | WORLD | P2 |
+| D-12 | queued/running/presenceに応じて移動・姿勢を決める | presentation判定と停止後姿勢の公開実装済み / 移動未実装 | WORLD + CORE | P2 |
 | D-13 | 通常ChatをWorkSetへ含めず、Chat本文から移動を生成しない | WORLD側は非生成 / CORE builderはTask/Run限定、runtime loop実装済み | CORE | P2 |
 | D-14 | URL構造・契約版・認証・healthは先に決め、port番号は配備設定に分ける | health実装 / canonical port未決 | runtime owner | P1 |
 | D-15 | 非loopback前にTLS終端・発行者・token交換/失効を決める | 未決 | runtime owner | P3 |
@@ -521,6 +521,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | 2026-10-22 | D-14 | 正式port未決のまま、loopbackの明示configで実CORE projection loopと実WORLD binaryを使う隔離接続試験を実装・Push。listen設定由来のloopback addressだけでWorkSet／LifePolicy投影→assessment読み戻し→health段階→projection-only tokenのread route 403→未bound Actor 403→127.0.0.1確認までを検証。port番号は固定せず、production read bridge routeもcanonical routeも採用しない | Ren | RenCrow_CORE `20b4d996`（CI: build `39720915712` success、Public Docs Guard `39720915520` success。ローカルで当該テストPASS、`go vet -tags realworld ./cmd/rencrow` exit 0） | implemented / verified |
 | 2026-10-22 | D-06 | CORE側のsource epoch切替をreconcile credentialで分離して実装・Push。`reconcile_enabled`／`reconcile_token_env`は既定closedで、空・`token_env`と同一・参照env空は起動失敗（fail closed）。reconcile送信だけWORLD側`projection_reconcile` scopeのcredentialを使い、projection credentialの流用・fallbackはしない。認可済み切替は旧epochのrevisionを消費せず新epoch revision 1から採番し直し、record IDにepochを含めて衝突回避。未認可のepoch不一致は`ErrSourceEpochSwitchNotAuthorized`で停止しsilent switchしない。現在epochはoutboxのdurable counterが所有し認可済み切替enqueueと同じtransactionで進める。実WORLD binaryとのloopback隔離試験（build tag `realworld`）で通常routeのsilent switch拒否・projection専用credentialの403・reconcile credentialでのrevision 1再baselineとhead読み戻しを確認。WORLD側の投影実在検査（`CompleteReconcileChecked`と`projection_reconcile` scopeのHTTP route）は既存実装済みで、canonical route採用・production配備・restore受入はD-14と共有の未決境界のまま | Ren | RenCrow_CORE `6a2369ac`（CI: canonical `39734589561` 3 OS success、build `39734589582` success、Public Docs Guard `39734589507` success、direct-chat-regression success） | implemented / verified |
 | 2026-10-22 | D-11, D-12, D-18 | 論理場所・資源名だけを持つ仮空間インターフェースで停止・取消し規則の単体試験をPush。`PlanContinuation`／`PlanStop`の決定だけを流し込み、活動の取消しでstudy_seat／pathの占有が残る（取消しと占有解放は別操作）、sleep取消ではposition・占有が一切揺るがない、占有解放はstop actionの後の別capabilityでstop／cleanup actionへ混入しない、いかなる決定もpositionを変えない（移動はR10）を機械的に固定。仮空間は座標・部屋graph・移動operationを持たず、実測geometry（D-17）へ昇格しない。productionコード変更なし | Ren | RenCrow_WORLD `605c6bf`（CI: `39735397687` 3 OS green） | implemented / verified |
+| 2026-10-22 | D-11, D-12, D-28 | 保存済みheadの意味評価だけを入力とする純関数`life.StopPlanning`を追加・Push。既存ownerの活動定義表（`StopState`＝`stop_after_completion`／`refuse_stop`）と照合し、`PlanStop`許可／拒否と停止後姿勢を決定するのみで、停止の実行・占有解放・移動はしない（実行はR10 controller）。`GET .../assessment?stop_planning_activity_id=<id>`でread-only公開し、未登録activity IDは拒否、state hash非変更を確認。実WORLD binaryのE2E（`e2e-r08.sh`）にstop-planning blockを追加してPASS。production配備、正式port／TLS、実空間の受入（spatial_ready、AC-004／005／011〜014）とR10 controller実行は未決のまま | Ren | RenCrow_WORLD `ce1ed64`（CI: `39738161818` 3 OS success。ローカルで`go test ./...`・`go vet`・gofmt clean） | implemented / verified |
 |  |  |  |  |  | decided / implemented / verified |
 
 ## 12. 残る決定・確認項目
@@ -530,7 +531,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 3. **D-03 / D-04 / D-19 / D-20:** ACK意味論、再同期権限、head照会、監査記録
 4. **D-23:** Command本文の`timeline_epoch`必須化
 5. **D-06:** WORLD側の投影実在検査（`CompleteReconcileChecked`と暫定HTTP route、RenCrow_WORLD `3b491e3`／`9ebf057`／`988a352`）と、CORE側のsource epoch切替のreconcile credential分離（RenCrow_CORE `6a2369ac`、loopback隔離試験）は実装済み。残るはcanonical route採用とproduction配備・実障害復帰の受入で、D-14の未決境界と共有する
-6. **D-07〜D-13:** 生活意味論と計画層（stale、空Set、期限切れ、fallback subset、安全終了、継続/その場保持、候補選別、admission）とD-13の提示（queued／waiting・blocked／running／presenceのtask ID公開、Chatは投影契約で除外）は実装済み。残るはそれを消費するR10 controllerとstop planning route、活動と実資源・予約のバインド、実生活適用
+6. **D-07〜D-13:** 生活意味論と計画層（stale、空Set、期限切れ、fallback subset、安全終了、継続/その場保持、候補選別、admission）、D-13の提示（queued／waiting・blocked／running／presenceのtask ID公開、Chatは投影契約で除外）、stop planningのread-only公開（RenCrow_WORLD `ce1ed64`）は実装済み。残るはそれらの決定を消費して実行するR10 controller、活動と実資源・予約のバインド、実生活適用
 7. **D-14:** URL/version/auth/healthの契約を先に固定し、portは配備設定に分けること。loopbackの隔離接続試験は実装・検証済み（RenCrow_CORE `20b4d996`、build tag `realworld`）。port番号の正式決定、canonical route採用、production read bridgeへの配線、正式port／TLSは未決のまま
 8. **D-27:** CORE read bridgeのproduction route／DTO、private-room redaction、Observation配信、CORE側Stream route
 9. **D-28:** `executable_activity_ids`を消費するR10 controllerとstop planning route、活動と実資源・予約のバインド、移動・占有。assessment routeのcross-repo契約採用はCORE source-level read clientの消費として実装済み（RenCrow_CORE `50942c72`）で、production read bridge routeへの配線は未決
