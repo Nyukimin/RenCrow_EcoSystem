@@ -186,11 +186,11 @@ GET /v1/worlds/{world}/timelines/{timeline}/actors/{actor}/assessment
 
 `read` scopeを要求し、`{actor}`はID transportでdecodeする。`core_projection_actors`にないActorは`403 actor_not_bound`、不正なtransportは`400 invalid_actor_id`、Timeline不在は`503 not_ready`、保存headが再parseできない場合は`500 projection_unreadable`でfail closedする。
 
-返却するのは`work_set_state`、`policy_state`、`work_presentation`、`permitted_activity_ids`、`new_activity_allowed`、`blocked_reason`、`work_success`、`assessed_at`である。`permitted_activity_ids`は`DefaultCatalog`に登録されたIDだけを昇順で返し、未登録IDは除外する。`work_success`は常に`false`で、空WorkSetを成功に変換しない。routeはActivityを選択・開始せず、移動・占有を計画せず、Event／State／Command Receiptを生成しない。
+返却するのは`work_set_state`、`policy_state`、`work_presentation`、`permitted_activity_ids`、`executable_activity_ids`、`new_activity_allowed`、`blocked_reason`、`work_success`、`assessed_at`である。`permitted_activity_ids`は`DefaultCatalog`に登録されたIDだけを昇順で返し、未登録IDは除外する。`executable_activity_ids`はWORLDの活動定義表（D-11）でstop stateを持つIDのうち、現行policyが許可しpresence制約でもその場で実行できるものだけを昇順で返す公開専用の候補集合で、route自身が選択・開始・移動・占有を計画することはない。`work_success`は常に`false`で、空WorkSetを成功に変換しない。routeはActivityを選択・開始せず、移動・占有を計画せず、Event／State／Command Receiptを生成しない。候補は論理名のみで、実在場所・予約・実測geometryの主張は含まない（D-17／D-18未決）。
 
 これはWORLD内の暫定routeであり、COREのproduction read bridge routeでもcanonical cross-module contractでもない。COREはまだこのrouteを消費しない。Stop planningのHTTP/CLI route、Activity selection、R10 controller、移動・占有は未実装である。
 
-証拠: RenCrow_WORLD `487ad00`の`TestAssessment...`（auth、missing head、catalog filter、expired fallback、presentation、state不変、GET限定）、`go test ./...`、`go test -race ./internal/httpapi`、実WORLD binaryを使う`scripts/e2e-r08.sh`のassessment assertion。
+証拠: RenCrow_WORLD `487ad00`の`TestAssessment...`（auth、missing head、catalog filter、expired fallback、presentation、state不変、GET限定）、`go test ./...`、`go test -race ./internal/httpapi`、実WORLD binaryを使う`scripts/e2e-r08.sh`のassessment assertion。候補公開は`5dcb6e1`の`TestAssessmentPublishesExecutableActivityCandidates`／`TestAssessmentPublishedCandidatesAreDefinedAndPermitted`、`go test ./...`、`scripts/e2e-r08.sh`／`e2e-r09.sh` PASS、GitHub Actions Go source checks（Linux／Windows／macOS）successで確認。
 
 ### D-29 ConditionProfile ownerを現時点で新設しない
 
@@ -471,7 +471,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | ACKのCORE Outbox解釈 | 未契約 | COREがaccepted/duplicate/epoch_unchanged/conflict/reconcileを分類し、SQLite Outboxへ保存。`world_projection` configでruntime loopを起動（disabled既定） |
 | CORE publisher / outbox | 未実装 | WorkSet v2/LifePolicy、AgentProfile／PersonaからのLifePolicy導出、HTTP publisher、SQLite durable outbox、durable source revision、full WorkSet／LifePolicy projector、runtime loopを実装。Task store commitを正本とし、commit observer＋起動時full再同期でOutboxを導出（同一transaction追記なし）。production E2Eは未実装 |
 | CORE WORLD read client | 未実装 | 認証済みR07 Snapshot／Event read clientを実装。exact scope、state hash、whole-transaction cursor、Actor allowlist、top-level `actor_id` Eventのscope判定、resync分類、実WORLD E2Eを確認。production CORE route／DTOは未決 |
-| WORLD assessment route | 未実装 | bound CORE Actor向けのread-only assessment routeを実装。`read` scope、missing／expired／fresh、DefaultCatalogによる未登録ID除外、presentation、`work_success=false`、state不変、実WORLD binary E2Eを確認。暫定routeでCORE未消費 |
+| WORLD assessment route | 未実装 | bound CORE Actor向けのread-only assessment routeを実装。`read` scope、missing／expired／fresh、DefaultCatalogによる未登録ID除外、presentation、`work_success=false`、state不変、実WORLD binary E2Eを確認。さらにWORLD活動定義表とpolicy／presence制約から今の候補を`executable_activity_ids`として公開（`5dcb6e1`）。候補の公開のみで選択・開始・移動はせず、暫定routeでCORE未消費 |
 | ConditionProfile owner | 未決 | 独立ownerを新設せず、`condition_profile_ref`をAgentProfile全体のcanonical hashとして維持（D-29）。再評価条件を記録 |
 | 復元後のCommand開放 | `CompleteReconcile`は投影未検査 | `CompleteReconcileChecked`を実装 |
 | Commandの宛先epoch | 本文にない | 必須化 |
@@ -507,6 +507,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 | 2026-10-21 | D-05 | CORE local mainの未コミットWIPを単位別検証し、`origin/main`との競合を両立解消して同一 `main` へ統合・Push | Ren | RenCrow_CORE `a20e2a24`（CI: `f563ac91`、`e8dbb9b9`） | merged / verified |
 | 2026-10-22 | D-07, D-09, D-11, D-12 | Assessmentから実行中活動の継続/安全停止/その場保持、公開候補の選別、単一候補のadmissionを決める決定的な生活計画層を、論理占有名のみで実装・Push。presence必須作業はその場と物理占有を保持し、期限切れWorkSetは選択肢を減らさない。移動・占有・実測geometryは扱わない | Ren | RenCrow_WORLD `8959ca1`（CI: `39700320599`） | implemented / verified |
 | 2026-10-22 | D-11 | CORE登録8 IDへの論理占有名・移動要否・中断規則をWORLD ownerの活動定義表として実装・Push。全活動にstop stateを定義し、占有解放と後処理は実測移動routeが無いため全件不可。実在場所・予約の主張はしない | Ren | RenCrow_WORLD `da6762b`（CI: `39709175871`） | implemented / verified |
+| 2026-10-22 | D-11, D-28 | assessment routeが活動定義表と現行policy／presence制約から「今計画できる候補」を`executable_activity_ids`として公開するよう拡張・Push。公開のみで選択・開始・移動・占有はせず、実在場所・予約・実測geometryの主張なし。production配備、正式port／TLS、実空間の受入（spatial_ready、AC-004／005／011〜014）は未決のまま | Ren | RenCrow_WORLD `5dcb6e1`（CI: `39710368165`） | implemented / verified |
 |  |  |  |  |  | decided / implemented / verified |
 
 ## 12. 残る決定・確認項目
@@ -519,7 +520,7 @@ R08文書にはWORLD側のLinux・Windows試験成功が記録されている。
 6. **D-07〜D-13:** 生活意味論と計画層（stale、空Set、期限切れ、fallback subset、安全終了、継続/その場保持、候補選別、admission）は実装済み。残るはそれを消費するR10 controllerとroute、D-13のqueued/running/Chatの実際の提示、実生活適用
 7. **D-14:** URL/version/auth/healthの契約を先に固定し、portは配備設定に分けること
 8. **D-27:** CORE read bridgeのproduction route／DTO、private-room redaction、Observation配信、CORE側Stream route
-9. **D-28:** assessment routeのcross-repo契約採用、計画層（継続/停止/保持・候補選別・admission）とWORLD活動定義表を消費するR10 controllerとstop planning route、活動と実資源・予約のバインド、移動・占有
+9. **D-28:** assessment routeのcross-repo契約採用、`executable_activity_ids`を消費するR10 controllerとstop planning route、活動と実資源・予約のバインド、移動・占有
 10. **CORE local main（解消済み）:** 83件の未コミットWIPは単位別検証後に`a20e2a24`で`origin/main`へ統合・Pushし、reset・stash・cleanは行っていない。併せて新規test file 9件をWORLD canonical test planへ登録し（RenCrow_WORLD `49f95e9`）、3 OS CIは緑。WIP由来でない間接依存の失敗が残る場合は該当単位として切り分ける。
 
 D-05は解消した。D-25としてCORE Outboxのstate reconciliation方式を、D-26としてLifePolicyのowner入力とactivity ID登録を、D-27としてCOREのWORLD read clientを、D-28としてWORLDのread-only assessment routeを決定・実装し、D-29として独立ConditionProfile ownerの新設を見送り、再評価条件を記録した。COREの`feat/world-r08-publisher`は`origin/main` `084fe2af`へmerge済みである。D-02のproduction identity検証、D-06のCORE側接続、D-07〜D-13の実生活適用、D-14のcanonical route、D-27のCORE read bridge production route、D-28のcross-repo契約採用とR10 controller、D-29の再評価条件に該当する体調データownerが現れた場合の分離、production配備・再起動E2Eが残る間、R08の受入とR09/R10の本実装は「LifePolicy導出＋runtime loop＋source-level read client＋WORLD assessment」の範囲を超えない。
