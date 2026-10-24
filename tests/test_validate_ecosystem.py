@@ -625,9 +625,19 @@ class EcosystemManifestTest(unittest.TestCase):
             {
                 "gpt120b",
                 "qwen36-27b",
+                "qwen38-flash-strata",
                 "rx6800-coder-trio",
                 "gemma4",
             },
+        )
+        qwen38_profile = profiles["qwen38-flash-strata"]
+        self.assertEqual(
+            qwen38_profile["repository"], "Nyukimin/RenCrow_Qwen38_Strata"
+        )
+        self.assertEqual(qwen38_profile["workspace_path"], "./RenCrow_Qwen38_Strata")
+        self.assertEqual(qwen38_profile["status"], "development")
+        self.assertRegex(
+            qwen38_profile["version"], VALIDATOR.COMMIT_VERSION_PATTERN
         )
 
     def test_speech_engine_repositories_are_owner_external_runtime_profiles(
