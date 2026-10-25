@@ -229,7 +229,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "eaffc67183e11cd2edddd410f54cabec1c4e3080",
+      "version": "1c523f044ac9c2c876ab8b9ad6f4f7eb04c74e17",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -848,15 +848,45 @@
       "status": "development",
       "role": "Host-specific Qwen 3.6 27B Backend launch and health profile used behind RenCrow LLM Runtime"
     },
-    "rx6800-coder-trio": {
+    "mellum21-12b": {
       "owner_component": "llm",
-      "repository": "Nyukimin/RenCrow_RX6800_CoderTrio",
-      "workspace_path": "./RenCrow_RX6800_CoderTrio",
-      "version": "b259eeeabc881e5a2ab5cde103c6137d00ef9661",
+      "repository": "Nyukimin/RenCrow_Mellum21_12B",
+      "workspace_path": "./RenCrow_Mellum21_12B",
+      "version": "9d63b470e7292e6355a004d38a898b213bcccaa7",
       "required": false,
       "kind": "external-compute",
       "status": "development",
-      "role": "RX 6800 CoderQuad profiles with legacy CoderTrio rollback behind RenCrow LLM Runtime"
+      "role": "Host-specific Mellum 2.1 12B Backend launch and health profile used behind RenCrow LLM Runtime"
+    },
+    "qwen35-9b": {
+      "owner_component": "llm",
+      "repository": "Nyukimin/RenCrow_Qwen35_9B",
+      "workspace_path": "./RenCrow_Qwen35_9B",
+      "version": "7ab8589aa85509528191d1d5cd630217097e8e48",
+      "required": false,
+      "kind": "external-compute",
+      "status": "development",
+      "role": "Host-specific Qwen 3.5 9B Backend launch and health profile used behind RenCrow LLM Runtime"
+    },
+    "k2-horizon-7b": {
+      "owner_component": "llm",
+      "repository": "Nyukimin/RenCrow_K2_Horizon_7B",
+      "workspace_path": "./RenCrow_K2_Horizon_7B",
+      "version": "67791c4b92d23dff3614d696f2db7d124e38edf9",
+      "required": false,
+      "kind": "external-compute",
+      "status": "development",
+      "role": "Host-specific K2 Horizon 7B Backend launch and health profile used behind RenCrow LLM Runtime"
+    },
+    "granite42-8b": {
+      "owner_component": "llm",
+      "repository": "Nyukimin/RenCrow_Granite42_8B",
+      "workspace_path": "./RenCrow_Granite42_8B",
+      "version": "36a1592a7d5cbe83accaef23eb6899b6247ca838",
+      "required": false,
+      "kind": "external-compute",
+      "status": "development",
+      "role": "Host-specific Granite 4.2 8B Backend launch and health profile used behind RenCrow LLM Runtime"
     },
     "gemma4": {
       "owner_component": "llm",

@@ -626,10 +626,14 @@ class EcosystemManifestTest(unittest.TestCase):
                 "gpt120b",
                 "qwen36-27b",
                 "qwen38-flash-strata",
-                "rx6800-coder-trio",
                 "gemma4",
+                "mellum21-12b",
+                "qwen35-9b",
+                "k2-horizon-7b",
+                "granite42-8b",
             },
         )
+        self.assertNotIn("rx6800-coder-trio", profiles)
         qwen38_profile = profiles["qwen38-flash-strata"]
         self.assertEqual(
             qwen38_profile["repository"], "Nyukimin/RenCrow_Qwen38_Strata"
@@ -639,6 +643,22 @@ class EcosystemManifestTest(unittest.TestCase):
         self.assertRegex(
             qwen38_profile["version"], VALIDATOR.COMMIT_VERSION_PATTERN
         )
+
+        rx6800_profiles = {
+            "mellum21-12b": "RenCrow_Mellum21_12B",
+            "qwen35-9b": "RenCrow_Qwen35_9B",
+            "k2-horizon-7b": "RenCrow_K2_Horizon_7B",
+            "granite42-8b": "RenCrow_Granite42_8B",
+        }
+        for profile_id, repository in rx6800_profiles.items():
+            with self.subTest(profile=profile_id):
+                profile = profiles[profile_id]
+                self.assertEqual(profile["repository"], f"Nyukimin/{repository}")
+                self.assertEqual(profile["workspace_path"], f"./{repository}")
+                self.assertEqual(profile["owner_component"], "llm")
+                self.assertEqual(profile["kind"], "external-compute")
+                self.assertEqual(profile["status"], "development")
+                self.assertRegex(profile["version"], VALIDATOR.COMMIT_VERSION_PATTERN)
 
     def test_speech_engine_repositories_are_owner_external_runtime_profiles(
         self,
