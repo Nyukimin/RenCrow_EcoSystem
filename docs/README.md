@@ -21,6 +21,8 @@ module 固有の API、設定、実装、テスト仕様は各 module repo が�
 14. [Backup and recovery](backup-and-recovery.md) — 通常backup、Migration Artifact、分散owner transport、復旧受入条件
 15. [Test Execution Policy](test-execution-policy.md) — Canonical Test Plan拡張、Impact選択、Shadow CI、receiptと保守的Full fallback
 
+[Host 207 transition](host-207-transition.md) — 現行CORE／PORTAL配置、旧206互換入口、Workspace取得元と緊急HDD復旧の受入境界。
+
 ## Documentation boundary
 
 | EcoSystem に置く | 各 module に置く |

@@ -108,8 +108,11 @@ source実装済みですが、v1.4 runtimeは未実装です。StoryPlayerは
 
 RenCrow_Visionは画像・動画認識の必須interface、RenCrow_Imageは描画・画像生成の
 必須interfaceです。COREはWild、ForgeNeo、ComfyUI、Z-Imageなどの物理backendへ
-直接接続しません。RenCrow_WorkspaceはUbuntu runtime workspaceを正本とする
+直接接続しません。RenCrow_Workspaceは現在のCORE host（2026-10-25以降はmacOS host 207）のruntime workspaceを正本とする
 非secret snapshotであり、Windows checkoutやこのcatalogをruntime正本にしません。
+
+CORE／PORTALのhost 207への移設、旧host 206の互換入口、HDD復旧の確認範囲と未受入事項は
+[host 207移設記録](docs/host-207-transition.md)を参照してください。
 
 RenCrow_GAMESはworld、rules、決定論的executor、Replay、Observer UIの正本です。
 ゲームの起動と各turn判断の主体はCOREのAgentです。Agent E2Eでlocal controllerや
