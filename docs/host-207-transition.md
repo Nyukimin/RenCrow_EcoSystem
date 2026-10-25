@@ -23,7 +23,10 @@ Artifactの受入を置き換えない。host固有の設定、認証情報、DB
 
 利用者の追加指示により、206はRX6800 LLM、205はStrata、それ以外のRenCrow applicationは
 207へ集約する。206／205には各computeのRuntime、必要なGPU監視・起動管理を残す。
-207のCORE、PORTAL、移設したapplicationと追加の接続tunnelはlaunchdのGUI LaunchAgentで監視する。
+207のCORE、PORTAL、移設したapplicationと追加の接続tunnelなど21 jobは、
+利用者による管理者install後、launchdのsystem LaunchDaemonで監視する。実行userはyukimiを維持し、
+旧GUI jobは無効化した。既存のGemma／Qwen／ComfyUI／STT／TTSもsystem LaunchDaemonであり、
+GUIログインは起動条件ではない。
 旧206の入口は互換用であり、第二のCOREやPORTAL instanceではない。旧アドレスを使うclientも
 207の同じruntimeへ到達する。203、204、205、206には新しい配置とreadiness確認先の案内を保存した。
 
@@ -56,7 +59,8 @@ canonical E2E成功ではない。設定、source revision、接続先、認証�
 - GAMES Observer、TRADE、映画・人物カタログのhealthはHTTP 200。TRADEはDISABLED／kill switch ONを維持した。
 - Gitea 1.26.2は207の3001／2222で起動。SQLite integrity、既存repositoryのgit fsck、Web healthを確認した。
 - Gmailは207のCLIと移設済み認証でAPI疎通を確認した。X Bookmarkのexportと既知ID stateは移設したが、
-  207の専用browserへのXログインと実収集は未確認。旧Linux用のcommand／credential参照pathは修正した。
+  203から暗号化bridgeで認証を移行し、207の専用browserでBookmark 4件の読み取りを確認した。
+  一時鍵と転送bundleは削除済み。旧Linux用のcommand／credential参照pathも修正した。
 
 これらは今回の配置切替の確認であり、全Agentの会話・Task・音声・video生成を通したE2E、
 reboot後の復帰、全moduleのMigration Artifact受入を意味しない。
@@ -81,10 +85,19 @@ DB整合性検査は履歴の完全性を保証しない。特に再構築した
 ## 残る受入
 
 - 再構築した履歴の内容照合と、HDD全体imageの復旧受入。
-- X Bookmarkの207側ログインと実収集。
 - 新hostでの外部媒体backup、owner export/import、isolated restore、復旧試験。
 - 全moduleのConfig／Stateを含むMigration Artifactとcanonical E2Eの受入。
-- reboot後の再接続、ログイン前の常駐化、および監視・backup運用の受入。
+- system LaunchDaemonへの切替は21 jobの所属・実行user・readinessを確認済み。
+  reboot後の再接続、実際のGUI logout後の動作、および監視・backup運用の受入は未確認。
 - 実ブラウザでの会話、音声、画像生成、Task実行の利用者フロー。
 
 したがって、今回の緊急復旧を全system移行完了、検証済みbackup、三OS互換性確認済みとは扱わない。
+
+## ログイン不要の常駐化
+
+21 jobをsystem domainへ移し、旧gui/501 domainには同じjobがないことを確認した。
+Redisと13 HTTP serviceのreadinessに加え、CORE／PORTAL／LLM Gateway／Imageを再確認した。
+ImageはMuseTalkのmodel読み込みより先にrestart fenceを評価すると起動時にblockするため、
+起動launcherでMuseTalkの実際のidle応答を上限300秒まで待つ。Image自身の安全確認は維持する。
+MuseTalkをcold restartし、同時にImageを起動する実試験で正常復帰を確認した。
+これはsystem domainへの切替とservice再起動の確認であり、OS reboot試験の代替ではない。
