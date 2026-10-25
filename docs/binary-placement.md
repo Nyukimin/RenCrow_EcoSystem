@@ -22,8 +22,10 @@ runtime control planeにはならない。
 同じ物理hostが複数roleを兼ねてもよいが、binaryの責務とConfig正本は統合しない。
 
 2026-10-25以降の現行配置では、macOS host 207がCORE／PORTALのcontrol・interaction roleと、
-既存のLLM Runtime／Gemma4／Qwen等のcompute roleを兼ねます。LLM Gateway等はhost 206に残り、
-207から認証済みSSH tunnelで利用します。旧206のCORE／PORTALは停止し、既存入口だけを207へ
+既存のLLM Runtime／Gemma4／Qwen等のcompute roleを兼ねます。LLM Gateway、記憶storeと
+その他のRenCrow applicationも207へ集約します。206はRX6800のAka／Ao／Kin／Gin（停止中）、
+205はStrataのcompute roleとし、各LLM Runtimeと必要なhardware監視を残します。
+旧206のCORE／PORTALは停止し、既存入口だけを207へ
 転送します。稼働確認と未検証範囲は[host 207移設記録](host-207-transition.md)を参照してください。
 
 ## Standard topology
