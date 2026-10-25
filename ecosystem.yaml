@@ -840,13 +840,13 @@
     },
     "qwen36-27b": {
       "owner_component": "llm",
-      "repository": "Nyukimin/RenCrow_Qwen36_27B",
-      "workspace_path": "./RenCrow_Qwen36_27B",
-      "version": "49d6a84f7c764048aa6135212794d2b39d537442",
+      "repository": "Nyukimin/RenCrow_Qwen36_35B_A3B_M5Mac",
+      "workspace_path": "./RenCrow_Qwen36_35B_A3B_M5Mac",
+      "version": "6db1b22fa5a1ef668be956837a959f7fcbe78741",
       "required": false,
       "kind": "external-compute",
       "status": "development",
-      "role": "Host-specific Qwen 3.6 27B Backend launch and health profile used behind RenCrow LLM Runtime"
+      "role": "Host-specific Qwen3.6-35B-A3B-uncensored-heretic Q4_K_M multimodal llama.cpp Backend launch and health profile used behind RenCrow LLM Runtime; the qwen36-27b profile ID is retained for compatibility"
     },
     "mellum21-12b": {
       "owner_component": "llm",
@@ -890,13 +890,13 @@
     },
     "gemma4": {
       "owner_component": "llm",
-      "repository": "Nyukimin/RenCrow_Gemma4",
-      "workspace_path": "./RenCrow_Gemma4",
-      "version": "7cd0c6aec98e60f6cdb19f338672cca37207a1b6",
+      "repository": "Nyukimin/RenCrow_Gemma4_26B_A4B_M5Mac",
+      "workspace_path": "./RenCrow_Gemma4_26B_A4B_M5Mac",
+      "version": "10e943c403a60714d87170fd10eec884f87bc929",
       "required": false,
       "kind": "external-compute",
       "status": "development",
-      "role": "Host-specific Gemma 4 multimodal Backend profile used behind RenCrow LLM Runtime"
+      "role": "Host-specific Gemma 4 multimodal Backend profile used behind RenCrow LLM Runtime; the current macOS baseline is gemma-4-26B-A4B-it-uncensored-heretic Q4_K_M on llama.cpp, with the existing Windows profile maintained separately"
     },
     "whisper": {
       "owner_component": "stt",

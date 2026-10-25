@@ -7,7 +7,7 @@ manifest、source pin、横断仕様、導入・release、ルール配布を扱�
 - manifestの状態は`development`／`source-pinned`／`unpinned`／`verified`。実装済source pinは実在full SHA、未実装optional runtimeだけ`planned`を使う。pinは互換性証拠ではない。互換宣言は統合検査成功と差分説明またはrepo内証拠が必要。現行と明示計画だけを記述し、廃止仕様・架空tag／commitを残さない。
 - `.env`・認証情報・runtime log／DB・binary・model・download済archiveをcommitしない。Workspaceは移行用snapshot owner。共通ルールの配布は[Codex効率運用仕様](../docs/codex-efficiency.md)に従い、snapshotを独立編集しない。
 - `docs/` 配下はcatalogの追跡対象とし、`docs/調査/` のFailure Knowledge・調査記録もGitで登録する。`.git/info/exclude` 等のローカル除外で仓库外（`Tmp/` 等）へ退避した記録は、次回変更時に追跡へ戻す。binary・model・runtime log・secret実値は対象外。
-- module名とrootは`ecosystem.yaml`を参照する。Chat／ViewerはCORE、CLIはCMD。`RenCrow_GPT120B`／`RenCrow_Qwen36_27B`／`RenCrow_Gemma4`はLLM external-runtime profile、`RenCrow_Whisper`はSTT、`RenCrow_Irodori_TTS`はTTSのexternal-runtime profileで、いずれもCORE・Agent・routing ownerではない。
+- module名とrootは`ecosystem.yaml`を参照する。Chat／ViewerはCORE、CLIはCMD。`RenCrow_GPT120B`／`RenCrow_Qwen36_35B_A3B_M5Mac`／`RenCrow_Gemma4_26B_A4B_M5Mac`はLLM external-runtime profile、`RenCrow_Whisper`はSTT、`RenCrow_Irodori_TTS`はTTSのexternal-runtime profileで、いずれもCORE・Agent・routing ownerではない。
 
 ## 検証
 

@@ -49,7 +49,7 @@ BackendとModelはRenCrow LLM Runtimeに付随し、EcoSystemの独立component�
 別moduleにしません。EcoSystemはGateway／Runtimeの同一module version、認証、
 status schema、Backend contract、実生成を組み合わせて互換性を記録します。
 
-現行の`RenCrow_GPT120B`、`RenCrow_Qwen36_27B`、`RenCrow_Gemma4`、
+現行の`RenCrow_GPT120B`、`RenCrow_Qwen36_35B_A3B_M5Mac`、`RenCrow_Gemma4_26B_A4B_M5Mac`、
 `RenCrow_Mellum21_12B`、`RenCrow_Qwen35_9B`、`RenCrow_K2_Horizon_7B`、
 `RenCrow_Granite42_8B`、`RenCrow_Qwen38_Strata` repositoryは、独立Git管理される
 LLM external runtime profileです。host固有の起動、health、benchmark、Model取得を

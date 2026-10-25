@@ -92,11 +92,23 @@ AgentからExecution Roleへの割当はCOREが所有します。推論経路は
 GatewayがRoleからRuntime、RuntimeがBackend／Modelへのmappingを所有します。
 Execution RoleはCOREとRenCrow_LLM間の論理契約であり、物理Model名ではありません。
 
-`RenCrow_GPT120B`、`RenCrow_Qwen36_27B`、`RenCrow_Gemma4`、
+`RenCrow_GPT120B`、`RenCrow_Qwen36_35B_A3B_M5Mac`、`RenCrow_Gemma4_26B_A4B_M5Mac`、
 `RenCrow_Mellum21_12B`、`RenCrow_Qwen35_9B`、`RenCrow_K2_Horizon_7B`、
 `RenCrow_Granite42_8B`、`RenCrow_Qwen38_Strata`は、独立Git管理されるhost固有のLLM external runtime
 profileです。いずれも`ecosystem.yaml`の`runtime_profiles`で
 ownerを`llm`として宣言しますが、独立module、Agent、routing ownerにはしません。
+
+2026-10-25時点のmacOSメイン環境では、Gemma4はGemma 4 26B-A4B IT uncensored heretic、
+QwenはQwen3.6 35B-A3B uncensored hereticを基準とします。両方ともllama.cppのQ4_K_M版で、
+各Backendの`/health`はHTTP 200でした。既存の`gemma4`／`qwen36-27b`登録を使い、
+Qwenのprofile IDは互換性のため維持します。repository名は現行モデルとM5Macに合わせ、
+`RenCrow_Gemma4_26B_A4B_M5Mac`／`RenCrow_Qwen36_35B_A3B_M5Mac`へ変更しました。
+モデル・projector・起動設定の正本は
+[Gemma4のmacOS profile](../RenCrow_Gemma4_26B_A4B_M5Mac/config/llama.macos.env)と
+[Qwenのprofile](../RenCrow_Qwen36_35B_A3B_M5Mac/config/qwen36.env)です。
+Gemma4のWindows profileは別構成として維持します。この登録とBackend health確認は、
+COREからの統合E2Eや再起動後の稼働保証を意味しません。
+
 RX 6800 host 206の4 profileは各repositoryの`config/profile.conf`が設定正本です。
 2026-10-25にprofile repositoryごとのrevisionをpinし、Runtime設定を分割後の構成へ更新しました。
 Aka/Mellum、Ao/Qwen、Kin/K2のmodel-named unitはenabled/activeです。Gin/Granite42はVulkan4未接続のため
