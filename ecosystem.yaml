@@ -9,7 +9,7 @@
     "core": {
       "repository": "Nyukimin/RenCrow_CORE",
       "workspace_path": "./RenCrow_CORE",
-      "version": "1e4d20f9ef8edb80e223798bae36bf3faf69e41c",
+      "version": "6caffced2e637fc5edd1157fcb1b52292e5e5c47",
       "required": true,
       "distribution": "binary",
       "role": "Runtime and source of truth for shared Viewer, Agent, Chat, IdleChat, Task, Persona, Memory, synchronous policy decisions, route, adapter, and user-facing behavior",
@@ -181,7 +181,7 @@
     "cmd": {
       "repository": "Nyukimin/RenCrow_CMD",
       "workspace_path": "./RenCrow_CMD",
-      "version": "7d3a73894a8358a2afc85fb4b30c610866ab88c2",
+      "version": "fe195cc3ae46f75998795a2d9c1dea90f8bacd6d",
       "required": false,
       "distribution": "binary",
       "role": "Terminal client and rencrowctl command facade for the CORE Public API, with process entrypoints for CORE and PORTAL",
@@ -229,7 +229,7 @@
     "llm": {
       "repository": "Nyukimin/RenCrow_LLM",
       "workspace_path": "./RenCrow_LLM",
-      "version": "f90d4616e3d8c12e8778357218e2237b1b5e06ac",
+      "version": "eaffc67183e11cd2edddd410f54cabec1c4e3080",
       "required": false,
       "distribution": "binary",
       "role": "RenCrow LLM Gateway for Execution Role to Runtime routing; RenCrow LLM Runtime owns Backend and Model adaptation, readiness, lifecycle, and response normalization",
@@ -689,7 +689,7 @@
     "image": {
       "repository": "Nyukimin/RenCrow_Image",
       "workspace_path": "./RenCrow_Image",
-      "version": "3de3ad7abb3f13cda37cf863aa715f2e4e193564",
+      "version": "b17bce97c1a1774016c0b0ed4b452c7db1301e73",
       "required": false,
       "distribution": "binary",
       "role": "Go drawing and image-generation Gateway from CORE to ForgeNeo, Z-Image, or another configured backend",
@@ -797,7 +797,7 @@
     "workspace": {
       "repository": "Nyukimin/RenCrow_Workspace",
       "workspace_path": "./RenCrow_Workspace",
-      "version": "8e4308376870b4af5f86237a9d262be5245e06df",
+      "version": "5af05082457e5f8de80b7fb01e111253239e0c11",
       "required": false,
       "distribution": "snapshot",
       "role": "Portable non-secret snapshot of ~/.rencrow/workspace for backup and recovery; not a runtime service",
@@ -852,11 +852,11 @@
       "owner_component": "llm",
       "repository": "Nyukimin/RenCrow_RX6800_CoderTrio",
       "workspace_path": "./RenCrow_RX6800_CoderTrio",
-      "version": "3f54c9a749c5209ab949a2f33002990724a5632f",
+      "version": "b259eeeabc881e5a2ab5cde103c6137d00ef9661",
       "required": false,
       "kind": "external-compute",
       "status": "development",
-      "role": "RX 6800 CoderTrio backend profiles behind RenCrow LLM Runtime"
+      "role": "RX 6800 CoderQuad profiles with legacy CoderTrio rollback behind RenCrow LLM Runtime"
     },
     "gemma4": {
       "owner_component": "llm",
@@ -882,7 +882,7 @@
       "owner_component": "tts",
       "repository": "Nyukimin/RenCrow_Irodori_TTS",
       "workspace_path": "./RenCrow_Irodori_TTS",
-      "version": "a685c882a329d5416f75367237f0ba3c39dcced4",
+      "version": "296c5ebae743603db3a750a55e87297f1536d82e",
       "required": false,
       "kind": "external-compute",
       "status": "development",

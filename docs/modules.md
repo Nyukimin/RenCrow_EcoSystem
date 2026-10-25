@@ -96,6 +96,9 @@ Execution RoleはCOREとRenCrow_LLM間の論理契約であり、物理Model名�
 `RenCrow_RX6800_CoderTrio`、`RenCrow_Qwen38_Strata`は、独立Git管理されるhost固有のLLM external runtime
 profileです。いずれも`ecosystem.yaml`の`runtime_profiles`で
 ownerを`llm`として宣言しますが、独立module、Agent、routing ownerにはしません。
+2026-10-24のpartial deploymentではCoderQuadのAka/Ao/Kinが稼働し、GinはVulkan4未接続のため休眠中です。
+catalogのsource pinは全4 GPUの受入を示しません。稼働証拠は
+[owner runbook](../RenCrow_RX6800_CoderTrio/docs/coder-quad-runbook.md)を参照してください。
 
 ## RenCrow_STT / RenCrow_TTS runtime boundary
 
