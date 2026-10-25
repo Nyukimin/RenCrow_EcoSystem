@@ -93,12 +93,17 @@ GatewayがRoleからRuntime、RuntimeがBackend／Modelへのmappingを所有し
 Execution RoleはCOREとRenCrow_LLM間の論理契約であり、物理Model名ではありません。
 
 `RenCrow_GPT120B`、`RenCrow_Qwen36_27B`、`RenCrow_Gemma4`、
-`RenCrow_RX6800_CoderTrio`、`RenCrow_Qwen38_Strata`は、独立Git管理されるhost固有のLLM external runtime
+`RenCrow_Mellum21_12B`、`RenCrow_Qwen35_9B`、`RenCrow_K2_Horizon_7B`、
+`RenCrow_Granite42_8B`、`RenCrow_Qwen38_Strata`は、独立Git管理されるhost固有のLLM external runtime
 profileです。いずれも`ecosystem.yaml`の`runtime_profiles`で
 ownerを`llm`として宣言しますが、独立module、Agent、routing ownerにはしません。
-2026-10-24のpartial deploymentではCoderQuadのAka/Ao/Kinが稼働し、GinはVulkan4未接続のため休眠中です。
-catalogのsource pinは全4 GPUの受入を示しません。稼働証拠は
-[owner runbook](../RenCrow_RX6800_CoderTrio/docs/coder-quad-runbook.md)を参照してください。
+RX 6800 host 206の4 profileは各repositoryの`config/profile.conf`が設定正本です。
+2026-10-25にprofile repositoryごとのrevisionをpinし、Runtime設定を分割後の構成へ更新しました。
+Aka/Mellum、Ao/Qwen、Kin/K2のmodel-named unitはenabled/activeです。Gin/Granite42はVulkan4未接続のため
+disabled/inactiveで、readiness対象外かつlifecycle未設定です。Gateway／Runtime readinessはHTTP 200、
+3 model routeと`coder1`〜`coder3`のsmokeはHTTP 200でした。Ginのrouteは503、start actionは409です。
+この証拠はCORE Actor E2Eやhost reboot後の維持を示しません。状態と受入境界は
+[RX6800 host 206 deployment record](../RenCrow_LLM/docs/rx6800-206-deployment.md)を参照してください。
 
 ## RenCrow_STT / RenCrow_TTS runtime boundary
 

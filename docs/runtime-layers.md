@@ -49,10 +49,19 @@ BackendとModelはRenCrow LLM Runtimeに付随し、EcoSystemの独立component�
 別moduleにしません。EcoSystemはGateway／Runtimeの同一module version、認証、
 status schema、Backend contract、実生成を組み合わせて互換性を記録します。
 
-現行の`RenCrow_GPT120B`、`RenCrow_Qwen36_27B`、`RenCrow_Gemma4` repositoryと、
-Git管理されたdevelopment profileである`RenCrow_RX6800_CoderTrio`は、
-このexternal runtime profileに分類します。host固有の起動、health、benchmark、Model取得を
+現行の`RenCrow_GPT120B`、`RenCrow_Qwen36_27B`、`RenCrow_Gemma4`、
+`RenCrow_Mellum21_12B`、`RenCrow_Qwen35_9B`、`RenCrow_K2_Horizon_7B`、
+`RenCrow_Granite42_8B`、`RenCrow_Qwen38_Strata` repositoryは、独立Git管理される
+LLM external runtime profileです。host固有の起動、health、benchmark、Model取得を
 所有できますが、COREから直接呼ばず、RenCrow_LLM Runtime配下のBackendとしてだけ使います。
+
+RX 6800 host 206の4 profileは、それぞれのrepositoryと`config/profile.conf`が所有します。
+Nodeの`node_id` `rx6800-coder-trio`は既存のopaqueなホストidentityで、repository名やprofile数を
+表しません。2026-10-25のRuntime更新後、Mellum、Qwen、K2のmodel-named unitはenabled/activeです。
+GraniteはVulkan4未接続のためdisabled/inactive、readiness対象外でlifecycleもありません。
+Gateway／Runtime readinessと3 model route、`coder1`〜`coder3`のsmokeは成功しましたが、CORE Actor E2Eと
+host reboot後の維持は未確認です。詳細なrevision、receipt、失敗境界は
+[RX6800 host 206 deployment record](../RenCrow_LLM/docs/rx6800-206-deployment.md)を参照してください。
 
 ## RenCrow_STT
 
