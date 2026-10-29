@@ -678,6 +678,14 @@
       "distribution": "tooling",
       "role": "Development benchmark tasks, graders, runners, and provenance for evaluating model suitability for RenCrow roles; source-pinned with known grading limitations, not a production runtime or role-assignment owner"
     },
+    "roblox": {
+      "repository": "Nyukimin/RenCrow_Roblox",
+      "workspace_path": "./RenCrow_Roblox",
+      "version": "073a0003acb1212e3768b9ed146c9d88484665a9",
+      "required": false,
+      "distribution": "tooling",
+      "role": "Standalone Go development CLI for local Roblox game generation and Studio playtesting through the official Windows Studio MCP over SSH; CORE Agent integration, autonomous publishing, ads, monetization, and production deployment are not implemented"
+    },
     "switch_core": {
       "repository": "Nyukimin/RenCrow_Switch_Core",
       "workspace_path": "./RenCrow_Switch_Core",

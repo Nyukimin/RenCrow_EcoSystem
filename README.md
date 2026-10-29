@@ -130,6 +130,8 @@ RenCrow_TRADEは金融Source、学習、Replay、Portfolio risk、TradeGate、Le
 [採点妥当性の未修正事項](https://github.com/Nyukimin/RenCrow_Bench/blob/main/docs/role-grader-defects.md)が残ります。
 登録はモデル適性や本番互換性の検証済みを意味しません。
 
+[RenCrow_Roblox](https://github.com/Nyukimin/RenCrow_Roblox/blob/main/README.md)は、Roblox用ローカルゲーム生成と、SSH経由の公式Windows Studio MCPによる制作・プレイテストを行うGo開発CLIです。動作検証の詳細は[owner README](https://github.com/Nyukimin/RenCrow_Roblox/blob/main/README.md)を参照してください。CORE live Agent連携、自動公開・広告・課金、本番配備は未実装です。source pinは統合互換性や配備済み状態の証明ではありません。Roblox repoにはcatalog governanceが要求する`AGENTS.md`、Windows test plan、CIが未整備です。
+
 ## Durable Data Store topology
 
 Ubuntu productionの基準では、利用可能なlocal durable媒体を2 TB HDD 2基に限定し、live dataを
