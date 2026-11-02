@@ -631,6 +631,8 @@ class EcosystemManifestTest(unittest.TestCase):
                 "qwen35-9b",
                 "k2-horizon-7b",
                 "granite42-8b",
+                "kat-coder25-35b-a3b",
+                "qwen35-35b-a3b",
             },
         )
         self.assertNotIn("rx6800-coder-trio", profiles)

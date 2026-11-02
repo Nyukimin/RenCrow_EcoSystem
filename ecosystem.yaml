@@ -935,6 +935,26 @@
       "kind": "external-compute",
       "status": "development",
       "role": "Host-specific Strata Qwen3.8-Flash-Next-Uncensored IQ4_XS Backend launch and health profile used behind RenCrow LLM Runtime"
+    },
+    "kat-coder25-35b-a3b": {
+      "owner_component": "llm",
+      "repository": "Nyukimin/RenCrow_KATCoder25_35B_A3B",
+      "workspace_path": "./RenCrow_KATCoder25_35B_A3B",
+      "version": "b57f01c5b85072dfc66a47dd9ea7cdb6a092f208",
+      "required": false,
+      "kind": "external-compute",
+      "status": "development",
+      "role": "Host-specific KAT-Coder V2.5 Dev 35B A3B Philadelphia Backend launch and health profile used behind RenCrow LLM Runtime"
+    },
+    "qwen35-35b-a3b": {
+      "owner_component": "llm",
+      "repository": "Nyukimin/RenCrow_Qwen35_35B_A3B",
+      "workspace_path": "./RenCrow_Qwen35_35B_A3B",
+      "version": "0a4b4ccaab9318b662558227ec1e1207d4e32b6e",
+      "required": false,
+      "kind": "external-compute",
+      "status": "development",
+      "role": "Host-specific Qwen 3.5 35B A3B uncensored Backend launch and health profile used behind RenCrow LLM Runtime"
     }
   },
   "runtime_policy": {

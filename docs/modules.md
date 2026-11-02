@@ -95,7 +95,8 @@ Execution RoleはCOREとRenCrow_LLM間の論理契約であり、物理Model名�
 
 `RenCrow_GPT120B`、`RenCrow_Qwen36_35B_A3B_M5Mac`、`RenCrow_Gemma4_26B_A4B_M5Mac`、
 `RenCrow_Mellum21_12B`、`RenCrow_Qwen35_9B`、`RenCrow_K2_Horizon_7B`、
-`RenCrow_Granite42_8B`、`RenCrow_Qwen38_Strata`は、独立Git管理されるhost固有のLLM external runtime
+`RenCrow_Granite42_8B`、`RenCrow_Qwen38_Strata`、`RenCrow_KATCoder25_35B_A3B`、
+`RenCrow_Qwen35_35B_A3B`は、独立Git管理されるhost固有のLLM external runtime
 profileです。いずれも`ecosystem.yaml`の`runtime_profiles`で
 ownerを`llm`として宣言しますが、独立module、Agent、routing ownerにはしません。
 
