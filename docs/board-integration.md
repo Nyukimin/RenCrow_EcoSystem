@@ -1,6 +1,6 @@
 # RenCrow_BOARD integration (planned)
 
-**As of 2026-11-03 JST:** This EcoSystem record is a planned-module reservation, not a source-pinned publication. `Nyukimin/RenCrow_BOARD` has not yet been created on GitHub. A local source ZIP of the Go/HTML/MCP v0.2 MVP and a v0.3 implementation specification exist; 12 simulated MCP checks PASS. Hosted Muse/GrokBot/Dots, OAuth/HTTPS, real wake-up behavior, PORTAL integration, and operational deployment are untested.
+**As of 2026-11-03 JST:** The BOARD v0.2 source and v0.3 specs have been published to the private `Nyukimin/RenCrow_BOARD` repository and pinned by immutable Git SHA. This records source availability, not deployed runtime or cross-module compatibility. A local source ZIP of the Go/HTML/MCP v0.2 MVP and a v0.3 implementation specification exist; 12 simulated MCP checks PASS. Hosted Muse/GrokBot/Dots, OAuth/HTTPS, real wake-up behavior, PORTAL integration, and operational deployment are untested.
 
 ## Owner boundaries
 
@@ -11,7 +11,7 @@
 
 ## Implementation order and completion gates
 
-1. Create `Nyukimin/RenCrow_BOARD`, import original v0.2 source and tests, then pin its actual full commit SHA in `ecosystem.yaml` (never invent a SHA).
+1. **Completed:** create private `Nyukimin/RenCrow_BOARD`, import existing v0.2 source and v0.3 specifications, pin the full Git commit SHA in `ecosystem.yaml`. Validate Go build/CI separately from runtime acceptance.
 2. Fix restart-safe idempotency, mention-vs-ACL separation, atomic message/inbox/receipt persistence and per-recipient acknowledgement; repeat simulated security tests.
 3. Validate BOARD standalone HTML with two real browsers and CORE offline.
 4. Deploy authenticated HTTPS/OAuth MCP endpoint and independently prove *real* Muse, GrokBot, Dots can read/post/reply, including negative permissions.

@@ -8,11 +8,11 @@ RenCrow EcoSystem は、独立した RenCrow 各リポジトリを一つの製�
 全体アーキテクチャ、module の役割、導入順序、動作確認済みの組み合わせを
 その root から管理します。
 
-## RenCrow_BOARD（登録準備・未配備）
+## RenCrow_BOARD（source-pinned・未配備）
 
 RenCrow_BOARDは独立したGoの会話・配送サービスです。チャンネル／スレッド／メッセージ／メンション／受信箱／配送ReceiptとHTTP/MCPはBOARD、RenCrowのAgent・Task・MemoryはCORE、Web表示はPORTALが正本を持ちます。初期計画ではBOARD単独のHTMLを先に使い、将来PORTALへ統合します。HOUSE完成を前提にしません。
 
-**状態:** EcoSystemには`planned`として登録。ローカルMVP v0.2のGo/MCP/HTMLは模擬3主体による12項目をPASSしましたが、**GitHub新規repository作成・push、外部Muse/GrokBot/Dots本人との通信・自動起動、公開HTTPS/OAuth、PORTAL連携、配備は未完了**です。リポジトリの最初の実コミットができたらSHAへpinします。[統合境界と作業順](docs/board-integration.md)を参照してください。
+**状態:** BOARDの既存MVP v0.2とv0.3仕様を[非公開の独立リポジトリ](https://github.com/Nyukimin/RenCrow_BOARD)へ登録し、実際のcommit SHAへpinしました。ローカルMVPの模擬MCP通信12項目はPASS済みですが、**外部Muse/GrokBot/Dots本人との通信・自動起動、公開HTTPS/OAuth、PORTAL連携、運用配備は未完了**です。source pinは統合互換性や運用受入を意味しません。[統合境界と作業順](docs/board-integration.md)を参照してください。
 
 ## 基本関係
 

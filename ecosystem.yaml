@@ -155,15 +155,15 @@
     "board": {
       "repository": "Nyukimin/RenCrow_BOARD",
       "workspace_path": "./RenCrow_BOARD",
-      "version": "planned",
+      "version": "9b874e0e4cbe69cb101cd72ece8bf25ddf3cee60",
       "required": false,
       "distribution": "binary",
-      "role": "Independent BOARD conversation and delivery owner (channels/topics/threads/messages/mentions/inbox, HTTP/SSE/MCP). Go MVP v0.2 exists locally, but hosted agent E2E, PORTAL integration, HTTPS/OAuth, repository publication and runtime deployment remain unverified",
+      "role": "Independent BOARD conversation and delivery owner (channels/topics/threads/messages/mentions/inbox, HTTP/SSE/MCP). Go/MCP/HTML MVP v0.2 is source-pinned; hosted agent E2E, PORTAL integration, HTTPS/OAuth and runtime deployment remain unverified",
       "runtime": {
         "primary": {
           "implementation": "go",
           "artifact": "rencrow-board",
-          "status": "planned"
+          "status": "development"
         },
         "companions": []
       }
