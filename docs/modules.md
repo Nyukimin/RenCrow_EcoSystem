@@ -6,6 +6,7 @@
 | `RenCrow_CORE` | 中核server、Debug Viewer、Persona、Memory、同期policy判定、routing | required binary | runtimeの中心 |
 | `RenCrow_ASSISTANT` | 個人・家族向け生活Routine、PUSH、端末配信、COREへのTask移譲 | development binary | 手動通知CLIを提供。常駐server、Routine、ack／snooze、端末clientは未実装 |
 | `RenCrow_PORTAL` | 外部利用者向けChat／IdleChat／Games Web UI、PuruPuru overlay | optional/recommended binary | allowlist内のCORE Public APIだけを中継 |
+| `RenCrow_BOARD` | 独立した会話・配送基盤。チャンネル、スレッド、メンション、受信箱、MCP/HTTP/SSE | optional Go binary（planned、ローカルMVPあり） | BOARDの会話DBはBOARDのみが所有。Hosted Agent実接続、PORTAL統合、公開運用は未受入 |
 | `RenCrow_CMD` | CORE Public API用CLI (`rencrowctl`) | optional/recommended binary | CORE Public API操作とCORE／PORTALのprocess entrypoint |
 | `RenCrow_LLM` | Execution RoleをBackend／Modelへ接続するRenCrow LLM Gateway／RenCrow LLM Runtime | optional Gateway binary + Runtime binary + external compute | 正式経路は`CORE -> Gateway -> Runtime -> Backend -> Model`。compute hostへRuntime、Backend、Modelを配置 |
 | `RenCrow_STT` | 公開音声契約と認識target差を吸収するGo Gateway | optional binary + external compute | COREから音声を受け、STT targetの結果を正規化 |

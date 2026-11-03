@@ -46,6 +46,19 @@
       "lifecycle",
       "publication"
     ],
+    "board": [
+      "source_identity",
+      "artifact_identity",
+      "runtime_identity",
+      "readiness",
+      "canonical_e2e",
+      "actor_result",
+      "receipt_trace",
+      "security_exposure",
+      "durability",
+      "lifecycle",
+      "publication"
+    ],
     "assistant": [
       "source_identity",
       "artifact_identity",

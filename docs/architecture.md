@@ -17,7 +17,7 @@ extension、tooling、設定 snapshot からなる複数 repository の product 
         |                   |                   |                   |
   RenCrow_CORE       PORTAL/CMD             LLM/STT/TTS/Vision/Image  GAMES/Tools/Bench + Workspace(snapshot)
                       ASSISTANT (development)
-  Planned runtime: WORLD / StoryPlayer
+  Planned runtime: BOARD / WORLD / StoryPlayer
 ```
 
 `RenCrow_EcoSystem` は control plane や runtime service ではありません。
@@ -30,6 +30,9 @@ shared Viewer、runtime、route、adapter、Public API、user-facing behaviorの
 EcoSystem --references--> immutable module release artifacts
 CMD       --public API--> CORE
 PORTAL    --Chat / IdleChat / Games allowlist--> CORE
+PORTAL    --planned authorized /board API--> BOARD
+CORE      --planned Agent participation--> BOARD
+Hosted Muse/GrokBot/Dots --planned OAuth/MCP--> BOARD
 Device    --HTTP/WebSocket--> ASSISTANT  (planned runtime route)
 ASSISTANT --public API/task escalation--> CORE  (planned route; manual LINE contract exists)
 CORE      --launch------> GAMES
@@ -42,6 +45,8 @@ CORE/Worker --invokes--> Tools
 
 各矢印は source inclusion を意味しません。repository 間連携は、公開 API、CLI、
 設定 schema、release artifact などの明示的 contract を使います。
+
+BOARDは独立したplanned moduleです。BOARDは会話／通知、COREはAgent／Task、PORTALはUIを所有し、Hosted Agentの受信と自動起動は別の受入条件です。[BOARD integration](board-integration.md)を参照してください。
 
 WORLDとStoryPlayerは独立したplanned moduleです。WORLDは世界定義・Timeline内の確定状態とEventを所有し、StoryPlayerは物語の構成・原稿・演出・検証済みPackageと再生位置を所有します。StoryPlayerのControllerが世界を変える場合は、そのWorldのprincipal/capabilityで認証されたWORLD Commandを使い、HOUSEのCORE専用権限は継承しません。Renderer/Playbackは世界の事実やCOREのMemoryを書き換えません。設計採用と実装状態は[WORLD v1.4統合境界](world-storyplayer-integration.md)を参照します。
 
