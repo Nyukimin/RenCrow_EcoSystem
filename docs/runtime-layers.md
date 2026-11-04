@@ -55,6 +55,15 @@ status schema、Backend contract、実生成を組み合わせて互換性を記
 LLM external runtime profileです。host固有の起動、health、benchmark、Model取得を
 所有できますが、COREから直接呼ばず、RenCrow_LLM Runtime配下のBackendとしてだけ使います。
 
+2026-11-04、host 205のRTX 5060 Ti BackendをStrataからBasaltへ切り替えました。
+正式経路は`CORE -> Gateway (207) -> Runtime (205) -> Basalt -> Model`で、既存model routeは維持します。
+Basaltのadapter・運用profile・起動手順はRenCrow_LLMが所有し、独立repositoryや追加companionは作りません。
+認証済CORE request、Tool streaming、managed restart、既存boot sequencerの再開を確認しました。
+5060 Ti単体で稼働し、4060 Tiは未使用です。Strataとupdaterは無効化し、復旧資産は保持しています。
+host reboot後の維持は未確認です。稼働binaryはmodified sourceからのbuildであり、catalogのsource pinと
+clean-build一致を主張しません。artifact digest、設定、受入証拠は
+[LLM ownerのBasalt導入記録](https://github.com/Nyukimin/RenCrow_LLM/blob/main/docs/basalt-205-deployment.md)を正本とします。
+
 RX 6800 host 206の4 profileは、それぞれのrepositoryと`config/profile.conf`が所有します。
 Nodeの`node_id` `rx6800-coder-trio`は既存のopaqueなホストidentityで、repository名やprofile数を
 表しません。2026-10-25のRuntime更新後、Mellum、Qwen、K2のmodel-named unitはenabled/activeです。

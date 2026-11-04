@@ -16,13 +16,13 @@ Artifactの受入を置き換えない。host固有の設定、認証情報、DB
 | 記憶の外部store | host 207のnative Redis 7.4.8／Qdrant 1.17.0。COREのowner境界は変更しない |
 | capability service | STT／TTS／Vision／Image／ComfyUI／MuseTalkは207。Imageの保持データも207へ配置 |
 | RX6800 LLM | host 206のLLM RuntimeとAka（Mellum）、Ao（Qwen3.5）、Kin（K2）。Gin（Granite）は停止を維持 |
-| Strata | host 205のStrataとLLM Runtime。旧Image GatewayとOllamaは停止し、自動起動も解除 |
+| RTX 5060 Ti LLM | host 205のBasaltとLLM Runtime（2026-11-04切替）。Strataは復旧用に保持し無効化。旧Image GatewayとOllamaも停止・自動起動解除 |
 | その他のapplication | GAMES Observer／TRADE／映画・人物カタログ／歌詞collector／開発用Giteaは207 |
 | runtime Workspace | host 207の`<HOME>/.rencrow/workspace`を現行正本とする |
 | COREの稼働データ | host 207の明示設定先`<HOME>/RenCrowData/db/core`。旧HDDは変更せず保持 |
 
-利用者の追加指示により、206はRX6800 LLM、205はStrata、それ以外のRenCrow applicationは
-207へ集約する。206／205には各computeのRuntime、必要なGPU監視・起動管理を残す。
+2026-10-25の移設時は、206をRX6800 LLM、205をStrataとし、それ以外のRenCrow applicationは
+207へ集約しました。205は2026-11-04にBasaltへ切り替え、現在の受入範囲は[Runtime layers](runtime-layers.md#rencrow_llm)に記録しています。206／205には各computeのRuntime、必要なGPU監視・起動管理を残します。
 207のCORE、PORTAL、移設したapplicationと追加の接続tunnelなど21 jobは、
 利用者による管理者install後、launchdのsystem LaunchDaemonで監視する。実行userはyukimiを維持し、
 旧GUI jobは無効化した。既存のGemma／Qwen／ComfyUI／STT／TTSもsystem LaunchDaemonであり、

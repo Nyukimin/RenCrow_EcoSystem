@@ -24,7 +24,8 @@ runtime control planeにはならない。
 2026-10-25以降の現行配置では、macOS host 207がCORE／PORTALのcontrol・interaction roleと、
 既存のLLM Runtime／Gemma4／Qwen等のcompute roleを兼ねます。LLM Gateway、記憶storeと
 その他のRenCrow applicationも207へ集約します。206はRX6800のAka／Ao／Kin／Gin（停止中）、
-205はStrataのcompute roleとし、各LLM Runtimeと必要なhardware監視を残します。
+205はBasaltのcompute role（2026-11-04にStrataから切替）とし、各LLM Runtimeと必要なhardware監視を残します。
+Basaltの受入範囲とowner記録は[Runtime layers](runtime-layers.md#rencrow_llm)を参照してください。
 旧206のCORE／PORTALは停止し、既存入口だけを207へ
 転送します。稼働確認と未検証範囲は[host 207移設記録](host-207-transition.md)を参照してください。
 
